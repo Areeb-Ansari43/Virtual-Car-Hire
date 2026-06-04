@@ -152,7 +152,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   margin-bottom:28px;backdrop-filter:blur(10px);
 }
 .hero-pill .dot{
-  width:7px;height:7px;border-radius:50%;background:var(--orange);
+  .hero-inner{position:relative;z-index:2;padding:0px 0 80px;margin-top:-60px;width:100%}
   box-shadow:0 0 0 0 var(--orange);animation:pulse 2s infinite;
 }
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(247,121,31,.55)}70%{box-shadow:0 0 0 12px rgba(247,121,31,0)}100%{box-shadow:0 0 0 0 rgba(247,121,31,0)}}
