@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — Virtual Car Hire London PCO</title>
+  <meta name="description" content="Get in touch with Virtual Car Hire. Book a PCO vehicle, ask a question, or visit us at The Vista Centre, Hounslow."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="track">
+    <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
+    <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
+    <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
+    <span class="item"><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
+    <span class="item"><i class="fa-solid fa-award"></i> 10+ Years in London</span>
+    <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
+    <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
+    <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+    <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
+    <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
+    <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
+    <span class="item"><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
+    <span class="item"><i class="fa-solid fa-award"></i> 10+ Years in London</span>
+    <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
+    <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
+    <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+      <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
+      <a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a class="active" href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="phone" href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
+      <a class="book-btn" href="contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="crumbs">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Contact</span>
+    </div>
+    <span class="hero-pill"><span class="dot"></span> We Reply Within 48 Hours</span>
+    <h1>Contact <span class="em">Us</span></h1>
+    <p>Contact us about anything related to our company or services. We'll do our best to get back to you as soon as possible.</p>
+  </div>
+</section>
+
+<!-- Contact Form + Info -->
+<section class="cars" style="padding-top:80px">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="form-card reveal">
+        <h3>Send us a message</h3>
+        <form onsubmit="event.preventDefault(); this.querySelector('.fb').textContent='Thanks! We\'ll be in touch within 48 hours.'; this.reset();">
+          <div class="form-row">
+            <div class="field"><label>Name *</label><input type="text" placeholder="Your full name" required/></div>
+            <div class="field"><label>Phone Number</label><input type="tel" placeholder="+44 ..."/></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Email *</label><input type="email" placeholder="you@example.com" required/></div>
+            <div class="field"><label>Subject *</label>
+              <select required>
+                <option value="">Choose a topic</option>
+                <option>Book a car</option>
+                <option>Fleet enquiry</option>
+                <option>General question</option>
+                <option>Press / partnership</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:18px"><label>Message *</label><textarea placeholder="Tell us what you need..." required></textarea></div>
+          <button class="btn btn-primary" type="submit" style="border:0;cursor:pointer">Submit <i class="fa-solid fa-paper-plane"></i></button>
+          <p class="fb" style="margin-top:14px;color:#16a34a;font-size:13.5px;font-weight:600"></p>
+        </form>
+      </div>
+      <aside class="contact-info reveal">
+        <a class="info-card" href="tel:+442072946756">
+          <div class="ic-square"><i class="fa-solid fa-phone"></i></div>
+          <div><h4>Phone</h4><div class="v">+44 207 294 6756</div></div>
+        </a>
+        <a class="info-card" href="https://wa.me/447508496940" target="_blank">
+          <div class="ic-square"><i class="fa-brands fa-whatsapp"></i></div>
+          <div><h4>WhatsApp</h4><div class="v">+44 7508 496 940</div></div>
+        </a>
+        <a class="info-card" href="mailto:info@fa-ibi.co.uk">
+          <div class="ic-square"><i class="fa-solid fa-envelope"></i></div>
+          <div><h4>Email</h4><div class="v">info@fa-ibi.co.uk</div></div>
+        </a>
+        <div class="info-card">
+          <div class="ic-square"><i class="fa-solid fa-location-dot"></i></div>
+          <div><h4>Address</h4><div class="v" style="font-size:15px;line-height:1.4">The Vista Centre,<br/>50 Salisbury Rd, Cranford,<br/>Hounslow TW4 6JQ</div></div>
+        </div>
+        <div class="info-card">
+          <div class="ic-square"><i class="fa-solid fa-clock"></i></div>
+          <div><h4>Opening Hours</h4><div class="v" style="font-size:15px">Mon – Sat<br/>9:00 AM – 6:00 PM</div></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- Map -->
+<section class="hq" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Find Us</span>
+      <h2 class="title center">Visit The <span class="em">Vista Centre</span></h2>
+    </div>
+    <div class="reveal" style="border-radius:24px;overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.25);max-width:1100px;margin:0 auto">
+      <iframe
+        src="https://www.google.com/maps?q=Vista+Centre,+50+Salisbury+Rd,+Cranford,+Hounslow+TW4+6JQ&output=embed"
+        width="100%" height="450" style="border:0;display:block"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    <div style="margin-top:30px;text-align:center;">
+      <a class="btn btn-primary" href="https://www.google.com/maps/place/Vista+Centre,+50+Salisbury+Rd,+Cranford,+Hounslow+TW4+6JQ/" target="_blank">Open in Maps <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+          <div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div>
+        </div>
+        <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
+        <div class="foot-socials">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-fleet.html">Our Fleet</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li>
+          <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
+          <li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li>
+          <li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
+          <li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div>
+      <div>Designed for London's professional drivers.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating actions -->
+<div class="float">
+  <a class="wa" href="https://wa.me/447508496940" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  <a class="ph" href="tel:+442072946756" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
