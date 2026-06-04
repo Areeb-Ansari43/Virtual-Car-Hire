@@ -143,7 +143,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .hero-glow.b{top:auto;bottom:-200px;left:-150px;right:auto;width:500px;height:500px;animation-duration:18s;animation-delay:-6s}
 @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.1)}}
 
-.hero-inner{position:relative;z-index:2;padding:80px 0 100px;width:100%}
+.hero-inner{position:relative;z-index:2;padding:20px 0 100px;width:100%} /* <--- FIXED HERE */
 .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
 .hero-pill{
   display:inline-flex;align-items:center;gap:10px;
