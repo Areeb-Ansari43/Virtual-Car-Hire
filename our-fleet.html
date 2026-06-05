@@ -120,11 +120,69 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 25px;
     }
+
+    /* Cookie Consent Banner Styles */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 1000;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    #cookieConsent a {
+      color: #f7791f;
+    }
+    .cookie-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .cookie-accept {
+      background: #f7791f;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .cookie-decline {
+      background: transparent;
+      color: #aaa;
+      border: 1px solid #444;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      #cookieConsent { flex-direction: column; text-align: center; }
+    }
+
     @media (max-width: 900px) { .cars-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .cars-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
+
+<!-- Cookie Consent Banner -->
+<div id="cookieConsent">
+  <div style="flex: 1; font-size: 13px; line-height: 1.5;">
+    <i class="fa-solid fa-cookie-bite"></i> We use cookies to improve your experience. By using our site, you accept our 
+    <a href="cookie-policy.html">Cookie Policy</a> and 
+    <a href="privacy-policy.html">Privacy Policy</a>.
+  </div>
+  <div class="cookie-buttons">
+    <button id="acceptCookies" class="cookie-accept">Accept</button>
+    <button id="declineCookies" class="cookie-decline">Decline</button>
+  </div>
+</div>
 
 <div class="ticker">
   <div class="track">
@@ -302,7 +360,20 @@
       <div>
         <div class="foot-brand"><div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div><div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div></div>
         <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
-        <div class="foot-socials"><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a><a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a></div>
+        <div class="foot-socials">
+          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="https://www.instagram.com/virtual.car.hire/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@virtual.car.hire" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-whatsapp"></i>
+          </a>
+        </div>
       </div>
       <div><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="our-fleet.html">Our Fleet</a></li><li><a href="about-us.html">About Us</a></li><li><a href="contact-us.html">Contact</a></li></ul></div>
       <div><h4>Get In Touch</h4><ul><li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li><li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li><li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li><li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li><li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li></ul></div>
@@ -341,6 +412,43 @@
       });
     });
   });
+
+  // Cookie Consent Functionality
+  (function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = name + "=" + value + ";expires=" + date.toUTCString() + ";path=/";
+    }
+    
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    
+    if (!getCookie('cookieConsent')) {
+      cookieConsent.style.display = 'flex';
+    }
+    
+    if (acceptBtn) {
+      acceptBtn.onclick = function() {
+        setCookie('cookieConsent', 'accepted', 365);
+        cookieConsent.style.display = 'none';
+      };
+    }
+    
+    if (declineBtn) {
+      declineBtn.onclick = function() {
+        setCookie('cookieConsent', 'declined', 30);
+        cookieConsent.style.display = 'none';
+      };
+    }
+  })();
 </script>
 </body>
 </html>
