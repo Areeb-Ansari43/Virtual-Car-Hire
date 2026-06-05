@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found | Virtual Car Hire</title>
+  <meta name="description" content="The page you're looking for doesn't exist. Return to Virtual Car Hire's homepage to browse our PCO vehicles."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .error-container {
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      background: linear-gradient(135deg, #fff 0%, #faf7f3 100%);
+    }
+    .error-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .error-code {
+      font-size: 120px;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(135deg, #f7791f, #e25f00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -4px;
+    }
+    .error-icon {
+      font-size: 64px;
+      color: #f7791f;
+      margin-bottom: 24px;
+      opacity: 0.7;
+    }
+    .error-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 16px;
+    }
+    .error-message {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .error-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-404 {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    .btn-404-primary {
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      color: #fff;
+    }
+    .btn-404-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -10px rgba(247,121,31,0.4);
+    }
+    .btn-404-secondary {
+      background: #f0f0f0;
+      color: #333;
+    }
+    .btn-404-secondary:hover {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+    .suggestions {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid #eee;
+    }
+    .suggestions h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #333;
+    }
+    .suggestions-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .suggestions-links a {
+      color: #f7791f;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .suggestions-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Simple Header for 404 page -->
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+      <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
+      <a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="phone" href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
+      <a class="book-btn" href="contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- Custom 404 Content -->
+<section class="error-container">
+  <div class="error-content">
+    <div class="error-icon">
+      <i class="fa-solid fa-compass"></i>
+    </div>
+    <div class="error-code">404</div>
+    <h1 class="error-title">Page Not Found</h1>
+    <p class="error-message">Oops! The page you're looking for doesn't exist or has been moved. Let's get you back on the road.</p>
+    <div class="error-buttons">
+      <a href="index.html" class="btn-404 btn-404-primary"><i class="fa-solid fa-home"></i> Back to Home</a>
+      <a href="our-fleet.html" class="btn-404 btn-404-secondary"><i class="fa-solid fa-car"></i> Browse Our Fleet</a>
+    </div>
+    <div class="suggestions">
+      <h4>Popular Pages You Might Be Looking For:</h4>
+      <div class="suggestions-links">
+        <a href="our-fleet.html">Our Fleet</a>
+        <a href="cars/mercedes-e300.html">Mercedes E300</a>
+        <a href="cars/tesla-model-3.html">Tesla Model 3</a>
+        <a href="cars/toyota-corolla-estate.html">Toyota Corolla Estate</a>
+        <a href="contact-us.html">Contact Us</a>
+        <a href="about-us.html">About Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+          <div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div>
+        </div>
+        <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
+        <div class="foot-socials">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="our-fleet.html">Our Fleet</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="contact-us.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li>
+          <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
+          <li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li>
+          <li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
+          <li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div>
+      <div>Designed for London's professional drivers.</div>
+    </div>
+  </div>
+</footer>
+
+<div class="float">
+  <a class="wa" href="https://wa.me/447508496940" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  <a class="ph" href="tel:+442072946756" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
