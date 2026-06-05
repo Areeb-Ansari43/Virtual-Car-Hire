@@ -318,5 +318,13 @@
 </div>
 
 <script src="assets/app.js"></script>
+<script>
+  (function() {
+    var script = document.createElement('script');
+    script.defer = true;
+    script.src = '/_vercel/insights/script.js';
+    document.head.appendChild(script);
+  })();
+</script>
 </body>
 </html>
