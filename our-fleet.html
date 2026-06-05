@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
-    /* Override dark car backgrounds */
+    /* Remove black borders from car images */
     .car-visual {
       background: #f8f8f8 !important;
       border-radius: 20px 20px 0 0;
@@ -35,19 +35,22 @@
     }
     .car:hover {
       transform: translateY(-8px);
-      border-color: var(--orange) !important;
+      border-color: #f7791f !important;
       box-shadow: 0 20px 40px -15px rgba(247,121,31,0.3), 0 0 0 2px rgba(247,121,31,0.1);
     }
     .car:hover .car-visual img {
       transform: scale(1.05);
     }
     .car:hover .view-btn {
-      background: var(--grad-orange);
+      background: linear-gradient(135deg, #ff9a3d 0%, #f7791f 50%, #e25f00 100%);
       color: #fff;
       gap: 10px;
     }
+    .view-btn {
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
     
-    /* Filter buttons styling */
+    /* Filter buttons */
     .car-filters {
       display: flex;
       flex-wrap: wrap;
@@ -69,21 +72,17 @@
     }
     .car-filters button:hover,
     .car-filters button.active {
-      background: var(--grad-orange);
+      background: linear-gradient(135deg, #ff9a3d 0%, #f7791f 50%, #e25f00 100%);
       color: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 10px 24px -10px var(--orange-glow);
+      box-shadow: 0 10px 24px -10px rgba(247,121,31,0.4);
     }
     
-    /* Fleet group visibility */
-    .fleet-group {
-      transition: opacity 0.3s ease;
-    }
+    /* Hide sections when filtered */
     .fleet-group.hidden {
       display: none;
     }
     
-    /* Car tag styling */
     .car-tag {
       position: absolute;
       top: 16px;
@@ -105,48 +104,6 @@
     .car-tag.plugin { background: rgba(168,85,247,.95); }
     .car-tag.diesel { background: rgba(100,116,139,.95); }
     .car-tag.electric { background: rgba(34,197,94,.95); }
-    
-    .view-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #0f0f12;
-      padding: 9px 16px;
-      background: #f4f1eb;
-      border-radius: 999px;
-      transition: all .25s;
-      text-decoration: none;
-    }
-    .view-btn:hover {
-      background: var(--grad-orange);
-      color: #fff;
-      gap: 10px;
-    }
-    
-    .price {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      color: var(--orange);
-      font-weight: 700;
-      line-height: 1;
-    }
-    .price small {
-      font-size: 13px;
-      color: #888;
-      font-weight: 400;
-      font-family: 'Inter';
-      margin-left: 2px;
-    }
-    .price .incl {
-      display: block;
-      font-size: 11px;
-      color: #888;
-      font-family: 'Inter';
-      margin-top: 4px;
-      font-weight: 400;
-    }
   </style>
 </head>
 <body>
