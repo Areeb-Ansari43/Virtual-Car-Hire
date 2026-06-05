@@ -10,6 +10,104 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    /* Enhanced car card hover effects */
+    .car {
+      transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1), 
+                  box-shadow 0.35s ease, 
+                  border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .car::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(247,121,31,0.15), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .car:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: var(--orange) !important;
+      box-shadow: 0 0 0 2px rgba(247,121,31,0.3),
+                  0 0 0 6px rgba(247,121,31,0.1),
+                  0 30px 60px -20px rgba(247,121,31,0.4),
+                  0 20px 40px -15px rgba(0,0,0,0.3);
+    }
+    
+    .car:hover::before {
+      opacity: 1;
+    }
+    
+    .car:hover .car-visual img {
+      transform: scale(1.05);
+      filter: drop-shadow(0 10px 20px rgba(247,121,31,0.3));
+    }
+    
+    .car:hover .view-btn {
+      background: var(--grad-orange);
+      color: #fff;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(247,121,31,0.3);
+    }
+    
+    .car:hover .price {
+      color: var(--orange);
+      text-shadow: 0 0 8px rgba(247,121,31,0.3);
+    }
+    
+    .car-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  filter 0.3s ease;
+      padding: 16px;
+    }
+    
+    .car-visual {
+      position: relative;
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #1f1f25 0%, #0a0a0c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .view-btn {
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    
+    .price {
+      transition: all 0.3s ease;
+    }
+    
+    /* Fix for active nav link styling */
+    .nav-links a.active {
+      color: var(--orange);
+    }
+    .nav-links a.active::after {
+      content: "";
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 12px var(--orange);
+    }
+  </style>
 </head>
 <body>
 
@@ -92,8 +190,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
-          <i class="fa-solid fa-car-side main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/984a956a3_generated_47098be1.png" alt="Mercedes E300">
         </div>
         <div class="car-body">
           <h3>Mercedes E300</h3>
@@ -113,8 +210,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/cd2fd818a_generated_07425144.png" alt="Mercedes Vito">
         </div>
         <div class="car-body">
           <h3>Mercedes Vito</h3>
@@ -134,8 +230,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
-          <i class="fa-solid fa-shuttle-van main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/168ccefcb_generated_9f02aca7.png" alt="Mercedes V-Class">
         </div>
         <div class="car-body">
           <h3>Mercedes V-Class</h3>
@@ -155,8 +250,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/9875d6655_generated_5bf9051e.png" alt="Mercedes EQS">
         </div>
         <div class="car-body">
           <h3>Mercedes EQS</h3>
@@ -176,8 +270,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
-          <i class="fa-solid fa-car-side main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/82beb70bc_generated_fa70fb99.png" alt="Mercedes E220">
         </div>
         <div class="car-body">
           <h3>Mercedes E220</h3>
@@ -197,8 +290,7 @@
       <article class="car" data-brand="mercedes">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car-side main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/a4c99e01c_generated_b79cd217.png" alt="Mercedes EQE">
         </div>
         <div class="car-body">
           <h3>Mercedes EQE</h3>
@@ -231,8 +323,7 @@
       <article class="car" data-brand="toyota">
         <div class="car-visual">
           <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate">
         </div>
         <div class="car-body">
           <h3>Toyota Corolla Estate</h3>
@@ -252,8 +343,7 @@
       <article class="car" data-brand="toyota">
         <div class="car-visual">
           <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/32379ce2d_generated_5b401ce2.png" alt="Toyota Auris Estate">
         </div>
         <div class="car-body">
           <h3>Toyota Auris Estate</h3>
@@ -273,8 +363,7 @@
       <article class="car" data-brand="toyota">
         <div class="car-visual">
           <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
-          <i class="fa-solid fa-car main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/dde45622b_generated_1d4f5fee.png" alt="Toyota Prius">
         </div>
         <div class="car-body">
           <h3>Toyota Prius</h3>
@@ -307,8 +396,7 @@
       <article class="car" data-brand="other">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3">
         </div>
         <div class="car-body">
           <h3>Tesla Model 3</h3>
@@ -328,8 +416,7 @@
       <article class="car" data-brand="other">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car-rear main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/ec743fd88_generated_4bc92119.png" alt="Jaguar I-Pace">
         </div>
         <div class="car-body">
           <h3>Jaguar I-Pace</h3>
@@ -349,8 +436,7 @@
       <article class="car" data-brand="other">
         <div class="car-visual">
           <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
-          <i class="fa-solid fa-car main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/4e6bacf53_generated_70b0fee5.png" alt="Hyundai IONIQ">
         </div>
         <div class="car-body">
           <h3>Hyundai IONIQ</h3>
@@ -370,8 +456,7 @@
       <article class="car" data-brand="other">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/0d388cb33_generated_image.png" alt="MG5 EV">
         </div>
         <div class="car-body">
           <h3>MG5 EV</h3>
@@ -391,8 +476,7 @@
       <article class="car" data-brand="other">
         <div class="car-visual">
           <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/e883f54fd_generated_image.png" alt="Ford Tourneo Custom">
         </div>
         <div class="car-body">
           <h3>Ford Tourneo Custom</h3>
