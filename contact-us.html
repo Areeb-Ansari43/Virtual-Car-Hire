@@ -123,9 +123,66 @@
       opacity: 0.7;
       cursor: not-allowed;
     }
+
+    /* Cookie Consent Banner Styles */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 1000;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    #cookieConsent a {
+      color: #f7791f;
+    }
+    .cookie-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .cookie-accept {
+      background: #f7791f;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .cookie-decline {
+      background: transparent;
+      color: #aaa;
+      border: 1px solid #444;
+      padding: 8px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      #cookieConsent { flex-direction: column; text-align: center; }
+    }
   </style>
 </head>
 <body>
+
+<!-- Cookie Consent Banner -->
+<div id="cookieConsent">
+  <div style="flex: 1; font-size: 13px; line-height: 1.5;">
+    <i class="fa-solid fa-cookie-bite"></i> We use cookies to improve your experience. By using our site, you accept our 
+    <a href="cookie-policy.html">Cookie Policy</a> and 
+    <a href="privacy-policy.html">Privacy Policy</a>.
+  </div>
+  <div class="cookie-buttons">
+    <button id="acceptCookies" class="cookie-accept">Accept</button>
+    <button id="declineCookies" class="cookie-decline">Decline</button>
+  </div>
+</div>
 
 <!-- Ticker -->
 <div class="ticker">
@@ -280,10 +337,11 @@
         </div>
         <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
         <div class="foot-socials">
-          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://facebook.com/" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com/" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://youtube.com/" aria-label="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://twitter.com/" aria-label="Twitter" target="_blank"><i class="fa-brands fa-twitter"></i></a>
         </div>
       </div>
       <div>
@@ -350,6 +408,43 @@
       }
     }, 10000);
   });
+
+  // Cookie Consent Functionality
+  (function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = name + "=" + value + ";expires=" + date.toUTCString() + ";path=/";
+    }
+    
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    
+    if (!getCookie('cookieConsent')) {
+      cookieConsent.style.display = 'flex';
+    }
+    
+    if (acceptBtn) {
+      acceptBtn.onclick = function() {
+        setCookie('cookieConsent', 'accepted', 365);
+        cookieConsent.style.display = 'none';
+      };
+    }
+    
+    if (declineBtn) {
+      declineBtn.onclick = function() {
+        setCookie('cookieConsent', 'declined', 30);
+        cookieConsent.style.display = 'none';
+      };
+    }
+  })();
 </script>
 </body>
 </html>
