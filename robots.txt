@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://virtual-car-hire.vercel.app/sitemap.xml
