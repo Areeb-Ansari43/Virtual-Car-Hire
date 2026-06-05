@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toyota Auris Estate | Virtual Car Hire</title>
+  <meta name="description" content="Hire the Toyota Auris Estate Hybrid · Estate for PCO driving in London. £210/week with insurance, servicing and breakdown included.">
+  <link rel="icon" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/9a817bd60_virtualCarhirenobg.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; }
+    a { text-decoration: none; color: inherit; }
+    .ticker { background: #e85d04; color: #fff; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
+    .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 30s linear infinite; }
+    .ticker-inner span { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    nav { background: #111; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+    .nav-logo img { height: 40px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: #ccc; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .nav-phone { color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+    .nav-phone:hover { color: #fff; }
+    .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: background 0.2s; }
+    .btn-booknow:hover { background: #c94e00; }
+    .hero { background: #1a1a1a; padding: 40px 0 0; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: #aaa; font-size: 14px; margin-bottom: 28px; transition: color 0.2s; }
+    .back-link:hover { color: #fff; }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding-bottom: 48px; }
+    .fuel-badge { display: inline-block; color: #fff; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
+    .fuel-badge.diesel { background: #444; }
+    .fuel-badge.electric { background: #1a6b3c; }
+    .fuel-badge.hybrid { background: #1a5276; }
+    .fuel-badge.plugin-hybrid { background: #6a0dad; }
+    .hero-title { font-size: 48px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 8px; }
+    .hero-subtitle { color: #aaa; font-size: 16px; margin-bottom: 20px; }
+    .hero-desc { color: #bbb; font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
+    .hero-price .amount { font-size: 52px; font-weight: 800; color: #e85d04; }
+    .hero-price .period { font-size: 18px; color: #aaa; }
+    .hero-incl { color: #888; font-size: 13px; margin-bottom: 28px; margin-top: 8px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary { background: #e85d04; color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-primary:hover { background: #c94e00; }
+    .btn-secondary { background: transparent; color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; border: 2px solid #444; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .btn-secondary:hover { border-color: #fff; }
+    .hero-right { display: flex; align-items: center; justify-content: center; }
+    .hero-img-wrap img { width: 100%; border-radius: 16px; display: block; max-width: 520px; }
+    .terms-strip { background: #f9f9f9; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 24px; text-align: center; }
+    .terms-strip p { font-size: 13px; color: #666; line-height: 1.7; max-width: 860px; margin: 0 auto; }
+    .terms-strip p + p { margin-top: 6px; font-style: italic; }
+    .specs-trust { max-width: 1200px; margin: 0 auto; padding: 56px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .section-title { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .section-divider { width: 48px; height: 3px; background: #e85d04; margin-bottom: 28px; }
+    .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .spec-card { background: #f5f5f5; border-radius: 12px; padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px; }
+    .spec-icon { color: #e85d04; font-size: 20px; margin-top: 2px; flex-shrink: 0; }
+    .spec-label { font-size: 12px; color: #888; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+    .spec-value { font-size: 17px; font-weight: 700; color: #111; margin-top: 2px; }
+    .platforms-section { margin-top: 28px; }
+    .platforms-title { font-size: 14px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .platforms { display: flex; gap: 10px; flex-wrap: wrap; }
+    .platform-tag { background: #111; color: #fff; padding: 6px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; }
+    .features-section { margin-top: 24px; }
+    .features-title { font-size: 14px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+    .features-list { display: flex; flex-direction: column; gap: 8px; }
+    .feature-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333; }
+    .feature-item i { color: #e85d04; font-size: 14px; }
+    .trust-panel { background: #111; border-radius: 20px; padding: 36px; color: #fff; }
+    .trust-panel h2 { font-size: 26px; font-weight: 800; line-height: 1.3; margin-bottom: 6px; }
+    .trust-panel h2 span { color: #e85d04; font-style: italic; }
+    .trust-sub { color: #aaa; font-size: 14px; margin-bottom: 28px; }
+    .trust-section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #aaa; margin-bottom: 14px; }
+    .trust-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .trust-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #ddd; }
+    .trust-item i { color: #e85d04; font-size: 14px; flex-shrink: 0; }
+    .trust-divider { border: none; border-top: 1px solid #333; margin: 20px 0; }
+    .trust-steps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; }
+    .trust-step { display: flex; align-items: flex-start; gap: 14px; }
+    .step-num { background: #e85d04; color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .step-text { font-size: 14px; color: #ddd; line-height: 1.5; padding-top: 4px; }
+    .trust-cta { background: #e85d04; color: #fff; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .trust-cta:hover { background: #c94e00; }
+    .cta-section { background: #f5f5f5; padding: 64px 24px; text-align: center; }
+    .cta-section h2 { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
+    .cta-section p { color: #666; font-size: 16px; margin-bottom: 28px; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-dark { background: #111; color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 700; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-dark:hover { background: #333; }
+    .btn-outline { background: transparent; color: #111; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; border: 2px solid #111; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
+    .btn-outline:hover { background: #111; color: #fff; }
+    footer { background: #111; color: #fff; padding: 56px 24px 24px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand img { height: 44px; margin-bottom: 16px; }
+    .footer-brand p { color: #888; font-size: 14px; line-height: 1.7; max-width: 280px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #aaa; margin-bottom: 16px; }
+    .footer-col a { display: block; color: #888; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-col p { color: #888; font-size: 14px; line-height: 1.7; }
+    .footer-bottom { border-top: 1px solid #333; padding-top: 24px; text-align: center; color: #555; font-size: 13px; }
+    .whatsapp-fab { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25d366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: transform 0.2s; }
+    .whatsapp-fab:hover { transform: scale(1.1); }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .hero-right { display: none; } .specs-trust { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } .nav-links { display: none; } .hero-title { font-size: 36px; } }
+    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .specs-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="ticker"><div class="ticker-inner"><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span></div></div>
+<nav>
+  <a class="nav-logo" href="../index.html"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"></a>
+  <div class="nav-links"><a href="../index.html">Home</a><a href="../our-fleet.html">Our Fleet</a><a href="../about.html">About Us</a><a href="../contact.html">Contact Us</a></div>
+  <div class="nav-actions"><a class="nav-phone" href="tel:+442072946756"><i class="fas fa-phone"></i> +44 207 294 6756</a><a class="btn-booknow" href="../contact.html">Book Now</a></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <a class="back-link" href="../our-fleet.html"><i class="fas fa-arrow-left"></i> Back to Fleet</a>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <span class="fuel-badge hybrid">Hybrid</span>
+        <h1 class="hero-title">Toyota Auris Estate</h1>
+        <p class="hero-subtitle">Hybrid · Estate</p>
+        <p class="hero-desc">The Toyota Auris Estate Hybrid is a proven, reliable workhorse for PCO drivers. Its hybrid powertrain delivers excellent fuel efficiency in London traffic, keeping your running costs low. Spacious, comfortable and fully PCO licensed.</p>
+        <div class="hero-price"><span class="amount">£210</span><span class="period"> /week</span></div>
+        <p class="hero-incl"><i class="fas fa-check-circle" style="color:#e85d04"></i> Insurance, service &amp; breakdown included</p>
+        <div class="hero-btns">
+          <a class="btn-primary" href="../contact.html"><i class="fas fa-calendar-check"></i> Book This Car</a>
+          <a class="btn-secondary" href="https://wa.me/447508496940"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-img-wrap">
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/32379ce2d_generated_5b401ce2.png" alt="Toyota Auris Estate">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="terms-strip"><p>Weekly rate is for 5,000 miles per month. Contract term: minimum 6 weeks. Any miles over 5,000 per month are charged at &pound;0.20 per mile*, in accordance with the rental contract. Fully comprehensive insurance is included. Terms &amp; conditions apply.</p><p>*If you are to return your vehicle, you must give a 1-week notice before returning your car.</p></div>
+
+<div class="specs-trust">
+  <div>
+    <h2 class="section-title">Specifications</h2>
+    <div class="section-divider"></div>
+    <div class="specs-grid">
+      <div class="spec-card"><i class="fas fa-users spec-icon"></i><div><div class="spec-label">Seats</div><div class="spec-value">5</div></div></div><div class="spec-card"><i class="fas fa-cog spec-icon"></i><div><div class="spec-label">Transmission</div><div class="spec-value">Auto</div></div></div><div class="spec-card"><i class="fas fa-calendar spec-icon"></i><div><div class="spec-label">Year</div><div class="spec-value">2019–2022</div></div></div><div class="spec-card"><i class="fas fa-gas-pump spec-icon"></i><div><div class="spec-label">Fuel Type</div><div class="spec-value">Hybrid</div></div></div><div class="spec-card"><i class="fas fa-shield-alt spec-icon"></i><div><div class="spec-label">Insurance</div><div class="spec-value">Included</div></div></div><div class="spec-card"><i class="fas fa-wrench spec-icon"></i><div><div class="spec-label">Servicing</div><div class="spec-value">Included</div></div></div><div class="spec-card"><i class="fas fa-id-card spec-icon"></i><div><div class="spec-label">PCO Ready</div><div class="spec-value">Yes</div></div></div><div class="spec-card"><i class="fas fa-check-circle spec-icon"></i><div><div class="spec-label">TfL Licensed</div><div class="spec-value">Yes</div></div></div>
+    </div>
+    <div class="platforms-section">
+      <div class="platforms-title">Platforms</div>
+      <div class="platforms">
+        <span class="platform-tag">Uber</span>
+        <span class="platform-tag">Bolt</span>
+        <span class="platform-tag">Free Now</span>
+      </div>
+    </div>
+    <div class="features-section">
+      <div class="features-title">Features</div>
+      <div class="features-list">
+        <div class="feature-item"><i class="fas fa-check"></i> PCO ready</div>
+<div class="feature-item"><i class="fas fa-check"></i> 5 Passenger seats</div>
+<div class="feature-item"><i class="fas fa-check"></i> Self-charging hybrid</div>
+<div class="feature-item"><i class="fas fa-check"></i> Air conditioning</div>
+<div class="feature-item"><i class="fas fa-check"></i> Spacious cabin</div>
+      </div>
+    </div>
+  </div>
+  <div class="trust-panel">
+    <h2>We make sure you have a fully functional <span>PCO Car Ready</span></h2>
+    <p class="trust-sub">Trust In Virtual Car Hire</p>
+    <div class="trust-section-title">What's Included</div>
+    <div class="trust-list">
+      <div class="trust-item"><i class="fas fa-check-circle"></i> PCO Licence</div>
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Fully Comprehensive Insurance</div>
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Road Tax</div>
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Service &amp; MOT</div>
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Uber Ready Documents</div>
+      <div class="trust-item"><i class="fas fa-check-circle"></i> Fully Maintained (inc. Tyres and Brakes)</div>
+    </div>
+    <hr class="trust-divider">
+    <div class="trust-section-title">What You Will Need To Join Us</div>
+    <div class="trust-steps">
+      <div class="trust-step"><div class="step-num">1</div><div class="step-text">PCO Badge &amp; Paper Number</div></div>
+      <div class="trust-step"><div class="step-num">2</div><div class="step-text">DVLA Photocard (front &amp; back) + Proof of Address</div></div>
+      <div class="trust-step"><div class="step-num">3</div><div class="step-text">National Insurance Number</div></div>
+    </div>
+    <a class="trust-cta" href="../contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+  </div>
+</div>
+
+<section class="cta-section">
+  <h2>Interested in the Toyota Auris Estate?</h2>
+  <p>Get in touch &mdash; we'll have you on the road the same day.</p>
+  <div class="cta-btns">
+    <a class="btn-dark" href="../contact.html"><i class="fas fa-envelope"></i> Contact Us</a>
+    <a class="btn-outline" href="../our-fleet.html"><i class="fas fa-car"></i> Browse Fleet</a>
+  </div>
+</section>
+
+<footer><div class="footer-inner"><div class="footer-grid">
+  <div class="footer-brand"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"><p>London's premium PCO car hire service. 10+ years of experience, 100+ vehicles, 5000+ satisfied customers.</p></div>
+  <div class="footer-col"><h4>Navigation</h4><a href="../index.html">Home</a><a href="../our-fleet.html">Our Fleet</a><a href="../about.html">About Us</a><a href="../contact.html">Contact Us</a></div>
+  <div class="footer-col"><h4>Get in Touch</h4><a href="mailto:info@fa-ibi.co.uk">info@fa-ibi.co.uk</a><a href="tel:+442072946756">+44 207 294 6756</a><p>The Vista Centre, 50 Salisbury Rd, Cranford, Hounslow TW4 6JQ</p><p style="margin-top:8px;">Mon &ndash; Sat: 9:00 AM &ndash; 6:00 PM</p></div>
+  <div class="footer-col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../cookie-policy.html">Cookie Policy</a></div>
+</div><div class="footer-bottom"><p>&copy; 2026 Virtual Car Hire (FA-IBI Ltd). All rights reserved.</p></div></div></footer>
+<a class="whatsapp-fab" href="https://wa.me/447508496940" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+
+</body>
+</html>
