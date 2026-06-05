@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
-    /* Remove black borders from car images - FIXED */
+    /* Remove black borders from car images */
     .car-visual {
       background: #f5f5f5 !important;
       border-radius: 20px 20px 0 0;
@@ -55,7 +55,7 @@
       transition: all 0.3s ease;
     }
     
-    /* Filter buttons - WORKING */
+    /* Filter buttons */
     .car-filters {
       display: flex;
       flex-wrap: wrap;
@@ -80,10 +80,7 @@
       color: #fff;
     }
     
-    /* Hide sections when filtered - WORKING */
-    .fleet-group {
-      transition: opacity 0.3s ease;
-    }
+    /* Hide sections when filtered */
     .fleet-group.hide-group {
       display: none !important;
     }
@@ -170,9 +167,6 @@
     }
     .view-btn:hover {
       color: #fff;
-    }
-    .view-btn i {
-      font-size: 12px;
     }
     
     .cars-grid {
@@ -667,7 +661,7 @@
         filterButtons.forEach(btn => btn.classList.remove('active'));
         this.classList.add('active');
         
-        // Show/hide sections
+        // Show/hide sections based on filter
         fleetSections.forEach(section => {
           const sectionBrand = section.getAttribute('data-brand');
           if (filterValue === 'all' || sectionBrand === filterValue) {
