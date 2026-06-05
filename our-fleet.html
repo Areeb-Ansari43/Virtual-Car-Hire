@@ -11,99 +11,186 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
-    /* Remove black borders from car images */
+    /* Remove black borders from car images - FIXED */
     .car-visual {
-      background: #f8f8f8 !important;
+      background: #f5f5f5 !important;
       border-radius: 20px 20px 0 0;
+      position: relative;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
     .car-visual::before {
-      display: none;
+      display: none !important;
     }
     .car-visual img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.4s ease;
       padding: 20px;
     }
     .car {
       background: #fff;
-      border: 1px solid #eee;
+      border: 1px solid #e8e8e8;
       border-radius: 22px;
       overflow: hidden;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.3s ease;
+      transition: all 0.3s ease;
     }
     .car:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       border-color: #f7791f !important;
-      box-shadow: 0 20px 40px -15px rgba(247,121,31,0.3), 0 0 0 2px rgba(247,121,31,0.1);
+      box-shadow: 0 15px 35px -15px rgba(247,121,31,0.25);
     }
     .car:hover .car-visual img {
       transform: scale(1.05);
     }
     .car:hover .view-btn {
-      background: linear-gradient(135deg, #ff9a3d 0%, #f7791f 50%, #e25f00 100%);
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
       color: #fff;
-      gap: 10px;
     }
     .view-btn {
-      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: all 0.3s ease;
     }
     
-    /* Filter buttons */
+    /* Filter buttons - WORKING */
     .car-filters {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
-      margin-bottom: 50px;
+      margin: 30px 0 20px;
     }
     .car-filters button {
-      background: #f4f1eb;
+      background: #f0f0f0;
       color: #333;
-      padding: 10px 22px;
-      border-radius: 999px;
-      font-size: 13px;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 14px;
       font-weight: 600;
-      letter-spacing: .5px;
-      transition: all .25s;
       cursor: pointer;
       border: none;
+      transition: all 0.3s ease;
     }
     .car-filters button:hover,
     .car-filters button.active {
-      background: linear-gradient(135deg, #ff9a3d 0%, #f7791f 50%, #e25f00 100%);
+      background: #f7791f;
       color: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px -10px rgba(247,121,31,0.4);
     }
     
-    /* Hide sections when filtered */
-    .fleet-group.hidden {
-      display: none;
+    /* Hide sections when filtered - WORKING */
+    .fleet-group {
+      transition: opacity 0.3s ease;
+    }
+    .fleet-group.hide-group {
+      display: none !important;
     }
     
+    /* Car tag styling */
     .car-tag {
       position: absolute;
-      top: 16px;
-      left: 16px;
-      background: rgba(34,197,94,.95);
+      top: 12px;
+      left: 12px;
+      background: #f7791f;
       color: #fff;
       font-size: 11px;
       font-weight: 700;
-      padding: 6px 12px;
-      border-radius: 999px;
-      letter-spacing: .5px;
+      padding: 5px 12px;
+      border-radius: 50px;
+      z-index: 2;
+    }
+    .car-tag.hybrid { background: #16a34a; }
+    .car-tag.plugin { background: #9333ea; }
+    .car-tag.diesel { background: #475569; }
+    .car-tag.electric { background: #16a34a; }
+    
+    .car-body {
+      padding: 20px;
+    }
+    .car-body h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    .car-meta {
+      color: #666;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+    .car-specs {
+      display: flex;
+      gap: 16px;
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #eee;
+    }
+    .car-specs span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .car-specs i {
+      color: #f7791f;
+    }
+    .car-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price {
+      font-size: 24px;
+      font-weight: 800;
+      color: #f7791f;
+    }
+    .price small {
+      font-size: 13px;
+      font-weight: 400;
+      color: #888;
+    }
+    .price .incl {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      color: #999;
+    }
+    .view-btn {
+      background: #f0f0f0;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      backdrop-filter: blur(8px);
-      z-index: 2;
     }
-    .car-tag.hybrid { background: rgba(20,184,166,.95); }
-    .car-tag.plugin { background: rgba(168,85,247,.95); }
-    .car-tag.diesel { background: rgba(100,116,139,.95); }
-    .car-tag.electric { background: rgba(34,197,94,.95); }
+    .view-btn:hover {
+      color: #fff;
+    }
+    .view-btn i {
+      font-size: 12px;
+    }
+    
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+    
+    @media (max-width: 900px) {
+      .cars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 600px) {
+      .cars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -165,330 +252,332 @@
     <span class="hero-pill"><span class="dot"></span> 100+ PCO-Ready Vehicles</span>
     <h1>Our <span class="em">Fleet</span></h1>
     <p>A curated selection of world-class automotive engineering. Hybrid, electric and diesel — all PCO ready, insurance and service included.</p>
+    
+    <!-- FILTER BUTTONS -->
     <div class="car-filters">
       <button class="active" data-filter="all">All Cars</button>
       <button data-filter="mercedes">Mercedes</button>
       <button data-filter="toyota">Toyota</button>
-      <button data-filter="other">Other Cars</button>
+      <button data-filter="other">Other Premium Cars</button>
     </div>
   </div>
 </section>
 
 <!-- MERCEDES SECTION -->
-<section class="fleet-group" data-group="mercedes">
+<section class="fleet-group" data-brand="mercedes">
   <div class="container">
     <div class="reveal">
       <span class="eyebrow">Mercedes-Benz</span>
       <h2>Mercedes-Benz</h2>
       <p class="sub">Premium saloons and luxury MPVs for executive PCO driving.</p>
     </div>
-    <div class="cars-grid reveal-stagger">
+    <div class="cars-grid">
       <!-- Mercedes E300 -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
+          <span class="car-tag plugin">Plug-in Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/984a956a3_generated_47098be1.png" alt="Mercedes E300">
         </div>
         <div class="car-body">
           <h3>Mercedes E300</h3>
           <p class="car-meta">Plug-in Hybrid · Executive Saloon</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2021–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2021–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£340<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-e300.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-e300.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Mercedes Vito -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+          <span class="car-tag diesel">Diesel</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/cd2fd818a_generated_07425144.png" alt="Mercedes Vito">
         </div>
         <div class="car-body">
           <h3>Mercedes Vito</h3>
           <p class="car-meta">Diesel · 8-Seat MPV</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 8</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2021–24</span>
+            <span><i class="fas fa-users"></i> 8 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2021–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£380<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-vito.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-vito.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Mercedes V-Class -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+          <span class="car-tag diesel">Diesel</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/168ccefcb_generated_9f02aca7.png" alt="Mercedes V-Class">
         </div>
         <div class="car-body">
           <h3>Mercedes V-Class</h3>
           <p class="car-meta">Diesel · Luxury 7-Seat MPV</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 7</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2022–24</span>
+            <span><i class="fas fa-users"></i> 7 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2022–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£450<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-v-class.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-v-class.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Mercedes EQS -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag electric"><i class="fa-solid fa-bolt"></i> Electric</span>
+          <span class="car-tag electric">Electric</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/9875d6655_generated_5bf9051e.png" alt="Mercedes EQS">
         </div>
         <div class="car-body">
           <h3>Mercedes EQS</h3>
           <p class="car-meta">Full Electric · Flagship Saloon</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2022–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2022–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£500<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-eqs.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-eqs.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Mercedes E220 -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag diesel"><i class="fa-solid fa-gas-pump"></i> Diesel</span>
+          <span class="car-tag diesel">Diesel</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/82beb70bc_generated_fa70fb99.png" alt="Mercedes E220">
         </div>
         <div class="car-body">
           <h3>Mercedes E220</h3>
           <p class="car-meta">Diesel · Executive Saloon</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2020–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2020–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£310<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-e220.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-e220.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Mercedes EQE -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag electric"><i class="fa-solid fa-bolt"></i> Electric</span>
+          <span class="car-tag electric">Electric</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/a4c99e01c_generated_b79cd217.png" alt="Mercedes EQE">
         </div>
         <div class="car-body">
           <h3>Mercedes EQE</h3>
           <p class="car-meta">Full Electric · Executive Saloon</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2023–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2023–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£440<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mercedes-eqe.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mercedes-eqe.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- TOYOTA SECTION -->
-<section class="fleet-group" data-group="toyota">
+<section class="fleet-group" data-brand="toyota">
   <div class="container">
     <div class="reveal">
       <span class="eyebrow">Toyota</span>
       <h2>Toyota</h2>
       <p class="sub">Unbeatable reliability and hybrid efficiency for everyday PCO driving.</p>
     </div>
-    <div class="cars-grid reveal-stagger">
+    <div class="cars-grid">
       <!-- Toyota Corolla Estate -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
+          <span class="car-tag hybrid">Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate">
         </div>
         <div class="car-body">
           <h3>Toyota Corolla Estate</h3>
           <p class="car-meta">Hybrid · Estate</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2021–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2021–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£220<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="toyota-corolla-estate.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="toyota-corolla-estate.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Toyota Auris Estate -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
+          <span class="car-tag hybrid">Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/32379ce2d_generated_5b401ce2.png" alt="Toyota Auris Estate">
         </div>
         <div class="car-body">
           <h3>Toyota Auris Estate</h3>
           <p class="car-meta">Hybrid · Estate</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2019–22</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2019–22</span>
           </div>
           <div class="car-foot">
             <div class="price">£210<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="toyota-auris-estate.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="toyota-auris-estate.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Toyota Prius -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
+          <span class="car-tag hybrid">Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/dde45622b_generated_1d4f5fee.png" alt="Toyota Prius">
         </div>
         <div class="car-body">
           <h3>Toyota Prius</h3>
           <p class="car-meta">Hybrid · Hatchback</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2020–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2020–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£200<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="toyota-prius.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="toyota-prius.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- OTHER CARS SECTION -->
-<section class="fleet-group" data-group="other">
+<!-- OTHER PREMIUM CARS SECTION -->
+<section class="fleet-group" data-brand="other">
   <div class="container">
     <div class="reveal">
       <span class="eyebrow">Other Premium Cars</span>
       <h2>Other Premium Cars</h2>
       <p class="sub">Electric, hybrid and specialist vehicles for every PCO need.</p>
     </div>
-    <div class="cars-grid reveal-stagger">
+    <div class="cars-grid">
       <!-- Tesla Model 3 -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag electric"><i class="fa-solid fa-bolt"></i> Electric</span>
+          <span class="car-tag electric">Electric</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3">
         </div>
         <div class="car-body">
           <h3>Tesla Model 3</h3>
           <p class="car-meta">Full Electric · Saloon</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2021–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2021–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£260<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="tesla-model-3.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="tesla-model-3.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Jaguar I-Pace -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag electric"><i class="fa-solid fa-bolt"></i> Electric</span>
+          <span class="car-tag electric">Electric</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/ec743fd88_generated_4bc92119.png" alt="Jaguar I-Pace">
         </div>
         <div class="car-body">
           <h3>Jaguar I-Pace</h3>
           <p class="car-meta">Full Electric · SUV</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2020–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2020–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£330<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="jaguar-i-pace.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="jaguar-i-pace.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Hyundai IONIQ -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
+          <span class="car-tag plugin">Plug-in Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/4e6bacf53_generated_70b0fee5.png" alt="Hyundai IONIQ">
         </div>
         <div class="car-body">
           <h3>Hyundai IONIQ</h3>
           <p class="car-meta">Plug-in Hybrid · Hatchback</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2020–23</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2020–23</span>
           </div>
           <div class="car-foot">
             <div class="price">£220<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="hyundai-ioniq.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="hyundai-ioniq.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- MG5 EV -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag electric"><i class="fa-solid fa-bolt"></i> Electric</span>
+          <span class="car-tag electric">Electric</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/0d388cb33_generated_image.png" alt="MG5 EV">
         </div>
         <div class="car-body">
           <h3>MG5 EV</h3>
           <p class="car-meta">Full Electric · Estate</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 5</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2022–24</span>
+            <span><i class="fas fa-users"></i> 5 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2022–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£200<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="mg5-ev.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="mg5-ev.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
       <!-- Ford Tourneo Custom -->
-      <article class="car">
+      <div class="car">
         <div class="car-visual">
-          <span class="car-tag plugin"><i class="fa-solid fa-plug"></i> Plug-in Hybrid</span>
+          <span class="car-tag plugin">Plug-in Hybrid</span>
           <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/e883f54fd_generated_image.png" alt="Ford Tourneo Custom">
         </div>
         <div class="car-body">
           <h3>Ford Tourneo Custom</h3>
           <p class="car-meta">Plug-in Hybrid · 8-Seat MPV</p>
           <div class="car-specs">
-            <span><i class="fa-solid fa-users"></i> 8</span>
-            <span><i class="fa-solid fa-gears"></i> Auto</span>
-            <span><i class="fa-solid fa-calendar"></i> 2021–24</span>
+            <span><i class="fas fa-users"></i> 8 seats</span>
+            <span><i class="fas fa-cog"></i> Auto</span>
+            <span><i class="fas fa-calendar"></i> 2021–24</span>
           </div>
           <div class="car-foot">
             <div class="price">£410<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="ford-tourneo-custom.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="ford-tourneo-custom.html">View <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -565,28 +654,26 @@
 
 <script src="assets/app.js"></script>
 <script>
-  // Fleet filter functionality
+  // FILTER FUNCTIONALITY - FIXED
   document.addEventListener('DOMContentLoaded', function() {
-    const filterBtns = document.querySelectorAll('.car-filters button');
-    const fleetGroups = document.querySelectorAll('.fleet-group');
+    const filterButtons = document.querySelectorAll('.car-filters button');
+    const fleetSections = document.querySelectorAll('.fleet-group');
     
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-filter');
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filterValue = this.getAttribute('data-filter');
         
-        // Update active state on buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        // Update active class on buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
         
-        // Show/hide sections based on filter
-        fleetGroups.forEach(group => {
-          const groupType = group.getAttribute('data-group');
-          if (filter === 'all' || groupType === filter) {
-            group.classList.remove('hidden');
-            group.style.display = '';
+        // Show/hide sections
+        fleetSections.forEach(section => {
+          const sectionBrand = section.getAttribute('data-brand');
+          if (filterValue === 'all' || sectionBrand === filterValue) {
+            section.classList.remove('hide-group');
           } else {
-            group.classList.add('hidden');
-            group.style.display = 'none';
+            section.classList.add('hide-group');
           }
         });
       });
