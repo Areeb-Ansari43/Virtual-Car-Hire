@@ -10,6 +10,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    /* Custom styles for contact page */
+    .page-hero {
+      background: linear-gradient(180deg, rgba(8,8,11,0.75) 0%, rgba(8,8,11,0.85) 100%),
+                  url('https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/cd1c0eec1_generated_image.png') center center / cover no-repeat;
+      padding: 80px 0 60px;
+      min-height: auto;
+    }
+    .page-hero .hero-glow {
+      display: none;
+    }
+    .page-hero h1 {
+      font-size: clamp(42px, 6vw, 70px);
+    }
+    .page-hero p {
+      max-width: 550px;
+    }
+    
+    /* Form success message styling */
+    .form-success {
+      background: #16a34a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .form-error {
+      background: #dc2626;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn-submitting {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  </style>
 </head>
 <body>
 
@@ -58,9 +102,8 @@
   </div>
 </header>
 
-<!-- Page Hero -->
+<!-- Page Hero - Smaller with custom background image -->
 <section class="page-hero">
-  <div class="hero-glow"></div>
   <div class="container">
     <div class="crumbs">
       <a href="index.html">Home</a>
@@ -74,20 +117,29 @@
 </section>
 
 <!-- Contact Form + Info -->
-<section class="cars" style="padding-top:80px">
+<section class="cars" style="padding-top:60px">
   <div class="container">
     <div class="contact-grid">
       <div class="form-card reveal">
         <h3>Send us a message</h3>
-        <form onsubmit="event.preventDefault(); this.querySelector('.fb').textContent='Thanks! We\'ll be in touch within 48 hours.'; this.reset();">
+        <!-- FormSubmit.co integration - sends to AAnsari100@outlook.com -->
+        <form id="contactForm" action="https://formsubmit.co/AAnsari100@outlook.com" method="POST">
+          <!-- FormSubmit configuration -->
+          <input type="hidden" name="_subject" value="New Contact Form Submission - Virtual Car Hire">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://virtual-car-hire.vercel.app/thank-you.html">
+          <!-- Honeypot to prevent spam -->
+          <input type="text" name="_honey" style="display:none">
+          
           <div class="form-row">
-            <div class="field"><label>Name *</label><input type="text" placeholder="Your full name" required/></div>
-            <div class="field"><label>Phone Number</label><input type="tel" placeholder="+44 ..."/></div>
+            <div class="field"><label>Name *</label><input type="text" name="name" placeholder="Your full name" required/></div>
+            <div class="field"><label>Phone Number</label><input type="tel" name="phone" placeholder="+44 ..."/></div>
           </div>
           <div class="form-row">
-            <div class="field"><label>Email *</label><input type="email" placeholder="you@example.com" required/></div>
+            <div class="field"><label>Email *</label><input type="email" name="email" placeholder="you@example.com" required/></div>
             <div class="field"><label>Subject *</label>
-              <select required>
+              <select name="subject" required>
                 <option value="">Choose a topic</option>
                 <option>Book a car</option>
                 <option>Fleet enquiry</option>
@@ -96,9 +148,9 @@
               </select>
             </div>
           </div>
-          <div class="field" style="margin-bottom:18px"><label>Message *</label><textarea placeholder="Tell us what you need..." required></textarea></div>
-          <button class="btn btn-primary" type="submit" style="border:0;cursor:pointer">Submit <i class="fa-solid fa-paper-plane"></i></button>
-          <p class="fb" style="margin-top:14px;color:#16a34a;font-size:13.5px;font-weight:600"></p>
+          <div class="field" style="margin-bottom:18px"><label>Message *</label><textarea name="message" placeholder="Tell us what you need..." required></textarea></div>
+          <button class="btn btn-primary" type="submit" id="submitBtn" style="border:0;cursor:pointer">Submit <i class="fa-solid fa-paper-plane"></i></button>
+          <div id="formStatus" style="margin-top:14px;"></div>
         </form>
       </div>
       <aside class="contact-info reveal">
@@ -205,5 +257,29 @@
 </div>
 
 <script src="assets/app.js"></script>
+<script>
+  // Form submission handling with FormSubmit.co
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+    
+    // Show loading state
+    submitBtn.classList.add('btn-submitting');
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+    formStatus.innerHTML = '';
+    
+    // FormSubmit.co will handle the actual submission
+    // The page will redirect to _next URL on success
+    
+    // If there's an error (like network issue), show message
+    setTimeout(function() {
+      if (submitBtn.classList.contains('btn-submitting')) {
+        submitBtn.classList.remove('btn-submitting');
+        submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
+        formStatus.innerHTML = '<div class="form-error">Network error. Please try again or call us directly.</div>';
+      }
+    }, 10000);
+  });
+</script>
 </body>
 </html>
