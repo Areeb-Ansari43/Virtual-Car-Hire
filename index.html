@@ -10,6 +10,39 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    /* Ensure car images display properly in the Top Cars section */
+    .car-visual {
+      background: #f5f5f5;
+      border-radius: 20px 20px 0 0;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .car-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    .car:hover .car-visual img {
+      transform: scale(1.05);
+    }
+    .car-visual .main-icon {
+      display: none;
+    }
+    /* Hide the old icon-based car visual */
+    .car-visual i.main {
+      display: none;
+    }
+    .car-visual .road {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -260,7 +293,7 @@
   </div>
 </section>
 
-<!-- Top Cars -->
+<!-- Top Cars - FIXED with real images and correct links -->
 <section class="cars" id="fleet">
   <div class="container">
     <div class="section-head reveal">
@@ -269,11 +302,11 @@
       <p class="lede">Three of our most popular PCO vehicles — hybrid, electric and estate.</p>
     </div>
     <div class="cars-grid reveal-stagger">
+      <!-- Mercedes EQE -->
       <article class="car">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car-side main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/a4c99e01c_generated_b79cd217.png" alt="Mercedes EQE">
         </div>
         <div class="car-body">
           <h3>Mercedes EQE</h3>
@@ -285,15 +318,15 @@
           </div>
           <div class="car-foot">
             <div class="price">£440<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="our-fleet.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="cars/mercedes-eqe.html">View <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </article>
+      <!-- Tesla Model 3 -->
       <article class="car">
         <div class="car-visual">
           <span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span>
-          <i class="fa-solid fa-car main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3">
         </div>
         <div class="car-body">
           <h3>Tesla Model 3</h3>
@@ -305,15 +338,15 @@
           </div>
           <div class="car-foot">
             <div class="price">£260<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="our-fleet.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="cars/tesla-model-3.html">View <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </article>
+      <!-- Toyota Corolla Estate -->
       <article class="car">
         <div class="car-visual">
           <span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span>
-          <i class="fa-solid fa-van-shuttle main"></i>
-          <div class="road"></div>
+          <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate">
         </div>
         <div class="car-body">
           <h3>Toyota Corolla Estate</h3>
@@ -325,7 +358,7 @@
           </div>
           <div class="car-foot">
             <div class="price">£220<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div>
-            <a class="view-btn" href="our-fleet.html">View <i class="fa-solid fa-arrow-right"></i></a>
+            <a class="view-btn" href="cars/toyota-corolla-estate.html">View <i class="fa-solid fa-arrow-right"></i></a>
           </div>
         </div>
       </article>
