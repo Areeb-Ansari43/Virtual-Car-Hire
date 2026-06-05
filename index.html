@@ -5,12 +5,110 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Virtual Car Hire — London's #1 PCO Car Hire</title>
   <meta name="description" content="London's most trusted PCO car hire. Hybrid & electric fleet, insurance included, same-day start — serving Uber, Bolt & Ola drivers since 2014."/>
+  <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/0d9a97ab3_generated_image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
+    /* Responsive Hero - Fits EVERY screen size */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
+    }
+    
+    .hero-inner {
+      width: 100%;
+      padding: 0 24px;
+    }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 5vw, 80px);
+      align-items: center;
+    }
+    
+    .hero-title {
+      font-size: clamp(42px, 8vw, 110px);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      max-width: 90%;
+    }
+    
+    .hero-badges {
+      gap: clamp(16px, 3vw, 32px);
+      flex-wrap: wrap;
+    }
+    
+    /* Hero visual - scales with screen */
+    .hero-orb {
+      width: min(480px, 70vw, 100%);
+      height: min(480px, 70vw, 100%);
+      margin: 0 auto;
+    }
+    
+    .hero-orb .car-icon {
+      font-size: clamp(100px, 20vw, 170px);
+    }
+    
+    .orbit i {
+      width: clamp(40px, 8vw, 54px);
+      height: clamp(40px, 8vw, 54px);
+      font-size: clamp(16px, 3vw, 20px);
+    }
+    
+    /* Make car images responsive */
+    .car-visual img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+    
+    /* Stats grid - responsive */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    
+    .stat .num {
+      font-size: clamp(32px, 6vw, 54px);
+    }
+    
+    /* Features grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 22px;
+    }
+    
+    /* Steps grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    
+    /* Cars grid - responsive columns */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+    }
+    
+    /* Review cards */
+    .review {
+      flex: 0 0 clamp(280px, 30vw, 340px);
+    }
+    
     /* Ensure car images display properly in the Top Cars section */
     .car-visual {
       background: #f5f5f5;
@@ -83,8 +181,90 @@
       border-radius: 50px;
       cursor: pointer;
     }
+    
+    /* Media Queries for different screen sizes */
+    @media (max-width: 1024px) {
+      .hero {
+        padding: 100px 0 60px;
+      }
+      .hero-grid {
+        gap: 40px;
+      }
+    }
+    
+    @media (max-width: 900px) {
+      .hero {
+        padding: 80px 0 50px;
+        min-height: auto;
+      }
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .hero-visual {
+        order: -1;
+      }
+      .hero-sub {
+        max-width: 100%;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+      .cars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
     @media (max-width: 768px) {
-      #cookieConsent { flex-direction: column; text-align: center; }
+      .hero {
+        padding: 60px 0 40px;
+      }
+      .hero-title {
+        font-size: clamp(36px, 10vw, 54px);
+      }
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn {
+        text-align: center;
+        justify-content: center;
+      }
+      #cookieConsent {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    @media (min-width: 1440px) {
+      .hero {
+        padding: 160px 0 100px;
+      }
+      .container {
+        max-width: 1400px;
+      }
+      .hero-title {
+        font-size: 88px;
+      }
+    }
+    
+    @media (min-width: 1920px) {
+      .hero {
+        padding: 200px 0 120px;
+      }
+      .container {
+        max-width: 1600px;
+      }
+      .hero-title {
+        font-size: 100px;
+      }
     }
   </style>
 </head>
@@ -154,7 +334,7 @@
   </div>
 </header>
 
-<!-- Hero -->
+<!-- Hero - FULLY RESPONSIVE -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow b"></div>
@@ -201,7 +381,7 @@
   </div>
 </section>
 
-<!-- Stats -->
+<!-- Stats - Responsive -->
 <div class="stats-strip">
   <div class="container">
     <div class="stats-grid">
@@ -350,7 +530,7 @@
   </div>
 </section>
 
-<!-- Top Cars - FIXED with real images and correct links -->
+<!-- Top Cars -->
 <section class="cars" id="fleet">
   <div class="container">
     <div class="section-head reveal">
