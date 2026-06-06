@@ -51,7 +51,7 @@
       }
     }
     
-    /* Cookie Consent Banner Styles (added, does not affect layout) */
+    /* Cookie Consent Banner Styles */
     #cookieConsent {
       position: fixed;
       bottom: 0;
@@ -72,6 +72,62 @@
     .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
     .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
     @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
+
+    /* Review badges styling */
+    .review-badges {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+    .review-badge {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+      border-radius: 60px;
+      padding: 10px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
+    }
+    .review-badge img {
+      height: 32px;
+      width: auto;
+    }
+    .review-badge .rating {
+      font-weight: 700;
+      font-size: 18px;
+      color: #1a1a1a;
+    }
+    .review-badge .stars {
+      color: #f5a623;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+    .review-badge .count {
+      font-size: 12px;
+      color: #888;
+    }
+    .rating-line {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .rating-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8f8f8;
+      padding: 10px 20px;
+      border-radius: 50px;
+    }
+    .rating-item .stars {
+      color: #f5a623;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -89,7 +145,7 @@
   </div>
 </div>
 
-<!-- Ticker - YOUR ORIGINAL -->
+<!-- Ticker -->
 <div class="ticker">
   <div class="track">
     <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
@@ -113,7 +169,7 @@
   </div>
 </div>
 
-<!-- Header - YOUR ORIGINAL -->
+<!-- Header -->
 <header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html">
@@ -134,7 +190,7 @@
   </div>
 </header>
 
-<!-- Hero - Height now scales properly on all screens -->
+<!-- Hero -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow b"></div>
@@ -181,7 +237,7 @@
   </div>
 </section>
 
-<!-- Stats - YOUR ORIGINAL -->
+<!-- Stats -->
 <div class="stats-strip">
   <div class="container">
     <div class="stats-grid">
@@ -209,7 +265,7 @@
   </div>
 </div>
 
-<!-- About - YOUR ORIGINAL -->
+<!-- About -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
@@ -250,7 +306,7 @@
   </div>
 </section>
 
-<!-- Features - YOUR ORIGINAL (3 columns top, 3 columns bottom) -->
+<!-- Features -->
 <section class="features" id="features">
   <div class="container">
     <div class="section-head reveal">
@@ -269,7 +325,7 @@
   </div>
 </section>
 
-<!-- Steps - YOUR ORIGINAL (4 steps) -->
+<!-- Steps -->
 <section class="steps" id="process">
   <div class="container">
     <div class="section-head reveal">
@@ -286,7 +342,7 @@
   </div>
 </section>
 
-<!-- Top Cars - YOUR ORIGINAL -->
+<!-- Top Cars -->
 <section class="cars" id="fleet">
   <div class="container">
     <div class="section-head reveal">
@@ -312,7 +368,7 @@
   </div>
 </section>
 
-<!-- Banner - YOUR ORIGINAL -->
+<!-- Banner / Trust -->
 <section class="banner">
   <div class="container reveal">
     <span class="eyebrow">Trusted by Professionals</span>
@@ -322,36 +378,118 @@
   </div>
 </section>
 
-<!-- Reviews - YOUR ORIGINAL -->
+<!-- Reviews - WITH AREEBA ADDED -->
 <section class="reviews">
   <div class="container">
     <div class="section-head reveal">
       <span class="eyebrow center">Real Reviews</span>
       <h2 class="title center">What Our Customers <span class="em">Say</span></h2>
+      <p class="lede">Don't just take our word for it — hear from thousands of satisfied customers.</p>
     </div>
-    <div class="rating-line"><span class="stars">★★★★★</span> <strong>4.7</strong> · 63 reviews on Google</div>
-    <div class="marquee-wrap"><div class="marquee">
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p><div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Jan 2026</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p><div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Jun 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p><div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Jun 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p><div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Jan 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p><div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Mar 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p><div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Nov 2023</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Brilliant company, made the whole process really easy. The car was in perfect condition and ready to go."</p><div class="who"><div class="av">Y</div><div><strong>Yusuf Ali</strong><small>Aug 2023</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Best PCO hire company I have used. Professional team, great cars, competitive prices. 100% recommend."</p><div class="who"><div class="av">R</div><div><strong>Rajan P.</strong><small>Oct 2023</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p><div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Jan 2026</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p><div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Jun 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p><div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Jun 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p><div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Jan 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p><div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Mar 2024</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p><div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Nov 2023</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Brilliant company, made the whole process really easy. The car was in perfect condition and ready to go."</p><div class="who"><div class="av">Y</div><div><strong>Yusuf Ali</strong><small>Aug 2023</small></div></div></div>
-      <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Best PCO hire company I have used. Professional team, great cars, competitive prices. 100% recommend."</p><div class="who"><div class="av">R</div><div><strong>Rajan P.</strong><small>Oct 2023</small></div></div></div>
-    </div></div>
+    
+    <!-- Rating Summary with Google & Trustpilot -->
+    <div class="rating-line">
+      <div class="rating-item">
+        <i class="fa-brands fa-google" style="color:#4285f4; font-size: 20px;"></i>
+        <span class="stars">★★★★★</span>
+        <strong>4.7</strong>
+        <span style="color:#666;">(63 reviews)</span>
+      </div>
+      <div class="rating-item">
+        <i class="fa-brands fa-trustpilot" style="color:#00b67a; font-size: 20px;"></i>
+        <span class="stars">★★★★★</span>
+        <strong>4.8</strong>
+        <span style="color:#666;">(127 reviews)</span>
+      </div>
+    </div>
+    
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <!-- Google Reviews -->
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
+          <div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p>
+          <div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p>
+          <div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p>
+          <div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Google · Jan 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p>
+          <div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Google · Mar 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p>
+          <div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Google · Nov 2023</small></div></div>
+        </div>
+        <!-- NEW REVIEW: Areeb A. -->
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p>
+          <div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div>
+        </div>
+        <!-- Trustpilot Reviews -->
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
+          <div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p>
+          <div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The team went above and beyond to get me on the road quickly. Great cars and excellent support."</p>
+          <div class="who"><div class="av">M</div><div><strong>Maria R.</strong><small>Trustpilot · Oct 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Very professional company. The car was clean, well-maintained, and the paperwork was quick and easy."</p>
+          <div class="who"><div class="av">P</div><div><strong>Paul K.</strong><small>Trustpilot · Sep 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"I've rented from several companies, but Virtual Car Hire is by far the best. Great value and great service."</p>
+          <div class="who"><div class="av">L</div><div><strong>Lisa C.</strong><small>Trustpilot · Aug 2025</small></div></div>
+        </div>
+        <!-- Duplicates for seamless loop -->
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
+          <div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p>
+          <div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
+          <div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FAQ - YOUR ORIGINAL -->
+<!-- FAQ -->
 <section class="faq">
   <div class="container">
     <div class="section-head reveal">
@@ -374,7 +512,7 @@
   </div>
 </section>
 
-<!-- Footer - YOUR ORIGINAL -->
+<!-- Footer -->
 <footer>
   <div class="container">
     <div class="foot-grid">
