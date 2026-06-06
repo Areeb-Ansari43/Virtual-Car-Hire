@@ -5,13 +5,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Page Not Found | Virtual Car Hire</title>
   <meta name="description" content="The page you're looking for doesn't exist. Return to Virtual Car Hire's homepage to browse our PCO vehicles."/>
-  <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <link rel="stylesheet" href="/assets/style.css"/>
+  
+  <!-- Fallback inline styles in case external CSS fails to load -->
   <style>
+    /* CRITICAL FALLBACK STYLES - ensures page never looks unstyled */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #fff 0%, #faf7f3 100%);
+      min-height: 100vh;
+    }
+    
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 12, 0.42);
+      backdrop-filter: blur(22px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+    }
+    
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+    }
+    
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    .brand .mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 6px;
+    }
+    
+    .brand .mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .brand .text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    
+    .brand .text strong {
+      font-size: 15px;
+    }
+    
+    .brand .text small {
+      font-size: 9.5px;
+      letter-spacing: 2px;
+      color: #aaa;
+      text-transform: uppercase;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 6px;
+    }
+    
+    .nav-links a {
+      padding: 10px 18px;
+      border-radius: 999px;
+      color: #e6e6ea;
+      font-weight: 500;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: #f7791f;
+    }
+    
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .nav-cta .phone {
+      color: #e6e6ea;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .nav-cta .phone:hover {
+      color: #f7791f;
+    }
+    
+    .book-btn {
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.25s;
+    }
+    
+    .book-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .burger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #fff;
+      font-size: 18px;
+    }
+    
+    /* Error Container */
     .error-container {
       min-height: 70vh;
       display: flex;
@@ -21,10 +171,12 @@
       padding: 80px 24px;
       background: linear-gradient(135deg, #fff 0%, #faf7f3 100%);
     }
+    
     .error-content {
       max-width: 600px;
       margin: 0 auto;
     }
+    
     .error-code {
       font-size: 120px;
       font-weight: 800;
@@ -37,30 +189,35 @@
       margin-bottom: 16px;
       letter-spacing: -4px;
     }
+    
     .error-icon {
       font-size: 64px;
       color: #f7791f;
       margin-bottom: 24px;
       opacity: 0.7;
     }
+    
     .error-title {
       font-size: 28px;
       font-weight: 700;
       color: #1a1a1a;
       margin-bottom: 16px;
     }
+    
     .error-message {
       color: #666;
       font-size: 16px;
       line-height: 1.7;
       margin-bottom: 32px;
     }
+    
     .error-buttons {
       display: flex;
       gap: 16px;
       justify-content: center;
       flex-wrap: wrap;
     }
+    
     .btn-404 {
       display: inline-flex;
       align-items: center;
@@ -71,49 +228,199 @@
       transition: all 0.3s ease;
       text-decoration: none;
     }
+    
     .btn-404-primary {
       background: linear-gradient(135deg, #ff9a3d, #f7791f);
       color: #fff;
     }
+    
     .btn-404-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px -10px rgba(247,121,31,0.4);
+      box-shadow: 0 10px 25px -10px rgba(247, 121, 31, 0.4);
     }
+    
     .btn-404-secondary {
       background: #f0f0f0;
       color: #333;
     }
+    
     .btn-404-secondary:hover {
       background: #e0e0e0;
       transform: translateY(-2px);
     }
+    
     .suggestions {
       margin-top: 48px;
       padding-top: 32px;
       border-top: 1px solid #eee;
     }
+    
     .suggestions h4 {
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 16px;
       color: #333;
     }
+    
     .suggestions-links {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       justify-content: center;
     }
+    
     .suggestions-links a {
       color: #f7791f;
       text-decoration: none;
       font-size: 14px;
     }
+    
     .suggestions-links a:hover {
       text-decoration: underline;
     }
-
-    /* Cookie Consent Banner Styles */
+    
+    /* Footer */
+    footer {
+      background: #06060a;
+      color: #9a9aa3;
+      padding: 80px 0 30px;
+      font-size: 14px;
+      border-top: 1px solid #1a1a22;
+    }
+    
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    .foot-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    
+    .foot-brand .mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      display: grid;
+      place-items: center;
+    }
+    
+    .foot-brand .mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .foot-grid h4 {
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      font-weight: 700;
+    }
+    
+    .foot-grid ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .foot-grid ul a {
+      color: #9a9aa3;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      transition: all 0.25s ease;
+    }
+    
+    .foot-grid ul a:hover {
+      color: #f7791f;
+      transform: translateX(8px);
+    }
+    
+    .foot-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    
+    .foot-socials a {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #16161b;
+      border: 1px solid #22222a;
+      display: grid;
+      place-items: center;
+      color: #aaa;
+      transition: all 0.25s;
+    }
+    
+    .foot-socials a:hover {
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    
+    .foot-bot {
+      border-top: 1px solid #1a1a22;
+      padding-top: 28px;
+      text-align: center;
+      color: #555;
+      font-size: 12.5px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    
+    /* Floating buttons */
+    .float {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 99;
+    }
+    
+    .float a {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 22px;
+      text-decoration: none;
+      transition: transform 0.25s;
+    }
+    
+    .float a:hover {
+      transform: scale(1.1);
+    }
+    
+    .float .wa {
+      background: #25d366;
+    }
+    
+    .float .ph {
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+    }
+    
+    /* Cookie banner */
     #cookieConsent {
       position: fixed;
       bottom: 0;
@@ -129,13 +436,16 @@
       align-items: center;
       gap: 16px;
     }
+    
     #cookieConsent a {
       color: #f7791f;
     }
+    
     .cookie-buttons {
       display: flex;
       gap: 12px;
     }
+    
     .cookie-accept {
       background: #f7791f;
       color: #fff;
@@ -145,6 +455,7 @@
       cursor: pointer;
       font-weight: 600;
     }
+    
     .cookie-decline {
       background: transparent;
       color: #aaa;
@@ -153,8 +464,38 @@
       border-radius: 50px;
       cursor: pointer;
     }
+    
+    @media (max-width: 1000px) {
+      .nav-links {
+        display: none;
+      }
+      .burger {
+        display: grid;
+        place-items: center;
+      }
+      .foot-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+    
     @media (max-width: 768px) {
-      #cookieConsent { flex-direction: column; text-align: center; }
+      .nav-cta .phone {
+        display: none;
+      }
+      #cookieConsent {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .error-code {
+        font-size: 80px;
+      }
+      .error-title {
+        font-size: 22px;
+      }
     }
   </style>
 </head>
@@ -164,8 +505,8 @@
 <div id="cookieConsent">
   <div style="flex: 1; font-size: 13px; line-height: 1.5;">
     <i class="fa-solid fa-cookie-bite"></i> We use cookies to improve your experience. By using our site, you accept our 
-    <a href="cookie-policy.html">Cookie Policy</a> and 
-    <a href="privacy-policy.html">Privacy Policy</a>.
+    <a href="/cookie-policy.html">Cookie Policy</a> and 
+    <a href="/privacy-policy.html">Privacy Policy</a>.
   </div>
   <div class="cookie-buttons">
     <button id="acceptCookies" class="cookie-accept">Accept</button>
@@ -173,22 +514,22 @@
   </div>
 </div>
 
-<!-- Simple Header for 404 page -->
+<!-- Header -->
 <header class="site-header">
   <div class="container nav">
-    <a class="brand" href="index.html">
-      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+    <a class="brand" href="/index.html">
+      <div class="mark"><img src="/assets/logo.png" alt="Virtual Car Hire"/></div>
       <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
     </a>
     <nav class="nav-links">
-      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
-      <a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
-      <a href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="/index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
+      <a href="/about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a href="/contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
     <div class="nav-cta">
       <a class="phone" href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
-      <a class="book-btn" href="contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="book-btn" href="/contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
       <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
     </div>
   </div>
@@ -204,18 +545,18 @@
     <h1 class="error-title">Page Not Found</h1>
     <p class="error-message">Oops! The page you're looking for doesn't exist or has been moved. Let's get you back on the road.</p>
     <div class="error-buttons">
-      <a href="index.html" class="btn-404 btn-404-primary"><i class="fa-solid fa-home"></i> Back to Home</a>
-      <a href="our-fleet.html" class="btn-404 btn-404-secondary"><i class="fa-solid fa-car"></i> Browse Our Fleet</a>
+      <a href="/index.html" class="btn-404 btn-404-primary"><i class="fa-solid fa-home"></i> Back to Home</a>
+      <a href="/our-fleet.html" class="btn-404 btn-404-secondary"><i class="fa-solid fa-car"></i> Browse Our Fleet</a>
     </div>
     <div class="suggestions">
       <h4>Popular Pages You Might Be Looking For:</h4>
       <div class="suggestions-links">
-        <a href="our-fleet.html">Our Fleet</a>
-        <a href="cars/mercedes-e300.html">Mercedes E300</a>
-        <a href="cars/tesla-model-3.html">Tesla Model 3</a>
-        <a href="cars/toyota-corolla-estate.html">Toyota Corolla Estate</a>
-        <a href="contact-us.html">Contact Us</a>
-        <a href="about-us.html">About Us</a>
+        <a href="/our-fleet.html">Our Fleet</a>
+        <a href="/cars/mercedes-e300.html">Mercedes E300</a>
+        <a href="/cars/tesla-model-3.html">Tesla Model 3</a>
+        <a href="/cars/toyota-corolla-estate.html">Toyota Corolla Estate</a>
+        <a href="/contact-us.html">Contact Us</a>
+        <a href="/about-us.html">About Us</a>
       </div>
     </div>
   </div>
@@ -227,7 +568,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-brand">
-          <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+          <div class="mark"><img src="/assets/logo.png" alt="Virtual Car Hire"/></div>
           <div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div>
         </div>
         <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
@@ -249,10 +590,10 @@
       <div>
         <h4>Navigation</h4>
         <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="our-fleet.html">Our Fleet</a></li>
-          <li><a href="about-us.html">About Us</a></li>
-          <li><a href="contact-us.html">Contact</a></li>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/our-fleet.html">Our Fleet</a></li>
+          <li><a href="/about-us.html">About Us</a></li>
+          <li><a href="/contact-us.html">Contact</a></li>
         </ul>
       </div>
       <div>
@@ -261,15 +602,15 @@
           <li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li>
           <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
           <li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li>
-          <li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
-          <li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
+          <li><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
+          <li><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
         </ul>
       </div>
       <div>
         <h4>Legal</h4>
         <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="/cookie-policy.html">Cookie Policy</a></li>
         </ul>
       </div>
     </div>
@@ -285,7 +626,7 @@
   <a class="ph" href="tel:+442072946756" aria-label="Call"><i class="fa-solid fa-phone"></i></a>
 </div>
 
-<script src="assets/app.js"></script>
+<script src="/assets/app.js"></script>
 <script>
   // Cookie Consent Functionality
   (function() {
@@ -323,6 +664,40 @@
       };
     }
   })();
+  
+  // Mobile burger menu toggle (if your app.js doesn't handle it)
+  const burger = document.querySelector('.burger');
+  const navLinks = document.querySelector('.nav-links');
+  if (burger && navLinks) {
+    burger.addEventListener('click', function() {
+      if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+      } else {
+        navLinks.style.display = 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '80px';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = '#0f0f12';
+        navLinks.style.padding = '20px';
+        navLinks.style.gap = '12px';
+        navLinks.style.borderBottom = '1px solid #222';
+      }
+    });
+  }
+  
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('.site-header');
+    if (header) {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+  });
 </script>
 </body>
 </html>
