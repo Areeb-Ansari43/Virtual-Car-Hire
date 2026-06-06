@@ -1,3 +1,7 @@
+User-agent: Googlebot
+Allow: /
+
 User-agent: *
 Allow: /
+
 Sitemap: https://virtualcarhire.pages.dev/sitemap.xml
