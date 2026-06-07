@@ -23,7 +23,7 @@
   
   <!-- Twitter Meta Tags -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://virtualcarhire.pages.dev/cars/tesla-model-3.html">
+ meta property="twitter:url" content="https://virtualcarhire.pages.dev/cars/tesla-model-3.html">
   <meta property="twitter:title" content="Tesla Model 3 PCO Car Hire London | Electric Vehicle Rental">
   <meta property="twitter:description" content="Hire the Tesla Model 3 for PCO driving. £260/week with insurance included. Zero emissions, Autopilot, 300+ mile range.">
   <meta property="twitter:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png">
@@ -70,7 +70,7 @@
     .ticker-inner span { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     
-    /* Original Top Navigation - Sticky */
+    /* Original Top Navigation - Hidden on scroll */
     .original-nav {
       background: #111;
       padding: 0 24px;
@@ -81,14 +81,10 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      transition: all 0.3s ease;
+      transition: transform 0.3s ease;
     }
-    .original-nav.hide-original {
+    .original-nav.hide {
       transform: translateY(-100%);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
     }
     .nav-logo img { height: 40px; }
     .nav-links { display: flex; gap: 32px; }
@@ -97,26 +93,25 @@
     .nav-links a:hover { color: #e85d04; }
     .nav-links a:hover i { transform: translateX(4px); }
     .nav-links a.active { color: #e85d04; }
-    .nav-links a.active i { color: #e85d04; }
     .nav-actions { display: flex; align-items: center; gap: 16px; }
     .nav-phone { color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
     .nav-phone:hover { color: #e85d04; }
     .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
     .btn-booknow:hover { background: #c94e00; transform: scale(1.02); }
     
-    /* Dynamic Island Bottom Navigation - Only appears on scroll */
+    /* Dynamic Island - Appears at TOP when scrolling down */
     .dynamic-island {
       position: fixed;
-      bottom: 20px;
+      top: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(100px);
+      transform: translateX(-50%) translateY(-100px);
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(20px);
       border-radius: 50px;
       padding: 8px 24px;
       display: flex;
       gap: 24px;
-      z-index: 1000;
+      z-index: 1001;
       transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -149,7 +144,48 @@
       color: #e85d04;
       box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
     }
-    .dynamic-island a.active i { color: #e85d04; }
+    
+    /* Bottom Navigation Bar */
+    .bottom-nav {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 8px 24px;
+      display: flex;
+      gap: 24px;
+      z-index: 1000;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .bottom-nav a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bottom-nav a i { font-size: 14px; transition: transform 0.3s ease; }
+    .bottom-nav a:hover {
+      background: rgba(232, 93, 4, 0.25);
+      color: #e85d04;
+    }
+    .bottom-nav a:hover i {
+      transform: translateX(4px);
+      color: #e85d04;
+    }
+    .bottom-nav a.active {
+      background: rgba(232, 93, 4, 0.3);
+      color: #e85d04;
+      box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
+    }
     
     /* Hero and other styles */
     .hero { background: #1a1a1a; padding: 40px 0 0; }
@@ -236,9 +272,9 @@
       .specs-trust { grid-template-columns: 1fr; } 
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } 
       .hero-title { font-size: 36px; }
-      .dynamic-island { padding: 6px 16px; gap: 12px; }
-      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
-      .dynamic-island a i { font-size: 13px; }
+      .dynamic-island, .bottom-nav { padding: 6px 16px; gap: 12px; }
+      .dynamic-island a, .bottom-nav a { font-size: 11px; padding: 6px 12px; }
+      .dynamic-island a i, .bottom-nav a i { font-size: 13px; }
       .nav-links a span { display: none; }
       .nav-links a i { margin: 0; }
       .nav-links { gap: 16px; }
@@ -247,9 +283,9 @@
     @media (max-width: 600px) { 
       .footer-grid { grid-template-columns: 1fr; } 
       .specs-grid { grid-template-columns: 1fr; }
-      .dynamic-island { gap: 8px; }
-      .dynamic-island a span { display: none; }
-      .dynamic-island a i { margin: 0; }
+      .dynamic-island, .bottom-nav { gap: 8px; }
+      .dynamic-island a span, .bottom-nav a span { display: none; }
+      .dynamic-island a i, .bottom-nav a i { margin: 0; }
     }
 </style>
 </head>
@@ -257,7 +293,7 @@
 
 <div class="ticker"><div class="ticker-inner"><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span></div></div>
 
-<!-- Original Top Navigation -->
+<!-- Original Top Navigation (disappears on scroll) -->
 <div class="original-nav" id="originalNav">
   <a class="nav-logo" href="../index.html"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"></a>
   <div class="nav-links">
@@ -272,8 +308,16 @@
   </div>
 </div>
 
-<!-- Dynamic Island Bottom Navigation (appears on scroll) -->
+<!-- Dynamic Island (appears at TOP when scrolling down) -->
 <div class="dynamic-island" id="dynamicIsland">
+  <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
+  <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
+  <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
+  <a href="../contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
+</div>
+
+<!-- Bottom Navigation Bar (always visible at bottom) -->
+<div class="bottom-nav" id="bottomNav">
   <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
   <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
   <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
@@ -374,49 +418,43 @@
 <a class="whatsapp-fab" href="https://wa.me/447508496940" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-  // Scroll behavior: Original nav stays at top, dynamic island appears on scroll down
+  // Scroll behavior: Original nav disappears, dynamic island appears at top when scrolling down
   let lastScrollY = window.scrollY;
   const originalNav = document.getElementById('originalNav');
   const dynamicIsland = document.getElementById('dynamicIsland');
-  let scrollTimeout;
   
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
     
-    // Dynamic island appears when scrolling down past 100px
-    if (currentScrollY > 100) {
-      dynamicIsland.classList.add('show');
+    if (currentScrollY > 50) {
+      // Scrolling down - hide original nav, show dynamic island at top
+      if (currentScrollY > lastScrollY) {
+        originalNav.classList.add('hide');
+        dynamicIsland.classList.add('show');
+      } else {
+        // Scrolling up - show original nav, hide dynamic island
+        originalNav.classList.remove('hide');
+        dynamicIsland.classList.remove('show');
+      }
     } else {
+      // At the top - show original nav, hide dynamic island
+      originalNav.classList.remove('hide');
       dynamicIsland.classList.remove('show');
     }
     
-    // Hide original nav slightly when scrolling down past 200px (optional)
-    if (currentScrollY > 200 && currentScrollY > lastScrollY) {
-      originalNav.style.opacity = '0.9';
-    } else if (currentScrollY < 100) {
-      originalNav.style.opacity = '1';
-    }
-    
     lastScrollY = currentScrollY;
-    
-    // Clear timeout and hide dynamic island after user stops scrolling
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      if (currentScrollY <= 100) {
-        dynamicIsland.classList.remove('show');
-      }
-    }, 1500);
   });
   
-  // Highlight active page in both navbars
+  // Highlight active page in all navbars
   const currentPage = window.location.pathname.split('/').pop();
   const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
   
   function setActiveNavLinks() {
     const originalLinks = document.querySelectorAll('.original-nav .nav-links a');
     const islandLinks = document.querySelectorAll('.dynamic-island a');
+    const bottomLinks = document.querySelectorAll('.bottom-nav a');
     
-    const allLinks = [...originalLinks, ...islandLinks];
+    const allLinks = [...originalLinks, ...islandLinks, ...bottomLinks];
     
     allLinks.forEach(link => {
       const href = link.getAttribute('href');
