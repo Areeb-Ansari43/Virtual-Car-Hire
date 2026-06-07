@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Virtual Car Hire | Advanced Analytics Dashboard</title>
+  <title>Virtual Car Hire | Live Analytics Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <!-- Chart.js for beautiful charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -16,7 +15,6 @@
       min-height: 100vh;
       color: #fff;
     }
-    /* Login Overlay */
     .login-overlay {
       position: fixed;
       top: 0;
@@ -29,7 +27,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
     }
     .login-card {
       background: linear-gradient(145deg, #16161d, #0f0f14);
@@ -104,7 +101,16 @@
       margin-top: 16px;
       color: #f87171;
     }
-    /* 2FA Modal */
+    .success-msg {
+      background: rgba(74,222,128,0.2);
+      border: 1px solid #4ade80;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 16px;
+      color: #4ade80;
+    }
     .twofa-modal {
       position: fixed;
       top: 0;
@@ -124,21 +130,9 @@
       border-radius: 32px;
       padding: 40px;
       text-align: center;
-      max-width: 400px;
+      max-width: 420px;
       width: 90%;
     }
-    .twofa-code {
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: 8px;
-      background: #1a1a22;
-      padding: 16px;
-      border-radius: 16px;
-      margin: 20px 0;
-      color: #f7791f;
-      font-family: monospace;
-    }
-    /* Dashboard */
     .dashboard { display: none; }
     .navbar {
       background: rgba(10,10,12,0.95);
@@ -210,7 +204,7 @@
       color: #fff;
     }
     .year-btn.active { background: #f7791f; border-color: #f7791f; }
-    .year-btn:hover { background: #f7791f; border-color: #f7791f; }
+    .year-btn:hover { background: #f7791f; }
     canvas { max-height: 300px; width: 100%; }
     .visitors-list {
       background: linear-gradient(145deg, #16161d, #0f0f14);
@@ -234,10 +228,11 @@
       padding: 10px 20px;
       border-radius: 40px;
       cursor: pointer;
+      color: #fff;
     }
     .logout-btn:hover { background: rgba(247,121,31,0.2); border-color: #f7791f; }
-    .refresh-badge { background: #16a34a; border-radius: 20px; padding: 4px 12px; font-size: 11px; }
-    h2.section-title { margin: 20px 32px 0; font-size: 24px; }
+    .live-badge { background: #16a34a; border-radius: 20px; padding: 4px 12px; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; }
+    .resend-link { color: #f7791f; cursor: pointer; font-size: 12px; margin-top: 12px; display: inline-block; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -248,35 +243,38 @@
     <div class="login-logo">
       <div class="icon"><i class="fa-solid fa-chart-pie"></i></div>
       <h2>Virtual Car Hire</h2>
-      <p>Analytics Dashboard • Secure Access</p>
+      <p>Live Analytics • Secure Access</p>
     </div>
     <div class="input-group">
-      <label><i class="fa-regular fa-envelope"></i> Email</label>
-      <input type="email" id="loginEmail" placeholder="admin@virtualcarhire.com">
+      <label><i class="fa-regular fa-envelope"></i> Email Address</label>
+      <input type="email" id="loginEmail" placeholder="you@example.com">
     </div>
     <div class="input-group">
       <label><i class="fa-solid fa-lock"></i> Password</label>
       <input type="password" id="loginPassword" placeholder="••••••••">
     </div>
-    <button class="btn-login" onclick="initiateLogin()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</button>
+    <button class="btn-login" onclick="send2FACode()"><i class="fa-solid fa-paper-plane"></i> Send Verification Code</button>
     <div id="loginError" class="error-msg" style="display:none;"></div>
     <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #555;">
-      <i class="fa-solid fa-shield-halved"></i> Demo: admin@virtualcarhire.com / admin123
+      <i class="fa-solid fa-envelope"></i> Demo: any email works / password: demo123<br>
+      Code will be shown in console (email simulation)
     </div>
   </div>
 </div>
 
-<!-- 2FA Modal -->
+<!-- 2FA Modal - Email Code Entry -->
 <div id="twofaModal" class="twofa-modal">
   <div class="twofa-card">
-    <i class="fa-solid fa-mobile-alt" style="font-size: 48px; color: #f7791f; margin-bottom: 16px;"></i>
-    <h3>Two-Factor Authentication</h3>
-    <p>Enter the verification code</p>
-    <div class="twofa-code" id="twofaDisplay">000000</div>
+    <i class="fa-regular fa-envelope" style="font-size: 48px; color: #f7791f; margin-bottom: 16px;"></i>
+    <h3>Email Verification</h3>
+    <p>We've sent a 6-digit code to <strong id="userEmailDisplay"></strong></p>
     <div class="input-group">
-      <input type="text" id="twofaCode" placeholder="6-digit code" maxlength="6" style="text-align: center; font-size: 20px; letter-spacing: 4px;">
+      <input type="text" id="twofaCode" placeholder="Enter 6-digit code" maxlength="6" style="text-align: center; font-size: 20px; letter-spacing: 4px;">
     </div>
-    <button class="btn-login" onclick="verify2FA()">Verify & Continue</button>
+    <button class="btn-login" onclick="verifyEmailCode()">Verify & Access Dashboard</button>
+    <div>
+      <span class="resend-link" onclick="resendCode()"><i class="fa-solid fa-rotate-right"></i> Resend Code</span>
+    </div>
     <div id="twofaError" class="error-msg" style="display:none; margin-top: 16px;"></div>
   </div>
 </div>
@@ -286,13 +284,12 @@
   <div class="navbar">
     <div class="logo">
       <div class="mark"><i class="fa-solid fa-car"></i></div>
-      <strong>Virtual Car Hire · Year-over-Year Analytics</strong>
-      <span class="refresh-badge"><i class="fa-solid fa-chart-line"></i> Live Tracking</span>
+      <strong>Virtual Car Hire · Live Analytics</strong>
+      <span class="live-badge"><i class="fa-solid fa-circle" style="font-size: 8px;"></i> LIVE</span>
     </div>
     <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
   </div>
 
-  <!-- Key Metrics -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-title"><i class="fa-solid fa-calendar"></i> All-Time Visitors</div>
@@ -307,26 +304,21 @@
       <div class="stat-value" id="uniqueLifetime">0</div>
     </div>
     <div class="stat-card">
-      <div class="stat-title"><i class="fa-solid fa-clock"></i> Last Visit</div>
+      <div class="stat-title"><i class="fa-solid fa-clock"></i> Last Live Visit</div>
       <div class="stat-value" id="lastVisitTime" style="font-size: 18px; background: none; -webkit-text-fill-color: #fff;">--:--:--</div>
     </div>
   </div>
 
-  <!-- Yearly Chart -->
   <div class="chart-container">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
-      <h3><i class="fa-solid fa-chart-line"></i> Historical Traffic (Yearly Breakdown)</h3>
+      <h3><i class="fa-solid fa-chart-line"></i> Historical Traffic (Year-over-Year)</h3>
       <div class="year-selector" id="yearSelector"></div>
     </div>
     <canvas id="yearlyChart" width="800" height="300" style="max-height: 300px; width: 100%;"></canvas>
-    <div style="margin-top: 16px; text-align: center; font-size: 12px; color: #888;">
-      <i class="fa-solid fa-chart-column"></i> Monthly visitors for selected year
-    </div>
   </div>
 
-  <!-- Recent Visitors List -->
   <div class="visitors-list">
-    <h3 style="margin-bottom: 16px;"><i class="fa-solid fa-list-ul"></i> Recent Visitors (Last 50)</h3>
+    <h3 style="margin-bottom: 16px;"><i class="fa-solid fa-list-ul"></i> Recent Live Visitors</h3>
     <div id="visitorsList">
       <div style="text-align: center; color: #666; padding: 20px;">Loading history...</div>
     </div>
@@ -334,15 +326,94 @@
 </div>
 
 <script>
-  // ==================== PERSISTENT ANALYTICS ENGINE ====================
-  // Uses localStorage to store ALL historical data across years
-  // Data structure:
-  // {
-  //   visitors: [{ id, ip, timestamp, year, month, day, userAgent }],
-  //   totalCount: number,
-  //   uniqueIPs: Set (stored as array)
-  // }
+  // ==================== EMAIL-BASED 2FA SYSTEM ====================
+  // Since this is a front-end demo, we simulate email sending by showing code in console
+  // In production, this would call a backend API that sends real emails via SMTP
   
+  let pending2FACode = null;
+  let pendingEmail = null;
+  let verifiedSession = false;
+  
+  // Send verification code to email (simulated - shows in console, but user can also see alert)
+  function send2FACode() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const errorDiv = document.getElementById('loginError');
+    
+    // Simple validation - demo mode accepts any email with password "demo123"
+    if (!email || !password) {
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Please enter email and password';
+      return;
+    }
+    
+    if (password !== 'demo123') {
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Invalid password. Use: demo123';
+      return;
+    }
+    
+    // Generate random 6-digit code
+    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    pending2FACode = code;
+    pendingEmail = email;
+    
+    // SIMULATE EMAIL SENDING
+    // In a real implementation, this would be an AJAX call to a backend endpoint
+    console.log(`📧 EMAIL SENT TO ${email}: Your verification code is ${code}`);
+    
+    // Show simulated email notification
+    errorDiv.style.display = 'block';
+    errorDiv.className = 'success-msg';
+    errorDiv.innerHTML = `<i class="fa-solid fa-envelope"></i> Verification code sent to ${email}! Check console or use code: ${code}`;
+    
+    // Show 2FA modal after 1 second
+    setTimeout(() => {
+      document.getElementById('userEmailDisplay').innerText = email;
+      document.getElementById('twofaModal').style.display = 'flex';
+      document.getElementById('twofaCode').value = '';
+      document.getElementById('twofaError').style.display = 'none';
+      errorDiv.style.display = 'none';
+    }, 1000);
+  }
+  
+  function resendCode() {
+    if (pendingEmail) {
+      const newCode = Math.floor(100000 + Math.random() * 900000).toString();
+      pending2FACode = newCode;
+      console.log(`📧 RESENT CODE to ${pendingEmail}: ${newCode}`);
+      const errorDiv = document.getElementById('twofaError');
+      errorDiv.style.display = 'block';
+      errorDiv.className = 'success-msg';
+      errorDiv.innerHTML = `<i class="fa-solid fa-envelope"></i> New code sent! Check console: ${newCode}`;
+      setTimeout(() => {
+        errorDiv.style.display = 'none';
+      }, 3000);
+    }
+  }
+  
+  function verifyEmailCode() {
+    const enteredCode = document.getElementById('twofaCode').value;
+    const errorDiv = document.getElementById('twofaError');
+    
+    if (enteredCode === pending2FACode) {
+      // Login successful
+      verifiedSession = true;
+      document.getElementById('twofaModal').style.display = 'none';
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      
+      // Initialize analytics and start live tracking
+      loadAnalyticsData();
+      startLiveTracking();
+    } else {
+      errorDiv.style.display = 'block';
+      errorDiv.className = 'error-msg';
+      errorDiv.innerHTML = '<i class="fa-solid fa-xmark"></i> Invalid verification code. Please try again.';
+    }
+  }
+  
+  // ==================== LIVE ANALYTICS ENGINE ====================
   let analyticsData = {
     visitors: [],
     totalCount: 0,
@@ -351,10 +422,10 @@
   
   let currentChart = null;
   let currentSelectedYear = new Date().getFullYear();
+  let liveInterval = null;
   
-  // Load data from localStorage
   function loadAnalyticsData() {
-    const stored = localStorage.getItem('vch_analytics_full');
+    const stored = localStorage.getItem('vch_live_analytics');
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
@@ -364,7 +435,7 @@
       } catch(e) { console.warn(e); }
     }
     
-    // If empty, seed with some demo historical data (2022, 2023, 2024, 2025, 2026)
+    // Seed historical data if empty (2022-2026)
     if (analyticsData.visitors.length === 0) {
       seedHistoricalData();
     }
@@ -375,34 +446,25 @@
     updateChartForYear(currentSelectedYear);
   }
   
-  // Seed realistic historical data across years
   function seedHistoricalData() {
     const years = [2022, 2023, 2024, 2025, 2026];
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    const demoIPs = ['192.168.1.101','192.168.1.102','10.0.0.55','172.16.0.23','8.8.8.8','31.41.60.12','45.79.120.3','77.88.99.12'];
+    const demoIPs = ['185.145.32.1', '192.168.1.55', '10.0.0.101', '172.31.0.22', '88.77.66.55', '45.33.22.11', '31.41.60.7'];
     
     for (let year of years) {
+      let baseMultiplier = year === 2022 ? 15 : year === 2023 ? 30 : year === 2024 ? 55 : year === 2025 ? 90 : 50;
       for (let month = 0; month < 12; month++) {
-        // Generate random visitors count based on year (more recent = more traffic)
-        let baseCount = 0;
-        if (year === 2022) baseCount = Math.floor(Math.random() * 30) + 10;
-        else if (year === 2023) baseCount = Math.floor(Math.random() * 50) + 25;
-        else if (year === 2024) baseCount = Math.floor(Math.random() * 80) + 50;
-        else if (year === 2025) baseCount = Math.floor(Math.random() * 120) + 80;
-        else baseCount = Math.floor(Math.random() * 60) + 40; // 2026 partial
-        
-        for (let i = 0; i < baseCount; i++) {
+        let count = Math.floor(Math.random() * baseMultiplier) + 5;
+        for (let i = 0; i < count; i++) {
           const day = Math.floor(Math.random() * 28) + 1;
           const timestamp = new Date(year, month, day, Math.floor(Math.random()*24), Math.floor(Math.random()*60)).getTime();
           const randomIP = demoIPs[Math.floor(Math.random() * demoIPs.length)];
           analyticsData.visitors.push({
-            id: Date.now() + i + Math.random(),
+            id: timestamp + i,
             ip: randomIP,
             timestamp: timestamp,
             year: year,
             month: month,
-            day: day,
-            userAgent: 'Mozilla/5.0'
+            day: day
           });
           if (!analyticsData.uniqueIPs.includes(randomIP)) {
             analyticsData.uniqueIPs.push(randomIP);
@@ -410,16 +472,14 @@
         }
       }
     }
-    // Sort by timestamp
-    analyticsData.visitors.sort((a,b) => a.timestamp - b.timestamp);
+    analyticsData.visitors.sort((a,b) => b.timestamp - a.timestamp);
     analyticsData.totalCount = analyticsData.visitors.length;
     saveAnalyticsData();
   }
   
-  // Add a new visitor (called when page loads or periodically)
-  function addCurrentVisitor() {
-    // Generate a semi-unique IP for demo (real implementation would get real IP)
-    const fakeIP = `visitor_${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+  // Add a live visitor (simulates real traffic)
+  function addLiveVisitor() {
+    const fakeIP = `${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
     const now = new Date();
     const newVisitor = {
       id: Date.now(),
@@ -427,8 +487,7 @@
       timestamp: now.getTime(),
       year: now.getFullYear(),
       month: now.getMonth(),
-      day: now.getDate(),
-      userAgent: navigator.userAgent
+      day: now.getDate()
     };
     
     analyticsData.visitors.unshift(newVisitor);
@@ -438,52 +497,45 @@
       analyticsData.uniqueIPs.push(fakeIP);
     }
     
-    // Keep only last 5000 visitors for performance
-    if (analyticsData.visitors.length > 5000) {
-      analyticsData.visitors = analyticsData.visitors.slice(0, 5000);
+    // Keep last 3000 for performance
+    if (analyticsData.visitors.length > 3000) {
+      analyticsData.visitors = analyticsData.visitors.slice(0, 3000);
     }
     
     saveAnalyticsData();
     updateMetrics();
     renderVisitorsList();
     updateChartForYear(currentSelectedYear);
-    updateLastVisitDisplay();
   }
   
   function saveAnalyticsData() {
     const toStore = {
-      visitors: analyticsData.visitors.slice(0, 5000),
+      visitors: analyticsData.visitors.slice(0, 3000),
       totalCount: analyticsData.totalCount,
       uniqueIPs: analyticsData.uniqueIPs
     };
-    localStorage.setItem('vch_analytics_full', JSON.stringify(toStore));
+    localStorage.setItem('vch_live_analytics', JSON.stringify(toStore));
   }
   
   function updateMetrics() {
     document.getElementById('allTimeVisitors').innerText = analyticsData.totalCount.toLocaleString();
     document.getElementById('uniqueLifetime').innerText = analyticsData.uniqueIPs.length.toLocaleString();
     
-    // This year visitors
     const currentYear = new Date().getFullYear();
     const thisYearCount = analyticsData.visitors.filter(v => v.year === currentYear).length;
     document.getElementById('thisYearVisitors').innerText = thisYearCount.toLocaleString();
-  }
-  
-  function updateLastVisitDisplay() {
-    const lastVisitor = analyticsData.visitors[0];
-    if (lastVisitor) {
-      const date = new Date(lastVisitor.timestamp);
-      document.getElementById('lastVisitTime').innerHTML = date.toLocaleString();
-    } else {
-      document.getElementById('lastVisitTime').innerHTML = 'No data';
+    
+    if (analyticsData.visitors.length > 0) {
+      const last = new Date(analyticsData.visitors[0].timestamp);
+      document.getElementById('lastVisitTime').innerHTML = last.toLocaleString();
     }
   }
   
   function renderVisitorsList() {
     const container = document.getElementById('visitorsList');
-    const recent = analyticsData.visitors.slice(0, 50);
+    const recent = analyticsData.visitors.slice(0, 30);
     if (recent.length === 0) {
-      container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">No visitors recorded yet</div>';
+      container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">No visitors yet</div>';
       return;
     }
     container.innerHTML = recent.map(v => `
@@ -529,8 +581,7 @@
           backgroundColor: 'rgba(247,121,31,0.7)',
           borderColor: '#f7791f',
           borderWidth: 1,
-          borderRadius: 8,
-          barPercentage: 0.65
+          borderRadius: 8
         }]
       },
       options: {
@@ -548,76 +599,33 @@
     });
   }
   
-  // Auto-track visitor on page load (for real-time)
-  let trackingInterval;
-  function startTracking() {
-    // Track current visit
-    addCurrentVisitor();
-    // Simulate new visitors every 30 seconds for demo (shows real-time growth)
-    trackingInterval = setInterval(() => {
-      if (document.getElementById('dashboard').style.display === 'block') {
-        addCurrentVisitor();
+  function startLiveTracking() {
+    if (liveInterval) clearInterval(liveInterval);
+    // Add immediate visitor
+    addLiveVisitor();
+    // Add new visitor every 20 seconds to simulate live traffic
+    liveInterval = setInterval(() => {
+      if (verifiedSession) {
+        addLiveVisitor();
       }
-    }, 30000);
-  }
-  
-  // ==================== SECURE LOGIN SYSTEM ====================
-  const VALID_EMAIL = "admin@virtualcarhire.com";
-  const VALID_PASSWORD = "admin123";
-  
-  function initiateLogin() {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    const errorDiv = document.getElementById('loginError');
-    
-    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
-      errorDiv.style.display = 'none';
-      // Generate random 6-digit 2FA code
-      const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
-      sessionStorage.setItem('2fa_code', randomCode);
-      document.getElementById('twofaDisplay').innerText = randomCode;
-      document.getElementById('twofaModal').style.display = 'flex';
-      document.getElementById('twofaCode').value = '';
-      document.getElementById('twofaError').style.display = 'none';
-    } else {
-      errorDiv.style.display = 'block';
-      errorDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Invalid credentials. Use: admin@virtualcarhire.com / admin123';
-    }
-  }
-  
-  function verify2FA() {
-    const enteredCode = document.getElementById('twofaCode').value;
-    const storedCode = sessionStorage.getItem('2fa_code');
-    const errorDiv = document.getElementById('twofaError');
-    
-    if (enteredCode === storedCode) {
-      document.getElementById('twofaModal').style.display = 'none';
-      document.getElementById('loginOverlay').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      
-      // Load analytics data and start tracking
-      loadAnalyticsData();
-      startTracking();
-    } else {
-      errorDiv.style.display = 'block';
-      errorDiv.innerHTML = '<i class="fa-solid fa-xmark"></i> Invalid verification code. Please try again.';
-    }
+    }, 20000);
   }
   
   function logout() {
-    if (trackingInterval) clearInterval(trackingInterval);
+    if (liveInterval) clearInterval(liveInterval);
+    verifiedSession = false;
+    pending2FACode = null;
     document.getElementById('dashboard').style.display = 'none';
     document.getElementById('loginOverlay').style.display = 'flex';
-    document.getElementById('loginEmail').value = VALID_EMAIL;
-    document.getElementById('loginPassword').value = VALID_PASSWORD;
-    sessionStorage.removeItem('2fa_code');
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPassword').value = '';
     if (currentChart) currentChart.destroy();
   }
   
-  // Pre-fill demo credentials
+  // Auto-fill demo credentials
   window.onload = () => {
     document.getElementById('loginEmail').value = 'admin@virtualcarhire.com';
-    document.getElementById('loginPassword').value = 'admin123';
+    document.getElementById('loginPassword').value = 'demo123';
   };
 </script>
 </body>
