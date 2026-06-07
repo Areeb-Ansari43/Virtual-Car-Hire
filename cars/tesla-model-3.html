@@ -540,48 +540,68 @@ section{padding:110px 0;position:relative}
 }
 
         
-        /* Overrides for better spacing and requested aesthetics */
-        body { background-color: #0f0f12; color: #fff; line-height: 1.4; }
+        /* Specific Aesthetics and Hover Effects */
+        body { background-color: #0f0f12; color: #fff; }
         section { padding: 60px 0; }
-        .car-hero { padding: 100px 0 40px; }
-        .hero-title { margin-bottom: 10px; }
-        .price-tag { margin: 10px 0; }
-        .spec-card { padding: 16px; }
-        .info-panel { padding: 30px; }
+        .car-hero { background: #0f0f12; padding: 120px 0 60px; }
+        .hero-title { color: #fff; font-family: 'Playfair Display', serif; margin-bottom: 10px; }
+        .price-tag { color: var(--orange); font-size: 48px; font-weight: 700; margin: 15px 0; }
         
-        /* Fixed Bottom Nav Bar */
-        .bottom-nav {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 15, 18, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 16px;
-            border-radius: 999px;
-            display: flex;
-            gap: 12px;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .bottom-nav a {
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 999px;
+        /* Specification Cards with Icons and Hover Effects */
+        .spec-card { 
+            background: #fff; 
+            color: #1c1c20; 
+            border-radius: 16px; 
+            padding: 18px; 
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #eee;
+        }
+        .spec-card:hover { 
+            transform: translateY(-8px) scale(1.02); 
+            box-shadow: 0 15px 35px rgba(247, 121, 31, 0.3); 
+            border-color: var(--orange); 
+            background: #fafafa;
+        }
+        .spec-card i { 
+            font-size: 22px; 
+            color: var(--orange); 
+            width: 40px;
+            text-align: center;
+        }
+        .spec-label { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .spec-value { font-weight: 700; font-size: 16px; }
+
+        /* Floating Bottom Bar (WhatsApp Style) */
+        .floating-action-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .action-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
         }
-        .bottom-nav a:hover {
-            background: var(--grad-orange);
-            transform: translateY(-2px);
+        .action-btn:hover {
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 0 15px 35px rgba(247, 121, 31, 0.4);
         }
-        .bottom-nav a i { font-size: 14px; color: var(--orange); }
-        .bottom-nav a:hover i { color: #fff; }
+        .action-btn.whatsapp { background: #25d366; }
+        .action-btn.call { background: var(--grad-orange); }
 
         .glow-orange:hover {
             box-shadow: 0 0 20px 5px rgba(247, 121, 31, 0.5);
@@ -633,26 +653,26 @@ section{padding:110px 0;position:relative}
     <main>
         <section class="car-hero">
             <div class="container">
-                <a href="../our-fleet.html" class="crumbs" style="display: inline-flex; align-items: center; gap: 8px; color: #888; margin-bottom: 20px;">
+                <a href="../our-fleet.html" class="crumbs" style="display: inline-flex; align-items: center; gap: 8px; color: #888; margin-bottom: 25px;">
                     <i class="fas fa-arrow-left"></i> Back to Fleet
                 </a>
                 
-                <div class="hero-grid" style="gap: 40px;">
+                <div class="hero-grid" style="gap: 50px;">
                     <div>
                         <span class="eyebrow" style="margin-bottom: 8px;">Full Electric</span>
-                        <h1 class="hero-title" style="font-size: 54px;">Tesla Model 3</h1>
+                        <h1 class="hero-title" style="font-size: clamp(40px, 6vw, 64px);">Tesla Model 3</h1>
                         <p class="hero-sub" style="font-size: 18px;">Full Electric · Saloon</p>
                         
                         <p style="color: #aaa; margin: 15px 0; max-width: 500px; line-height: 1.5; font-size: 15px;">
                             The Tesla Model 3 is a premium choice for professional PCO drivers. Cutting-edge electric performance with access to the Supercharger network for quick turnarounds.
                         </p>
 
-                        <div class="price-tag" style="font-size: 42px;">£260/wk <span style="font-size: 14px; color: #888; font-weight: 400;">/week</span></div>
-                        <p style="color: var(--orange); font-size: 13px; margin-bottom: 25px;"><i class="fas fa-check-circle"></i> Insurance, service & breakdown included</p>
+                        <div class="price-tag">£260/wk <span style="font-size: 16px; color: #888; font-weight: 400;">/week</span></div>
+                        <p style="color: var(--orange); font-size: 13px; margin-bottom: 30px;"><i class="fas fa-check-circle"></i> Insurance, service & breakdown included</p>
 
                         <div class="hero-cta" style="gap: 12px;">
                             <a href="../contact-us.html" class="btn btn-primary glow-orange">Book This Car</a>
-                            <a href="https://wa.me/447508496940" class="btn btn-wa glow-orange"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+                            <a href="https://wa.me/447508496940" class="btn btn-wa glow-orange" style="background: transparent; border: 1px dashed rgba(255,255,255,0.3); color: #fff;"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
                         </div>
                     </div>
                     
@@ -666,37 +686,59 @@ section{padding:110px 0;position:relative}
             </div>
         </section>
 
-        <section style="background: #fff; padding: 60px 0; color: #1c1c20;">
+        <section style="background: #fff; padding: 70px 0; color: #1c1c20;">
             <div class="container">
-                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px;">
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px;">
                     <div>
-                        <h2 class="title" style="font-size: 28px; margin-bottom: 30px;">Specifications</h2>
-                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                        <h2 class="title" style="font-size: 30px; margin-bottom: 35px;">Specifications</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
                             <div class="spec-card">
-                                <div style="color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Seats</div>
-                                <div style="font-weight: 700; font-size: 16px;">5</div>
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <div class="spec-label">Seats</div>
+                                    <div class="spec-value">5 Passengers</div>
+                                </div>
                             </div>
                             <div class="spec-card">
-                                <div style="color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Transmission</div>
-                                <div style="font-weight: 700; font-size: 16px;">Auto</div>
+                                <i class="fas fa-cog"></i>
+                                <div>
+                                    <div class="spec-label">Transmission</div>
+                                    <div class="spec-value">Auto</div>
+                                </div>
                             </div>
                             <div class="spec-card">
-                                <div style="color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Year</div>
-                                <div style="font-weight: 700; font-size: 16px;">2021–24</div>
+                                <i class="fas fa-calendar-check"></i>
+                                <div>
+                                    <div class="spec-label">Year</div>
+                                    <div class="spec-value">2021–24</div>
+                                </div>
                             </div>
                             <div class="spec-card">
-                                <div style="color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Fuel Type</div>
-                                <div style="font-weight: 700; font-size: 16px;">Full Electric</div>
+                                <i class="fas fa-gas-pump"></i>
+                                <div>
+                                    <div class="spec-label">Fuel Type</div>
+                                    <div class="spec-value">Full Electric</div>
+                                </div>
                             </div>
                             <div class="spec-card">
-                                <div style="color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px;">Top Mileage</div>
-                                <div style="font-weight: 700; font-size: 16px;">300+ Miles</div>
+                                <i class="fas fa-tachometer-alt"></i>
+                                <div>
+                                    <div class="spec-label">Top Mileage</div>
+                                    <div class="spec-value">300+ Miles</div>
+                                </div>
+                            </div>
+                            <div class="spec-card">
+                                <i class="fas fa-shield-halved"></i>
+                                <div>
+                                    <div class="spec-label">Insurance</div>
+                                    <div class="spec-value">Included</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div style="margin-top: 40px;">
-                            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Platforms</h3>
-                            <div style="display: flex; gap: 20px; font-size: 16px; font-weight: 600; color: #555;">
+                        <div style="margin-top: 45px;">
+                            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Supported Platforms</h3>
+                            <div style="display: flex; gap: 25px; font-size: 16px; font-weight: 600; color: #555;">
                                 <span><i class="fas fa-check" style="color:var(--orange)"></i> Uber</span> 
                                 <span><i class="fas fa-check" style="color:var(--orange)"></i> Bolt</span> 
                                 <span><i class="fas fa-check" style="color:var(--orange)"></i> Free Now</span>
@@ -704,45 +746,45 @@ section{padding:110px 0;position:relative}
                         </div>
                     </div>
 
-                    <div class="info-panel">
-                        <h3 style="color: #fff; font-size: 20px; margin-bottom: 8px;">PCO Car Ready</h3>
-                        <p style="color: #888; font-size: 13px; margin-bottom: 20px;">Trust In Virtual Car Hire</p>
+                    <div class="info-panel" style="background: #16161b; border: 1px solid #222; border-radius: 24px; padding: 35px;">
+                        <h3 style="color: #fff; font-size: 22px; margin-bottom: 8px;">PCO Car Ready</h3>
+                        <p style="color: #888; font-size: 13px; margin-bottom: 25px;">Trust In Virtual Car Hire</p>
                         
-                        <ul style="list-style: none; color: #ddd; line-height: 2; font-size: 14px;">
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> PCO Licence</li>
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> Comprehensive Insurance</li>
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> Road Tax</li>
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> Service & MOT</li>
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> Uber Ready</li>
-                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 8px;"></i> Fully Maintained</li>
+                        <ul style="list-style: none; color: #ddd; line-height: 2.2; font-size: 14px;">
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> PCO Licence</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Comprehensive Insurance</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Road Tax</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Service & MOT</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Uber Ready Documents</li>
+                            <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Fully Maintained</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section style="background: #faf7f3; padding: 60px 0; color: #1c1c20;">
+        <section style="background: #faf7f3; padding: 70px 0; color: #1c1c20;">
             <div class="container">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;">
                     <div>
-                        <h2 class="title" style="font-size: 28px;">Rental Requirements</h2>
-                        <p style="color: #666; margin-bottom: 20px; font-size: 14px;">No surprises, no hidden requirements.</p>
+                        <h2 class="title" style="font-size: 30px;">Rental Requirements</h2>
+                        <p style="color: #666; margin-bottom: 25px; font-size: 14px;">No surprises, no hidden requirements.</p>
                         
                         <div style="display: grid; gap: 15px;">
-                            <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                            <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid #eee; transition: all 0.3s ease;" class="glow-orange">
                                 <h4 style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Age Requirement</h4>
                                 <p style="color: #666; font-size: 13px;">Minimum age: <strong>25 years old</strong>. Held a full UK licence for at least 1 year.</p>
                             </div>
-                            <div style="background: #fff; padding: 20px; border-radius: 12px; border: 1px solid #eee;">
+                            <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid #eee; transition: all 0.3s ease;" class="glow-orange">
                                 <h4 style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Documents Needed</h4>
                                 <p style="color: #666; font-size: 13px;">UK DVLA photocard, TfL PCO badge, and Proof of Address.</p>
                             </div>
                         </div>
                     </div>
                     
-                    <div style="text-align: center; background: #16161b; padding: 40px; border-radius: 24px; color: #fff;">
-                        <h3 class="serif italic" style="font-size: 24px; margin-bottom: 15px;">Interested in the Tesla Model 3?</h3>
-                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="text-align: center; background: #16161b; padding: 45px; border-radius: 28px; color: #fff;">
+                        <h3 class="serif italic" style="font-size: 26px; margin-bottom: 20px;">Interested in the Tesla Model 3?</h3>
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
                             <a href="../contact-us.html" class="btn btn-primary glow-orange">Contact Us</a>
                             <a href="../our-fleet.html" class="btn btn-ghost glow-orange">Browse Fleet</a>
                         </div>
@@ -752,15 +794,13 @@ section{padding:110px 0;position:relative}
         </section>
     </main>
 
-    <!-- Fixed Bottom Nav -->
-    <div class="bottom-nav">
-        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
-        <a href="../our-fleet.html"><i class="fas fa-car"></i> Fleet</a>
-        <a href="../about-us.html"><i class="fas fa-info-circle"></i> About</a>
-        <a href="../contact-us.html"><i class="fas fa-envelope"></i> Contact</a>
+    <!-- Floating Actions (Bottom Right) -->
+    <div class="floating-action-bar">
+        <a href="https://wa.me/447508496940" class="action-btn whatsapp" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+442072946756" class="action-btn call" title="Call Us"><i class="fas fa-phone"></i></a>
     </div>
 
-    <footer class="footer" style="padding: 40px 0 100px;">
+    <footer class="footer" style="padding: 40px 0 60px;">
         <div class="container">
             <div class="foot-bot">
                 <p>© 2026 Virtual Car Hire (FA-IBI Ltd). Guaranteed to get a reply within 48 hours on WhatsApp!</p>
