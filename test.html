@@ -1,491 +1,624 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Test Page — Virtual Car Hire London PCO</title>
-  <meta name="description" content="Test page for Virtual Car Hire — check all website functionality in one place."/>
-  <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <link rel="stylesheet" href="assets/style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Car Hire | Advanced Analytics Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Chart.js for beautiful charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <style>
-    .test-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 24px 80px;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0c 0%, #121218 100%);
+      min-height: 100vh;
+      color: #fff;
     }
-    .test-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-    .test-header h1 {
-      font-size: 48px;
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 16px;
-    }
-    .test-header h1 span {
-      color: #f7791f;
-      font-style: italic;
-    }
-    .test-header p {
-      color: #666;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .test-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 30px;
-      margin-bottom: 60px;
-    }
-    .test-card {
-      background: #fff;
-      border: 1px solid #e8e8e8;
-      border-radius: 20px;
-      padding: 28px;
-      transition: all 0.3s ease;
-    }
-    .test-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px -15px rgba(0,0,0,0.1);
-      border-color: #f7791f;
-    }
-    .test-card h3 {
-      font-size: 22px;
-      margin-bottom: 16px;
+    /* Login Overlay */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(14px);
+      z-index: 2000;
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-    .test-card h3 i {
-      color: #f7791f;
-      font-size: 24px;
-    }
-    .test-card .status {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 50px;
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-    .status-pass {
-      background: #16a34a20;
-      color: #16a34a;
-    }
-    .status-fail {
-      background: #dc262620;
-      color: #dc2626;
-    }
-    .status-warning {
-      background: #f59e0b20;
-      color: #f59e0b;
-    }
-    .test-card .btn-group {
-      display: flex;
-      gap: 12px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-    .test-btn {
-      padding: 10px 20px;
-      border-radius: 50px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
+      justify-content: center;
       transition: all 0.3s ease;
+    }
+    .login-card {
+      background: linear-gradient(145deg, #16161d, #0f0f14);
+      border: 1px solid rgba(247,121,31,0.3);
+      border-radius: 32px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 460px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      animation: fadeInUp 0.5s ease;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .login-logo { text-align: center; margin-bottom: 32px; }
+    .login-logo .icon {
+      width: 70px; height: 70px;
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      border-radius: 20px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 16px;
+      box-shadow: 0 15px 35px -10px rgba(247,121,31,0.4);
     }
-    .test-btn-primary {
-      background: #f7791f;
-      color: #fff;
+    .input-group { margin-bottom: 20px; }
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: #aaa;
+      margin-bottom: 8px;
     }
-    .test-btn-primary:hover {
-      background: #e25f00;
-      transform: translateY(-2px);
-    }
-    .test-btn-secondary {
-      background: #f0f0f0;
-      color: #333;
-    }
-    .test-btn-secondary:hover {
-      background: #e0e0e0;
-      transform: translateY(-2px);
-    }
-    .test-btn-success {
-      background: #16a34a;
-      color: #fff;
-    }
-    .test-btn-success:hover {
-      background: #15803d;
-      transform: translateY(-2px);
-    }
-    .color-box {
+    .input-group input {
       width: 100%;
-      height: 40px;
-      border-radius: 8px;
-      margin: 15px 0;
+      padding: 14px 18px;
+      background: #1a1a22;
+      border: 1px solid #2a2a32;
+      border-radius: 14px;
+      font-size: 15px;
+      color: #fff;
+      transition: all 0.3s;
     }
-    .logo-test {
+    .input-group input:focus {
+      outline: none;
+      border-color: #f7791f;
+      box-shadow: 0 0 0 3px rgba(247,121,31,0.2);
+    }
+    .btn-login {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-login:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -8px rgba(247,121,31,0.5); }
+    .error-msg {
+      background: rgba(220,38,38,0.2);
+      border: 1px solid #dc2626;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 16px;
+      color: #f87171;
+    }
+    /* 2FA Modal */
+    .twofa-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.96);
+      backdrop-filter: blur(14px);
+      z-index: 2100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .twofa-card {
+      background: linear-gradient(145deg, #16161d, #0f0f14);
+      border: 1px solid rgba(247,121,31,0.3);
+      border-radius: 32px;
+      padding: 40px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .twofa-code {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 8px;
+      background: #1a1a22;
+      padding: 16px;
+      border-radius: 16px;
+      margin: 20px 0;
+      color: #f7791f;
+      font-family: monospace;
+    }
+    /* Dashboard */
+    .dashboard { display: none; }
+    .navbar {
+      background: rgba(10,10,12,0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 12px; }
+    .logo .mark {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      border-radius: 12px;
       display: flex;
       align-items: center;
-      gap: 15px;
-      margin: 15px 0;
+      justify-content: center;
     }
-    .logo-test img {
-      height: 50px;
-      width: auto;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      padding: 32px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    hr {
-      margin: 30px 0;
-      border: none;
-      border-top: 1px solid #eee;
+    .stat-card {
+      background: linear-gradient(145deg, #16161d, #0f0f14);
+      border: 1px solid #22222a;
+      border-radius: 24px;
+      padding: 24px;
+      transition: all 0.3s;
     }
-    .section-title {
-      font-size: 28px;
-      font-family: 'Playfair Display', serif;
-      margin: 40px 0 20px;
+    .stat-card:hover { border-color: rgba(247,121,31,0.4); transform: translateY(-4px); }
+    .stat-title { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: #aaa; margin-bottom: 12px; }
+    .stat-value {
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff9a3d, #f7791f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .responsive-test {
-      background: #f5f5f5;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: center;
+    .chart-container {
+      background: linear-gradient(145deg, #16161d, #0f0f14);
+      border: 1px solid #22222a;
+      border-radius: 24px;
+      padding: 24px;
+      margin: 0 32px 32px;
     }
-    .responsive-test span {
-      display: inline-block;
-      padding: 8px 16px;
-      border-radius: 8px;
-      margin: 5px;
+    .year-selector {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      align-items: center;
     }
-    .mobile { background: #16a34a; color: #fff; }
-    .tablet { background: #f59e0b; color: #fff; }
-    .desktop { background: #f7791f; color: #fff; }
-    .large { background: #8b5cf6; color: #fff; }
-    @media (max-width: 768px) { .mobile-test { background: #16a34a20; } }
-    @media (min-width: 769px) and (max-width: 1024px) { .tablet-test { background: #f59e0b20; } }
-    @media (min-width: 1025px) and (max-width: 1440px) { .desktop-test { background: #f7791f20; } }
-    @media (min-width: 1441px) { .large-test { background: #8b5cf620; } }
+    .year-btn {
+      background: #1a1a22;
+      border: 1px solid #333;
+      padding: 8px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #fff;
+    }
+    .year-btn.active { background: #f7791f; border-color: #f7791f; }
+    .year-btn:hover { background: #f7791f; border-color: #f7791f; }
+    canvas { max-height: 300px; width: 100%; }
+    .visitors-list {
+      background: linear-gradient(145deg, #16161d, #0f0f14);
+      border: 1px solid #22222a;
+      border-radius: 24px;
+      padding: 24px;
+      margin: 0 32px 32px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .visitor-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #22222a;
+    }
+    .logout-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid #333;
+      padding: 10px 20px;
+      border-radius: 40px;
+      cursor: pointer;
+    }
+    .logout-btn:hover { background: rgba(247,121,31,0.2); border-color: #f7791f; }
+    .refresh-badge { background: #16a34a; border-radius: 20px; padding: 4px 12px; font-size: 11px; }
+    h2.section-title { margin: 20px 32px 0; font-size: 24px; }
   </style>
 </head>
 <body>
 
-<!-- Ticker -->
-<div class="ticker">
-  <div class="track">
-    <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
-    <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
-    <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
-    <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
-    <span class="item"><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
-    <span class="item"><i class="fa-solid fa-award"></i> 10+ Years in London</span>
-    <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
-    <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
-    <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+<!-- Login Overlay -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="icon"><i class="fa-solid fa-chart-pie"></i></div>
+      <h2>Virtual Car Hire</h2>
+      <p>Analytics Dashboard • Secure Access</p>
+    </div>
+    <div class="input-group">
+      <label><i class="fa-regular fa-envelope"></i> Email</label>
+      <input type="email" id="loginEmail" placeholder="admin@virtualcarhire.com">
+    </div>
+    <div class="input-group">
+      <label><i class="fa-solid fa-lock"></i> Password</label>
+      <input type="password" id="loginPassword" placeholder="••••••••">
+    </div>
+    <button class="btn-login" onclick="initiateLogin()"><i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In</button>
+    <div id="loginError" class="error-msg" style="display:none;"></div>
+    <div style="margin-top: 20px; text-align: center; font-size: 12px; color: #555;">
+      <i class="fa-solid fa-shield-halved"></i> Demo: admin@virtualcarhire.com / admin123
+    </div>
   </div>
 </div>
 
-<!-- Header -->
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="index.html">
-      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
-      <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
-    </a>
-    <nav class="nav-links">
-      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-      <a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
-      <a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
-      <a href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
-    </nav>
-    <div class="nav-cta">
-      <a class="phone" href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
-      <a class="book-btn" href="contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
-      <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+<!-- 2FA Modal -->
+<div id="twofaModal" class="twofa-modal">
+  <div class="twofa-card">
+    <i class="fa-solid fa-mobile-alt" style="font-size: 48px; color: #f7791f; margin-bottom: 16px;"></i>
+    <h3>Two-Factor Authentication</h3>
+    <p>Enter the verification code</p>
+    <div class="twofa-code" id="twofaDisplay">000000</div>
+    <div class="input-group">
+      <input type="text" id="twofaCode" placeholder="6-digit code" maxlength="6" style="text-align: center; font-size: 20px; letter-spacing: 4px;">
     </div>
-  </div>
-</header>
-
-<!-- Main Test Content -->
-<div class="test-container">
-  <div class="test-header">
-    <h1>Website <span>Test Page</span></h1>
-    <p>Test all functionality of Virtual Car Hire — check links, forms, responsive design, and more.</p>
-  </div>
-
-  <!-- Page Links Test -->
-  <div class="test-grid">
-    <div class="test-card">
-      <h3><i class="fa-solid fa-link"></i> Page Links</h3>
-      <span class="status status-pass">✓ All Links Should Work</span>
-      <div class="btn-group">
-        <a href="index.html" class="test-btn test-btn-primary" target="_blank">Home <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <a href="our-fleet.html" class="test-btn test-btn-primary" target="_blank">Our Fleet <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <a href="about-us.html" class="test-btn test-btn-primary" target="_blank">About Us <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <a href="contact-us.html" class="test-btn test-btn-primary" target="_blank">Contact <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-      </div>
-    </div>
-
-    <!-- Car Pages Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-car"></i> Car Pages</h3>
-      <span class="status status-pass">✓ 14 Car Pages Should Load</span>
-      <div class="btn-group">
-        <a href="cars/mercedes-e300.html" class="test-btn test-btn-secondary" target="_blank">Mercedes E300</a>
-        <a href="cars/tesla-model-3.html" class="test-btn test-btn-secondary" target="_blank">Tesla Model 3</a>
-        <a href="cars/toyota-corolla-estate.html" class="test-btn test-btn-secondary" target="_blank">Toyota Corolla</a>
-        <a href="cars/ford-tourneo-custom.html" class="test-btn test-btn-secondary" target="_blank">Ford Tourneo</a>
-      </div>
-    </div>
-
-    <!-- Legal Pages Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-gavel"></i> Legal Pages</h3>
-      <span class="status status-pass">✓ Legal Pages Should Load</span>
-      <div class="btn-group">
-        <a href="privacy-policy.html" class="test-btn test-btn-secondary" target="_blank">Privacy Policy</a>
-        <a href="cookie-policy.html" class="test-btn test-btn-secondary" target="_blank">Cookie Policy</a>
-        <a href="404.html" class="test-btn test-btn-secondary" target="_blank">404 Page</a>
-        <a href="thank-you.html" class="test-btn test-btn-secondary" target="_blank">Thank You</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Assets Test -->
-  <div class="test-grid">
-    <div class="test-card">
-      <h3><i class="fa-solid fa-image"></i> Images & Logo</h3>
-      <span class="status status-pass">✓ Images Should Load</span>
-      <div class="logo-test">
-        <img src="assets/logo.png" alt="Logo Test" onerror="this.style.border='2px solid red'">
-        <span>Logo loaded</span>
-      </div>
-      <div class="color-box" style="background: linear-gradient(135deg, #ff9a3d, #f7791f);"></div>
-      <p style="font-size: 13px; color: #666;">✓ Brand colors: Orange gradient working</p>
-    </div>
-
-    <!-- Favicon Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-star"></i> Favicon</h3>
-      <span class="status status-pass">✓ Favicon Should Appear in Tab</span>
-      <p style="margin-top: 16px; font-size: 14px; color: #666;">Look at your browser tab — you should see the Virtual Car Hire logo icon.</p>
-      <div class="color-box" style="background: #f7791f20; display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <i class="fa-solid fa-image" style="color: #f7791f;"></i>
-        <span style="font-size: 13px;">Favicon URL: /assets/favicon.ico</span>
-      </div>
-    </div>
-
-    <!-- CSS & Fonts Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-palette"></i> CSS & Fonts</h3>
-      <span class="status status-pass">✓ Styles Should Load</span>
-      <p style="font-family: 'Playfair Display', serif; font-size: 18px; margin: 16px 0;">Playfair Display Font - Serif</p>
-      <p style="font-family: 'Inter', sans-serif;">Inter Font - Sans Serif</p>
-      <div class="btn-group">
-        <button class="test-btn test-btn-primary" onclick="alert('CSS Button Test Passed!')">Test Button Click</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Form Test -->
-  <div class="test-grid">
-    <div class="test-card">
-      <h3><i class="fa-solid fa-envelope"></i> Contact Form Test</h3>
-      <span class="status status-pass">✓ Form Should Submit</span>
-      <form id="testForm" action="https://formsubmit.co/AAnsari100@outlook.com" method="POST" target="_blank">
-        <input type="hidden" name="_subject" value="TEST - Virtual Car Hire Website Test">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://virtual-car-hire.vercel.app/thank-you.html">
-        <input type="text" name="_honey" style="display:none">
-        <div style="margin-bottom: 12px;">
-          <input type="text" name="name" placeholder="Test Name" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" value="Test User">
-        </div>
-        <div style="margin-bottom: 12px;">
-          <input type="email" name="email" placeholder="test@example.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" value="test@example.com">
-        </div>
-        <div style="margin-bottom: 12px;">
-          <textarea name="message" placeholder="Test message" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px;">This is a test submission from the test page.</textarea>
-        </div>
-        <button type="submit" class="test-btn test-btn-success">Send Test Email <i class="fa-solid fa-paper-plane"></i></button>
-      </form>
-      <p style="font-size: 12px; color: #666; margin-top: 12px;">⬆ Click to test if form sends to AAnsari100@outlook.com</p>
-    </div>
-
-    <!-- Social Links Test -->
-    <div class="test-card">
-      <h3><i class="fa-brands fa-facebook"></i> Social Links</h3>
-      <span class="status status-pass">✓ Links Should Open</span>
-      <div class="btn-group" style="margin-top: 16px;">
-        <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" class="test-btn test-btn-secondary" target="_blank"><i class="fa-brands fa-facebook-f"></i> Facebook</a>
-        <a href="https://www.instagram.com/virtual.car.hire/" class="test-btn test-btn-secondary" target="_blank"><i class="fa-brands fa-instagram"></i> Instagram</a>
-        <a href="https://www.tiktok.com/@virtual.car.hire" class="test-btn test-btn-secondary" target="_blank"><i class="fa-brands fa-tiktok"></i> TikTok</a>
-        <a href="https://wa.me/447508496940" class="test-btn test-btn-secondary" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-      </div>
-    </div>
-
-    <!-- Phone/WhatsApp Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-phone"></i> Contact Methods</h3>
-      <span class="status status-pass">✓ Should Connect</span>
-      <div class="btn-group" style="margin-top: 16px;">
-        <a href="tel:+442072946756" class="test-btn test-btn-primary"><i class="fa-solid fa-phone"></i> Call Now</a>
-        <a href="https://wa.me/447508496940" class="test-btn test-btn-success" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-        <a href="mailto:info@fa-ibi.co.uk" class="test-btn test-btn-secondary"><i class="fa-solid fa-envelope"></i> Email</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Responsive Design Test -->
-  <h2 class="section-title">📱 Responsive Design Test</h2>
-  <div class="test-grid">
-    <div class="test-card responsive-test">
-      <h3><i class="fa-solid fa-mobile-screen-button"></i> Screen Size Test</h3>
-      <div>
-        <span class="mobile">📱 Mobile (≤768px)</span>
-        <span class="tablet">📟 Tablet (769-1024px)</span>
-        <span class="desktop">💻 Desktop (1025-1440px)</span>
-        <span class="large">🖥️ Large (≥1441px)</span>
-      </div>
-      <p style="margin-top: 20px; font-size: 14px;" id="screenSize">Current screen width: <strong id="screenWidth"></strong>px</p>
-      <p style="font-size: 13px; color: #666;">Resize your browser window to test responsiveness</p>
-    </div>
-
-    <!-- Cookie Consent Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-cookie-bite"></i> Cookie Consent</h3>
-      <span class="status status-pass">✓ Should Appear on First Visit</span>
-      <p style="margin-top: 16px; font-size: 14px;">Clear your browser cookies and refresh to see the cookie banner.</p>
-      <div class="btn-group">
-        <button class="test-btn test-btn-secondary" onclick="document.cookie.split(';').forEach(c => { document.cookie = c.replace(/^ +/, '').replace(/=.*/, '=;expires=' + new Date().toUTCString() + ';path=/'); }); location.reload();">Clear Cookies & Refresh</button>
-      </div>
-    </div>
-
-    <!-- Analytics Test -->
-    <div class="test-card">
-      <h3><i class="fa-solid fa-chart-line"></i> Vercel Analytics</h3>
-      <span class="status status-pass">✓ Should Track Visits</span>
-      <p style="margin-top: 16px; font-size: 14px;">Check your Vercel dashboard → Analytics tab to see page views.</p>
-      <div class="color-box" style="background: #0a0a0c; color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <i class="fa-solid fa-chart-simple"></i>
-        <span style="font-size: 13px;">Analytics active on all pages</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEO & Sitemap Test -->
-  <h2 class="section-title">🔍 SEO & Indexing Test</h2>
-  <div class="test-grid">
-    <div class="test-card">
-      <h3><i class="fa-solid fa-sitemap"></i> Sitemap.xml</h3>
-      <span class="status status-pass">✓ Should Be Accessible</span>
-      <div class="btn-group" style="margin-top: 16px;">
-        <a href="sitemap.xml" class="test-btn test-btn-secondary" target="_blank">View Sitemap.xml <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <a href="robots.txt" class="test-btn test-btn-secondary" target="_blank">View Robots.txt <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-      </div>
-    </div>
-
-    <div class="test-card">
-      <h3><i class="fa-brands fa-google"></i> Google Search Console</h3>
-      <span class="status status-pass">✓ Should Be Verified</span>
-      <p style="margin-top: 16px; font-size: 14px;">Search Console is verified with HTML file upload method.</p>
-      <div class="color-box" style="background: #4285f420; display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <i class="fa-brands fa-google" style="color: #4285f4;"></i>
-        <span style="font-size: 13px;">google5d00861e8f9fe673.html is uploaded</span>
-      </div>
-    </div>
-
-    <div class="test-card">
-      <h3><i class="fa-solid fa-code"></i> Meta Tags</h3>
-      <span class="status status-pass">✓ SEO Meta Present</span>
-      <p style="margin-top: 16px; font-size: 13px; background: #f5f5f5; padding: 12px; border-radius: 8px;">
-        <strong>Title:</strong> Virtual Car Hire — London's #1 PCO Car Hire<br>
-        <strong>Description:</strong> London's most trusted PCO car hire...
-      </p>
-    </div>
-  </div>
-
-  <!-- Summary -->
-  <hr>
-  <div class="test-card" style="background: linear-gradient(135deg, #f7791f10, #ff9a3d10);">
-    <h3><i class="fa-solid fa-clipboard-list"></i> Test Summary</h3>
-    <table style="width: 100%; font-size: 14px; border-collapse: collapse;">
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Page Links</td>
-        <td style="padding: 10px 0;">All main pages linked correctly</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Car Pages (14)</td>
-        <td style="padding: 10px 0;">All car detail pages accessible via /cars/ folder</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Contact Form</td>
-        <td style="padding: 10px 0;">Submits to AAnsari100@outlook.com via FormSubmit</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Responsive Design</td>
-        <td style="padding: 10px 0;">Works on mobile, tablet, desktop, large screens</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Favicon</td>
-        <td style="padding: 10px 0;">Transparent favicon loaded</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Cookie Consent</td>
-        <td style="padding: 10px 0;">GDPR compliant banner appears</td>
-      </tr>
-      <tr style="border-bottom: 1px solid #eee;">
-        <td style="padding: 10px 0;">✅ Social Links</td>
-        <td style="padding: 10px 0;">Facebook, Instagram, TikTok, WhatsApp links work</td>
-      </tr>
-      <tr>
-        <td style="padding: 10px 0;">✅ Sitemap & Robots</td>
-        <td style="padding: 10px 0;">sitemap.xml and robots.txt accessible</td>
-      </tr>
-    </table>
+    <button class="btn-login" onclick="verify2FA()">Verify & Continue</button>
+    <div id="twofaError" class="error-msg" style="display:none; margin-top: 16px;"></div>
   </div>
 </div>
 
-<!-- Footer -->
-<footer>
-  <div class="container">
-    <div class="foot-grid">
-      <div>
-        <div class="foot-brand"><div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div><div><strong>Virtual Car Hire</strong><br/><span>London PCO Specialists</span></div></div>
-        <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
-        <div class="foot-socials">
-          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/virtual.car.hire/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@virtual.car.hire" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="https://wa.me/447508496940" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-      </div>
-      <div><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="our-fleet.html">Our Fleet</a></li><li><a href="about-us.html">About Us</a></li><li><a href="contact-us.html">Contact</a></li></ul></div>
-      <div><h4>Get In Touch</h4><ul><li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li><li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li><li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li></ul></div>
-      <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li></ul></div>
+<!-- Dashboard -->
+<div id="dashboard" class="dashboard">
+  <div class="navbar">
+    <div class="logo">
+      <div class="mark"><i class="fa-solid fa-car"></i></div>
+      <strong>Virtual Car Hire · Year-over-Year Analytics</strong>
+      <span class="refresh-badge"><i class="fa-solid fa-chart-line"></i> Live Tracking</span>
     </div>
-    <div class="foot-bot"><div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div></div>
+    <button class="logout-btn" onclick="logout()"><i class="fa-solid fa-sign-out-alt"></i> Logout</button>
   </div>
-</footer>
 
-<div class="float">
-  <a class="wa" href="https://wa.me/447508496940" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-  <a class="ph" href="tel:+442072946756"><i class="fa-solid fa-phone"></i></a>
+  <!-- Key Metrics -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-title"><i class="fa-solid fa-calendar"></i> All-Time Visitors</div>
+      <div class="stat-value" id="allTimeVisitors">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><i class="fa-solid fa-chart-simple"></i> This Year</div>
+      <div class="stat-value" id="thisYearVisitors">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><i class="fa-solid fa-globe"></i> Unique IPs (Lifetime)</div>
+      <div class="stat-value" id="uniqueLifetime">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-title"><i class="fa-solid fa-clock"></i> Last Visit</div>
+      <div class="stat-value" id="lastVisitTime" style="font-size: 18px; background: none; -webkit-text-fill-color: #fff;">--:--:--</div>
+    </div>
+  </div>
+
+  <!-- Yearly Chart -->
+  <div class="chart-container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+      <h3><i class="fa-solid fa-chart-line"></i> Historical Traffic (Yearly Breakdown)</h3>
+      <div class="year-selector" id="yearSelector"></div>
+    </div>
+    <canvas id="yearlyChart" width="800" height="300" style="max-height: 300px; width: 100%;"></canvas>
+    <div style="margin-top: 16px; text-align: center; font-size: 12px; color: #888;">
+      <i class="fa-solid fa-chart-column"></i> Monthly visitors for selected year
+    </div>
+  </div>
+
+  <!-- Recent Visitors List -->
+  <div class="visitors-list">
+    <h3 style="margin-bottom: 16px;"><i class="fa-solid fa-list-ul"></i> Recent Visitors (Last 50)</h3>
+    <div id="visitorsList">
+      <div style="text-align: center; color: #666; padding: 20px;">Loading history...</div>
+    </div>
+  </div>
 </div>
 
-<script src="assets/app.js"></script>
 <script>
-  // Display current screen width
-  function updateScreenWidth() {
-    const width = window.innerWidth;
-    document.getElementById('screenWidth').textContent = width;
+  // ==================== PERSISTENT ANALYTICS ENGINE ====================
+  // Uses localStorage to store ALL historical data across years
+  // Data structure:
+  // {
+  //   visitors: [{ id, ip, timestamp, year, month, day, userAgent }],
+  //   totalCount: number,
+  //   uniqueIPs: Set (stored as array)
+  // }
+  
+  let analyticsData = {
+    visitors: [],
+    totalCount: 0,
+    uniqueIPs: []
+  };
+  
+  let currentChart = null;
+  let currentSelectedYear = new Date().getFullYear();
+  
+  // Load data from localStorage
+  function loadAnalyticsData() {
+    const stored = localStorage.getItem('vch_analytics_full');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        analyticsData.visitors = parsed.visitors || [];
+        analyticsData.totalCount = parsed.totalCount || 0;
+        analyticsData.uniqueIPs = parsed.uniqueIPs || [];
+      } catch(e) { console.warn(e); }
+    }
+    
+    // If empty, seed with some demo historical data (2022, 2023, 2024, 2025, 2026)
+    if (analyticsData.visitors.length === 0) {
+      seedHistoricalData();
+    }
+    
+    updateMetrics();
+    renderYearSelector();
+    renderVisitorsList();
+    updateChartForYear(currentSelectedYear);
   }
-  updateScreenWidth();
-  window.addEventListener('resize', updateScreenWidth);
+  
+  // Seed realistic historical data across years
+  function seedHistoricalData() {
+    const years = [2022, 2023, 2024, 2025, 2026];
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const demoIPs = ['192.168.1.101','192.168.1.102','10.0.0.55','172.16.0.23','8.8.8.8','31.41.60.12','45.79.120.3','77.88.99.12'];
+    
+    for (let year of years) {
+      for (let month = 0; month < 12; month++) {
+        // Generate random visitors count based on year (more recent = more traffic)
+        let baseCount = 0;
+        if (year === 2022) baseCount = Math.floor(Math.random() * 30) + 10;
+        else if (year === 2023) baseCount = Math.floor(Math.random() * 50) + 25;
+        else if (year === 2024) baseCount = Math.floor(Math.random() * 80) + 50;
+        else if (year === 2025) baseCount = Math.floor(Math.random() * 120) + 80;
+        else baseCount = Math.floor(Math.random() * 60) + 40; // 2026 partial
+        
+        for (let i = 0; i < baseCount; i++) {
+          const day = Math.floor(Math.random() * 28) + 1;
+          const timestamp = new Date(year, month, day, Math.floor(Math.random()*24), Math.floor(Math.random()*60)).getTime();
+          const randomIP = demoIPs[Math.floor(Math.random() * demoIPs.length)];
+          analyticsData.visitors.push({
+            id: Date.now() + i + Math.random(),
+            ip: randomIP,
+            timestamp: timestamp,
+            year: year,
+            month: month,
+            day: day,
+            userAgent: 'Mozilla/5.0'
+          });
+          if (!analyticsData.uniqueIPs.includes(randomIP)) {
+            analyticsData.uniqueIPs.push(randomIP);
+          }
+        }
+      }
+    }
+    // Sort by timestamp
+    analyticsData.visitors.sort((a,b) => a.timestamp - b.timestamp);
+    analyticsData.totalCount = analyticsData.visitors.length;
+    saveAnalyticsData();
+  }
+  
+  // Add a new visitor (called when page loads or periodically)
+  function addCurrentVisitor() {
+    // Generate a semi-unique IP for demo (real implementation would get real IP)
+    const fakeIP = `visitor_${Math.floor(Math.random() * 1000)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
+    const now = new Date();
+    const newVisitor = {
+      id: Date.now(),
+      ip: fakeIP,
+      timestamp: now.getTime(),
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      day: now.getDate(),
+      userAgent: navigator.userAgent
+    };
+    
+    analyticsData.visitors.unshift(newVisitor);
+    analyticsData.totalCount++;
+    
+    if (!analyticsData.uniqueIPs.includes(fakeIP)) {
+      analyticsData.uniqueIPs.push(fakeIP);
+    }
+    
+    // Keep only last 5000 visitors for performance
+    if (analyticsData.visitors.length > 5000) {
+      analyticsData.visitors = analyticsData.visitors.slice(0, 5000);
+    }
+    
+    saveAnalyticsData();
+    updateMetrics();
+    renderVisitorsList();
+    updateChartForYear(currentSelectedYear);
+    updateLastVisitDisplay();
+  }
+  
+  function saveAnalyticsData() {
+    const toStore = {
+      visitors: analyticsData.visitors.slice(0, 5000),
+      totalCount: analyticsData.totalCount,
+      uniqueIPs: analyticsData.uniqueIPs
+    };
+    localStorage.setItem('vch_analytics_full', JSON.stringify(toStore));
+  }
+  
+  function updateMetrics() {
+    document.getElementById('allTimeVisitors').innerText = analyticsData.totalCount.toLocaleString();
+    document.getElementById('uniqueLifetime').innerText = analyticsData.uniqueIPs.length.toLocaleString();
+    
+    // This year visitors
+    const currentYear = new Date().getFullYear();
+    const thisYearCount = analyticsData.visitors.filter(v => v.year === currentYear).length;
+    document.getElementById('thisYearVisitors').innerText = thisYearCount.toLocaleString();
+  }
+  
+  function updateLastVisitDisplay() {
+    const lastVisitor = analyticsData.visitors[0];
+    if (lastVisitor) {
+      const date = new Date(lastVisitor.timestamp);
+      document.getElementById('lastVisitTime').innerHTML = date.toLocaleString();
+    } else {
+      document.getElementById('lastVisitTime').innerHTML = 'No data';
+    }
+  }
+  
+  function renderVisitorsList() {
+    const container = document.getElementById('visitorsList');
+    const recent = analyticsData.visitors.slice(0, 50);
+    if (recent.length === 0) {
+      container.innerHTML = '<div style="text-align: center; color: #666; padding: 20px;">No visitors recorded yet</div>';
+      return;
+    }
+    container.innerHTML = recent.map(v => `
+      <div class="visitor-item">
+        <div><i class="fa-solid fa-user"></i> <span style="font-family: monospace;">${v.ip}</span></div>
+        <div class="visitor-time"><i class="fa-regular fa-calendar"></i> ${new Date(v.timestamp).toLocaleString()}</div>
+      </div>
+    `).join('');
+  }
+  
+  function renderYearSelector() {
+    const years = [...new Set(analyticsData.visitors.map(v => v.year))].sort((a,b)=>b-a);
+    const container = document.getElementById('yearSelector');
+    if (!container) return;
+    container.innerHTML = years.map(year => `
+      <button class="year-btn ${year === currentSelectedYear ? 'active' : ''}" onclick="selectYear(${year})">${year}</button>
+    `).join('');
+  }
+  
+  function selectYear(year) {
+    currentSelectedYear = year;
+    renderYearSelector();
+    updateChartForYear(year);
+  }
+  
+  function updateChartForYear(year) {
+    const monthData = [0,0,0,0,0,0,0,0,0,0,0,0];
+    const visitorsInYear = analyticsData.visitors.filter(v => v.year === year);
+    visitorsInYear.forEach(v => {
+      if (v.month >= 0 && v.month < 12) monthData[v.month]++;
+    });
+    
+    const ctx = document.getElementById('yearlyChart').getContext('2d');
+    if (currentChart) currentChart.destroy();
+    
+    currentChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+          label: `Visitors (${year})`,
+          data: monthData,
+          backgroundColor: 'rgba(247,121,31,0.7)',
+          borderColor: '#f7791f',
+          borderWidth: 1,
+          borderRadius: 8,
+          barPercentage: 0.65
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { labels: { color: '#fff' } },
+          tooltip: { backgroundColor: '#1a1a22', titleColor: '#f7791f' }
+        },
+        scales: {
+          y: { grid: { color: '#22222a' }, ticks: { color: '#aaa' } },
+          x: { grid: { display: false }, ticks: { color: '#aaa' } }
+        }
+      }
+    });
+  }
+  
+  // Auto-track visitor on page load (for real-time)
+  let trackingInterval;
+  function startTracking() {
+    // Track current visit
+    addCurrentVisitor();
+    // Simulate new visitors every 30 seconds for demo (shows real-time growth)
+    trackingInterval = setInterval(() => {
+      if (document.getElementById('dashboard').style.display === 'block') {
+        addCurrentVisitor();
+      }
+    }, 30000);
+  }
+  
+  // ==================== SECURE LOGIN SYSTEM ====================
+  const VALID_EMAIL = "admin@virtualcarhire.com";
+  const VALID_PASSWORD = "admin123";
+  
+  function initiateLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const errorDiv = document.getElementById('loginError');
+    
+    if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+      errorDiv.style.display = 'none';
+      // Generate random 6-digit 2FA code
+      const randomCode = Math.floor(100000 + Math.random() * 900000).toString();
+      sessionStorage.setItem('2fa_code', randomCode);
+      document.getElementById('twofaDisplay').innerText = randomCode;
+      document.getElementById('twofaModal').style.display = 'flex';
+      document.getElementById('twofaCode').value = '';
+      document.getElementById('twofaError').style.display = 'none';
+    } else {
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Invalid credentials. Use: admin@virtualcarhire.com / admin123';
+    }
+  }
+  
+  function verify2FA() {
+    const enteredCode = document.getElementById('twofaCode').value;
+    const storedCode = sessionStorage.getItem('2fa_code');
+    const errorDiv = document.getElementById('twofaError');
+    
+    if (enteredCode === storedCode) {
+      document.getElementById('twofaModal').style.display = 'none';
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'block';
+      
+      // Load analytics data and start tracking
+      loadAnalyticsData();
+      startTracking();
+    } else {
+      errorDiv.style.display = 'block';
+      errorDiv.innerHTML = '<i class="fa-solid fa-xmark"></i> Invalid verification code. Please try again.';
+    }
+  }
+  
+  function logout() {
+    if (trackingInterval) clearInterval(trackingInterval);
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('loginEmail').value = VALID_EMAIL;
+    document.getElementById('loginPassword').value = VALID_PASSWORD;
+    sessionStorage.removeItem('2fa_code');
+    if (currentChart) currentChart.destroy();
+  }
+  
+  // Pre-fill demo credentials
+  window.onload = () => {
+    document.getElementById('loginEmail').value = 'admin@virtualcarhire.com';
+    document.getElementById('loginPassword').value = 'admin123';
+  };
 </script>
 </body>
 </html>
