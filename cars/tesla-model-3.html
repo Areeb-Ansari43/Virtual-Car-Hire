@@ -23,7 +23,7 @@
   
   <!-- Twitter Meta Tags -->
   <meta property="twitter:card" content="summary_large_image">
- meta property="twitter:url" content="https://virtualcarhire.pages.dev/cars/tesla-model-3.html">
+  <meta property="twitter:url" content="https://virtualcarhire.pages.dev/cars/tesla-model-3.html">
   <meta property="twitter:title" content="Tesla Model 3 PCO Car Hire London | Electric Vehicle Rental">
   <meta property="twitter:description" content="Hire the Tesla Model 3 for PCO driving. £260/week with insurance included. Zero emissions, Autopilot, 300+ mile range.">
   <meta property="twitter:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png">
@@ -145,48 +145,6 @@
       box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
     }
     
-    /* Bottom Navigation Bar */
-    .bottom-nav {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(20px);
-      border-radius: 50px;
-      padding: 8px 24px;
-      display: flex;
-      gap: 24px;
-      z-index: 1000;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    .bottom-nav a {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .bottom-nav a i { font-size: 14px; transition: transform 0.3s ease; }
-    .bottom-nav a:hover {
-      background: rgba(232, 93, 4, 0.25);
-      color: #e85d04;
-    }
-    .bottom-nav a:hover i {
-      transform: translateX(4px);
-      color: #e85d04;
-    }
-    .bottom-nav a.active {
-      background: rgba(232, 93, 4, 0.3);
-      color: #e85d04;
-      box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
-    }
-    
     /* Hero and other styles */
     .hero { background: #1a1a1a; padding: 40px 0 0; }
     .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
@@ -272,9 +230,9 @@
       .specs-trust { grid-template-columns: 1fr; } 
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } 
       .hero-title { font-size: 36px; }
-      .dynamic-island, .bottom-nav { padding: 6px 16px; gap: 12px; }
-      .dynamic-island a, .bottom-nav a { font-size: 11px; padding: 6px 12px; }
-      .dynamic-island a i, .bottom-nav a i { font-size: 13px; }
+      .dynamic-island { padding: 6px 16px; gap: 12px; }
+      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
+      .dynamic-island a i { font-size: 13px; }
       .nav-links a span { display: none; }
       .nav-links a i { margin: 0; }
       .nav-links { gap: 16px; }
@@ -283,9 +241,9 @@
     @media (max-width: 600px) { 
       .footer-grid { grid-template-columns: 1fr; } 
       .specs-grid { grid-template-columns: 1fr; }
-      .dynamic-island, .bottom-nav { gap: 8px; }
-      .dynamic-island a span, .bottom-nav a span { display: none; }
-      .dynamic-island a i, .bottom-nav a i { margin: 0; }
+      .dynamic-island { gap: 8px; }
+      .dynamic-island a span { display: none; }
+      .dynamic-island a i { margin: 0; }
     }
 </style>
 </head>
@@ -308,16 +266,8 @@
   </div>
 </div>
 
-<!-- Dynamic Island (appears at TOP when scrolling down) -->
+<!-- Dynamic Island (appears at TOP when scrolling down) - ONLY ONE -->
 <div class="dynamic-island" id="dynamicIsland">
-  <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
-  <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
-  <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
-  <a href="../contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
-</div>
-
-<!-- Bottom Navigation Bar (always visible at bottom) -->
-<div class="bottom-nav" id="bottomNav">
   <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
   <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
   <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
@@ -445,16 +395,15 @@
     lastScrollY = currentScrollY;
   });
   
-  // Highlight active page in all navbars
+  // Highlight active page in both navbars
   const currentPage = window.location.pathname.split('/').pop();
   const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
   
   function setActiveNavLinks() {
     const originalLinks = document.querySelectorAll('.original-nav .nav-links a');
     const islandLinks = document.querySelectorAll('.dynamic-island a');
-    const bottomLinks = document.querySelectorAll('.bottom-nav a');
     
-    const allLinks = [...originalLinks, ...islandLinks, ...bottomLinks];
+    const allLinks = [...originalLinks, ...islandLinks];
     
     allLinks.forEach(link => {
       const href = link.getAttribute('href');
