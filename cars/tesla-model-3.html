@@ -8,7 +8,6 @@
     <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
     
     <meta name="description" content="Hire the Tesla Model 3 for PCO driving in London. £260/wk per week including insurance and service.">
-    <meta name="keywords" content="Tesla Model 3, PCO car hire London, Virtual Car Hire">
     
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -529,19 +528,29 @@ section{padding:110px 0;position:relative}
 }
 
         
-        /* Strict Replication Overrides */
+        /* Final Exact Aesthetic Match */
         body { background-color: #0f0f12; color: #fff; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
         .car-hero { background: #1a1a1e; padding: 140px 0 80px; }
-        .car-visual img { width: 100%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); transition: transform 0.4s ease; }
-        .car-visual img:hover { transform: scale(1.02); }
+        .car-visual img { width: 120%; margin-left: -10%; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); transition: transform 0.4s ease; }
         
-        /* Dynamic Island Bottom Nav */
+        /* Hover Effects with Orange Glow */
+        .spec-card, .requirement-item, .feature-item, .step-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .spec-card:hover, .requirement-item:hover, .feature-item:hover, .step-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px 10px rgba(247, 121, 31, 0.3);
+            border-color: var(--orange) !important;
+            background: rgba(247, 121, 31, 0.05);
+        }
+        
         .dynamic-island-nav {
             position: fixed;
             bottom: -100px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(25, 25, 30, 0.85);
+            background: rgba(25, 25, 30, 0.9);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 10px 20px;
@@ -555,20 +564,12 @@ section{padding:110px 0;position:relative}
         .dynamic-island-nav.show { bottom: 30px; }
         .dynamic-island-nav a { color: #fff; font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 20px; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.3s ease; }
         .dynamic-island-nav a:hover { background: rgba(255, 255, 255, 0.1); color: var(--orange); }
-        .dynamic-island-nav a i { font-size: 14px; color: var(--orange); }
 
         .site-header { position: fixed; top: 0; width: 100%; transition: transform 0.4s ease, opacity 0.3s ease; z-index: 2000; }
         .site-header.hide { transform: translateY(-100%); opacity: 0; }
-
-        /* Hover Effects requested by user */
-        .spec-card, .requirement-item, .feature-item { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #eee; }
-        .spec-card:hover, .requirement-item:hover, .feature-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(247, 121, 31, 0.3);
-            border-color: var(--orange) !important;
-            background: rgba(247, 121, 31, 0.05);
-        }
-        .glow-orange:hover { box-shadow: 0 0 25px 8px rgba(247, 121, 31, 0.4); border-color: var(--orange) !important; }
+        
+        .spec-card { background: #fff; color: #1c1c20; padding: 25px; border-radius: 20px; display: flex; align-items: center; gap: 20px; }
+        .spec-card i { font-size: 24px; color: var(--orange); }
     </style>
 </head>
 <body>
@@ -607,7 +608,7 @@ section{padding:110px 0;position:relative}
     </header>
 
     <main>
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section class="car-hero">
             <div class="container">
                 <a href="../our-fleet.html" class="crumbs" style="display: inline-flex; align-items: center; gap: 8px; color: #888; margin-bottom: 25px;">
@@ -623,7 +624,7 @@ section{padding:110px 0;position:relative}
                         <p style="color: var(--orange); font-size: 14px; margin-bottom: 35px;"><i class="fas fa-check-circle"></i> Insurance, service & breakdown included</p>
                         <div class="hero-cta" style="gap: 15px;">
                             <a href="../contact-us.html" class="btn btn-primary glow-orange">Book This Car</a>
-                            <a href="tel:+442072946756" class="btn btn-ghost glow-orange"><i class="fas fa-phone"></i> Call Us</a>
+                            <a href="https://wa.me/447508496940" class="btn btn-wa glow-orange" style="background: transparent; border: 1px dashed rgba(255,255,255,0.3); color: #fff;"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
                         </div>
                     </div>
                     <div class="car-visual"><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3"></div>
@@ -634,25 +635,25 @@ section{padding:110px 0;position:relative}
             </div>
         </section>
 
-        <!-- Specifications Section -->
+        <!-- Specs & Features -->
         <section style="background: #fff; color: #1c1c20;">
             <div class="container">
                 <h2 class="title" style="font-size: 32px; margin-bottom: 40px;">Specifications</h2>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
-                    <div class="spec-card" style="background:#f9f9f9; padding:25px; border-radius:20px; display:flex; align-items:center; gap:20px;">
-                        <i class="fas fa-users" style="font-size:24px; color:var(--orange);"></i>
+                    <div class="spec-card">
+                        <i class="fas fa-users"></i>
                         <div><div style="color:#888; font-size:11px; text-transform:uppercase;">Seats</div><div style="font-weight:700; font-size:18px;">5</div></div>
                     </div>
-                    <div class="spec-card" style="background:#f9f9f9; padding:25px; border-radius:20px; display:flex; align-items:center; gap:20px;">
-                        <i class="fas fa-cog" style="font-size:24px; color:var(--orange);"></i>
+                    <div class="spec-card">
+                        <i class="fas fa-cog"></i>
                         <div><div style="color:#888; font-size:11px; text-transform:uppercase;">Transmission</div><div style="font-weight:700; font-size:18px;">Auto</div></div>
                     </div>
-                    <div class="spec-card" style="background:#f9f9f9; padding:25px; border-radius:20px; display:flex; align-items:center; gap:20px;">
-                        <i class="fas fa-calendar-alt" style="font-size:24px; color:var(--orange);"></i>
+                    <div class="spec-card">
+                        <i class="fas fa-calendar-alt"></i>
                         <div><div style="color:#888; font-size:11px; text-transform:uppercase;">Year</div><div style="font-weight:700; font-size:18px;">2021–24</div></div>
                     </div>
-                    <div class="spec-card" style="background:#f9f9f9; padding:25px; border-radius:20px; display:flex; align-items:center; gap:20px;">
-                        <i class="fas fa-car" style="font-size:24px; color:var(--orange);"></i>
+                    <div class="spec-card">
+                        <i class="fas fa-car"></i>
                         <div><div style="color:#888; font-size:11px; text-transform:uppercase;">Body Type</div><div style="font-weight:700; font-size:18px;">Full Electric</div></div>
                     </div>
                 </div>
@@ -677,7 +678,7 @@ section{padding:110px 0;position:relative}
             </div>
         </section>
 
-        <!-- What's Included Section -->
+        <!-- What's Included & Join Us -->
         <section style="background: #0f0f12; color: #fff;">
             <div class="container">
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px;">
@@ -693,20 +694,19 @@ section{padding:110px 0;position:relative}
                             <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 12px;"></i> Uber Ready Documents</li>
                             <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 12px;"></i> Fully Maintained (inc. Tyres and Brakes)</li>
                         </ul>
-                        <a href="../contact-us.html" class="btn btn-primary glow-orange" style="margin-top: 30px;">Contact Us</a>
                     </div>
                     <div>
                         <h3 style="font-size: 20px; color: var(--orange); margin-bottom: 25px;">What You Will Need To Join Us</h3>
                         <div style="display: grid; gap: 20px;">
-                            <div class="requirement-item" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
+                            <div class="step-card" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
                                 <div style="width:40px; height:40px; background:var(--orange); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">1</div>
                                 <div><h4 style="margin:0 0 5px 0;">PCO Badge & Paper Number</h4><p style="color:#888; margin:0; font-size:14px;">Valid TfL PCO credentials required.</p></div>
                             </div>
-                            <div class="requirement-item" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
+                            <div class="step-card" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
                                 <div style="width:40px; height:40px; background:var(--orange); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">2</div>
                                 <div><h4 style="margin:0 0 5px 0;">DVLA Photocard</h4><p style="color:#888; margin:0; font-size:14px;">Front & back copy plus Proof of Address.</p></div>
                             </div>
-                            <div class="requirement-item" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
+                            <div class="step-card" style="background:#16161b; padding:25px; border-radius:20px; display:flex; gap:20px; border:1px solid #222;">
                                 <div style="width:40px; height:40px; background:var(--orange); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">3</div>
                                 <div><h4 style="margin:0 0 5px 0;">National Insurance Number</h4><p style="color:#888; margin:0; font-size:14px;">Required for verification purposes.</p></div>
                             </div>
@@ -716,25 +716,25 @@ section{padding:110px 0;position:relative}
             </div>
         </section>
 
-        <!-- Rental Requirements Section -->
+        <!-- Rental Requirements -->
         <section style="background: #faf7f3; color: #1c1c20;">
             <div class="container">
                 <h2 class="title" style="text-align: center;">Rental Requirements</h2>
                 <p style="text-align: center; color: #666; margin-bottom: 60px;">Everything you need to know before getting started — no surprises, no hidden requirements.</p>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
-                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px; border:1px solid #eee;">
+                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px;">
                         <h3 style="font-size:20px; margin-bottom:15px;">Age Requirement</h3>
                         <p style="color:#666; line-height:1.6;">Minimum age: <strong>25 years old</strong><br>Held a full UK licence for at least <strong>1 year</strong><br>Valid TfL PCO badge required</p>
                     </div>
-                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px; border:1px solid #eee;">
+                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px;">
                         <h3 style="font-size:20px; margin-bottom:15px;">Documents Needed</h3>
                         <p style="color:#666; line-height:1.6;">UK DVLA photocard licence (front & back)<br>TfL PHV (PCO) badge & paper number<br>Proof of address (utility bill or bank statement)</p>
                     </div>
-                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px; border:1px solid #eee;">
+                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px;">
                         <h3 style="font-size:20px; margin-bottom:15px;">Insurance Details</h3>
                         <p style="color:#666; line-height:1.6;">Fully comprehensive motor trade insurance included<br>Covers PCO private hire use<br>Breakdown & roadside recovery covered</p>
                     </div>
-                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px; border:1px solid #eee;">
+                    <div class="requirement-item" style="background:#fff; padding:30px; border-radius:24px;">
                         <h3 style="font-size:20px; margin-bottom:15px;">Good To Know</h3>
                         <p style="color:#666; line-height:1.6;">Minimum 6-week contract term<br>1-week notice required to return<br>5,000 miles/month included</p>
                     </div>
