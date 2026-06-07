@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tesla Model 3 | Premium PCO Car Hire London | Virtual Car Hire</title>
+    <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
+    
     <meta name="description" content="Hire the Tesla Model 3 for PCO driving in London. £260/wk per week including insurance and service. Cutting-edge electric performance with access to the Supercharger network for quick turnarounds.">
     <meta name="keywords" content="Tesla Model 3, PCO car hire London, Uber car hire, Bolt car hire, Virtual Car Hire, Full Electric">
     
@@ -14,12 +16,6 @@
     <meta property="og:title" content="Tesla Model 3 | Premium PCO Car Hire London">
     <meta property="og:description" content="Get the Tesla Model 3 for just £260/wk/week. Insurance and maintenance included. Guaranteed reply in 48h!">
     <meta property="og:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Tesla Model 3 | Premium PCO Car Hire London">
-    <meta property="twitter:description" content="Hire the Tesla Model 3 for PCO driving in London. £260/wk/week with insurance included.">
-    <meta property="twitter:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png">
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
@@ -540,19 +536,78 @@ section{padding:110px 0;position:relative}
 }
 
         
-        /* Specific Aesthetics and Hover Effects */
-        body { background-color: #0f0f12; color: #fff; }
-        section { padding: 60px 0; }
-        .car-hero { background: #0f0f12; padding: 120px 0 60px; }
-        .hero-title { color: #fff; font-family: 'Playfair Display', serif; margin-bottom: 10px; }
-        .price-tag { color: var(--orange); font-size: 48px; font-weight: 700; margin: 15px 0; }
+        /* Updated Aesthetics */
+        body { background-color: #0f0f12; color: #fff; overflow-x: hidden; }
         
-        /* Specification Cards with Icons and Hover Effects */
+        /* Grey Hero Background */
+        .car-hero { 
+            background: #1a1a1e; 
+            padding: 120px 0 80px; 
+            position: relative;
+        }
+        
+        /* Larger Rounded Car Image */
+        .car-visual img {
+            width: 120%;
+            margin-left: -10%;
+            border-radius: 40px;
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.6));
+            transition: transform 0.5s ease;
+        }
+        .car-visual img:hover { transform: scale(1.02); }
+
+        /* Top Nav Behavior */
+        .site-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+            z-index: 2000;
+        }
+        .site-header.hide { transform: translateY(-100%); opacity: 0; }
+
+        /* Dynamic Island Bottom Nav */
+        .dynamic-island-nav {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(25, 25, 30, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 2000;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .dynamic-island-nav.show { bottom: 30px; }
+        .dynamic-island-nav a {
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .dynamic-island-nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--orange);
+        }
+        .dynamic-island-nav a i { font-size: 14px; color: var(--orange); }
+
+        /* Hover Effects */
         .spec-card { 
             background: #fff; 
             color: #1c1c20; 
-            border-radius: 16px; 
-            padding: 18px; 
+            border-radius: 20px; 
+            padding: 24px; 
             display: flex;
             align-items: center;
             gap: 15px;
@@ -560,51 +615,13 @@ section{padding:110px 0;position:relative}
             border: 1px solid #eee;
         }
         .spec-card:hover { 
-            transform: translateY(-8px) scale(1.02); 
-            box-shadow: 0 15px 35px rgba(247, 121, 31, 0.3); 
+            transform: translateY(-10px); 
+            box-shadow: 0 20px 40px rgba(247, 121, 31, 0.25); 
             border-color: var(--orange); 
-            background: #fafafa;
         }
-        .spec-card i { 
-            font-size: 22px; 
-            color: var(--orange); 
-            width: 40px;
-            text-align: center;
-        }
-        .spec-label { color: #888; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-        .spec-value { font-weight: 700; font-size: 16px; }
-
-        /* Floating Bottom Bar (WhatsApp Style) */
-        .floating-action-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
-        .action-btn {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 24px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: all 0.3s ease;
-        }
-        .action-btn:hover {
-            transform: scale(1.15) rotate(5deg);
-            box-shadow: 0 15px 35px rgba(247, 121, 31, 0.4);
-        }
-        .action-btn.whatsapp { background: #25d366; }
-        .action-btn.call { background: var(--grad-orange); }
-
+        
         .glow-orange:hover {
-            box-shadow: 0 0 20px 5px rgba(247, 121, 31, 0.5);
+            box-shadow: 0 0 25px 8px rgba(247, 121, 31, 0.4);
             border-color: var(--orange) !important;
         }
     </style>
@@ -619,12 +636,11 @@ section{padding:110px 0;position:relative}
             <div class="item"><i class="fas fa-shield-alt"></i> Insurance & Servicing Included</div>
             <div class="item"><i class="fas fa-bolt"></i> Same-Day Onboarding</div>
             <div class="item"><i class="fas fa-leaf"></i> Hybrid & Electric Fleet</div>
-            <div class="item"><i class="fas fa-star"></i> 4.7★ Google Rating</div>
         </div>
     </div>
 
     <!-- Header -->
-    <header class="site-header">
+    <header class="site-header" id="topNav">
         <div class="container">
             <nav class="nav">
                 <a href="../index.html" class="brand">
@@ -657,28 +673,28 @@ section{padding:110px 0;position:relative}
                     <i class="fas fa-arrow-left"></i> Back to Fleet
                 </a>
                 
-                <div class="hero-grid" style="gap: 50px;">
+                <div class="hero-grid" style="gap: 60px; align-items: center;">
                     <div>
-                        <span class="eyebrow" style="margin-bottom: 8px;">Full Electric</span>
-                        <h1 class="hero-title" style="font-size: clamp(40px, 6vw, 64px);">Tesla Model 3</h1>
-                        <p class="hero-sub" style="font-size: 18px;">Full Electric · Saloon</p>
+                        <span class="eyebrow" style="margin-bottom: 10px;">Full Electric</span>
+                        <h1 class="hero-title" style="font-size: clamp(48px, 8vw, 72px);">Tesla Model 3</h1>
+                        <p class="hero-sub" style="font-size: 20px;">Full Electric · Saloon</p>
                         
-                        <p style="color: #aaa; margin: 15px 0; max-width: 500px; line-height: 1.5; font-size: 15px;">
+                        <p style="color: #ccc; margin: 20px 0; max-width: 500px; line-height: 1.6; font-size: 16px;">
                             The Tesla Model 3 is a premium choice for professional PCO drivers. Cutting-edge electric performance with access to the Supercharger network for quick turnarounds.
                         </p>
 
-                        <div class="price-tag">£260/wk <span style="font-size: 16px; color: #888; font-weight: 400;">/week</span></div>
-                        <p style="color: var(--orange); font-size: 13px; margin-bottom: 30px;"><i class="fas fa-check-circle"></i> Insurance, service & breakdown included</p>
+                        <div class="price-tag" style="font-size: 56px;">£260/wk <span style="font-size: 18px; color: #888; font-weight: 400;">/week</span></div>
+                        <p style="color: var(--orange); font-size: 14px; margin-bottom: 35px;"><i class="fas fa-check-circle"></i> Insurance, service & breakdown included</p>
 
-                        <div class="hero-cta" style="gap: 12px;">
+                        <div class="hero-cta" style="gap: 15px;">
                             <a href="../contact-us.html" class="btn btn-primary glow-orange">Book This Car</a>
                             <a href="https://wa.me/447508496940" class="btn btn-wa glow-orange" style="background: transparent; border: 1px dashed rgba(255,255,255,0.3); color: #fff;"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
                         </div>
                     </div>
                     
                     <div class="car-visual">
-                        <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3" style="width: 100%; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));">
-                        <div style="text-align: center; margin-top: 15px; color: #666; font-size: 12px;">
+                        <img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3">
+                        <div style="text-align: center; margin-top: 25px; color: #666; font-size: 13px;">
                             Guaranteed to get a reply within 48 hours on WhatsApp!
                         </div>
                     </div>
@@ -686,12 +702,12 @@ section{padding:110px 0;position:relative}
             </div>
         </section>
 
-        <section style="background: #fff; padding: 70px 0; color: #1c1c20;">
+        <section style="background: #fff; padding: 80px 0; color: #1c1c20;">
             <div class="container">
-                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px;">
+                <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px;">
                     <div>
-                        <h2 class="title" style="font-size: 30px; margin-bottom: 35px;">Specifications</h2>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px;">
+                        <h2 class="title" style="font-size: 32px; margin-bottom: 40px;">Specifications</h2>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
                             <div class="spec-card">
                                 <i class="fas fa-users"></i>
                                 <div>
@@ -727,30 +743,14 @@ section{padding:110px 0;position:relative}
                                     <div class="spec-value">300+ Miles</div>
                                 </div>
                             </div>
-                            <div class="spec-card">
-                                <i class="fas fa-shield-halved"></i>
-                                <div>
-                                    <div class="spec-label">Insurance</div>
-                                    <div class="spec-value">Included</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 45px;">
-                            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Supported Platforms</h3>
-                            <div style="display: flex; gap: 25px; font-size: 16px; font-weight: 600; color: #555;">
-                                <span><i class="fas fa-check" style="color:var(--orange)"></i> Uber</span> 
-                                <span><i class="fas fa-check" style="color:var(--orange)"></i> Bolt</span> 
-                                <span><i class="fas fa-check" style="color:var(--orange)"></i> Free Now</span>
-                            </div>
                         </div>
                     </div>
 
-                    <div class="info-panel" style="background: #16161b; border: 1px solid #222; border-radius: 24px; padding: 35px;">
-                        <h3 style="color: #fff; font-size: 22px; margin-bottom: 8px;">PCO Car Ready</h3>
-                        <p style="color: #888; font-size: 13px; margin-bottom: 25px;">Trust In Virtual Car Hire</p>
+                    <div class="info-panel" style="background: #16161b; border: 1px solid #222; border-radius: 24px; padding: 40px;">
+                        <h3 style="color: #fff; font-size: 24px; margin-bottom: 10px;">PCO Car Ready</h3>
+                        <p style="color: #888; font-size: 14px; margin-bottom: 30px;">Trust In Virtual Car Hire</p>
                         
-                        <ul style="list-style: none; color: #ddd; line-height: 2.2; font-size: 14px;">
+                        <ul style="list-style: none; color: #ddd; line-height: 2.2; font-size: 15px;">
                             <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> PCO Licence</li>
                             <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Comprehensive Insurance</li>
                             <li><i class="fas fa-check-circle" style="color: var(--orange); margin-right: 10px;"></i> Road Tax</li>
@@ -762,55 +762,42 @@ section{padding:110px 0;position:relative}
                 </div>
             </div>
         </section>
-
-        <section style="background: #faf7f3; padding: 70px 0; color: #1c1c20;">
-            <div class="container">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;">
-                    <div>
-                        <h2 class="title" style="font-size: 30px;">Rental Requirements</h2>
-                        <p style="color: #666; margin-bottom: 25px; font-size: 14px;">No surprises, no hidden requirements.</p>
-                        
-                        <div style="display: grid; gap: 15px;">
-                            <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid #eee; transition: all 0.3s ease;" class="glow-orange">
-                                <h4 style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Age Requirement</h4>
-                                <p style="color: #666; font-size: 13px;">Minimum age: <strong>25 years old</strong>. Held a full UK licence for at least 1 year.</p>
-                            </div>
-                            <div style="background: #fff; padding: 22px; border-radius: 14px; border: 1px solid #eee; transition: all 0.3s ease;" class="glow-orange">
-                                <h4 style="font-weight: 700; font-size: 15px; margin-bottom: 4px;">Documents Needed</h4>
-                                <p style="color: #666; font-size: 13px;">UK DVLA photocard, TfL PCO badge, and Proof of Address.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; background: #16161b; padding: 45px; border-radius: 28px; color: #fff;">
-                        <h3 class="serif italic" style="font-size: 26px; margin-bottom: 20px;">Interested in the Tesla Model 3?</h3>
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
-                            <a href="../contact-us.html" class="btn btn-primary glow-orange">Contact Us</a>
-                            <a href="../our-fleet.html" class="btn btn-ghost glow-orange">Browse Fleet</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Floating Actions (Bottom Right) -->
-    <div class="floating-action-bar">
-        <a href="https://wa.me/447508496940" class="action-btn whatsapp" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
-        <a href="tel:+442072946756" class="action-btn call" title="Call Us"><i class="fas fa-phone"></i></a>
+    <!-- Dynamic Island Bottom Nav -->
+    <div class="dynamic-island-nav" id="islandNav">
+        <a href="../index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="../our-fleet.html"><i class="fas fa-car"></i> Fleet</a>
+        <a href="../about-us.html"><i class="fas fa-info-circle"></i> About</a>
+        <a href="../contact-us.html"><i class="fas fa-envelope"></i> Contact</a>
     </div>
 
-    <footer class="footer" style="padding: 40px 0 60px;">
+    <footer class="footer" style="padding: 40px 0 100px;">
         <div class="container">
             <div class="foot-bot">
                 <p>© 2026 Virtual Car Hire (FA-IBI Ltd). Guaranteed to get a reply within 48 hours on WhatsApp!</p>
-                <div style="display: flex; gap: 20px;">
-                    <a href="../privacy-policy.html">Privacy Policy</a>
-                    <a href="../cookie-policy.html">Cookie Policy</a>
-                </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        let lastScrollTop = 0;
+        const topNav = document.getElementById('topNav');
+        const islandNav = document.getElementById('islandNav');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 150) {
+                topNav.classList.add('hide');
+                islandNav.classList.add('show');
+            } else {
+                topNav.classList.remove('hide');
+                islandNav.classList.remove('show');
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
 
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "539a9c76f52a4b27867dadbee38022ba"}'></script>
