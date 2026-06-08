@@ -11,7 +11,7 @@
   <meta name="keywords" content="Mercedes E300 PCO hire, Mercedes E300 rental London, plug-in hybrid executive saloon, Uber Exec vehicle, Mercedes E300 weekly rental, PCO hybrid car hire London, Mercedes for Uber, Bolt executive hire">
   <meta name="author" content="Virtual Car Hire">
   <meta name="robots" content="index, follow">
-  meta name="language" content="English">
+  <meta name="language" content="English">
   <meta name="revisit-after" content="7 days">
   
   <!-- Open Graph / Facebook Meta Tags -->
@@ -65,12 +65,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; }
     a { text-decoration: none; color: inherit; }
-    .ticker { background: #e85d04; color: #fff; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
+    .ticker { background: #e85d04; color: #fff; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; position: relative; z-index: 101; }
     .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 30s linear infinite; }
     .ticker-inner span { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     
-    /* Main Top Navigation - Only visible at the very top */
+    /* Main Top Navigation - Hidden on scroll */
     .main-nav {
       background: #111;
       padding: 0 24px;
@@ -78,13 +78,10 @@
       align-items: center;
       justify-content: space-between;
       height: 64px;
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 100;
       transition: transform 0.3s ease;
-      transform: translateY(0);
     }
     .main-nav.hide {
       transform: translateY(-100%);
@@ -102,16 +99,13 @@
     .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
     .btn-booknow:hover { background: #c94e00; transform: scale(1.02); }
     
-    /* Spacer to push content below fixed nav */
-    .nav-spacer { height: 64px; }
-    
     /* Dynamic Island - Appears when scrolling down and STAYS visible */
     .dynamic-island {
       position: fixed;
       top: 20px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(20px);
       border-radius: 50px;
       padding: 8px 24px;
@@ -257,7 +251,7 @@
 
 <div class="ticker"><div class="ticker-inner"><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span></div></div>
 
-<!-- Main Top Navigation (only visible at the very top) -->
+<!-- Main Top Navigation (sticky, hides on scroll) -->
 <div class="main-nav" id="mainNav">
   <a class="nav-logo" href="../index.html"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"></a>
   <div class="nav-links">
@@ -271,8 +265,6 @@
     <a class="btn-booknow" href="../contact-us.html">Book Now <i class="fas fa-arrow-right"></i></a>
   </div>
 </div>
-
-<div class="nav-spacer"></div>
 
 <!-- Dynamic Island (appears when scrolling down and STAYS visible) -->
 <div class="dynamic-island" id="dynamicIsland">
@@ -376,11 +368,6 @@
 <a class="whatsapp-fab" href="https://wa.me/447508496940" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-  // NEW BEHAVIOR:
-  // - Main navbar ONLY visible at the very top (scrollY = 0)
-  // - Dynamic Island appears once you scroll down ANY amount and STAYS visible
-  // - Dynamic Island only hides when you return to the very top (scrollY = 0)
-  
   const mainNav = document.getElementById('mainNav');
   const dynamicIsland = document.getElementById('dynamicIsland');
   
@@ -388,30 +375,23 @@
     const currentScrollY = window.scrollY;
     
     if (currentScrollY === 0) {
-      // At the very top - show main nav, hide dynamic island
       mainNav.classList.remove('hide');
       dynamicIsland.classList.remove('show');
     } else {
-      // Anywhere else - hide main nav, show dynamic island (and keep it visible)
       mainNav.classList.add('hide');
       dynamicIsland.classList.add('show');
     }
   }
   
-  // Initial check on page load
   handleScroll();
-  
-  // Listen for scroll events
   window.addEventListener('scroll', handleScroll);
   
-  // Highlight active page in both navbars
   const currentPage = window.location.pathname.split('/').pop();
   const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
   
   function setActiveNavLinks() {
     const mainNavLinks = document.querySelectorAll('.main-nav .nav-links a');
     const islandLinks = document.querySelectorAll('.dynamic-island a');
-    
     const allLinks = [...mainNavLinks, ...islandLinks];
     
     allLinks.forEach(link => {
