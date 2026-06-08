@@ -65,12 +65,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; }
     a { text-decoration: none; color: inherit; }
-    .ticker { background: #e85d04; color: #fff; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
+    .ticker { background: #e85d04; color: #fff; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; position: relative; z-index: 101; }
     .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 30s linear infinite; }
     .ticker-inner span { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     
-    /* Main Top Navigation - Only visible at the very top */
     .main-nav {
       background: #111;
       padding: 0 24px;
@@ -78,17 +77,12 @@
       align-items: center;
       justify-content: space-between;
       height: 64px;
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 100;
       transition: transform 0.3s ease;
-      transform: translateY(0);
     }
-    .main-nav.hide {
-      transform: translateY(-100%);
-    }
+    .main-nav.hide { transform: translateY(-100%); }
     .nav-logo img { height: 40px; }
     .nav-links { display: flex; gap: 32px; }
     .nav-links a { color: #ccc; font-size: 14px; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
@@ -102,16 +96,12 @@
     .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
     .btn-booknow:hover { background: #c94e00; transform: scale(1.02); }
     
-    /* Spacer to push content below fixed nav */
-    .nav-spacer { height: 64px; }
-    
-    /* Dynamic Island - Appears when scrolling down and STAYS visible */
     .dynamic-island {
       position: fixed;
       top: 20px;
       left: 50%;
       transform: translateX(-50%) translateY(-100px);
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(20px);
       border-radius: 50px;
       padding: 8px 24px;
@@ -122,9 +112,7 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
-    .dynamic-island.show {
-      transform: translateX(-50%) translateY(0);
-    }
+    .dynamic-island.show { transform: translateX(-50%) translateY(0); }
     .dynamic-island a {
       color: rgba(255, 255, 255, 0.7);
       font-size: 13px;
@@ -137,21 +125,10 @@
       gap: 8px;
     }
     .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
-    .dynamic-island a:hover {
-      background: rgba(232, 93, 4, 0.25);
-      color: #e85d04;
-    }
-    .dynamic-island a:hover i {
-      transform: translateX(4px);
-      color: #e85d04;
-    }
-    .dynamic-island a.active {
-      background: rgba(232, 93, 4, 0.3);
-      color: #e85d04;
-      box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
-    }
+    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
+    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
+    .dynamic-island a.active { background: rgba(232, 93, 4, 0.3); color: #e85d04; box-shadow: 0 0 8px rgba(232, 93, 4, 0.4); }
     
-    /* Hero and other styles */
     .hero { background: #1a1a1a; padding: 40px 0 0; }
     .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; color: #aaa; font-size: 14px; margin-bottom: 28px; transition: color 0.2s; }
@@ -257,7 +234,6 @@
 
 <div class="ticker"><div class="ticker-inner"><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span></div></div>
 
-<!-- Main Top Navigation (only visible at the very top) -->
 <div class="main-nav" id="mainNav">
   <a class="nav-logo" href="../index.html"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"></a>
   <div class="nav-links">
@@ -272,9 +248,6 @@
   </div>
 </div>
 
-<div class="nav-spacer"></div>
-
-<!-- Dynamic Island (appears when scrolling down and STAYS visible) -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
   <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
@@ -314,7 +287,14 @@
     <h2 class="section-title">Specifications</h2>
     <div class="section-divider"></div>
     <div class="specs-grid">
-      <div class="spec-card"><i class="fas fa-users spec-icon"></i><div><div class="spec-label">Seats</div><div class="spec-value">7</div></div></div><div class="spec-card"><i class="fas fa-cog spec-icon"></i><div><div class="spec-label">Transmission</div><div class="spec-value">Auto</div></div></div><div class="spec-card"><i class="fas fa-calendar spec-icon"></i><div><div class="spec-label">Year</div><div class="spec-value">2022–2024</div></div></div><div class="spec-card"><i class="fas fa-gas-pump spec-icon"></i><div><div class="spec-label">Fuel Type</div><div class="spec-value">Diesel</div></div></div><div class="spec-card"><i class="fas fa-shield-alt spec-icon"></i><div><div class="spec-label">Insurance</div><div class="spec-value">Included</div></div></div><div class="spec-card"><i class="fas fa-wrench spec-icon"></i><div><div class="spec-label">Servicing</div><div class="spec-value">Included</div></div></div><div class="spec-card"><i class="fas fa-id-card spec-icon"></i><div><div class="spec-label">PCO Ready</div><div class="spec-value">Yes</div></div></div><div class="spec-card"><i class="fas fa-check-circle spec-icon"></i><div><div class="spec-label">TfL Licensed</div><div class="spec-value">Yes</div></div></div>
+      <div class="spec-card"><i class="fas fa-users spec-icon"></i><div><div class="spec-label">Seats</div><div class="spec-value">7</div></div></div>
+      <div class="spec-card"><i class="fas fa-cog spec-icon"></i><div><div class="spec-label">Transmission</div><div class="spec-value">Auto</div></div></div>
+      <div class="spec-card"><i class="fas fa-calendar spec-icon"></i><div><div class="spec-label">Year</div><div class="spec-value">2022–2024</div></div></div>
+      <div class="spec-card"><i class="fas fa-gas-pump spec-icon"></i><div><div class="spec-label">Fuel Type</div><div class="spec-value">Diesel</div></div></div>
+      <div class="spec-card"><i class="fas fa-shield-alt spec-icon"></i><div><div class="spec-label">Insurance</div><div class="spec-value">Included</div></div></div>
+      <div class="spec-card"><i class="fas fa-wrench spec-icon"></i><div><div class="spec-label">Servicing</div><div class="spec-value">Included</div></div></div>
+      <div class="spec-card"><i class="fas fa-id-card spec-icon"></i><div><div class="spec-label">PCO Ready</div><div class="spec-value">Yes</div></div></div>
+      <div class="spec-card"><i class="fas fa-check-circle spec-icon"></i><div><div class="spec-label">TfL Licensed</div><div class="spec-value">Yes</div></div></div>
     </div>
     <div class="platforms-section">
       <div class="platforms-title">Platforms</div>
@@ -328,10 +308,10 @@
       <div class="features-title">Features</div>
       <div class="features-list">
         <div class="feature-item"><i class="fas fa-check"></i> PCO ready</div>
-<div class="feature-item"><i class="fas fa-check"></i> 7 Passenger seats</div>
-<div class="feature-item"><i class="fas fa-check"></i> Panoramic sunroof</div>
-<div class="feature-item"><i class="fas fa-check"></i> Leather seats</div>
-<div class="feature-item"><i class="fas fa-check"></i> Premium sound system</div>
+        <div class="feature-item"><i class="fas fa-check"></i> 7 Passenger seats</div>
+        <div class="feature-item"><i class="fas fa-check"></i> Panoramic sunroof</div>
+        <div class="feature-item"><i class="fas fa-check"></i> Leather seats</div>
+        <div class="feature-item"><i class="fas fa-check"></i> Premium sound system</div>
       </div>
     </div>
   </div>
@@ -376,11 +356,6 @@
 <a class="whatsapp-fab" href="https://wa.me/447508496940" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
 
 <script>
-  // NEW BEHAVIOR:
-  // - Main navbar ONLY visible at the very top (scrollY = 0)
-  // - Dynamic Island appears once you scroll down ANY amount and STAYS visible
-  // - Dynamic Island only hides when you return to the very top (scrollY = 0)
-  
   const mainNav = document.getElementById('mainNav');
   const dynamicIsland = document.getElementById('dynamicIsland');
   
@@ -388,30 +363,23 @@
     const currentScrollY = window.scrollY;
     
     if (currentScrollY === 0) {
-      // At the very top - show main nav, hide dynamic island
       mainNav.classList.remove('hide');
       dynamicIsland.classList.remove('show');
     } else {
-      // Anywhere else - hide main nav, show dynamic island (and keep it visible)
       mainNav.classList.add('hide');
       dynamicIsland.classList.add('show');
     }
   }
   
-  // Initial check on page load
   handleScroll();
-  
-  // Listen for scroll events
   window.addEventListener('scroll', handleScroll);
   
-  // Highlight active page in both navbars
   const currentPage = window.location.pathname.split('/').pop();
   const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
   
   function setActiveNavLinks() {
     const mainNavLinks = document.querySelectorAll('.main-nav .nav-links a');
     const islandLinks = document.querySelectorAll('.dynamic-island a');
-    
     const allLinks = [...mainNavLinks, ...islandLinks];
     
     allLinks.forEach(link => {
