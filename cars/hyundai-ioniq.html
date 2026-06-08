@@ -3,8 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hyundai IONIQ | Virtual Car Hire</title>
-  <meta name="description" content="Hire the Hyundai IONIQ Plug-in Hybrid · Hatchback for PCO driving in London. £220/week with insurance, servicing and breakdown included.">
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>Hyundai IONIQ PCO Car Hire London | Plug-in Hybrid Hatchback | Virtual Car Hire</title>
+  <meta name="title" content="Hyundai IONIQ PCO Car Hire London | Plug-in Hybrid Hatchback | Virtual Car Hire">
+  <meta name="description" content="Hire the Hyundai IONIQ Plug-in Hybrid Hatchback for PCO driving in London. £220/week with insurance, servicing and breakdown included. Electric + petrol range, Apple CarPlay, fully TfL licensed and Uber ready.">
+  <meta name="keywords" content="Hyundai IONIQ PCO hire, Hyundai IONIQ rental London, plug-in hybrid PCO car, Uber vehicle, Hyundai IONIQ weekly rental, PCO hybrid car hire London, Hyundai for Uber, Bolt hybrid hire">
+  <meta name="author" content="Virtual Car Hire">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  
+  <!-- Open Graph / Facebook Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://virtualcarhire.pages.dev/cars/hyundai-ioniq.html">
+  <meta property="og:title" content="Hyundai IONIQ PCO Car Hire London | Plug-in Hybrid Hatchback">
+  <meta property="og:description" content="Hire the Hyundai IONIQ Plug-in Hybrid for PCO driving. £220/week with insurance included. Electric + petrol range, Apple CarPlay.">
+  <meta property="og:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/4e6bacf53_generated_70b0fee5.png">
+  
+  <!-- Twitter Meta Tags -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://virtualcarhire.pages.dev/cars/hyundai-ioniq.html">
+  <meta property="twitter:title" content="Hyundai IONIQ PCO Car Hire London | Plug-in Hybrid Hatchback">
+  <meta property="twitter:description" content="Hire the Hyundai IONIQ Plug-in Hybrid for PCO driving. £220/week with insurance included. Electric + petrol range, Apple CarPlay.">
+  <meta property="twitter:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/4e6bacf53_generated_70b0fee5.png">
+  
+  <!-- Additional SEO Tags -->
+  <meta name="geo.region" content="GB-LND">
+  <meta name="geo.placename" content="London">
+  <meta name="geo.position" content="51.4651;-0.4067">
+  <meta name="ICBM" content="51.4651, -0.4067">
+  <link rel="canonical" href="https://virtualcarhire.pages.dev/cars/hyundai-ioniq.html">
+  
+  <!-- Schema.org markup for Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Hyundai IONIQ PCO Hire",
+    "description": "Hyundai IONIQ Plug-in Hybrid hatchback for PCO driving in London. Includes insurance, servicing, and breakdown cover.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Hyundai"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "220",
+      "priceCurrency": "GBP",
+      "priceValidUntil": "2026-12-31",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    },
+    "image": "https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/4e6bacf53_generated_70b0fee5.png"
+  }
+  </script>
+  
   <link rel="icon" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/9a817bd60_virtualCarhirenobg.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,16 +69,83 @@
     .ticker-inner { display: inline-flex; gap: 48px; animation: ticker 30s linear infinite; }
     .ticker-inner span { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
     @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    nav { background: #111; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; position: sticky; top: 0; z-index: 100; }
+    
+    /* Original Top Navigation - Hidden on scroll */
+    .original-nav {
+      background: #111;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    .original-nav.hide {
+      transform: translateY(-100%);
+    }
     .nav-logo img { height: 40px; }
     .nav-links { display: flex; gap: 32px; }
-    .nav-links a { color: #ccc; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a { color: #ccc; font-size: 14px; font-weight: 500; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+    .nav-links a i { transition: transform 0.3s ease; }
+    .nav-links a:hover { color: #e85d04; }
+    .nav-links a:hover i { transform: translateX(4px); }
+    .nav-links a.active { color: #e85d04; }
     .nav-actions { display: flex; align-items: center; gap: 16px; }
-    .nav-phone { color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 6px; }
-    .nav-phone:hover { color: #fff; }
-    .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: background 0.2s; }
-    .btn-booknow:hover { background: #c94e00; }
+    .nav-phone { color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+    .nav-phone:hover { color: #e85d04; }
+    .btn-booknow { background: #e85d04; color: #fff; padding: 10px 22px; border-radius: 50px; font-size: 14px; font-weight: 600; transition: all 0.3s; }
+    .btn-booknow:hover { background: #c94e00; transform: scale(1.02); }
+    
+    /* Dynamic Island - Appears at TOP when scrolling down */
+    .dynamic-island {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 8px 24px;
+      display: flex;
+      gap: 24px;
+      z-index: 1001;
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .dynamic-island.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .dynamic-island a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
+    .dynamic-island a:hover {
+      background: rgba(232, 93, 4, 0.25);
+      color: #e85d04;
+    }
+    .dynamic-island a:hover i {
+      transform: translateX(4px);
+      color: #e85d04;
+    }
+    .dynamic-island a.active {
+      background: rgba(232, 93, 4, 0.3);
+      color: #e85d04;
+      box-shadow: 0 0 8px rgba(232, 93, 4, 0.4);
+    }
+    
+    /* Hero and other styles */
     .hero { background: #1a1a1a; padding: 40px 0 0; }
     .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; color: #aaa; font-size: 14px; margin-bottom: 28px; transition: color 0.2s; }
@@ -104,19 +224,55 @@
     .footer-bottom { border-top: 1px solid #333; padding-top: 24px; text-align: center; color: #555; font-size: 13px; }
     .whatsapp-fab { position: fixed; bottom: 28px; right: 28px; z-index: 999; background: #25d366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); transition: transform 0.2s; }
     .whatsapp-fab:hover { transform: scale(1.1); }
-    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .hero-right { display: none; } .specs-trust { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } .nav-links { display: none; } .hero-title { font-size: 36px; } }
-    @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .specs-grid { grid-template-columns: 1fr; } }
-</style>
+    @media (max-width: 900px) { 
+      .hero-grid { grid-template-columns: 1fr; } 
+      .hero-right { display: none; } 
+      .specs-trust { grid-template-columns: 1fr; } 
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } 
+      .hero-title { font-size: 36px; }
+      .dynamic-island { padding: 6px 16px; gap: 12px; }
+      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
+      .dynamic-island a i { font-size: 13px; }
+      .nav-links a span { display: none; }
+      .nav-links a i { margin: 0; }
+      .nav-links { gap: 16px; }
+      .nav-phone span { display: none; }
+    }
+    @media (max-width: 600px) { 
+      .footer-grid { grid-template-columns: 1fr; } 
+      .specs-grid { grid-template-columns: 1fr; }
+      .dynamic-island { gap: 8px; }
+      .dynamic-island a span { display: none; }
+      .dynamic-island a i { margin: 0; }
+    }
+  </style>
 </head>
 <body>
 
 <div class="ticker"><div class="ticker-inner"><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span><span><i class="fas fa-star"></i>4.7&#9733; Google Rating</span><span><i class="fas fa-car"></i>100+ Premium PCO Vehicles</span><span><i class="fas fa-shield-alt"></i>Insurance &amp; Servicing Included</span><span><i class="fas fa-clock"></i>Same-Day Onboarding</span><span><i class="fas fa-bolt"></i>Hybrid &amp; Electric Fleet</span><span><i class="fas fa-award"></i>10+ Years in London</span><span><i class="fas fa-id-badge"></i>All PCO Badges Welcome</span><span><i class="fas fa-tools"></i>Full Breakdown Cover</span><span><i class="fas fa-check-circle"></i>TfL Licensed &amp; Compliant</span></div></div>
 
-<nav>
+<!-- Original Top Navigation (disappears on scroll) -->
+<div class="original-nav" id="originalNav">
   <a class="nav-logo" href="../index.html"><img src="https://media.base44.com/images/public/user_6a1f344d892c5248fe8d5e1f/f0e6e09db_virtualCarhirenobg.png" alt="Virtual Car Hire"></a>
-  <div class="nav-links"><a href="../index.html">Home</a><a href="../our-fleet.html">Our Fleet</a><a href="../about-us.html">About Us</a><a href="../contact-us.html">Contact Us</a></div>
-  <div class="nav-actions"><a class="nav-phone" href="tel:+442072946756"><i class="fas fa-phone"></i> +44 207 294 6756</a><a class="btn-booknow" href="../contact-us.html">Book Now</a></div>
-</nav>
+  <div class="nav-links">
+    <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
+    <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
+    <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
+    <a href="../contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
+  </div>
+  <div class="nav-actions">
+    <a class="nav-phone" href="tel:+442072946756"><i class="fas fa-phone"></i><span>+44 207 294 6756</span></a>
+    <a class="btn-booknow" href="../contact-us.html">Book Now <i class="fas fa-arrow-right"></i></a>
+  </div>
+</div>
+
+<!-- Dynamic Island (appears at TOP when scrolling down) -->
+<div class="dynamic-island" id="dynamicIsland">
+  <a href="../index.html"><i class="fas fa-house"></i><span>Home</span></a>
+  <a href="../our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
+  <a href="../about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
+  <a href="../contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
+</div>
 
 <section class="hero">
   <div class="hero-inner">
@@ -210,6 +366,62 @@
   <div class="footer-col"><h4>Legal</h4><a href="../privacy-policy.html">Privacy Policy</a><a href="../cookie-policy.html">Cookie Policy</a></div>
 </div><div class="footer-bottom"><p>&copy; 2026 Virtual Car Hire (FA-IBI Ltd). All rights reserved.</p></div></div></footer>
 <a class="whatsapp-fab" href="https://wa.me/447508496940" title="WhatsApp Us"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+  // Scroll behavior: Original nav disappears, dynamic island appears at top when scrolling down
+  let lastScrollY = window.scrollY;
+  const originalNav = document.getElementById('originalNav');
+  const dynamicIsland = document.getElementById('dynamicIsland');
+  
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 50) {
+      // Scrolling down - hide original nav, show dynamic island at top
+      if (currentScrollY > lastScrollY) {
+        originalNav.classList.add('hide');
+        dynamicIsland.classList.add('show');
+      } else {
+        // Scrolling up - show original nav, hide dynamic island
+        originalNav.classList.remove('hide');
+        dynamicIsland.classList.remove('show');
+      }
+    } else {
+      // At the top - show original nav, hide dynamic island
+      originalNav.classList.remove('hide');
+      dynamicIsland.classList.remove('show');
+    }
+    
+    lastScrollY = currentScrollY;
+  });
+  
+  // Highlight active page in both navbars
+  const currentPage = window.location.pathname.split('/').pop();
+  const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
+  
+  function setActiveNavLinks() {
+    const originalLinks = document.querySelectorAll('.original-nav .nav-links a');
+    const islandLinks = document.querySelectorAll('.dynamic-island a');
+    
+    const allLinks = [...originalLinks, ...islandLinks];
+    
+    allLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href) {
+        let hrefPage = href.split('/').pop();
+        if (hrefPage === '' || hrefPage === 'index.html') hrefPage = 'index.html';
+        
+        if (hrefPage === currentPageName) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      }
+    });
+  }
+  
+  setActiveNavLinks();
+</script>
 
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "539a9c76f52a4b27867dadbee38022ba"}'></script>
