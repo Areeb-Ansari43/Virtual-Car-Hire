@@ -35,7 +35,7 @@
   <meta name="ICBM" content="51.4651, -0.4067">
   <link rel="canonical" href="https://virtualcarhire.pages.dev/contact-us.html">
   
-  <!-- Original Favicon Restored -->
+  <!-- Original Favicon -->
   <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -43,74 +43,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
-    /* Reset & Base */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
-    
-    /* Ticker */
-    .ticker { background: #e85d04; color: #fff; padding: 8px 0; overflow: hidden; white-space: nowrap; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; position: relative; z-index: 101; }
-    .track { display: inline-flex; gap: 48px; animation: ticker 25s linear infinite; }
-    .track .item { display: inline-flex; align-items: center; gap: 8px; }
-    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    
-    /* Make header hide on scroll */
-    .site-header {
-      transition: transform 0.3s ease;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: #111;
-    }
-    .site-header.hide {
-      transform: translateY(-100%);
-    }
-    
-    /* Dynamic Island - Appears on scroll down */
-    .dynamic-island {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(20px);
-      border-radius: 50px;
-      padding: 8px 24px;
-      display: flex;
-      gap: 24px;
-      z-index: 1001;
-      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-    .dynamic-island.show {
-      transform: translateX(-50%) translateY(0);
-    }
-    .dynamic-island a {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 8px 16px;
-      border-radius: 50px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
-    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
-    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
-    /* Stronger active state for Contact page */
-    .dynamic-island a.active { 
-      background: rgba(232, 93, 4, 0.35); 
-      color: #e85d04; 
-      box-shadow: 0 0 12px rgba(232, 93, 4, 0.6);
-      font-weight: 600;
-    }
-    .dynamic-island a.active i { color: #e85d04; }
-    
-    /* Page Hero */
+    /* Make hero match Our Fleet page style - NO gray box under nav */
     .page-hero {
       background: linear-gradient(180deg, rgba(8,8,11,.85) 0%, rgba(8,8,11,.72) 60%, rgba(8,8,11,.95) 100%),
                   url('https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/cd1c0eec1_generated_image.png') center / cover no-repeat;
@@ -140,7 +73,7 @@
     }
     .page-hero h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 4vw, 38px);
+      font-size: clamp(28px, 4vw, 42px);
       margin: 10px 0 20px;
       font-weight: 600;
     }
@@ -196,7 +129,108 @@
       100% { box-shadow: 0 0 0 0 rgba(247,121,31,0); }
     }
     
-    /* Contact Grid - Enhanced for Mobile */
+    /* Form success message styling */
+    .form-success {
+      background: #16a34a;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .form-error {
+      background: #dc2626;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 12px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn-submitting {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    /* Cookie Consent Banner Styles */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 1000;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    #cookieConsent a { color: #f7791f; }
+    .cookie-buttons { display: flex; gap: 12px; }
+    .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+    @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
+
+    /* ========== HEADER - ONLY ADDED HIDE ON SCROLL (LAYOUT UNCHANGED) ========== */
+    .site-header {
+      transition: transform 0.3s ease;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #111;
+    }
+    .site-header.hide {
+      transform: translateY(-100%);
+    }
+    
+    /* ========== DYNAMIC ISLAND ========== */
+    .dynamic-island {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 8px 24px;
+      display: flex;
+      gap: 24px;
+      z-index: 1001;
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .dynamic-island.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .dynamic-island a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
+    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
+    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
+    .dynamic-island a.active { 
+      background: rgba(232, 93, 4, 0.35); 
+      color: #e85d04; 
+      box-shadow: 0 0 16px rgba(232, 93, 4, 0.7);
+      font-weight: 600;
+    }
+
+    /* ========== CONTACT GRID - BRIGHTER ORANGE GLOW ON CARDS ========== */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 0.8fr;
@@ -213,8 +247,8 @@
     }
     .form-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(247,121,31,0.1);
-      border-color: #f7791f30;
+      box-shadow: 0 20px 40px rgba(247,121,31,0.2);
+      border-color: #f7791f;
     }
     .form-card h3 {
       font-size: 24px;
@@ -252,7 +286,6 @@
     }
     .field textarea { min-height: 120px; resize: vertical; }
     
-    /* Improved Button */
     .btn-primary {
       background: #f7791f;
       color: #fff;
@@ -269,7 +302,6 @@
     }
     .btn-primary:hover { background: #c94e00; transform: scale(1.02); }
     
-    /* Contact Cards - Enhanced Hover Effects */
     .contact-info { display: flex; flex-direction: column; gap: 16px; }
     .info-card {
       background: #fff;
@@ -281,27 +313,12 @@
       border: 1px solid #eee;
       transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .info-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, #f7791f08, #f7791f02);
-      opacity: 0;
-      transition: opacity 0.3s ease;
     }
     .info-card:hover {
       transform: translateY(-6px);
       border-color: #f7791f;
-      box-shadow: 0 15px 35px rgba(247,121,31,0.15);
+      box-shadow: 0 15px 35px rgba(247,121,31,0.25);
     }
-    .info-card:hover::before { opacity: 1; }
-    .info-card * { position: relative; z-index: 1; }
     .ic-square {
       width: 52px;
       height: 52px;
@@ -319,55 +336,10 @@
       background: #f7791f;
       color: #fff;
       transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(247,121,31,0.4);
     }
-    .info-card h4 { font-size: 14px; color: #888; margin-bottom: 4px; letter-spacing: 0.5px; }
+    .info-card h4 { font-size: 14px; color: #888; margin-bottom: 4px; }
     .info-card .v { font-size: 16px; font-weight: 700; color: #1a1a1a; }
-    
-    /* Form Status */
-    .form-success {
-      background: #16a34a;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 12px;
-      margin-top: 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .form-error {
-      background: #dc2626;
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 12px;
-      margin-top: 16px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .btn-submitting { opacity: 0.7; cursor: not-allowed; }
-    
-    /* Cookie Consent */
-    #cookieConsent {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #1a1a1a;
-      color: #fff;
-      padding: 16px 24px;
-      z-index: 1000;
-      display: none;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-    #cookieConsent a { color: #f7791f; }
-    .cookie-buttons { display: flex; gap: 12px; }
-    .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-    .cookie-accept:hover { background: #c94e00; transform: scale(1.02); }
-    .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; transition: all 0.3s; }
-    .cookie-decline:hover { background: rgba(255,255,255,0.05); color: #fff; }
     
     /* Map Section */
     .section-head { text-align: center; margin-bottom: 48px; }
@@ -426,27 +398,26 @@
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
       
-      /* Dynamic Island - icons only on mobile, better tap targets */
-      .dynamic-island { padding: 8px 20px; gap: 16px; bottom: auto; top: 10px; }
-      .dynamic-island a { font-size: 14px; padding: 8px 14px; }
-      .dynamic-island a i { font-size: 16px; }
+      /* Dynamic Island - icons only on mobile */
+      .dynamic-island { padding: 6px 16px; gap: 12px; top: 10px; }
+      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
+      .dynamic-island a i { font-size: 13px; }
       .dynamic-island a span { display: none; }
       
       /* Contact grid - single column */
       .contact-grid { grid-template-columns: 1fr; gap: 24px; margin: 40px 0; }
       
-      /* Form adjustments - touch friendly */
+      /* Form adjustments */
       .form-card { padding: 20px; }
       .form-row { grid-template-columns: 1fr; gap: 0; }
       .form-card h3 { font-size: 22px; margin-bottom: 20px; }
       .field input, .field select, .field textarea { padding: 14px 16px; font-size: 16px; }
-      .btn-primary { padding: 16px 28px; width: 100%; justify-content: center; }
+      .btn-primary { width: 100%; justify-content: center; }
       
-      /* Contact cards - larger tap targets */
+      /* Contact cards */
       .info-card { padding: 16px; gap: 14px; }
       .ic-square { width: 48px; height: 48px; font-size: 22px; border-radius: 16px; }
       .info-card .v { font-size: 14px; }
-      .info-card h4 { font-size: 12px; }
       
       /* Map */
       .hq { padding: 40px 0; }
@@ -455,7 +426,6 @@
       /* Hero */
       .page-hero { padding: 100px 0 50px; }
       .page-hero h2 { font-size: 22px; margin: 8px 0 16px; }
-      .page-hero p { font-size: 15px; }
       
       /* Footer */
       .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 32px; }
@@ -463,18 +433,15 @@
       .foot-socials { justify-content: center; }
       .footer-col a { text-align: center; }
       
-      /* Floating buttons - touch friendly */
       .float { bottom: 20px; right: 20px; gap: 10px; }
       .float a { width: 48px; height: 48px; font-size: 22px; }
     }
     
     @media (max-width: 480px) {
-      .dynamic-island { padding: 6px 16px; gap: 10px; }
-      .dynamic-island a { padding: 6px 12px; }
+      .dynamic-island { gap: 8px; }
       .page-hero h2 { font-size: 20px; }
       .title { font-size: 24px; }
       .form-card h3 { font-size: 20px; }
-      .info-card .v { font-size: 13px; }
     }
   </style>
 </head>
@@ -525,7 +492,7 @@
   <a href="contact-us.html" class="active"><i class="fas fa-envelope"></i><span>Contact</span></a>
 </div>
 
-<!-- Header -->
+<!-- Header - YOUR ORIGINAL HEADER (UNCHANGED) -->
 <header class="site-header" id="mainHeader">
   <div class="container nav">
     <a class="brand" href="index.html">
