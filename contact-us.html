@@ -568,7 +568,6 @@
   // Scroll behavior: Main header hides, dynamic island appears
   const mainHeader = document.getElementById('mainHeader');
   const dynamicIsland = document.getElementById('dynamicIsland');
-  let lastScrollY = window.scrollY;
   
   function handleScroll() {
     const currentScrollY = window.scrollY;
@@ -582,36 +581,30 @@
       mainHeader.classList.remove('hide');
       dynamicIsland.classList.remove('show');
     }
-    
-    lastScrollY = currentScrollY;
   }
   
   handleScroll();
   window.addEventListener('scroll', handleScroll);
   
-  // Highlight active page in dynamic island
-  const currentPage = window.location.pathname.split('/').pop();
-  const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
+  // Highlight active page in dynamic island - FIXED
+  // Get the current page filename (e.g., "contact-us.html")
+  const currentPageUrl = window.location.pathname.split('/').pop();
   
-  function setActiveNavLinks() {
-    const islandLinks = document.querySelectorAll('.dynamic-island a');
-    
-    islandLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href) {
-        let hrefPage = href.split('/').pop();
-        if (hrefPage === '' || hrefPage === 'index.html') hrefPage = 'index.html';
-        
-        if (hrefPage === currentPageName) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
+  const dynamicIslandLinks = document.querySelectorAll('.dynamic-island a');
+  
+  dynamicIslandLinks.forEach(link => {
+    const linkHref = link.getAttribute('href');
+    // Check if the link href matches the current page
+    if (linkHref === currentPageUrl) {
+      link.classList.add('active');
+    }
+    // Also handle index.html special case
+    if (currentPageUrl === '' || currentPageUrl === 'index.html') {
+      if (linkHref === 'index.html') {
+        link.classList.add('active');
       }
-    });
-  }
-  
-  setActiveNavLinks();
+    }
+  });
 </script>
 
 <!-- Cloudflare Web Analytics -->
