@@ -189,7 +189,7 @@
       transform: translateY(-100%);
     }
     
-    /* ========== DYNAMIC ISLAND ========== */
+    /* ========== DYNAMIC ISLAND (BOTTOM NAV BAR) - ORANGE HIGHLIGHT + SLIDE RIGHT ========== */
     .dynamic-island {
       position: fixed;
       top: 20px;
@@ -219,18 +219,44 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      position: relative;
+      overflow: hidden;
     }
-    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
-    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
-    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
+    .dynamic-island a i { 
+      font-size: 14px; 
+      transition: transform 0.3s ease;
+      position: relative;
+      z-index: 1;
+    }
+    .dynamic-island a span {
+      position: relative;
+      z-index: 1;
+    }
+    /* Hover effect - slide right and orange */
+    .dynamic-island a:hover {
+      background: rgba(232, 93, 4, 0.3);
+      color: #e85d04;
+    }
+    .dynamic-island a:hover i {
+      transform: translateX(4px);
+      color: #e85d04;
+    }
+    /* Active state - FULL ORANGE HIGHLIGHT for Contact page */
     .dynamic-island a.active { 
-      background: rgba(232, 93, 4, 0.35); 
+      background: rgba(232, 93, 4, 0.4); 
       color: #e85d04; 
-      box-shadow: 0 0 16px rgba(232, 93, 4, 0.7);
+      box-shadow: 0 0 20px rgba(232, 93, 4, 0.8);
       font-weight: 600;
     }
+    .dynamic-island a.active i { 
+      color: #e85d04; 
+    }
+    /* Slide animation for active link on hover */
+    .dynamic-island a.active:hover i {
+      transform: translateX(4px);
+    }
 
-    /* ========== CONTACT GRID - BRIGHTER ORANGE GLOW ON CARDS ========== */
+    /* ========== CONTACT GRID - EXTRA BRIGHT ORANGE GLOW ON CARDS ========== */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 0.8fr;
@@ -247,8 +273,8 @@
     }
     .form-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(247,121,31,0.2);
       border-color: #f7791f;
+      box-shadow: 0 20px 40px rgba(247,121,31,0.35);
     }
     .form-card h3 {
       font-size: 24px;
@@ -317,7 +343,7 @@
     .info-card:hover {
       transform: translateY(-6px);
       border-color: #f7791f;
-      box-shadow: 0 15px 35px rgba(247,121,31,0.25);
+      box-shadow: 0 15px 35px rgba(247,121,31,0.35);
     }
     .ic-square {
       width: 52px;
@@ -336,7 +362,7 @@
       background: #f7791f;
       color: #fff;
       transform: scale(1.05);
-      box-shadow: 0 0 12px rgba(247,121,31,0.4);
+      box-shadow: 0 0 16px rgba(247,121,31,0.5);
     }
     .info-card h4 { font-size: 14px; color: #888; margin-bottom: 4px; }
     .info-card .v { font-size: 16px; font-weight: 700; color: #1a1a1a; }
@@ -484,7 +510,7 @@
   </div>
 </div>
 
-<!-- Dynamic Island -->
+<!-- Dynamic Island (Bottom Nav Bar) - Contact highlighted in ORANGE with slide effect -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="index.html"><i class="fas fa-house"></i><span>Home</span></a>
   <a href="our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
