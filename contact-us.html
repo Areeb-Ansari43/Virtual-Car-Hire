@@ -35,9 +35,8 @@
   <meta name="ICBM" content="51.4651, -0.4067">
   <link rel="canonical" href="https://virtualcarhire.pages.dev/contact-us.html">
   
-  <!-- Favicon - REPLACE THE URL BELOW WITH YOUR UPLOADED IMAGE URL -->
-  <link rel="icon" type="image/png" href="https://virtualcarhire.pages.dev/favicon.png">
-  
+  <!-- Original Favicon Restored -->
+  <link rel="icon" type="image/png" href="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
@@ -102,11 +101,12 @@
     .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
     .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
     .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
-    /* IMPORTANT: Active state for Contact page */
+    /* Stronger active state for Contact page */
     .dynamic-island a.active { 
-      background: rgba(232, 93, 4, 0.3); 
+      background: rgba(232, 93, 4, 0.35); 
       color: #e85d04; 
-      box-shadow: 0 0 12px rgba(232, 93, 4, 0.5);
+      box-shadow: 0 0 12px rgba(232, 93, 4, 0.6);
+      font-weight: 600;
     }
     .dynamic-island a.active i { color: #e85d04; }
     
@@ -196,7 +196,7 @@
       100% { box-shadow: 0 0 0 0 rgba(247,121,31,0); }
     }
     
-    /* Contact Grid - Improved Hover Effects & Mobile Friendly */
+    /* Contact Grid - Enhanced for Mobile */
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 0.8fr;
@@ -213,8 +213,8 @@
     }
     .form-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(247,121,31,0.08);
-      border-color: #f7791f20;
+      box-shadow: 0 20px 40px rgba(247,121,31,0.1);
+      border-color: #f7791f30;
     }
     .form-card h3 {
       font-size: 24px;
@@ -294,7 +294,6 @@
       background: linear-gradient(135deg, #f7791f08, #f7791f02);
       opacity: 0;
       transition: opacity 0.3s ease;
-      z-index: 0;
     }
     .info-card:hover {
       transform: translateY(-6px);
@@ -324,6 +323,7 @@
     .info-card h4 { font-size: 14px; color: #888; margin-bottom: 4px; letter-spacing: 0.5px; }
     .info-card .v { font-size: 16px; font-weight: 700; color: #1a1a1a; }
     
+    /* Form Status */
     .form-success {
       background: #16a34a;
       color: #fff;
@@ -426,21 +426,23 @@
     @media (max-width: 768px) {
       .container { padding: 0 20px; }
       
-      /* Dynamic Island - icons only on mobile */
-      .dynamic-island { padding: 6px 16px; gap: 12px; }
-      .dynamic-island a { font-size: 12px; padding: 6px 12px; }
-      .dynamic-island a i { font-size: 14px; }
+      /* Dynamic Island - icons only on mobile, better tap targets */
+      .dynamic-island { padding: 8px 20px; gap: 16px; bottom: auto; top: 10px; }
+      .dynamic-island a { font-size: 14px; padding: 8px 14px; }
+      .dynamic-island a i { font-size: 16px; }
       .dynamic-island a span { display: none; }
       
       /* Contact grid - single column */
       .contact-grid { grid-template-columns: 1fr; gap: 24px; margin: 40px 0; }
       
-      /* Form adjustments */
-      .form-card { padding: 24px; }
+      /* Form adjustments - touch friendly */
+      .form-card { padding: 20px; }
       .form-row { grid-template-columns: 1fr; gap: 0; }
       .form-card h3 { font-size: 22px; margin-bottom: 20px; }
+      .field input, .field select, .field textarea { padding: 14px 16px; font-size: 16px; }
+      .btn-primary { padding: 16px 28px; width: 100%; justify-content: center; }
       
-      /* Contact cards - touch friendly */
+      /* Contact cards - larger tap targets */
       .info-card { padding: 16px; gap: 14px; }
       .ic-square { width: 48px; height: 48px; font-size: 22px; border-radius: 16px; }
       .info-card .v { font-size: 14px; }
@@ -467,12 +469,11 @@
     }
     
     @media (max-width: 480px) {
-      .dynamic-island { gap: 8px; }
-      .dynamic-island a { padding: 4px 10px; }
+      .dynamic-island { padding: 6px 16px; gap: 10px; }
+      .dynamic-island a { padding: 6px 12px; }
       .page-hero h2 { font-size: 20px; }
       .title { font-size: 24px; }
       .form-card h3 { font-size: 20px; }
-      .btn-primary { width: 100%; justify-content: center; }
       .info-card .v { font-size: 13px; }
     }
   </style>
