@@ -212,6 +212,18 @@
       #cookieConsent { flex-direction: column; text-align: center; }
     }
 
+    /* Make header hide on scroll */
+    .site-header {
+      transition: transform 0.3s ease;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #111;
+    }
+    .site-header.hide {
+      transform: translateY(-100%);
+    }
+
     /* Dynamic Island - Appears on scroll down and STAYS visible */
     .dynamic-island {
       position: fixed;
@@ -308,7 +320,7 @@
 </div>
 
 <!-- Header - Sticky transparent header (ORIGINAL - UNCHANGED) -->
-<header class="site-header">
+<header class="site-header" id="mainHeader">
   <div class="container nav">
     <a class="brand" href="index.html">
       <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
@@ -553,18 +565,24 @@
     }
   })();
 
-  // Scroll behavior for dynamic island
+  // Scroll behavior: Main header hides, dynamic island appears
+  const mainHeader = document.getElementById('mainHeader');
   const dynamicIsland = document.getElementById('dynamicIsland');
   let lastScrollY = window.scrollY;
   
   function handleScroll() {
     const currentScrollY = window.scrollY;
     
-    if (currentScrollY > 100) {
+    if (currentScrollY > 50) {
+      // Hide main header, show dynamic island
+      mainHeader.classList.add('hide');
       dynamicIsland.classList.add('show');
     } else {
+      // Show main header, hide dynamic island
+      mainHeader.classList.remove('hide');
       dynamicIsland.classList.remove('show');
     }
+    
     lastScrollY = currentScrollY;
   }
   
