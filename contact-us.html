@@ -11,7 +11,7 @@
   <meta name="keywords" content="PCO car hire contact, PCO rental London, book PCO car, Uber car hire contact, Bolt car hire, Virtual Car Hire contact, London PCO specialists">
   <meta name="author" content="Virtual Car Hire">
   <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
+  meta name="language" content="English">
   <meta name="revisit-after" content="7 days">
   
   <!-- Open Graph / Facebook Meta Tags -->
@@ -189,7 +189,7 @@
       transform: translateY(-100%);
     }
     
-    /* ========== DYNAMIC ISLAND (BOTTOM NAV BAR) - ORANGE HIGHLIGHT + SLIDE RIGHT ========== */
+    /* ========== DYNAMIC ISLAND (TOP FLOATING NAV) ========== */
     .dynamic-island {
       position: fixed;
       top: 20px;
@@ -219,41 +219,50 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      position: relative;
-      overflow: hidden;
     }
-    .dynamic-island a i { 
-      font-size: 14px; 
+    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
+    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
+    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
+    .dynamic-island a.active { background: rgba(232, 93, 4, 0.35); color: #e85d04; box-shadow: 0 0 16px rgba(232, 93, 4, 0.7); font-weight: 600; }
+
+    /* ========== FOOTER NAVIGATION - ORANGE HIGHLIGHT + SLIDE RIGHT ========== */
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+    .footer-col a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #888;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .footer-col a i {
+      font-size: 14px;
       transition: transform 0.3s ease;
-      position: relative;
-      z-index: 1;
     }
-    .dynamic-island a span {
-      position: relative;
-      z-index: 1;
+    /* Hover effect - slide right and turn orange */
+    .footer-col a:hover {
+      color: #f7791f;
+      transform: translateX(6px);
     }
-    /* Hover effect - slide right and orange */
-    .dynamic-island a:hover {
-      background: rgba(232, 93, 4, 0.3);
-      color: #e85d04;
-    }
-    .dynamic-island a:hover i {
+    .footer-col a:hover i {
       transform: translateX(4px);
-      color: #e85d04;
+      color: #f7791f;
     }
-    /* Active state - FULL ORANGE HIGHLIGHT for Contact page */
-    .dynamic-island a.active { 
-      background: rgba(232, 93, 4, 0.4); 
-      color: #e85d04; 
-      box-shadow: 0 0 20px rgba(232, 93, 4, 0.8);
-      font-weight: 600;
+    /* Active page highlight in footer */
+    .footer-col a.active {
+      color: #f7791f;
+      font-weight: 500;
     }
-    .dynamic-island a.active i { 
-      color: #e85d04; 
-    }
-    /* Slide animation for active link on hover */
-    .dynamic-island a.active:hover i {
-      transform: translateX(4px);
+    .footer-col a.active i {
+      color: #f7791f;
     }
 
     /* ========== CONTACT GRID - EXTRA BRIGHT ORANGE GLOW ON CARDS ========== */
@@ -457,7 +466,8 @@
       .footer-grid { grid-template-columns: 1fr; text-align: center; gap: 32px; }
       .footer-brand p { margin: 0 auto; }
       .foot-socials { justify-content: center; }
-      .footer-col a { text-align: center; }
+      .footer-col a { text-align: center; justify-content: center; }
+      .footer-col a:hover { transform: translateX(0); }
       
       .float { bottom: 20px; right: 20px; gap: 10px; }
       .float a { width: 48px; height: 48px; font-size: 22px; }
@@ -510,7 +520,7 @@
   </div>
 </div>
 
-<!-- Dynamic Island (Bottom Nav Bar) - Contact highlighted in ORANGE with slide effect -->
+<!-- Dynamic Island (Top Floating Nav) -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="index.html"><i class="fas fa-house"></i><span>Home</span></a>
   <a href="our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
@@ -652,23 +662,29 @@
       </div>
       <div class="footer-col">
         <h4>Navigation</h4>
-        <a href="index.html">Home</a>
-        <a href="our-fleet.html">Our Fleet</a>
-        <a href="about-us.html">About Us</a>
-        <a href="contact-us.html">Contact</a>
+        <ul>
+          <li><a href="index.html"><i class="fas fa-house"></i> Home</a></li>
+          <li><a href="our-fleet.html"><i class="fas fa-car"></i> Our Fleet</a></li>
+          <li><a href="about-us.html"><i class="fas fa-circle-info"></i> About Us</a></li>
+          <li><a href="contact-us.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Get In Touch</h4>
-        <a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
-        <a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a>
-        <a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a>
-        <p><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</p>
-        <p><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</p>
+        <ul>
+          <li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li>
+          <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
+          <li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li>
+          <li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
+          <li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
+        </ul>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="cookie-policy.html">Cookie Policy</a>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
       </div>
     </div>
     <div class="footer-bottom">
