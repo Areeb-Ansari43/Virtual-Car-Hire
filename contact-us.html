@@ -212,50 +212,6 @@
       #cookieConsent { flex-direction: column; text-align: center; }
     }
 
-    /* Main Top Navigation - Original Layout */
-    .main-nav {
-      background: #111;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      transition: transform 0.3s ease;
-    }
-    .main-nav.hide {
-      transform: translateY(-100%);
-    }
-    .nav-logo { flex-shrink: 0; }
-    .nav-logo img { height: 40px; width: auto; }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    .nav-links a {
-      color: #ccc;
-      font-size: 14px;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .nav-links a i { transition: transform 0.3s ease; font-size: 14px; }
-    .nav-links a:hover { color: #e85d04; }
-    .nav-links a:hover i { transform: translateX(4px); }
-    .nav-links a.active { color: #e85d04; }
-    .nav-actions { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-    .nav-phone { color: #ccc; font-size: 14px; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
-    .nav-phone:hover { color: #e85d04; }
-    .btn-booknow { background: #e85d04; color: #fff; padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: 600; transition: all 0.3s; white-space: nowrap; }
-    .btn-booknow:hover { background: #c94e00; transform: scale(1.02); }
-
     /* Dynamic Island - Appears on scroll down and STAYS visible */
     .dynamic-island {
       position: fixed;
@@ -296,10 +252,6 @@
       .dynamic-island { padding: 6px 16px; gap: 12px; }
       .dynamic-island a { font-size: 11px; padding: 6px 12px; }
       .dynamic-island a i { font-size: 13px; }
-      .nav-links a span { display: none; }
-      .nav-links a i { margin: 0; }
-      .nav-links { gap: 20px; }
-      .nav-phone span { display: none; }
     }
     @media (max-width: 600px) {
       .dynamic-island { gap: 8px; }
@@ -347,21 +299,6 @@
   </div>
 </div>
 
-<!-- Main Top Navigation (Original Layout) -->
-<div class="main-nav" id="mainNav">
-  <a class="nav-logo" href="index.html"><img src="assets/logo.png" alt="Virtual Car Hire - London PCO Specialists"></a>
-  <div class="nav-links">
-    <a href="index.html"><i class="fas fa-house"></i><span>Home</span></a>
-    <a href="our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
-    <a href="about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
-    <a href="contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
-  </div>
-  <div class="nav-actions">
-    <a class="nav-phone" href="tel:+442072946756"><i class="fas fa-phone"></i><span>+44 207 294 6756</span></a>
-    <a class="btn-booknow" href="contact-us.html">Book Now <i class="fas fa-arrow-right"></i></a>
-  </div>
-</div>
-
 <!-- Dynamic Island (appears on scroll down and STAYS visible) -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="index.html"><i class="fas fa-house"></i><span>Home</span></a>
@@ -369,6 +306,27 @@
   <a href="about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
   <a href="contact-us.html"><i class="fas fa-envelope"></i><span>Contact Us</span></a>
 </div>
+
+<!-- Header - Sticky transparent header (ORIGINAL - UNCHANGED) -->
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="index.html">
+      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire"/></div>
+      <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a>
+      <a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <a class="active" href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="phone" href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a>
+      <a class="book-btn" href="contact-us.html">Book Now <i class="fa-solid fa-arrow-right"></i></a>
+      <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
 
 <!-- Page Hero - Clean like Our Fleet page -->
 <section class="page-hero">
@@ -595,35 +553,32 @@
     }
   })();
 
-  // Scroll behavior for navbars
-  const mainNav = document.getElementById('mainNav');
+  // Scroll behavior for dynamic island
   const dynamicIsland = document.getElementById('dynamicIsland');
+  let lastScrollY = window.scrollY;
   
   function handleScroll() {
     const currentScrollY = window.scrollY;
     
-    if (currentScrollY === 0) {
-      mainNav.classList.remove('hide');
-      dynamicIsland.classList.remove('show');
-    } else {
-      mainNav.classList.add('hide');
+    if (currentScrollY > 100) {
       dynamicIsland.classList.add('show');
+    } else {
+      dynamicIsland.classList.remove('show');
     }
+    lastScrollY = currentScrollY;
   }
   
   handleScroll();
   window.addEventListener('scroll', handleScroll);
   
-  // Highlight active page in both navbars
+  // Highlight active page in dynamic island
   const currentPage = window.location.pathname.split('/').pop();
   const currentPageName = currentPage === '' || currentPage === 'index.html' ? 'index.html' : currentPage;
   
   function setActiveNavLinks() {
-    const mainNavLinks = document.querySelectorAll('.main-nav .nav-links a');
     const islandLinks = document.querySelectorAll('.dynamic-island a');
-    const allLinks = [...mainNavLinks, ...islandLinks];
     
-    allLinks.forEach(link => {
+    islandLinks.forEach(link => {
       const href = link.getAttribute('href');
       if (href) {
         let hrefPage = href.split('/').pop();
