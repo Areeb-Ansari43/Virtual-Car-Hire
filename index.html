@@ -84,12 +84,38 @@
     html, body { overflow-x: hidden; width: 100%; }
     img { max-width: 100%; height: auto; }
 
-    /* ONLY FIX: Hero height scales properly on all screens */
+    /* Hero section with background image */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       padding: 0;
+      position: relative;
+      background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
+      /* Hero background image */
+      background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/SHIuiexdtxdYSaLW.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    
+    /* Dark overlay for better text readability */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1;
+    }
+    
+    .hero .container,
+    .hero-inner,
+    .hero-grid {
+      position: relative;
+      z-index: 2;
     }
     
     .hero-inner {
@@ -103,16 +129,6 @@
       height: 480px;
       max-width: 100%;
       aspect-ratio: 1 / 1;
-      background: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/SHIuiexdtxdYSaLW.png') no-repeat center center;
-      background-size: cover;
-      border-radius: 50%;
-      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.3);
-      position: relative;
-      overflow: hidden;
-    }
-    /* Hide the old animated orbit elements when using actual image */
-    .hero-orb .orbit, .hero-orb .car-icon, .hero-orb .orbit.rev {
-      display: none;
     }
     
     @media (max-width: 1000px) {
@@ -245,7 +261,7 @@
       .cars-grid { grid-template-columns: 1fr; }
       .foot-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
       .foot-socials { justify-content: center; }
-      .nav-links { display: none; } /* Assuming a mobile menu is handled by burger */
+      .nav-links { display: none; }
       .site-header .nav { justify-content: space-between; }
     }
     
@@ -317,7 +333,7 @@
   </div>
 </header>
 
-<!-- Hero -->
+<!-- Hero with background image - design elements kept intact -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow b"></div>
@@ -345,7 +361,19 @@
       </div>
       <div class="hero-visual">
         <div class="hero-orb">
-          <!-- The image is now applied as background via CSS. Old orbit elements hidden via CSS rule -->
+          <div class="orbit">
+            <i class="fa-solid fa-key"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-bolt"></i>
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="orbit rev">
+            <i class="fa-solid fa-leaf"></i>
+            <i class="fa-solid fa-award"></i>
+            <i class="fa-solid fa-id-card"></i>
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <i class="fa-solid fa-car car-icon"></i>
         </div>
       </div>
     </div>
@@ -493,7 +521,7 @@
   </div>
 </section>
 
-<!-- Reviews - WITH AREEBA ADDED -->
+<!-- Reviews -->
 <section class="reviews">
   <div class="container">
     <div class="section-head reveal">
@@ -557,7 +585,6 @@
           <p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p>
           <div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div>
         </div>
-        <!-- Duplicates for seamless loop -->
         <div class="review">
           <div class="stars-row">★★★★★</div>
           <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
@@ -600,7 +627,6 @@
           <p class="quote">"I've rented from several companies, but Virtual Car Hire is by far the best. Great value and great service."</p>
           <div class="who"><div class="av">L</div><div><strong>Lisa C.</strong><small>Trustpilot · Aug 2025</small></div></div>
         </div>
-        <!-- Duplicates for seamless loop -->
         <div class="review">
           <div class="stars-row">★★★★★</div>
           <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
