@@ -2,16 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   
   <!-- Primary SEO Meta Tags -->
   <title>Virtual Car Hire — London's #1 PCO Car Hire Specialists</title>
-  <meta name="title" content="Virtual Car Hire | London's #1 PCO Car Hire Specialists">
   <meta name="description" content="London's most trusted PCO car hire. Hybrid & electric fleet including Tesla & Mercedes. Insurance included, same-day start — serving Uber, Bolt & Ola drivers since 2014."/>
-  <meta name="keywords" content="PCO car hire London, PCO rental London, Uber car hire London, Bolt car hire, Ola car hire, hybrid PCO hire, electric PCO car hire, PCO car rental with insurance, Virtual Car Hire, PCO vehicle rental West London"/>
-  <meta name="author" content="Virtual Car Hire Ltd"/>
-  <meta name="robots" content="index, follow"/>
-  <meta name="revisit-after" content="7 days"/>
+  <meta name="keywords" content="PCO car hire London, PCO rental London, Uber car hire London, Bolt car hire, Ola car hire, hybrid PCO hire, electric PCO car hire, PCO car rental with insurance"/>
   <link rel="canonical" href="https://virtualcarhire.com/index.html" />
 
   <!-- Open Graph / Facebook -->
@@ -20,7 +16,6 @@
   <meta property="og:title" content="Virtual Car Hire — London's #1 PCO Car Hire">
   <meta property="og:description" content="London's most trusted PCO car hire. Hybrid & electric fleet, insurance included, same-day start — serving Uber, Bolt & Ola drivers since 2014.">
   <meta property="og:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
-  <meta property="og:site_name" content="Virtual Car Hire">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -29,28 +24,20 @@
   <meta property="twitter:description" content="London's most trusted PCO car hire. Hybrid & electric fleet, insurance included, same-day start — serving Uber, Bolt & Ola drivers since 2014.">
   <meta property="twitter:image" content="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png">
 
-  <!-- Geo Tags -->
-  <meta name="geo.region" content="GB-LND">
-  <meta name="geo.placename" content="London, Hounslow">
-  <meta name="geo.position" content="51.4700;-0.3500">
-  <meta name="ICBM" content="51.4700, -0.3500">
-
   <!-- Structured Data (JSON-LD) for Local Business -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Virtual Car Hire Ltd",
-    "description": "London's most trusted PCO car hire service. Specializing in hybrid and electric PCO vehicles for Uber, Bolt and Ola drivers since 2014.",
     "image": "https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/263c15215_generated_image.png",
     "@id": "https://virtualcarhire.com/",
     "url": "https://virtualcarhire.com/",
     "telephone": "+442072946756",
-    "email": "info@fa-ibi.co.uk",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "The Vista Centre, 50 Salisbury Rd",
-      "addressLocality": "Cranford, Hounslow",
+      "streetAddress": "The Vista Centre",
+      "addressLocality": "Hounslow",
       "postalCode": "TW4 6JQ",
       "addressCountry": "GB"
     },
@@ -61,7 +48,14 @@
     },
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
       "opens": "09:00",
       "closes": "18:00"
     },
@@ -73,8 +67,7 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.7",
-      "reviewCount": "63",
-      "bestRating": "5"
+      "reviewCount": "63"
     }
   }
   </script>
@@ -86,86 +79,197 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
-    /* Additional styles for dynamic navigation (keeping everything else from original) */
+    /* Global Reset for better responsiveness */
+    * { box-sizing: border-box; }
+    html, body { overflow-x: hidden; width: 100%; }
+    img { max-width: 100%; height: auto; }
+
+    /* Hero section with background image */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 0;
+      position: relative;
+      background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
+      /* Hero background image */
+      background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/SHIuiexdtxdYSaLW.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
     
-    /* Make header hide on scroll */
-    .site-header {
-      transition: transform 0.35s ease;
-      position: sticky;
+    /* Dark overlay for better text readability */
+    .hero::before {
+      content: '';
+      position: absolute;
       top: 0;
-      z-index: 100;
-      background: rgba(10,10,12,.42);
-      backdrop-filter: blur(22px);
-    }
-    .site-header.hide {
-      transform: translateY(-100%);
-    }
-
-    /* Dynamic Island - Appears on scroll */
-    .dynamic-island {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: rgba(12,12,18,0.92);
-      backdrop-filter: blur(20px);
-      border-radius: 60px;
-      padding: 8px 24px;
-      display: flex;
-      gap: 12px;
-      z-index: 120;
-      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-      border: 1px solid rgba(247,121,31,0.3);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.5);
-    }
-    .dynamic-island.show {
-      transform: translateX(-50%) translateY(0);
-    }
-    .dynamic-island a {
-      color: rgba(255,255,240,0.8);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 50px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-    .dynamic-island a i { font-size: 14px; }
-    .dynamic-island a:hover, .dynamic-island a.active { background: rgba(247,121,31,0.2); color: #f7791f; }
-
-    /* Mobile responsive for dynamic island */
-    @media (max-width: 768px) {
-      .dynamic-island { padding: 6px 16px; gap: 8px; top: 10px; }
-      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
-      .dynamic-island a span { display: none; }
-      .dynamic-island a i { font-size: 14px; }
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1;
     }
     
-    /* Ensure footer links have icons and hover effects */
-    .footer-col a {
-      display: inline-flex;
+    .hero .container,
+    .hero-inner,
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-inner {
+      width: 100%;
+      padding: 40px 0;
+    }
+    
+    /* Keep hero circle PERFECTLY ROUND on all screens */
+    .hero-orb {
+      width: 480px;
+      height: 480px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+    }
+    
+    @media (max-width: 1000px) {
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+      .hero-orb {
+        width: 340px;
+        height: 340px;
+      }
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-content {
+        order: 1;
+      }
+      .hero-visual {
+        order: 2;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-cta {
+        justify-content: center;
+      }
+      .hero-badges {
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .hero-orb {
+        width: 280px;
+        height: 280px;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+    }
+    
+    /* Cookie Consent Banner Styles */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 1000;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
+      gap: 16px;
     }
-    .footer-col a i {
-      font-size: 14px;
-      transition: all 0.3s ease;
+    #cookieConsent a { color: #f7791f; }
+    .cookie-buttons { display: flex; gap: 12px; }
+    .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+    @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
+
+    /* Review badges styling */
+    .review-badges {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 30px;
     }
-    .footer-col a:hover {
-      color: #f7791f;
-      transform: translateX(6px);
+    .review-badge {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: #fff;
+      border-radius: 60px;
+      padding: 10px 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #eee;
     }
-    .footer-col a:hover i {
-      color: #f7791f;
-      transform: translateX(2px);
+    .review-badge img {
+      height: 32px;
+      width: auto;
     }
-    .footer-col a.active {
-      color: #f7791f;
-      font-weight: 500;
+    .review-badge .rating {
+      font-weight: 700;
+      font-size: 18px;
+      color: #1a1a1a;
+    }
+    .review-badge .stars {
+      color: #f5a623;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+    .review-badge .count {
+      font-size: 12px;
+      color: #888;
+    }
+    .rating-line {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .rating-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f8f8f8;
+      padding: 10px 20px;
+      border-radius: 50px;
+    }
+    .rating-item .stars {
+      color: #f5a623;
+      font-size: 16px;
+    }
+
+    /* Additional Responsive Helpers */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .checks { justify-content: center; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .cars-grid { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .foot-socials { justify-content: center; }
+      .nav-links { display: none; }
+      .site-header .nav { justify-content: space-between; }
+    }
+    
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2rem; }
+      .hero-cta { flex-direction: column; width: 100%; }
+      .hero-cta .btn { width: 100%; }
     }
   </style>
 </head>
@@ -208,16 +312,8 @@
   </div>
 </div>
 
-<!-- Dynamic Island (Top Floating Nav) -->
-<div class="dynamic-island" id="dynamicIsland">
-  <a href="index.html" class="active"><i class="fas fa-house"></i><span>Home</span></a>
-  <a href="our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a>
-  <a href="about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a>
-  <a href="contact-us.html"><i class="fas fa-envelope"></i><span>Contact</span></a>
-</div>
-
 <!-- Header -->
-<header class="site-header" id="mainHeader">
+<header class="site-header">
   <div class="container nav">
     <a class="brand" href="index.html">
       <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo"/></div>
@@ -237,7 +333,7 @@
   </div>
 </header>
 
-<!-- Hero with H1 -->
+<!-- Hero with background image - design elements kept intact -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow b"></div>
@@ -312,7 +408,7 @@
   </div>
 </div>
 
-<!-- About Section with H2 -->
+<!-- About -->
 <section class="about" id="about">
   <div class="container">
     <div class="about-grid">
@@ -454,15 +550,51 @@
     <h3 style="text-align: center; margin-bottom: 20px; font-size: 1.2rem; color: #4285f4;"><i class="fa-brands fa-google"></i> Google Reviews</h3>
     <div class="marquee-wrap">
       <div class="marquee">
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p><div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p><div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Google · Jun 2024</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p><div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Google · Jun 2024</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p><div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Google · Jan 2024</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p><div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Google · Mar 2024</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p><div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Google · Nov 2023</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p><div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p><div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p><div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div></div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
+          <div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p>
+          <div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p>
+          <div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p>
+          <div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Google · Jan 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p>
+          <div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Google · Mar 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p>
+          <div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Google · Nov 2023</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p>
+          <div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
+          <div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Absolutely brilliant service! The car was spotless, the team was super helpful, and I was on the road within hours. 10/10 would recommend Virtual Car Hire to any PCO driver in London!"</p>
+          <div class="who"><div class="av">A</div><div><strong>Areeb A.</strong><small>Google · Jun 2026</small></div></div>
+        </div>
       </div>
     </div>
 
@@ -470,13 +602,41 @@
     <h3 style="text-align: center; margin: 40px 0 20px; font-size: 1.2rem; color: #00b67a;"><i class="fa-brands fa-trustpilot"></i> Trustpilot Reviews</h3>
     <div class="marquee-wrap">
       <div class="marquee">
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p><div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p><div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"The team went above and beyond to get me on the road quickly. Great cars and excellent support."</p><div class="who"><div class="av">M</div><div><strong>Maria R.</strong><small>Trustpilot · Oct 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Very professional company. The car was clean, well-maintained, and the paperwork was quick and easy."</p><div class="who"><div class="av">P</div><div><strong>Paul K.</strong><small>Trustpilot · Sep 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"I've rented from several companies, but Virtual Car Hire is by far the best. Great value and great service."</p><div class="who"><div class="av">L</div><div><strong>Lisa C.</strong><small>Trustpilot · Aug 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p><div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div></div>
-        <div class="review"><div class="stars-row">★★★★★</div><p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p><div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div></div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
+          <div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p>
+          <div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The team went above and beyond to get me on the road quickly. Great cars and excellent support."</p>
+          <div class="who"><div class="av">M</div><div><strong>Maria R.</strong><small>Trustpilot · Oct 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Very professional company. The car was clean, well-maintained, and the paperwork was quick and easy."</p>
+          <div class="who"><div class="av">P</div><div><strong>Paul K.</strong><small>Trustpilot · Sep 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"I've rented from several companies, but Virtual Car Hire is by far the best. Great value and great service."</p>
+          <div class="who"><div class="av">L</div><div><strong>Lisa C.</strong><small>Trustpilot · Aug 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
+          <div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p>
+          <div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -509,50 +669,12 @@
 <footer>
   <div class="container">
     <div class="foot-grid">
-      <div>
-        <div class="foot-brand">
-          <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo"/></div>
-          <div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div>
-        </div>
-        <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
-        <div class="foot-socials">
-          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/virtual.car.hire/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@virtual.car.hire" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="https://wa.me/447508496940" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="index.html" class="active"><i class="fas fa-house"></i> Home</a></li>
-          <li><a href="our-fleet.html"><i class="fas fa-car"></i> Our Fleet</a></li>
-          <li><a href="about-us.html"><i class="fas fa-circle-info"></i> About Us</a></li>
-          <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Get In Touch</h4>
-        <ul>
-          <li><a href="tel:+442072946756"><i class="fas fa-phone"></i> +44 207 294 6756</a></li>
-          <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
-          <li><a href="mailto:info@fa-ibi.co.uk"><i class="fas fa-envelope"></i> info@fa-ibi.co.uk</a></li>
-          <li><i class="fas fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
-          <li><i class="fas fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="privacy-policy.html"><i class="fas fa-lock"></i> Privacy Policy</a></li>
-          <li><a href="cookie-policy.html"><i class="fas fa-cookie-bite"></i> Cookie Policy</a></li>
-        </ul>
-      </div>
+      <div><div class="foot-brand"><div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo"/></div><div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div></div><p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p><div class="foot-socials"><a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a><a href="https://www.instagram.com/virtual.car.hire/" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a><a href="https://www.tiktok.com/@virtual.car.hire" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a><a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a></div></div>
+      <div><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="our-fleet.html">Our Fleet</a></li><li><a href="about-us.html">About Us</a></li><li><a href="contact-us.html">Contact</a></li></ul></div>
+      <div><h4>Get In Touch</h4><ul><li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li><li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li><li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li><li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li><li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li></ul></div>
     </div>
-    <div class="foot-bot">
-      <div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div>
-      <div>Designed for London's professional drivers.</div>
-    </div>
+    <div class="foot-bot"><div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div><div>Designed for London's professional drivers.</div></div>
   </div>
 </footer>
 
@@ -593,55 +715,6 @@
       };
     }
   })();
-
-  // Scroll behavior: Main header hides, dynamic island appears
-  const mainHeader = document.getElementById('mainHeader');
-  const dynamicIsland = document.getElementById('dynamicIsland');
-  
-  function handleScroll() {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > 50) {
-      mainHeader.classList.add('hide');
-      dynamicIsland.classList.add('show');
-    } else {
-      mainHeader.classList.remove('hide');
-      dynamicIsland.classList.remove('show');
-    }
-  }
-  
-  handleScroll();
-  window.addEventListener('scroll', handleScroll);
-  
-  // Counter animations
-  const counters = document.querySelectorAll('[data-count]');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.getAttribute('data-count'));
-        let current = 0;
-        const step = Math.ceil(target / 60);
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            el.innerText = target;
-            clearInterval(timer);
-          } else {
-            el.innerText = current;
-          }
-        }, 25);
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-  counters.forEach(c => observer.observe(c));
-  
-  // Reveal animations
-  const revealItems = document.querySelectorAll('.reveal');
-  const revealObs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.2 });
-  revealItems.forEach(r => revealObs.observe(r));
 </script>
 
 <!-- Cloudflare Web Analytics -->
