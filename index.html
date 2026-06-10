@@ -108,6 +108,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      overflow: hidden;
       /* Default Desktop (16:9 Optimized) */
       background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
     }
@@ -135,7 +136,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.65);
+      background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%);
       z-index: 1;
     }
     
@@ -150,13 +151,138 @@
       width: 100%;
       padding: 40px 0;
     }
-    
-    /* Keep hero circle PERFECTLY ROUND on all screens */
-    .hero-orb {
-      width: 480px;
-      height: 480px;
-      max-width: 100%;
-      aspect-ratio: 1 / 1;
+
+    /* NEW DYNAMIC HERO ELEMENTS */
+    .hero-visual-new {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .light-trails {
+      position: absolute;
+      width: 120%;
+      height: 100%;
+      top: 0;
+      left: -10%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .trail {
+      position: absolute;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #f7791f, transparent);
+      border-radius: 10px;
+      opacity: 0.6;
+      animation: moveTrail linear infinite;
+    }
+
+    @keyframes moveTrail {
+      0% { transform: translateX(-100%); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateX(200%); opacity: 0; }
+    }
+
+    /* Floating Glass Cards */
+    .floating-card {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 15px 20px;
+      border-radius: 20px;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      animation: float 4s ease-in-out infinite;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-1 { top: 10%; right: 5%; animation-delay: 0s; }
+    .card-2 { bottom: 15%; right: 15%; animation-delay: 1s; }
+    .card-3 { top: 40%; right: 30%; animation-delay: 2s; }
+
+    .floating-card i {
+      width: 40px;
+      height: 40px;
+      background: #f7791f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .floating-card span {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .floating-card small {
+      display: block;
+      font-size: 11px;
+      color: #aaa;
+      font-weight: 400;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Speedometer Animation */
+    .speed-wrap {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border: 4px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .speed-wrap::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 4px solid transparent;
+      border-top-color: #f7791f;
+      border-radius: 50%;
+      animation: spin 3s linear infinite;
+    }
+
+    .speed-inner {
+      text-align: center;
+    }
+
+    .speed-inner h2 {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 0;
+      color: #f7791f;
+    }
+
+    .speed-inner p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #aaa;
+      margin: 0;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
     
     @media (max-width: 1000px) {
@@ -164,23 +290,18 @@
         min-height: auto;
         padding: 80px 0;
       }
-      .hero-orb {
-        width: 340px;
-        height: 340px;
-      }
       .hero-grid {
         display: flex;
         flex-direction: column;
         text-align: center;
-        gap: 40px;
+        gap: 60px;
       }
       .hero-content {
         order: 1;
       }
-      .hero-visual {
+      .hero-visual-new {
         order: 2;
-        display: flex;
-        justify-content: center;
+        height: 350px;
       }
       .hero-cta {
         justify-content: center;
@@ -188,15 +309,21 @@
       .hero-badges {
         justify-content: center;
       }
+      .card-1 { right: 0; }
+      .card-2 { right: 5%; }
+      .card-3 { display: none; }
     }
     
     @media (max-width: 600px) {
-      .hero-orb {
-        width: 280px;
-        height: 280px;
-      }
       .hero-title {
         font-size: 2.5rem;
+      }
+      .speed-wrap {
+        width: 220px;
+        height: 220px;
+      }
+      .speed-inner h2 {
+        font-size: 36px;
       }
     }
     
@@ -220,7 +347,6 @@
     .cookie-buttons { display: flex; gap: 12px; }
     .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
     .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
-    @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
 
     /* Make header hide on scroll */
     .site-header {
@@ -410,8 +536,7 @@
 
 <!-- Hero Section -->
 <section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-glow b"></div>
+  <div class="light-trails" id="trails"></div>
   <div class="hero-inner container">
     <div class="hero-grid">
       <div class="hero-content">
@@ -434,21 +559,37 @@
           <span><i class="fa-solid fa-circle-check"></i> PCO Ready</span>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-orb">
-          <div class="orbit">
-            <i class="fa-solid fa-key"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-bolt"></i>
-            <i class="fa-solid fa-shield-halved"></i>
+      <div class="hero-visual-new">
+        <div class="speed-wrap">
+          <div class="speed-inner">
+            <p>Ready to</p>
+            <h2 id="liveCount">5000</h2>
+            <p>Drivers Served</p>
           </div>
-          <div class="orbit rev">
-            <i class="fa-solid fa-leaf"></i>
-            <i class="fa-solid fa-award"></i>
-            <i class="fa-solid fa-id-card"></i>
-            <i class="fa-solid fa-location-dot"></i>
+        </div>
+        
+        <div class="floating-card card-1">
+          <i class="fa-solid fa-bolt"></i>
+          <div>
+            <span>Instant Start</span>
+            <small>Drive same day</small>
           </div>
-          <i class="fa-solid fa-car car-icon"></i>
+        </div>
+        
+        <div class="floating-card card-2">
+          <i class="fa-solid fa-shield-halved"></i>
+          <div>
+            <span>Fully Insured</span>
+            <small>Peace of mind</small>
+          </div>
+        </div>
+        
+        <div class="floating-card card-3">
+          <i class="fa-solid fa-leaf"></i>
+          <div>
+            <span>Eco Friendly</span>
+            <small>Hybrid & Electric</small>
+          </div>
         </div>
       </div>
     </div>
@@ -807,6 +948,38 @@
 
 <script src="assets/app.js"></script>
 <script>
+  // Light Trails Generator
+  const trailsContainer = document.getElementById('trails');
+  function createTrail() {
+    const trail = document.createElement('div');
+    trail.className = 'trail';
+    const top = Math.random() * 100;
+    const width = 100 + Math.random() * 300;
+    const duration = 2 + Math.random() * 4;
+    const delay = Math.random() * 5;
+    
+    trail.style.top = `${top}%`;
+    trail.style.width = `${width}px`;
+    trail.style.animationDuration = `${duration}s`;
+    trail.style.animationDelay = `${delay}s`;
+    
+    trailsContainer.appendChild(trail);
+    setTimeout(() => trail.remove(), (duration + delay) * 1000);
+  }
+  setInterval(createTrail, 400);
+
+  // Live Count Animation
+  const liveCount = document.getElementById('liveCount');
+  let count = 4900;
+  setInterval(() => {
+    if (count < 5000) {
+      count += Math.floor(Math.random() * 5);
+      liveCount.innerText = count;
+    } else {
+      liveCount.innerText = "5000+";
+    }
+  }, 100);
+
   // Cookie Consent Functionality
   (function() {
     const cookieConsent = document.getElementById('cookieConsent');
@@ -846,11 +1019,11 @@
     const currentScrollY = window.scrollY;
     
     if (currentScrollY > 50) {
-      mainHeader.classList.add('hide');
-      dynamicIsland.classList.add('show');
+      if (mainHeader) mainHeader.classList.add('hide');
+      if (dynamicIsland) dynamicIsland.classList.add('show');
     } else {
-      mainHeader.classList.remove('hide');
-      dynamicIsland.classList.remove('show');
+      if (mainHeader) mainHeader.classList.remove('hide');
+      if (dynamicIsland) dynamicIsland.classList.remove('show');
     }
   }
   
