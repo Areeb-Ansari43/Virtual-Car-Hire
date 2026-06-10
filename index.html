@@ -205,9 +205,9 @@
 
     .burger{display:none;width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#fff;font-size:18px}
 
-    /* ===== Hero - ONLY BACKGROUND IMAGE CHANGED ===== */
+    /* ===== Hero - BIGGER SIZE ===== */
     .hero{
-      position:relative;color:#fff;min-height:70vh;display:flex;align-items:center;
+      position:relative;color:#fff;min-height:90vh;display:flex;align-items:center;
       margin-top:-80px;
       background:
         linear-gradient(110deg,rgba(8,8,11,.92) 0%,rgba(8,8,11,.7) 45%,rgba(8,8,11,.45) 70%,rgba(8,8,11,.2) 100%),
@@ -231,7 +231,7 @@
     .hero-glow.b{top:auto;bottom:-200px;left:-150px;right:auto;width:500px;height:500px;animation-duration:18s;animation-delay:-6s}
     @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,-30px) scale(1.1)}}
 
-    .hero-inner{position:relative;z-index:2;padding:0px 0 60px;margin-top:-80px;width:100%}
+    .hero-inner{position:relative;z-index:2;padding:80px 0 100px;margin-top:-80px;width:100%}
     .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}
     .hero-pill{
       display:inline-flex;align-items:center;gap:10px;
@@ -246,11 +246,11 @@
     @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(247,121,31,.55)}70%{box-shadow:0 0 0 12px rgba(247,121,31,0)}100%{box-shadow:0 0 0 0 rgba(247,121,31,0)}}
 
     h1.hero-title{
-      font-family:'Playfair Display',serif;font-size:clamp(54px,8vw,110px);
+      font-family:'Playfair Display',serif;font-size:clamp(64px,10vw,130px);
       line-height:.95;font-weight:700;letter-spacing:-2px;margin-bottom:28px;
     }
     h1.hero-title .em{font-style:italic;background:var(--grad-orange);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-    .hero-sub{font-size:18px;color:#cdcdd3;max-width:560px;margin-bottom:38px}
+    .hero-sub{font-size:20px;color:#cdcdd3;max-width:560px;margin-bottom:38px}
     .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
     .btn{
       display:inline-flex;align-items:center;gap:10px;padding:16px 30px;border-radius:999px;
@@ -275,7 +275,7 @@
     /* Hero visual — animated car icon */
     .hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
     .hero-orb{
-      position:relative;width:480px;height:480px;max-width:100%;
+      position:relative;width:520px;height:520px;max-width:100%;
       border-radius:50%;
       background:conic-gradient(from 0deg,rgba(247,121,31,.35),transparent 30%,rgba(247,121,31,.2) 60%,transparent 90%);
       display:grid;place-items:center;
@@ -284,7 +284,7 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     .hero-orb::before{content:"";position:absolute;inset:18px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#1f1f25,#0a0a0c 70%);box-shadow:inset 0 0 60px rgba(247,121,31,.15)}
     .hero-orb .car-icon{
-      position:relative;z-index:2;font-size:170px;
+      position:relative;z-index:2;font-size:190px;
       background:var(--grad-orange);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
       animation:carBob 3s ease-in-out infinite,spin 24s linear infinite reverse;
       filter:drop-shadow(0 20px 30px var(--orange-glow));
@@ -627,8 +627,8 @@
     @media (max-width:1000px){
       .hero-grid{grid-template-columns:1fr;gap:40px}
       .hero-visual{order:-1}
-      .hero-orb{width:340px;height:340px}
-      .hero-orb .car-icon{font-size:130px}
+      .hero-orb{width:380px;height:380px}
+      .hero-orb .car-icon{font-size:140px}
       .features-grid,.steps-grid,.cars-grid{grid-template-columns:1fr 1fr}
       .about-grid,.foot-grid{grid-template-columns:1fr;gap:40px}
       .nav-links{display:none}
@@ -636,6 +636,7 @@
       .stats-grid{grid-template-columns:1fr 1fr}
       .dynamic-island a span { display: none; }
       .dynamic-island a { padding: 8px 14px; }
+      .hero-inner{padding:60px 0 80px;}
     }
     @media (max-width:600px){
       section{padding:70px 0}
@@ -644,6 +645,8 @@
       .nav-cta .phone{display:none}
       h1.hero-title{letter-spacing:-1px}
       .container{padding:0 20px}
+      .hero-orb{width:280px;height:280px}
+      .hero-orb .car-icon{font-size:100px}
     }
     .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
     .reveal.in{opacity:1;transform:translateY(0)}
@@ -677,7 +680,7 @@
   </div>
 </header>
 
-<!-- Hero (ONLY BACKGROUND IMAGE CHANGED TO YOUR URL) -->
+<!-- Hero (BIGGER SIZE with your custom background image) -->
 <section class="hero">
   <div class="hero-glow"></div><div class="hero-glow b"></div>
   <div class="hero-inner container">
