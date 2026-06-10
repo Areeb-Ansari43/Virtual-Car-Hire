@@ -103,6 +103,16 @@
       height: 480px;
       max-width: 100%;
       aspect-ratio: 1 / 1;
+      background: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/SHIuiexdtxdYSaLW.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 50%;
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Hide the old animated orbit elements when using actual image */
+    .hero-orb .orbit, .hero-orb .car-icon, .hero-orb .orbit.rev {
+      display: none;
     }
     
     @media (max-width: 1000px) {
@@ -335,19 +345,7 @@
       </div>
       <div class="hero-visual">
         <div class="hero-orb">
-          <div class="orbit">
-            <i class="fa-solid fa-key"></i>
-            <i class="fa-solid fa-star"></i>
-            <i class="fa-solid fa-bolt"></i>
-            <i class="fa-solid fa-shield-halved"></i>
-          </div>
-          <div class="orbit rev">
-            <i class="fa-solid fa-leaf"></i>
-            <i class="fa-solid fa-award"></i>
-            <i class="fa-solid fa-id-card"></i>
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <i class="fa-solid fa-car car-icon"></i>
+          <!-- The image is now applied as background via CSS. Old orbit elements hidden via CSS rule -->
         </div>
       </div>
     </div>
