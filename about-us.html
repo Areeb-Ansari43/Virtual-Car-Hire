@@ -190,6 +190,47 @@
       .dynamic-island a span { display: none; }
       .footer-col a:hover { transform: translateX(0); }
     }
+
+    /* Director photo styles */
+    .leader .photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, #f7791f, #e85d04);
+      padding: 3px;
+      margin-right: 28px;
+      flex-shrink: 0;
+    }
+    .leader {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      background: #0f0f0f;
+      border-radius: 28px;
+      padding: 28px;
+      border: 1px solid #222;
+      transition: all 0.3s ease;
+    }
+    .leader:hover {
+      border-color: #f7791f;
+      transform: translateY(-4px);
+    }
+    .leader .info {
+      flex: 1;
+    }
+    @media (max-width: 768px) {
+      .leader {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px;
+      }
+      .leader .photo {
+        margin-right: 0;
+        margin-bottom: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -328,7 +369,7 @@
   </div>
 </section>
 
-<!-- Leadership -->
+<!-- Leadership - WITH DIRECTOR PHOTOS ADDED -->
 <section class="leaders">
   <div class="container">
     <div class="section-head reveal">
@@ -338,16 +379,16 @@
     </div>
     <div class="leaders-grid reveal-stagger">
       <div class="leader">
-        <div class="av-lg">SQ</div>
-        <div>
+        <img class="photo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663738477168/rKUDQbvPjbbpjcbR.png" alt="Sohail Qureshi - Co-Founder & CEO">
+        <div class="info">
           <h3>Sohail Qureshi</h3>
           <div class="role">Co-Founder · CEO</div>
           <p>Sohail brings years of expertise in the PCO and car hire industry. His deep understanding of driver needs and commitment to exceptional service has been instrumental in building Virtual Car Hire into one of London's most trusted rental providers.</p>
         </div>
       </div>
       <div class="leader">
-        <div class="av-lg">RS</div>
-        <div>
+        <img class="photo" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663738477168/esRZIlgsFIYraHCd.png" alt="Rizwan Sajid - Co-Founder & CEO">
+        <div class="info">
           <h3>Rizwan Sajid</h3>
           <div class="role">Co-Founder · CEO</div>
           <p>Rizwan's strategic vision and operational excellence have shaped Virtual Car Hire's growth from a small operation to a fleet of 100+ vehicles. He is passionate about empowering PCO drivers with reliable, affordable, and high-quality vehicles.</p>
