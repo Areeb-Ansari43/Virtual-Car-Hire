@@ -97,18 +97,45 @@
     html, body { overflow-x: hidden; width: 100%; }
     img { max-width: 100%; height: auto; }
 
-    /* ========== HERO SECTION FIXED FOR MACBOOK & PC ========== */
+    /* ========== FIX 1: INFINITE TICKER FOR ULTRA-WIDE ========== */
+    .ticker {
+      background: #f7791f;
+      color: #fff;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: 600;
+      position: relative;
+      z-index: 10;
+    }
+    .track {
+      display: inline-flex;
+      animation: scrollTicker 40s linear infinite;
+      width: max-content;
+    }
+    .item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-right: 40px;
+    }
+    @keyframes scrollTicker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ========== FIX 2: HERO PADDING - ORB MOVED DOWN ========== */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0;
+      padding: 80px 0 40px 0;
       position: relative;
       background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
       background-size: cover;
-      background-position: center center;
+      background-position: center;
       background-repeat: no-repeat;
-      /* Single background image that works on all screens including MacBook */
       background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
     }
 
@@ -147,7 +174,7 @@
     @media (max-width: 1000px) {
       .hero {
         min-height: auto;
-        padding: 80px 0;
+        padding: 100px 0 60px 0;
       }
       .hero-orb {
         width: 340px;
@@ -173,7 +200,6 @@
       .hero-badges {
         justify-content: center;
       }
-      /* Same background on mobile - consistent across all devices */
       .hero {
         background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
         background-position: center center;
@@ -188,6 +214,30 @@
       }
       .hero-title {
         font-size: 2.5rem;
+      }
+    }
+
+    /* ========== FIX 3: ULTRA-WIDE SCREEN SUPPORT ========== */
+    @media (min-width: 1921px) {
+      .container {
+        max-width: 1600px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+      .hero {
+        padding: 100px 0 60px 0;
+        min-height: 85vh;
+      }
+      .hero-title {
+        font-size: 4.2rem;
+      }
+      .hero-orb {
+        width: 520px;
+        height: 520px;
+      }
+      .hero-sub {
+        font-size: 1.2rem;
+        max-width: 600px;
       }
     }
     
@@ -348,7 +398,7 @@
   </div>
 </div>
 
-<!-- Ticker -->
+<!-- Ticker - FIXED: Infinite loop with duplicated content -->
 <div class="ticker">
   <div class="track">
     <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
@@ -360,6 +410,7 @@
     <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
     <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
     <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+    <!-- Duplicate for seamless infinite loop on ultra-wide -->
     <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
     <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
     <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
