@@ -93,320 +93,286 @@
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
     /* Global Reset for better responsiveness */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; }
     html, body { overflow-x: hidden; width: 100%; }
     img { max-width: 100%; height: auto; }
 
-    /* ========== INFINITE TICKER - FIXED FOR ULTRA-WIDE ========== */
-    .ticker {
-      background: #f7791f;
-      color: #fff;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 10px 0;
-      font-size: 14px;
-      font-weight: 600;
-      position: relative;
-      z-index: 10;
-      width: 100%;
-    }
-    .track {
-      display: inline-flex;
-      animation: scrollTicker 40s linear infinite;
-      width: max-content;
-    }
-    .track span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-right: 40px;
-    }
-    @keyframes scrollTicker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    
-    /* ========== HEADER ========== */
-    .site-header {
-      position: sticky;
-      top: 0;
-      background: #111;
-      padding: 16px 0;
-      z-index: 100;
-      transition: transform 0.3s ease;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .site-header.hide { transform: translateY(-100%); }
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-    .nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .mark img { width: 40px; height: 40px; object-fit: contain; background: #fff; border-radius: 50%; padding: 5px; }
-    .text strong { font-size: 18px; color: #fff; }
-    .text small { font-size: 10px; letter-spacing: 1px; color: #f7791f; display: block; }
-    .nav-links { display: flex; gap: 32px; }
-    .nav-links a { text-decoration: none; color: #ccc; font-weight: 500; transition: 0.3s; }
-    .nav-links a:hover, .nav-links a.active { color: #f7791f; }
-    .nav-cta { display: flex; align-items: center; gap: 20px; }
-    .phone { color: #fff; text-decoration: none; font-weight: 600; }
-    .book-btn { background: #f7791f; padding: 10px 22px; border-radius: 40px; color: #fff; text-decoration: none; font-weight: 600; transition: 0.3s; }
-    .book-btn:hover { background: #e85d04; }
-    .burger { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
-
-    /* ========== HERO SECTION - FIXED: Orb moved down, better spacing ========== */
+    /* ========== HERO SECTION FIXED FOR MACBOOK & PC ========== */
     .hero {
-      min-height: 90vh;
+      min-height: 100vh;
       display: flex;
       align-items: center;
+      padding: 0;
       position: relative;
       background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
-      padding: 40px 0 80px 0;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      /* Single background image that works on all screens including MacBook */
+      background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
     }
+
+    /* Dark overlay for better text readability */
     .hero::before {
       content: '';
       position: absolute;
-      inset: 0;
-      background: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png') center center / cover no-repeat;
-      opacity: 0.4;
-      z-index: 0;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: rgba(0, 0, 0, 0.65);
       z-index: 1;
     }
-    .hero .hero-inner { position: relative; z-index: 3; width: 100%; }
-    .hero-grid {
-      display: flex;
-      align-items: center;
-      gap: 60px;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-    .hero-content { flex: 1; min-width: 280px; }
-    .hero-visual { flex: 1; display: flex; justify-content: center; align-items: center; }
     
-    .hero-pill {
-      background: rgba(247, 121, 31, 0.2);
-      backdrop-filter: blur(4px);
-      display: inline-block;
-      padding: 8px 20px;
-      border-radius: 60px;
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 24px;
-      border: 1px solid rgba(247,121,31,0.4);
+    .hero .container,
+    .hero-inner,
+    .hero-grid {
+      position: relative;
+      z-index: 2;
     }
-    .hero-title {
-      font-size: 3.8rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 24px;
+    
+    .hero-inner {
+      width: 100%;
+      padding: 40px 0;
     }
-    .hero-title .em { color: #f7791f; }
-    .hero-sub {
-      font-size: 1.1rem;
-      color: #ccc;
-      margin-bottom: 32px;
-      max-width: 540px;
+    
+    /* Keep hero circle PERFECTLY ROUND on all screens */
+    .hero-orb {
+      width: 480px;
+      height: 480px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
     }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px; }
-    .btn {
-      padding: 14px 32px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
+    
+    @media (max-width: 1000px) {
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+      .hero-orb {
+        width: 340px;
+        height: 340px;
+      }
+      .hero-grid {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+      .hero-content {
+        order: 1;
+      }
+      .hero-visual {
+        order: 2;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-cta {
+        justify-content: center;
+      }
+      .hero-badges {
+        justify-content: center;
+      }
+      /* Same background on mobile - consistent across all devices */
+      .hero {
+        background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
+        background-position: center center;
+        background-size: cover;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .hero-orb {
+        width: 280px;
+        height: 280px;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+    }
+    
+    /* Cookie Consent Banner Styles */
+    #cookieConsent {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 16px 24px;
+      z-index: 1000;
+      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      transition: 0.3s;
-      cursor: pointer;
+      gap: 16px;
     }
-    .btn-primary { background: #f7791f; color: #fff; }
-    .btn-primary:hover { background: #e85d04; transform: scale(1.02); }
-    .btn-ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-    .btn-ghost:hover { background: rgba(247,121,31,0.3); border-color: #f7791f; }
-    .hero-badges { display: flex; gap: 20px; flex-wrap: wrap; }
-    .hero-badges span {
-      background: rgba(255,255,255,0.05);
-      padding: 6px 14px;
-      border-radius: 40px;
+    #cookieConsent a { color: #f7791f; }
+    .cookie-buttons { display: flex; gap: 12px; }
+    .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+    @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
+
+    /* Make header hide on scroll */
+    .site-header {
+      transition: transform 0.3s ease;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #111;
+    }
+    .site-header.hide {
+      transform: translateY(-100%);
+    }
+
+    /* Dynamic Island - Appears on scroll */
+    .dynamic-island {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 8px 24px;
+      display: flex;
+      gap: 24px;
+      z-index: 1001;
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .dynamic-island.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .dynamic-island a {
+      color: rgba(255, 255, 255, 0.7);
       font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       gap: 8px;
+      text-decoration: none;
     }
-    
-    /* ORB - moved down and positioned nicely */
-    .hero-orb {
-      width: 420px;
-      height: 420px;
-      max-width: 100%;
-      aspect-ratio: 1 / 1;
-      background: radial-gradient(circle at 30% 30%, rgba(247,121,31,0.25), rgba(0,0,0,0.8));
-      border-radius: 50%;
-      display: flex;
+    .dynamic-island a i { font-size: 14px; transition: transform 0.3s ease; }
+    .dynamic-island a:hover { background: rgba(232, 93, 4, 0.25); color: #e85d04; }
+    .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
+    .dynamic-island a.active { background: rgba(232, 93, 4, 0.35); color: #e85d04; box-shadow: 0 0 16px rgba(232, 93, 4, 0.7); font-weight: 600; }
+
+    /* Footer Navigation Hover Effects */
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    footer li {
+      margin-bottom: 10px;
+    }
+    footer a {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      position: relative;
-      box-shadow: 0 0 60px rgba(247,121,31,0.3);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(247,121,31,0.3);
-      margin: 20px 0;
+      gap: 8px;
+      color: #888;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      text-decoration: none;
     }
-    .car-icon {
-      font-size: 80px;
+    footer a i {
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    footer a:hover {
       color: #f7791f;
-      filter: drop-shadow(0 0 12px rgba(247,121,31,0.6));
-      animation: floatCar 4s ease-in-out infinite;
+      transform: translateX(6px);
     }
-    @keyframes floatCar { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-10px); } }
-    .orbit {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      animation: spin 20s linear infinite;
-    }
-    .orbit i {
-      position: absolute;
-      font-size: 24px;
+    footer a:hover i {
       color: #f7791f;
-      opacity: 0.8;
+      transform: translateX(2px);
     }
-    .orbit i:nth-child(1) { top: -15px; left: 50%; transform: translateX(-50%); }
-    .orbit i:nth-child(2) { bottom: -15px; left: 50%; transform: translateX(-50%); }
-    .orbit i:nth-child(3) { left: -15px; top: 50%; transform: translateY(-50%); }
-    .orbit i:nth-child(4) { right: -15px; top: 50%; transform: translateY(-50%); }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    
-    /* Responsive Hero */
-    @media (max-width: 1000px) {
-      .hero-grid { flex-direction: column; text-align: center; gap: 30px; }
-      .hero-content { text-align: center; }
-      .hero-sub { margin-left: auto; margin-right: auto; }
-      .hero-cta { justify-content: center; }
-      .hero-badges { justify-content: center; }
-      .hero-title { font-size: 2.8rem; }
-      .hero-orb { width: 320px; height: 320px; margin: 0 auto; }
+    footer a.active {
+      color: #f7791f;
+      font-weight: 500;
     }
-    @media (max-width: 600px) {
-      .hero-title { font-size: 2.2rem; }
-      .hero-orb { width: 260px; height: 260px; }
-      .car-icon { font-size: 50px; }
-    }
-    
-    /* Ultra-wide screens (21:9 and wider) */
-    @media (min-width: 1921px) {
-      .container { max-width: 1600px; }
-      .hero { min-height: 85vh; padding: 60px 0 100px 0; }
-      .hero-title { font-size: 4.5rem; }
-      .hero-orb { width: 500px; height: 500px; }
-      .car-icon { font-size: 100px; }
-      .hero-content { padding-right: 40px; }
+    footer a.active i {
+      color: #f7791f;
     }
 
-    /* ========== REST OF SECTIONS (keeping original styling) ========== */
-    .stats-strip { background: #111; padding: 50px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 30px; text-align: center; }
-    .stat .ic { font-size: 32px; color: #f7791f; margin-bottom: 12px; }
-    .stat .num { font-size: 36px; font-weight: 800; }
-    .stat .lbl { color: #aaa; font-size: 14px; }
-    @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2,1fr); gap: 24px; } }
-    
-    .about, .features, .steps, .cars, .banner, .reviews, .faq { padding: 80px 0; }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .eyebrow { color: #f7791f; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; font-weight: 600; display: inline-block; margin-bottom: 16px; }
-    .title { font-size: 2.5rem; font-weight: 700; margin-bottom: 20px; }
-    .title .em { color: #f7791f; }
-    .checks { display: flex; flex-wrap: wrap; gap: 16px; margin: 24px 0; }
-    .checks span i { color: #f7791f; margin-right: 8px; }
-    .about-card { background: #111; border-radius: 32px; padding: 40px; text-align: center; border: 1px solid #222; }
-    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 32px; margin-top: 48px; }
-    .feature { background: #111; padding: 32px; border-radius: 24px; transition: 0.3s; }
-    .feature .ic { font-size: 40px; margin-bottom: 20px; color: #f7791f; }
-    .steps-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 30px; margin-top: 48px; }
-    .step { background: #111; padding: 28px; border-radius: 24px; }
-    .step-num { color: #f7791f; font-size: 14px; margin-bottom: 12px; }
-    .cars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin-top: 48px; }
-    .car { background: #111; border-radius: 24px; overflow: hidden; }
-    .car-visual { position: relative; background: #1a1a1a; padding: 24px; text-align: center; }
-    .car-tag { position: absolute; top: 12px; left: 12px; background: #f7791f; padding: 4px 12px; border-radius: 40px; font-size: 12px; }
-    .car-body { padding: 24px; }
-    .car-specs { display: flex; gap: 16px; margin: 16px 0; color: #aaa; font-size: 13px; }
-    .car-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
-    .price { font-size: 24px; font-weight: 800; }
-    .price small { font-size: 13px; font-weight: 400; }
-    .view-btn { background: #f7791f20; padding: 8px 16px; border-radius: 40px; text-decoration: none; color: #f7791f; }
-    .banner { background: linear-gradient(135deg,#f7791f,#b13e00); text-align: center; border-radius: 40px; margin: 40px auto; max-width: 1200px; }
-    .rating-line { display: flex; justify-content: center; gap: 40px; margin: 30px 0; flex-wrap: wrap; }
-    .marquee-wrap { overflow: hidden; width: 100%; margin: 20px 0; }
-    .marquee { display: flex; gap: 24px; animation: slideReviews 30s linear infinite; width: max-content; }
-    .review { background: #111; padding: 20px; border-radius: 24px; min-width: 300px; max-width: 340px; }
-    .stars-row { color: #ffc107; margin-bottom: 12px; }
-    .faq-list { max-width: 800px; margin: 40px auto 0; }
-    .faq-item { background: #111; margin-bottom: 16px; border-radius: 20px; padding: 0 20px; }
-    .faq-item summary { padding: 20px 0; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .answer { padding-bottom: 20px; color: #aaa; }
-    
-    footer { background: #050507; padding: 60px 0 30px; border-top: 1px solid #222; }
-    .foot-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; }
-    .foot-socials { display: flex; gap: 16px; margin-top: 20px; }
-    .foot-socials a { color: #aaa; font-size: 20px; transition: 0.3s; }
-    .foot-socials a:hover { color: #f7791f; }
-    .foot-bot { text-align: center; margin-top: 50px; padding-top: 30px; border-top: 1px solid #222; font-size: 13px; color: #777; }
-    
-    .float { position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 12px; z-index: 99; }
-    .float a { width: 56px; height: 56px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #fff; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-    .float .ph { background: #f7791f; }
-    
-    .dynamic-island { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: rgba(0,0,0,0.85); backdrop-filter: blur(20px); border-radius: 60px; padding: 8px 28px; display: flex; gap: 28px; z-index: 1001; transition: transform 0.4s cubic-bezier(0.2,0.9,0.4,1.1); border: 1px solid rgba(255,255,255,0.2); }
-    .dynamic-island.show { transform: translateX(-50%) translateY(0); }
-    .dynamic-island a { color: #ddd; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 8px; }
-    .dynamic-island a.active { color: #f7791f; }
-    
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .burger { display: block; }
-      .steps-grid, .cars-grid, .foot-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .dynamic-island { padding: 6px 16px; gap: 12px; top: 10px; }
-      .dynamic-island a span { display: none; }
-      .container { padding: 0 20px; }
+    /* Active Nav Highlight (Orange) */
+    .nav-links a.active {
+      color: #f7791f !important;
     }
+
+    /* Additional Responsive Helpers */
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .checks { justify-content: center; }
+      .features-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .cars-grid { grid-template-columns: 1fr; }
+      .foot-grid { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .foot-socials { justify-content: center; }
+      .nav-links { display: none; }
+      .site-header .nav { justify-content: space-between; }
+      .dynamic-island { padding: 6px 16px; gap: 12px; top: 10px; }
+      .dynamic-island a { font-size: 11px; padding: 6px 12px; }
+      .dynamic-island a i { font-size: 13px; }
+      .dynamic-island a span { display: none; }
+      footer a:hover { transform: translateX(0); }
+    }
+    
     @media (max-width: 480px) {
-      .hero-title { font-size: 1.8rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2rem; }
+      .hero-cta { flex-direction: column; width: 100%; }
+      .hero-cta .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-<!-- INFINITE TICKER - Fixed for ultra-wide -->
-<div class="ticker">
-  <div class="track">
-    <span><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
-    <span><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
-    <span><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
-    <span><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
-    <span><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
-    <span><i class="fa-solid fa-award"></i> 10+ Years in London</span>
-    <span><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
-    <span><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
-    <span><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
-    <!-- Duplicate for seamless infinite loop on ultra-wide -->
-    <span><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
-    <span><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
-    <span><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
-    <span><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
-    <span><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
-    <span><i class="fa-solid fa-award"></i> 10+ Years in London</span>
-    <span><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
-    <span><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
-    <span><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+<!-- Cookie Consent Banner -->
+<div id="cookieConsent">
+  <div style="flex: 1; font-size: 13px; line-height: 1.5;">
+    <i class="fa-solid fa-cookie-bite"></i> We use cookies to improve your experience. By using our site, you accept our 
+    <a href="cookie-policy.html">Cookie Policy</a> and 
+    <a href="privacy-policy.html">Privacy Policy</a>.
+  </div>
+  <div class="cookie-buttons">
+    <button id="acceptCookies" class="cookie-accept">Accept</button>
+    <button id="declineCookies" class="cookie-decline">Decline</button>
   </div>
 </div>
 
+<!-- Ticker -->
+<div class="ticker">
+  <div class="track">
+    <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
+    <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
+    <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
+    <span class="item"><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
+    <span class="item"><i class="fa-solid fa-award"></i> 10+ Years in London</span>
+    <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
+    <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
+    <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+    <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
+    <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
+    <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
+    <span class="item"><i class="fa-solid fa-leaf"></i> Hybrid &amp; Electric Fleet</span>
+    <span class="item"><i class="fa-solid fa-award"></i> 10+ Years in London</span>
+    <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
+    <span class="item"><i class="fa-solid fa-wrench"></i> Full Breakdown Cover</span>
+    <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
+  </div>
+</div>
+
+<!-- Dynamic Island (Top Floating Nav) -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="index.html" class="active"><i class="fa-solid fa-house"></i><span>Home</span></a>
   <a href="our-fleet.html"><i class="fa-solid fa-car"></i><span>Our Fleet</span></a>
@@ -414,10 +380,11 @@
   <a href="contact-us.html"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
 </div>
 
+<!-- Header -->
 <header class="site-header" id="mainHeader">
   <div class="container nav">
     <a class="brand" href="index.html">
-      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo" onerror="this.src='https://placehold.co/40x40?text=VCH'"/></div>
+      <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo"/></div>
       <div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div>
     </a>
     <nav class="nav-links">
@@ -434,14 +401,22 @@
   </div>
 </header>
 
-<!-- Hero Section - Orb now positioned correctly -->
+<!-- Hero Section -->
 <section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow b"></div>
   <div class="hero-inner container">
     <div class="hero-grid">
       <div class="hero-content">
-        <div class="hero-pill">London's #1 PCO Car Hire · 4.8★ Google Rating</div>
-        <h1 class="hero-title">Drive Premium.<br><span class="em">Earn More.</span></h1>
-        <p class="hero-sub">London's most trusted PCO car hire. Hybrid & electric fleet, insurance included, same-day start — serving Uber, Bolt & Ola drivers since 2014.</p>
+        <div class="hero-pill">
+          <span class="dot"></span>
+          London's #1 PCO Car Hire &nbsp;·&nbsp; 4.8★ Google Rating
+        </div>
+        <h1 class="hero-title">
+          Drive Premium.<br>
+          <span class="em">Earn More.</span>
+        </h1>
+        <p class="hero-sub">London's most trusted PCO car hire. Hybrid &amp; electric fleet, insurance included, same-day start — serving Uber, Bolt &amp; Ola drivers since 2014.</p>
         <div class="hero-cta">
           <a class="btn btn-primary" href="contact-us.html">Get Your Car Today <i class="fa-solid fa-arrow-right"></i></a>
           <a class="btn btn-ghost" href="our-fleet.html"><i class="fa-solid fa-car"></i> View Our Fleet</a>
@@ -454,8 +429,18 @@
       </div>
       <div class="hero-visual">
         <div class="hero-orb">
-          <div class="orbit"><i class="fa-solid fa-key"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-bolt"></i><i class="fa-solid fa-shield-halved"></i></div>
-          <div class="orbit"><i class="fa-solid fa-leaf"></i><i class="fa-solid fa-award"></i><i class="fa-solid fa-id-card"></i><i class="fa-solid fa-location-dot"></i></div>
+          <div class="orbit">
+            <i class="fa-solid fa-key"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-bolt"></i>
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="orbit rev">
+            <i class="fa-solid fa-leaf"></i>
+            <i class="fa-solid fa-award"></i>
+            <i class="fa-solid fa-id-card"></i>
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
           <i class="fa-solid fa-car car-icon"></i>
         </div>
       </div>
@@ -464,37 +449,411 @@
 </section>
 
 <!-- Stats Strip -->
-<div class="stats-strip"><div class="container"><div class="stats-grid">
-  <div class="stat"><div class="ic"><i class="fa-solid fa-clock-rotate-left"></i></div><div class="num">10+</div><div class="lbl">Years Experience</div></div>
-  <div class="stat"><div class="ic"><i class="fa-solid fa-car-side"></i></div><div class="num">100+</div><div class="lbl">Premium Vehicles</div></div>
-  <div class="stat"><div class="ic"><i class="fa-solid fa-users"></i></div><div class="num">5000+</div><div class="lbl">Happy PCO Drivers</div></div>
-  <div class="stat"><div class="ic"><i class="fa-solid fa-star"></i></div><div class="num">4.8★</div><div class="lbl">Google Rating</div></div>
-</div></div></div>
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <div class="num"><span data-count="10" data-duration="1800">0</span><span class="suf">+</span></div>
+        <div class="lbl">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-car-side"></i></div>
+        <div class="num"><span data-count="100" data-duration="1800">0</span><span class="suf">+</span></div>
+        <div class="lbl">Premium Vehicles</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-users"></i></div>
+        <div class="num"><span data-count="5000" data-duration="1800">0</span><span class="suf">+</span></div>
+        <div class="lbl">Happy PCO Drivers</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-star"></i></div>
+        <div class="num">4.8<span class="suf">★</span></div>
+        <div class="lbl">Google Rating</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- About Section -->
-<section class="about"><div class="container about-grid"><div><span class="eyebrow">London's Premier PCO Car Hire</span><h2 class="title">The Car Hire Built For <span class="em">Drivers</span></h2><p>Virtual Car Hire is West London's most trusted PCO rental service. Since 2014 we have helped over 5,000 professional drivers get on the road with premium, well-maintained vehicles that are fully licensed, insured, and ready to earn from day one.</p><div class="checks"><span><i class="fa-solid fa-check"></i> No hidden fees</span><span><i class="fa-solid fa-check"></i> Uber, Bolt & Ola uploads</span><span><i class="fa-solid fa-check"></i> 100+ cars available</span></div><a class="btn btn-primary" href="contact-us.html">Get Started <i class="fa-solid fa-arrow-right"></i></a></div><div class="about-card"><div class="ic-big"><i class="fa-solid fa-car-side fa-3x" style="color:#f7791f"></i></div><h3>Virtual Car Hire</h3><p>London's trusted PCO partner</p><div class="mini-stats" style="display:flex; justify-content:center; gap:24px; margin-top:20px"><div><div class="num">4.8★</div><div class="lbl">Google Reviews</div></div><div><div class="num">5000+</div><div class="lbl">Drivers Served</div></div></div></div></div></section>
+<section class="about">
+  <div class="container about-grid">
+    <div class="reveal">
+      <span class="eyebrow">London's Premier PCO Car Hire</span>
+      <h2 class="title">The Car Hire Built For <span class="em">Drivers</span></h2>
+      <p>Virtual Car Hire is West London's most trusted PCO rental service. Since 2014 we have helped over 5,000 professional drivers get on the road with premium, well-maintained vehicles that are fully licensed, insured, and ready to earn from day one.</p>
+      <p>We take the hassle out of PCO driving — from documents and platform uploads to servicing and breakdown cover, everything is handled for you. All you do is drive.</p>
+      <div class="checks">
+        <span><i class="fa-solid fa-check"></i> No hidden fees</span>
+        <span><i class="fa-solid fa-check"></i> Uber, Bolt & Ola uploads</span>
+        <span><i class="fa-solid fa-check"></i> 100+ cars available</span>
+        <span><i class="fa-solid fa-check"></i> Flexible hire terms</span>
+      </div>
+      <div style="margin-top:32px;display:flex;gap:16px;">
+        <a class="btn btn-primary" href="contact-us.html">Get Started <i class="fa-solid fa-arrow-right"></i></a>
+        <a class="btn btn-ghost" href="about-us.html">About Us</a>
+      </div>
+    </div>
+    <div class="about-card reveal">
+      <div class="ic-big"><i class="fa-solid fa-car-side"></i></div>
+      <h3>Virtual Car Hire</h3>
+      <p>London's trusted PCO partner</p>
+      <div class="mini-stats">
+        <div>
+          <div class="num">4.8<span class="suf">★</span></div>
+          <div class="lbl">Google Reviews</div>
+        </div>
+        <div>
+          <div class="num">5000<span class="suf">+</span></div>
+          <div class="lbl">Drivers Served</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Features -->
-<section class="features"><div class="container"><div class="section-head"><span class="eyebrow center">Why Virtual Car Hire?</span><h2 class="title center">Everything Included. <span class="em">Nothing Hidden.</span></h2></div><div class="features-grid"><div class="feature"><div class="ic"><i class="fa-solid fa-shield-halved"></i></div><h3>Fully Insured</h3><p>Comprehensive motor trade insurance included.</p></div><div class="feature"><div class="ic"><i class="fa-solid fa-wrench"></i></div><h3>Service & MOT Included</h3><p>Scheduled servicing, MOT, breakdown cover included.</p></div><div class="feature"><div class="ic"><i class="fa-solid fa-leaf"></i></div><h3>Electric & Hybrid Fleet</h3><p>Low running costs with Tesla, EQE, Corolla estate.</p></div></div></div></section>
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Why Virtual Car Hire?</span>
+      <h2 class="title center">Everything Included. <span class="em">Nothing Hidden.</span></h2>
+      <p class="lede">We've removed every obstacle between you and earning. Here's what every hire includes.</p>
+    </div>
+    <div class="features-grid reveal-stagger">
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3>Fully Insured</h3>
+        <p>Comprehensive motor trade insurance included. All vehicles are fully covered, so you drive with complete peace of mind.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-wrench"></i></div>
+        <h3>Service & MOT Included</h3>
+        <p>Scheduled servicing, MOT, and roadside breakdown assistance are all covered in your weekly rate.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>TfL Licensed & PCO Ready</h3>
+        <p>Every car in our fleet is TfL-compliant and PCO-ready. We handle Uber, Bolt and Ola onboarding for you.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-leaf"></i></div>
+        <h3>Electric & Hybrid Fleet</h3>
+        <p>Reduce your running costs and emissions with our growing range of hybrid and fully electric vehicles.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-bolt"></i></div>
+        <h3>Same-Day Start</h3>
+        <p>Once documents are verified and contracts are signed, you can collect and start working the very same day.</p>
+      </div>
+      <div class="feature">
+        <div class="ic"><i class="fa-solid fa-location-dot"></i></div>
+        <h3>West London Base</h3>
+        <p>Conveniently located at The Vista Centre, Hounslow — easy access to Heathrow Airport and all of London.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- Cars -->
-<section class="cars"><div class="container"><div class="section-head"><span class="eyebrow center">Best Sellers</span><h2 class="title center">Our <span class="em">Top Cars</span></h2></div><div class="cars-grid"><div class="car"><div class="car-visual"><span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/a4c99e01c_generated_b79cd217.png" alt="Mercedes EQE"></div><div class="car-body"><h3>Mercedes EQE</h3><div class="car-foot"><div class="price">£440<small>/wk</small></div><a class="view-btn" href="#">View</a></div></div></div><div class="car"><div class="car-visual"><span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3"></div><div class="car-body"><h3>Tesla Model 3</h3><div class="car-foot"><div class="price">£260<small>/wk</small></div><a class="view-btn" href="#">View</a></div></div></div><div class="car"><div class="car-visual"><span class="car-tag"><i class="fa-solid fa-leaf"></i> Hybrid</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate"></div><div class="car-body"><h3>Toyota Corolla Estate</h3><div class="car-foot"><div class="price">£220<small>/wk</small></div><a class="view-btn" href="#">View</a></div></div></div></div><div style="text-align:center;margin-top:40px"><a class="btn btn-primary" href="our-fleet.html">Browse Full Fleet</a></div></div></section>
+<!-- Steps Section -->
+<section class="steps">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Simple Process</span>
+      <h2 class="title center">On the Road in <span class="em">4 Steps</span></h2>
+      <p class="lede">A clear, simple path from first message to ignition.</p>
+    </div>
+    <div class="steps-grid reveal-stagger">
+      <div class="step">
+        <div class="step-num">STEP 01</div>
+        <h3>Get In Touch</h3>
+        <p>Contact us via WhatsApp, call, SMS, or email.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 02</div>
+        <h3>Documents</h3>
+        <p>UK driving licence, TfL PHV badge, proof of address, NI number. We'll upload everything to Uber, Bolt or Ola for you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 03</div>
+        <h3>Sign Agreement</h3>
+        <p>Sign the contract at your earliest convenience to finalise the agreement. Once signed, everything will be in place.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 04</div>
+        <h3>Drive Off Today</h3>
+        <p>Pick up the vehicle at our Hounslow office. A walk-around inspection and key handover — start earning the same day.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- FAQ -->
-<section class="faq"><div class="container"><div class="section-head"><span class="eyebrow center">FAQ</span><h2 class="title center">Common <span class="em">Questions</span></h2></div><div class="faq-list"><details><summary>What documents do I need?</summary><div class="answer">UK driving licence, TfL PHV badge, proof of address, NI number.</div></details><details><summary>Is insurance included?</summary><div class="answer">Yes, comprehensive insurance is included.</div></details><details><summary>Can I start same-day?</summary><div class="answer">Absolutely, documents verified and agreement signed.</div></details></div><div style="text-align:center;margin-top:40px"><a class="btn btn-primary" href="contact-us.html">Contact Us</a></div></div></section>
+<!-- Cars Section -->
+<section class="cars">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Best Sellers</span>
+      <h2 class="title center">Our <span class="em">Top Cars</span></h2>
+      <p class="lede">Three of our most popular PCO vehicles — hybrid, electric and estate.</p>
+    </div>
+    <div class="cars-grid reveal-stagger">
+      <article class="car">
+        <div class="car-visual"><span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/a4c99e01c_generated_b79cd217.png" alt="Mercedes EQE PCO Car Hire"></div>
+        <div class="car-body"><h3>Mercedes EQE</h3><p class="car-meta">Full Electric · Executive Saloon</p><div class="car-specs"><span><i class="fa-solid fa-users"></i> 5</span><span><i class="fa-solid fa-gears"></i> Auto</span><span><i class="fa-solid fa-calendar"></i> 2023–24</span></div><div class="car-foot"><div class="price">£440<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/mercedes-eqe.html">View <i class="fa-solid fa-arrow-right"></i></a></div></div>
+      </article>
+      <article class="car">
+        <div class="car-visual"><span class="car-tag"><i class="fa-solid fa-bolt"></i> Electric</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/f8bc04bf7_generated_7408a636.png" alt="Tesla Model 3 PCO Car Hire"></div>
+        <div class="car-body"><h3>Tesla Model 3</h3><p class="car-meta">Full Electric · Saloon</p><div class="car-specs"><span><i class="fa-solid fa-users"></i> 5</span><span><i class="fa-solid fa-gears"></i> Auto</span><span><i class="fa-solid fa-calendar"></i> 2021–24</span></div><div class="car-foot"><div class="price">£260<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/tesla-model-3.html">View <i class="fa-solid fa-arrow-right"></i></a></div></div>
+      </article>
+      <article class="car">
+        <div class="car-visual"><span class="car-tag hybrid"><i class="fa-solid fa-leaf"></i> Hybrid</span><img src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate PCO Car Hire"></div>
+        <div class="car-body"><h3>Toyota Corolla Estate</h3><p class="car-meta">Hybrid · Estate</p><div class="car-specs"><span><i class="fa-solid fa-users"></i> 5</span><span><i class="fa-solid fa-gears"></i> Auto</span><span><i class="fa-solid fa-calendar"></i> 2021–24</span></div><div class="car-foot"><div class="price">£220<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/toyota-corolla-estate.html">View <i class="fa-solid fa-arrow-right"></i></a></div></div>
+      </article>
+    </div>
+    <div style="text-align:center;margin-top:44px;"><a class="btn btn-primary" href="our-fleet.html">Browse Full Fleet <i class="fa-solid fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- Banner Section -->
+<section class="banner">
+  <div class="container reveal">
+    <span class="eyebrow">Trusted by Professionals</span>
+    <h2><span data-count="5000" data-duration="2000">0</span>+ <span class="em">Drivers</span></h2>
+    <p>chose Virtual Car Hire to power their business. Join thousands of PCO professionals across London who trust us to keep them on the road and earning.</p>
+    <a class="btn" href="contact-us.html">Start Today <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="reviews">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">Real Reviews</span>
+      <h2 class="title center">What Our Customers <span class="em">Say</span></h2>
+      <p class="lede">Don't just take our word for it — hear from thousands of satisfied customers.</p>
+    </div>
+    
+    <div class="rating-line">
+      <div class="rating-item">
+        <i class="fa-brands fa-google" style="color:#4285f4; font-size: 20px;"></i>
+        <span class="stars">★★★★★</span>
+        <strong>4.8</strong>
+        <span style="color:#666;">(63 reviews)</span>
+      </div>
+      <div class="rating-item">
+        <i class="fa-brands fa-trustpilot" style="color:#00b67a; font-size: 20px;"></i>
+        <span class="stars">★★★★★</span>
+        <strong>4.8</strong>
+        <span style="color:#666;">(127 reviews)</span>
+      </div>
+    </div>
+    
+    <h3 style="text-align: center; margin-bottom: 20px; font-size: 1.2rem; color: #4285f4;"><i class="fa-brands fa-google"></i> Google Reviews</h3>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Great Service and very nice person, Specially Sohail sb. Very co-operative and friendly."</p>
+          <div class="who"><div class="av">A</div><div><strong>A Chaudhry</strong><small>Google · Jan 2026</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Virtual Car Hire Ltd the Great rental company. Nice cars, very friendly customer service. Definitely will be back again."</p>
+          <div class="who"><div class="av">F</div><div><strong>Filmon Abraha</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The best company for hire, serious people and very organized. I recommend the company. Thank you."</p>
+          <div class="who"><div class="av">S</div><div><strong>Stefan Petcu</strong><small>Google · Jun 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"What a great and perfect company for PCO drivers. Sohail and Rizwan are top guys, honest and look after the drivers."</p>
+          <div class="who"><div class="av">C</div><div><strong>Cesar Castillo</strong><small>Google · Jan 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The most professional PCO hire company in London. Any problem is fixed within 24 hours. Highly recommend!"</p>
+          <div class="who"><div class="av">M</div><div><strong>Mohamed Ismail</strong><small>Google · Mar 2024</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Clean cars, honest pricing, fast sign-up process. I was driving the same afternoon. Very impressed."</p>
+          <div class="who"><div class="av">D</div><div><strong>David O.</strong><small>Google · Nov 2023</small></div></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="text-align: center; margin: 40px 0 20px; font-size: 1.2rem; color: #00b67a;"><i class="fa-brands fa-trustpilot"></i> Trustpilot Reviews</h3>
+    <div class="marquee-wrap">
+      <div class="marquee">
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Excellent service from start to finish. The team was very professional and the car was in perfect condition."</p>
+          <div class="who"><div class="av">S</div><div><strong>Sarah M.</strong><small>Trustpilot · Dec 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Best PCO rental experience in London. Highly recommend Virtual Car Hire to any driver looking for reliable vehicles."</p>
+          <div class="who"><div class="av">J</div><div><strong>James T.</strong><small>Trustpilot · Nov 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"The team went above and beyond to get me on the road quickly. Great cars and excellent support."</p>
+          <div class="who"><div class="av">M</div><div><strong>Maria R.</strong><small>Trustpilot · Oct 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"Very professional company. The car was clean, well-maintained, and the paperwork was quick and easy."</p>
+          <div class="who"><div class="av">P</div><div><strong>Paul K.</strong><small>Trustpilot · Sep 2025</small></div></div>
+        </div>
+        <div class="review">
+          <div class="stars-row">★★★★★</div>
+          <p class="quote">"I've rented from several companies, but Virtual Car Hire is by far the best. Great value and great service."</p>
+          <div class="who"><div class="av">L</div><div><strong>Lisa C.</strong><small>Trustpilot · Aug 2025</small></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow center">FAQ</span>
+      <h2 class="title center">Common <span class="em">Questions</span></h2>
+      <p class="lede">Everything you need to know before getting started.</p>
+    </div>
+    <div class="faq-list reveal-stagger">
+      <details class="faq-item"><summary>What documents do I need to hire a PCO car? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">You'll need your UK driving licence, TfL PHV badge, proof of address, and National Insurance number. We handle the platform uploads to Uber, Bolt and Ola for you.</div></details>
+      <details class="faq-item"><summary>Is insurance included in the weekly rate? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">Yes — comprehensive motor trade insurance is fully included along with servicing, MOT, and roadside breakdown cover.</div></details>
+      <details class="faq-item"><summary>Can I use the car on Uber, Bolt and Ola? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">Absolutely. Every vehicle is TfL-licensed and PCO-ready. We'll upload your documents to all major platforms.</div></details>
+      <details class="faq-item"><summary>How quickly can I get on the road? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">Most drivers collect and start working the same day, once documents are verified and the agreement is signed.</div></details>
+      <details class="faq-item"><summary>Do you offer electric or hybrid cars? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">Yes — our fleet includes a growing range of full electric (Tesla Model 3, Mercedes EQE, EQS) and hybrid options (Toyota Corolla Estate, Prius, Hyundai IONIQ and more).</div></details>
+      <details class="faq-item"><summary>What happens if the car breaks down? <span class="arrow"><i class="fa-solid fa-plus"></i></span></summary><div class="answer">Full roadside breakdown assistance is included in every hire, so you're never left stranded.</div></details>
+    </div>
+    <div style="text-align:center;margin-top:50px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a class="btn btn-primary" href="contact-us.html">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn btn-wa" href="https://wa.me/447508496940" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+    </div>
+  </div>
+</section>
 
 <!-- Footer -->
-<footer><div class="container"><div class="foot-grid"><div><div class="foot-brand"><div class="mark"><img src="assets/logo.png" width="40" alt="logo"/></div><div><strong>Virtual Car Hire</strong><br/><span>London PCO Specialists</span></div></div><div class="foot-socials"><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div></div><div><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="our-fleet.html">Fleet</a></li></ul></div><div><h4>Contact</h4><ul><li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li><li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li></ul></div></div><div class="foot-bot"><div>© 2026 Virtual Car Hire Ltd</div></div></div></footer>
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire Logo"/></div>
+          <div><strong style="font-size:16px">Virtual Car Hire</strong><br/><span style="font-size:10px;letter-spacing:2px;color:#777;text-transform:uppercase">London PCO Specialists</span></div>
+        </div>
+        <p>London's premier PCO car hire service. Serving Uber, Bolt &amp; Ola drivers from West London since 2014.</p>
+        <div class="foot-socials">
+          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/virtual.car.hire/" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@virtual.car.hire" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://wa.me/447508496940" aria-label="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a class="active" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+          <li><a href="our-fleet.html"><i class="fa-solid fa-car"></i> Our Fleet</a></li>
+          <li><a href="about-us.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+          <li><a href="contact-us.html"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <ul>
+          <li><a href="tel:+442072946756"><i class="fa-solid fa-phone"></i> +44 207 294 6756</a></li>
+          <li><a href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i> +44 7508 496940</a></li>
+          <li><a href="mailto:info@fa-ibi.co.uk"><i class="fa-solid fa-envelope"></i> info@fa-ibi.co.uk</a></li>
+          <li class="hoverable"><i class="fa-solid fa-location-dot"></i> The Vista Centre, Hounslow TW4 6JQ</li>
+          <li class="hoverable"><i class="fa-solid fa-clock"></i> Mon–Sat, 9:00 – 18:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy-policy.html"><i class="fa-solid fa-shield"></i> Privacy Policy</a></li>
+          <li><a href="cookie-policy.html"><i class="fa-solid fa-cookie"></i> Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div>
+      <div>Designed for London's professional drivers.</div>
+    </div>
+  </div>
+</footer>
 
-<div class="float"><a class="wa" href="https://wa.me/447508496940"><i class="fa-brands fa-whatsapp"></i></a><a class="ph" href="tel:+442072946756"><i class="fa-solid fa-phone"></i></a></div>
+<!-- Floating actions -->
+<div class="float">
+  <a class="wa" href="https://wa.me/447508496940" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+  <a class="ph" href="tel:+442072946756"><i class="fa-solid fa-phone"></i></a>
+</div>
 
+<script src="assets/app.js"></script>
 <script>
-  const header = document.getElementById('mainHeader');
-  const island = document.getElementById('dynamicIsland');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 80) { header.classList.add('hide'); island.classList.add('show'); }
-    else { header.classList.remove('hide'); island.classList.remove('show'); }
-  });
+  // Cookie Consent Functionality
+  (function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    
+    function setCookie(name, value, days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      document.cookie = name + "=" + value + ";expires=" + date.toUTCString() + ";path=/";
+    }
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+    if (!getCookie('cookieConsent')) { cookieConsent.style.display = 'flex'; }
+    if (acceptBtn) {
+      acceptBtn.onclick = function() {
+        setCookie('cookieConsent', 'accepted', 365);
+        cookieConsent.style.display = 'none';
+      };
+    }
+    if (declineBtn) {
+      declineBtn.onclick = function() {
+        setCookie('cookieConsent', 'declined', 30);
+        cookieConsent.style.display = 'none';
+      };
+    }
+  })();
+
+  // Scroll behavior: Main header hides, dynamic island appears
+  const mainHeader = document.getElementById('mainHeader');
+  const dynamicIsland = document.getElementById('dynamicIsland');
+  
+  function handleScroll() {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > 50) {
+      mainHeader.classList.add('hide');
+      dynamicIsland.classList.add('show');
+    } else {
+      mainHeader.classList.remove('hide');
+      dynamicIsland.classList.remove('show');
+    }
+  }
+  
+  handleScroll();
+  window.addEventListener('scroll', handleScroll);
 </script>
+
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "539a9c76f52a4b27867dadbee38022ba"}'></script>
+<!-- End Cloudflare Web Analytics -->
+
 </body>
 </html>
