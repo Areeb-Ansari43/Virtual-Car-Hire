@@ -97,18 +97,18 @@
     html, body { overflow-x: hidden; width: 100%; }
     img { max-width: 100%; height: auto; }
 
-    /* ========== HERO SECTION FIXED FOR MACBOOK & PC ========== */
+    /* ========== HERO SECTION FIXED - Added top padding for header ========== */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 0;
+      padding: 80px 0 0 0;  /* Added top padding to account for sticky header */
       position: relative;
       background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 100%);
       background-size: cover;
       background-position: center center;
       background-repeat: no-repeat;
-      /* Single background image that works on all screens including MacBook */
+      /* Single background image that works on all screens */
       background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
     }
 
@@ -147,7 +147,7 @@
     @media (max-width: 1000px) {
       .hero {
         min-height: auto;
-        padding: 80px 0;
+        padding: 100px 0 60px 0;  /* More top padding on mobile for header */
       }
       .hero-orb {
         width: 340px;
@@ -173,7 +173,6 @@
       .hero-badges {
         justify-content: center;
       }
-      /* Same background on mobile - consistent across all devices */
       .hero {
         background-image: url('https://files.manuscdn.com/user_upload_by_module/session_file/310519663733919518/xyPdOzSObegGNvFu.png');
         background-position: center center;
