@@ -186,8 +186,12 @@
         width: 280px;
         height: 280px;
       }
-      .hero-title {
-        font-size: 2.5rem;
+      section.hero .hero-content h1.hero-title,
+      section.hero h1.hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.15 !important;
+        max-width: 100% !important;
+        word-break: break-word;
       }
       /* Mobile hero image - portrait crop so faces/subject aren't cut off */
       .hero {
@@ -332,8 +336,13 @@
     }
     
     @media (max-width: 480px) {
-      .stats-grid { grid-template-columns: 1fr; }
-      .hero-title { font-size: 2rem; }
+      section.hero .hero-content h1.hero-title,
+      section.hero h1.hero-title {
+        font-size: 1.9rem !important;
+        line-height: 1.15 !important;
+        max-width: 100% !important;
+        word-break: break-word;
+      }
       .hero-cta { flex-direction: column; width: 100%; }
       .hero-cta .btn { width: 100%; }
     }
