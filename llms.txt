@@ -1,0 +1,35 @@
+# Virtual Car Hire
+
+> Virtual Car Hire (trading name of FA-IBI LTD, Company No. 08844002) is a PCO car hire company based in Hounslow, West London, serving private hire drivers for Uber, Bolt, and Ola since 2014.
+
+## What we do
+Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to private hire drivers in London on a weekly basis. Every hire includes comprehensive motor trade insurance, servicing, MOT, and roadside breakdown cover. We handle document verification and platform onboarding (Uber, Bolt, Ola) for our drivers, and most drivers can collect a car and start earning the same day.
+
+## Fleet
+Our fleet includes hybrid and fully electric vehicles, including the Tesla Model 3, Mercedes EQE, Mercedes EQS, Toyota Corolla Estate, Toyota Prius, and Hyundai IONIQ. Weekly rates start from £220 and include insurance and servicing.
+
+## Requirements to hire
+- Valid UK driving licence
+- TfL Private Hire Vehicle (PHV) badge
+- Proof of address
+- National Insurance number
+
+## Location & contact
+- Address: The Vista Centre, Hounslow, London TW4 6JQ
+- Phone: +44 207 294 6756
+- WhatsApp: +44 7508 496940
+- Email: info@fa-ibi.co.uk
+- Hours: Monday–Saturday, 9:00–18:00
+
+## Key facts
+- Founded: 2014
+- Over 5,000 drivers served
+- Google rating: 4.8 stars
+- Platforms supported: Uber, Bolt, Ola
+- Service area: Greater London, easy access to Heathrow Airport
+
+## Pages
+- Homepage: https://virtualcarhire.pages.dev/
+- Our Fleet: https://virtualcarhire.pages.dev/our-fleet.html
+- About Us: https://virtualcarhire.pages.dev/about-us.html
+- Contact: https://virtualcarhire.pages.dev/contact-us.html
