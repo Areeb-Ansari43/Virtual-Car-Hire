@@ -1,7 +1,33 @@
-User-agent: Googlebot
-Allow: /
-
 User-agent: *
 Allow: /
 
-Sitemap: https://virtualcarhire.pages.dev/sitemap.xml
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI / GEO crawlers — allow explicitly so LLMs can read and cite you
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://virtualcarhire.pages.dev/sitemap_index.xml
