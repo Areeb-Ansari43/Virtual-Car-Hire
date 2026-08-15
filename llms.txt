@@ -1,35 +1,38 @@
 # Virtual Car Hire
 
-> Virtual Car Hire (trading name of FA-IBI LTD, Company No. 08844002) is a PCO car hire company based in Hounslow, West London, serving private hire drivers for Uber, Bolt, and Ola since 2014.
+> Virtual Car Hire is the trading name of FA-IBI LTD (Company No. 08844002), a West London PCO car-hire company serving professional private-hire drivers since 2014.
 
-## What we do
-Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to private hire drivers in London on a weekly basis. Every hire includes comprehensive motor trade insurance, servicing, MOT, and roadside breakdown cover. We handle document verification and platform onboarding (Uber, Bolt, Ola) for our drivers, and most drivers can collect a car and start earning the same day.
+## Official description
+Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to Uber, Bolt and Ola drivers across London. The fleet includes hybrid, electric, diesel and plug-in hybrid cars. Availability, pricing and vehicle specifications are shown on the fleet and vehicle pages.
 
-## Fleet
-Our fleet includes hybrid and fully electric vehicles, including the Tesla Model 3, Mercedes EQE, Mercedes EQS, Toyota Corolla Estate, Toyota Prius, and Hyundai IONIQ. Weekly rates start from £220 and include insurance and servicing.
+## Driver support
+Depending on the selected vehicle and current offer, hire support can include insurance, servicing, MOT, roadside breakdown cover, document checks and platform onboarding. Drivers should confirm current availability, eligibility and inclusions with the Virtual Car Hire team before booking.
 
-## Requirements to hire
-- Valid UK driving licence
-- TfL Private Hire Vehicle (PHV) badge
-- Proof of address
-- National Insurance number
+## Fleet categories
+The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG, Ford and Volkswagen vehicles. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
 
-## Location & contact
-- Address: The Vista Centre, Hounslow, London TW4 6JQ
-- Phone: +44 207 294 6756
-- WhatsApp: +44 7508 496940
-- Email: info@fa-ibi.co.uk
-- Hours: Monday–Saturday, 9:00–18:00
+## Driver requirements
+Typical requirements include a valid UK driving licence, TfL Private Hire Vehicle badge, proof of address and National Insurance details. Requirements can vary by driver and vehicle, so applicants should contact the team for current confirmation.
 
-## Key facts
-- Founded: 2014
-- Over 5,000 drivers served
-- Google rating: 4.8 stars
-- Platforms supported: Uber, Bolt, Ola
-- Service area: Greater London, easy access to Heathrow Airport
+## Location and service area
+Virtual Car Hire is based at The Vista Centre, Hounslow, London TW4 6JQ, with convenient access to Heathrow and drivers across Greater London.
 
-## Pages
+## Contact
+Phone: +44 20 7294 6756
+WhatsApp: +44 7508 496940
+Email: info@fa-ibi.co.uk
+Opening hours: Monday to Saturday, 09:00 to 18:00
+
+## Search topics answered by the site
+The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability and driver onboarding.
+
+## Public pages
 - Homepage: https://virtualcarhire.pages.dev/
-- Our Fleet: https://virtualcarhire.pages.dev/our-fleet.html
-- About Us: https://virtualcarhire.pages.dev/about-us.html
-- Contact: https://virtualcarhire.pages.dev/contact-us.html
+- Fleet: https://virtualcarhire.pages.dev/our-fleet
+- About: https://virtualcarhire.pages.dev/about-us
+- Contact: https://virtualcarhire.pages.dev/contact-us
+- WhatsApp enquiry: https://virtualcarhire.pages.dev/whatsapp
+- XML sitemap: https://virtualcarhire.pages.dev/sitemap.xml
+
+## Accuracy note
+Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions. The website does not guarantee a number-one search position or a specific earnings outcome.

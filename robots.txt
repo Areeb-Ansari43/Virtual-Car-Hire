@@ -1,33 +1,33 @@
+# Virtual Car Hire crawler policy
+# Public service, fleet and contact pages are intentionally crawlable.
 User-agent: *
 Allow: /
+Disallow: /test.html
+Disallow: /google5d00861e8f9fe673.html
+Disallow: /BingSiteAuth.xml
 
 # Search engines
 User-agent: Googlebot
 Allow: /
-
 User-agent: Bingbot
 Allow: /
 
-# AI / GEO crawlers — allow explicitly so LLMs can read and cite you
-User-agent: GPTBot
+# AI search and answer crawlers
+User-agent: OAI-SearchBot
 Allow: /
-
 User-agent: ChatGPT-User
 Allow: /
-
+User-agent: GPTBot
+Allow: /
 User-agent: ClaudeBot
 Allow: /
-
 User-agent: Claude-Web
 Allow: /
-
 User-agent: PerplexityBot
 Allow: /
-
 User-agent: Google-Extended
 Allow: /
-
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://virtualcarhire.pages.dev/sitemap_index.xml
+Sitemap: https://virtualcarhire.pages.dev/sitemap.xml
