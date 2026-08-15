@@ -861,3 +861,72 @@ footer{background:#06060a;color:#9a9aa3;padding:80px 0 30px;font-size:14px;borde
 @media (max-width:1000px){.driver-advantage-panel{width:min(530px,100%);}.hero-visual{width:100%;}.hero-visual .driver-advantage-panel{margin:0 auto;}}
 @media (max-width:600px){.driver-advantage-panel{padding:21px 17px;border-radius:22px;}.advantage-main{margin:23px 0 20px;gap:11px;}.advantage-icon{width:48px;height:48px;flex-basis:48px;border-radius:15px;font-size:19px;}.advantage-main h2{font-size:27px;}.advantage-kicker{font-size:9px;}.advantage-labels{font-size:8.5px;margin-bottom:19px;}.advantage-benefits{gap:6px;padding-top:16px;}.advantage-benefits>div>i{width:27px;height:27px;font-size:10px;}.advantage-benefits strong{font-size:9.5px;}.advantage-benefits small{font-size:8.5px;}.advantage-foot{padding-top:16px;margin-top:16px;font-size:8.5px;}}
 @media (prefers-reduced-motion:reduce){.driver-advantage-panel{transition:none;}.driver-advantage-panel:hover{transform:none;}}
+
+/* ===== Mobile stability patch ===== */
+@media (max-width: 768px) {
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, video, iframe { max-width: 100%; }
+  .ticker { overflow: hidden; }
+  .site-header { width: 100%; }
+  .site-header .nav { width: 100%; min-width: 0; }
+  .nav-cta { flex-shrink: 0; }
+  .nav-cta .phone { white-space: nowrap; }
+  .hero { min-height: auto; }
+  section.hero .hero-inner { padding-top: 0; }
+  section.hero .hero-content { max-width: 100%; }
+  section.hero .hero-title { max-width: 100%; font-size: clamp(2.25rem, 11vw, 4.4rem); line-height: 1.04; }
+  section.hero .hero-copy { max-width: 100%; }
+  .hero-visual { width: 100%; min-width: 0; }
+  .driver-advantage-panel { max-width: 100%; }
+  .hero-cta { gap: 10px; }
+  .hero-cta .btn { min-height: 48px; }
+  .stats-grid, .about-grid, .features-grid, .steps-grid, .cars-grid { min-width: 0; }
+  .cars-grid { grid-template-columns: 1fr; }
+  .car { width: 100%; }
+  .car-visual { min-height: 190px; }
+  .car img { max-height: 210px; }
+  .page-hero { overflow: hidden; }
+  .page-hero .container { min-width: 0; }
+  .car-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding: 2px 2px 10px; scrollbar-width: none; }
+  .car-filters::-webkit-scrollbar { display: none; }
+  .car-filters button { flex: 0 0 auto; }
+  .foot-grid { grid-template-columns: 1fr !important; }
+  .foot-brand { grid-column: auto !important; }
+  .float { right: 12px; bottom: max(14px, env(safe-area-inset-bottom)); }
+  .float a { width: 48px; height: 48px; }
+}
+@media (max-width: 480px) {
+  .container { padding-left: 16px; padding-right: 16px; }
+  .site-header .nav { min-height: 60px; }
+  .brand .mark { width: 36px; height: 36px; }
+  .brand .text strong { font-size: 12px; }
+  .nav-cta .phone { display: none; }
+  .burger { width: 38px; height: 38px; }
+  .nav-links.open { left: 12px; right: 12px; top: 58px !important; }
+  section.hero .hero-title { font-size: clamp(2rem, 12vw, 3rem); }
+  .hero-cta { flex-direction: column; align-items: stretch; }
+  .hero-cta .btn { width: 100%; justify-content: center; }
+  .driver-advantage-panel { padding: 18px 15px; }
+  .advantage-main h2 { font-size: 25px; }
+  .advantage-benefits { grid-template-columns: 1fr 1fr; }
+  .advantage-benefits > div:last-child { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  #cookieConsent {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 10px !important;
+    padding: 11px 13px !important;
+    border-radius: 18px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    gap: 10px !important;
+    font-size: 11px !important;
+  }
+  #cookieConsent > div:first-child { font-size: 11px !important; line-height: 1.35 !important; }
+  #cookieConsent .cookie-buttons { gap: 7px !important; flex-shrink: 0; }
+  #cookieConsent .cookie-accept,
+  #cookieConsent .cookie-decline { padding: 7px 11px !important; font-size: 11px; white-space: nowrap; }
+}

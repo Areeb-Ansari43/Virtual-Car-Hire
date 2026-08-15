@@ -254,6 +254,59 @@
   }
 ]
   </script>
+
+<style id="vehicle-mobile-stability">
+@media (max-width: 768px) {
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  .ticker { overflow: hidden; }
+  .ticker-inner { min-width: max-content; }
+  .main-nav { min-height: 64px; padding: 10px 16px; gap: 10px; }
+  .nav-logo { flex: 0 1 auto; min-width: 0; }
+  .nav-logo img { height: 36px; max-width: 150px; object-fit: contain; }
+  .main-nav .nav-links { display: none; }
+  .nav-actions { margin-left: auto; gap: 8px; }
+  .nav-phone span, .btn-booknow { display: none; }
+  .dynamic-island { top: 74px; width: calc(100% - 24px); max-width: 390px; padding: 6px 8px; gap: 2px; justify-content: space-around; }
+  .dynamic-island a { min-width: 0; padding: 8px 9px; font-size: 11px; gap: 0; justify-content: center; }
+  .dynamic-island a span { display: none; }
+  .hero { padding: 26px 0 0; }
+  .hero-inner { padding: 0 16px; }
+  .back-link { margin-bottom: 20px; font-size: 13px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 26px; padding-bottom: 34px; }
+  .hero-right { order: -1; }
+  .hero-img-wrap { width: 100%; }
+  .hero-img-wrap img { width: 100%; max-width: 100%; max-height: 290px; object-fit: contain; }
+  .hero-title { font-size: clamp(32px, 10vw, 44px); line-height: 1.05; }
+  .hero-subtitle { font-size: 14px; }
+  .hero-desc { font-size: 14px; line-height: 1.65; margin-bottom: 20px; }
+  .hero-price .amount { font-size: 42px; }
+  .hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-btns a { width: 100%; justify-content: center; }
+  .terms-strip { padding: 18px 16px; }
+  .terms-strip p { font-size: 12px; }
+  .specs-trust { grid-template-columns: 1fr; gap: 32px; padding: 38px 16px; }
+  .specs-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .spec-card { padding: 14px 12px; gap: 9px; }
+  .spec-value { font-size: 14px; }
+  .trust-panel { padding: 24px 18px; }
+  .cta-section { padding: 44px 16px; }
+  .cta-section h2 { font-size: 26px; }
+  footer { padding: 42px 16px 22px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 26px; }
+  .footer-brand p { max-width: none; }
+  .whatsapp-fab { width: 50px; height: 50px; right: 16px; bottom: 16px; font-size: 22px; }
+}
+@media (max-width: 390px) {
+  .main-nav { padding-left: 12px; padding-right: 12px; }
+  .nav-logo img { max-width: 125px; }
+  .specs-grid { grid-template-columns: 1fr; }
+  .dynamic-island { width: calc(100% - 16px); }
+  .dynamic-island a { padding-left: 7px; padding-right: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dynamic-island, .whatsapp-fab { transition: none !important; }
+}
+</style>
 </head>
 <body>
 
