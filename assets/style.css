@@ -830,3 +830,35 @@ footer{background:#06060a;color:#9a9aa3;padding:80px 0 30px;font-size:14px;borde
   .car-filters button{padding:8px 10px;font-size:10px;}
   .whatsapp-hero h1{font-size:34px;}
 }
+
+/* ===== Homepage PCO Driver Advantage panel ===== */
+.driver-advantage-panel{position:relative;width:min(520px,100%);padding:30px;border:1px solid rgba(255,255,255,.22);border-radius:30px;background:linear-gradient(145deg,rgba(24,24,30,.84),rgba(10,10,13,.68));box-shadow:0 30px 80px -24px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(247,121,31,.16);backdrop-filter:blur(24px) saturate(140%);-webkit-backdrop-filter:blur(24px) saturate(140%);overflow:hidden;color:#fff;transform:translateY(0);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;}
+.driver-advantage-panel:hover{transform:translateY(-5px);border-color:rgba(247,121,31,.48);box-shadow:0 38px 90px -26px rgba(0,0,0,.82),0 0 35px -10px rgba(247,121,31,.34),inset 0 1px 0 rgba(255,255,255,.25);}
+.advantage-glow{position:absolute;width:270px;height:270px;right:-90px;top:-130px;border-radius:50%;background:radial-gradient(circle,rgba(247,121,31,.38),transparent 68%);filter:blur(12px);pointer-events:none;}
+.advantage-topline,.advantage-foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;color:#a8a8b1;font-size:11px;letter-spacing:.8px;text-transform:uppercase;}
+.advantage-topline span{display:inline-flex;align-items:center;gap:8px;color:#ffad68;font-weight:700;}
+.advantage-topline span i{font-size:12px;}
+.advantage-main{position:relative;z-index:1;display:flex;align-items:center;gap:16px;margin:34px 0 28px;}
+.advantage-icon{width:62px;height:62px;flex:0 0 62px;display:grid;place-items:center;border-radius:20px;background:var(--grad-orange);box-shadow:0 14px 34px -14px var(--orange-glow);font-size:25px;transform:rotate(-7deg);}
+.advantage-icon i{transform:rotate(7deg);}
+.advantage-kicker{display:block;color:#a8a8b1;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:3px;}
+.advantage-main h2{font-family:'Playfair Display',serif;font-size:clamp(29px,4vw,43px);line-height:1;letter-spacing:-.8px;}
+.advantage-main h2 em{color:var(--orange-2);font-style:italic;}
+.advantage-route{position:relative;z-index:1;display:flex;align-items:center;padding:0 7px;}
+.route-node{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:#aaa;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.17);font-size:13px;}
+.route-node.active{color:#fff;background:rgba(247,121,31,.94);border-color:transparent;box-shadow:0 0 0 5px rgba(247,121,31,.12),0 8px 20px -10px var(--orange-glow);}
+.route-line{height:1px;flex:1;background:linear-gradient(90deg,rgba(247,121,31,.72),rgba(255,255,255,.24));}
+.advantage-labels{position:relative;z-index:1;display:flex;justify-content:space-between;color:#9999a2;font-size:10.5px;margin:9px 0 25px;}
+.advantage-benefits{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);}
+.advantage-benefits>div{display:flex;flex-direction:column;gap:10px;min-width:0;}
+.advantage-benefits>div>i{width:31px;height:31px;display:grid;place-items:center;border-radius:10px;color:#ff9a3d;background:rgba(247,121,31,.12);font-size:12px;}
+.advantage-benefits strong,.advantage-benefits small{display:block;line-height:1.3;}
+.advantage-benefits strong{font-size:11px;color:#f0f0f2;font-weight:600;}
+.advantage-benefits small{font-size:10px;color:#898991;margin-top:4px;}
+.advantage-foot{padding-top:22px;margin-top:24px;border-top:1px solid rgba(255,255,255,.1);font-size:10px;letter-spacing:.3px;text-transform:none;}
+.advantage-foot span:first-child{display:inline-flex;align-items:center;gap:6px;color:#c7c7cc;}
+.advantage-foot span:first-child i{color:#ff9a3d;}
+.advantage-foot span:last-child{color:#777780;}
+@media (max-width:1000px){.driver-advantage-panel{width:min(560px,100%);}.hero-visual{width:100%;}.hero-visual .driver-advantage-panel{margin:0 auto;}}
+@media (max-width:600px){.driver-advantage-panel{padding:22px 18px;border-radius:23px;}.advantage-main{margin:25px 0 22px;gap:12px;}.advantage-icon{width:50px;height:50px;flex-basis:50px;border-radius:16px;font-size:20px;}.advantage-main h2{font-size:29px;}.advantage-kicker{font-size:10px;}.advantage-labels{font-size:9px;margin-bottom:21px;}.advantage-benefits{gap:7px;padding-top:18px;}.advantage-benefits>div>i{width:28px;height:28px;font-size:11px;}.advantage-benefits strong{font-size:10px;}.advantage-benefits small{font-size:9px;}.advantage-foot{padding-top:18px;margin-top:18px;font-size:9px;}}
+@media (prefers-reduced-motion:reduce){.driver-advantage-panel{transition:none;}.driver-advantage-panel:hover{transform:none;}}
