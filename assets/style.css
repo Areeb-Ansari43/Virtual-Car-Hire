@@ -741,3 +741,92 @@ footer{background:#06060a;color:#9a9aa3;padding:80px 0 30px;font-size:14px;borde
 @media (max-width:1000px){.whatsapp-layout{grid-template-columns:1fr;gap:48px}.whatsapp-copy{max-width:680px;margin:0 auto}.whatsapp-copy{text-align:center}.whatsapp-points{text-align:left;max-width:440px;margin-left:auto;margin-right:auto;}}
 @media (max-width:600px){.whatsapp-section{padding:70px 0}.glass-form-card{padding:24px 20px;border-radius:22px}.whatsapp-copy h2{font-size:42px}.whatsapp-hero{padding:125px 0 70px}.whatsapp-copy>p{font-size:15px}.form-row{grid-template-columns:1fr!important;}}
 @media (prefers-reduced-motion:reduce){.whatsapp-success.show,.float .wa::before{animation:none}.ticker .track{animation:none}.hero-glow{animation:none}}
+
+/* ===== Responsive refinement pass ===== */
+/* Keep the WhatsApp form within the first viewport without changing the page composition. */
+.whatsapp-hero{padding:96px 0 54px;}
+.whatsapp-hero h1{font-size:clamp(42px,6vw,72px);margin:14px 0 16px;}
+.whatsapp-hero p{font-size:15px;line-height:1.65;}
+.whatsapp-hero .crumbs{margin-bottom:16px;}
+.whatsapp-hero .hero-pill{margin-bottom:14px;}
+.whatsapp-section{padding:64px 0 82px;}
+.whatsapp-layout{gap:52px;}
+.glass-form-card{padding:28px;}
+/* Hidden sections must stay hidden even when older inline rules exist. */
+.fleet-group[hidden]{display:none!important;}
+.car-filters{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;}
+.car-filters button{min-height:42px;white-space:nowrap;}
+/* Prevent image layout shifts and reduce expensive rendering while images load. */
+.car-visual{contain:layout paint;isolation:isolate;}
+.car-visual img{width:100%;height:100%;object-fit:contain;content-visibility:auto;}
+/* Mobile navigation should remain usable and never overflow the viewport. */
+@media (max-width:1000px){
+  .container{padding-left:22px;padding-right:22px;}
+  .site-header .nav{min-height:68px;padding:10px 0;}
+  .brand .mark{width:44px;height:44px;}
+  .brand .text strong{font-size:14px;}
+  .brand .text small{font-size:8px;letter-spacing:1.4px;}
+  .nav-cta{gap:8px;}
+  .nav-cta .book-btn{padding:10px 15px;font-size:12px;}
+  .hero{margin-top:-68px;}
+  .page-hero{padding:120px 0 62px;}
+  .page-hero h1{font-size:clamp(42px,9vw,68px);}
+  .whatsapp-hero{padding:104px 0 48px;}
+  .whatsapp-section{padding:56px 0 70px;}
+  .whatsapp-layout{gap:38px;}
+  .whatsapp-copy{text-align:center;}
+  .whatsapp-copy>p{margin-left:auto;margin-right:auto;}
+  .whatsapp-points{max-width:470px;margin:26px auto 0;text-align:left;}
+  .cars-grid{gap:18px;}
+  .car{min-width:0;}
+  .car-visual{min-height:210px;}
+  .foot-grid{gap:28px;}
+}
+@media (max-width:600px){
+  .container{padding-left:16px;padding-right:16px;}
+  .ticker{font-size:10px;}
+  .ticker .track{gap:28px;}
+  .site-header .nav{padding:8px 0;}
+  .brand{gap:8px;min-width:0;}
+  .brand .mark{width:38px;height:38px;border-radius:11px;padding:4px;}
+  .brand .text strong{font-size:13px;white-space:nowrap;}
+  .brand .text small{display:none;}
+  .nav-cta .book-btn{display:none;}
+  .burger{width:38px;height:38px;display:grid;place-items:center;}
+  .nav-links.open{left:16px;right:16px;top:60px!important;width:auto;box-shadow:0 18px 45px -20px rgba(0,0,0,.7);}
+  .page-hero{padding:100px 0 46px;}
+  .page-hero h1{font-size:clamp(38px,12vw,54px);letter-spacing:-1px;}
+  .page-hero p{font-size:14px;line-height:1.6;}
+  .crumbs{font-size:10px;}
+  .car-filters{gap:7px;margin-top:22px;}
+  .car-filters button{padding:9px 13px;font-size:11px;}
+  .whatsapp-hero{padding:86px 0 38px;}
+  .whatsapp-hero h1{font-size:clamp(36px,11vw,50px);margin:10px 0 12px;}
+  .whatsapp-hero p{font-size:13px;max-width:330px;}
+  .whatsapp-hero .hero-pill{font-size:11px;padding:7px 13px;margin-bottom:10px;}
+  .whatsapp-section{padding:42px 0 58px;}
+  .whatsapp-copy h2{font-size:36px;}
+  .whatsapp-copy>p{font-size:14px;line-height:1.65;}
+  .whatsapp-points{gap:13px;margin-top:22px;}
+  .whatsapp-points i{width:36px;height:36px;border-radius:11px;font-size:13px;}
+  .whatsapp-points strong{font-size:13px;}
+  .whatsapp-points small{font-size:11px;}
+  .glass-form-card{padding:20px 16px;border-radius:20px;}
+  .form-card-top{margin-bottom:20px;}
+  .form-icon{width:44px;height:44px;border-radius:14px;font-size:21px;}
+  .form-card-top h2{font-size:25px;}
+  .glass-form-card input,.glass-form-card select{padding:12px 13px;font-size:13px;}
+  .glass-form-card form>label,.glass-form-card .form-row label{margin-bottom:13px;}
+  .glass-form-card .btn{padding:13px 16px;font-size:13px;}
+  .float{right:14px;bottom:14px;gap:9px;}
+  .float a{width:46px;height:46px;font-size:18px;}
+  .foot-grid{grid-template-columns:1fr 1fr!important;gap:24px 18px!important;}
+  .foot-brand{grid-column:1/-1;}
+  .foot-bot{font-size:10px;line-height:1.5;}
+}
+@media (max-width:380px){
+  .brand .text strong{font-size:12px;}
+  .nav-cta .phone{display:none;}
+  .car-filters button{padding:8px 10px;font-size:10px;}
+  .whatsapp-hero h1{font-size:34px;}
+}

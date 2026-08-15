@@ -28,7 +28,21 @@
 
   // === Fleet filter (only on fleet page) ===
   const filterBtns = document.querySelectorAll('.car-filters [data-filter]');
-  if(filterBtns.length){ filterBtns.forEach(btn=>btn.addEventListener('click',()=>{ const f=btn.dataset.filter; filterBtns.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); document.querySelectorAll('.car').forEach(car=>{ car.style.display=(f==='all'||car.dataset.brand===f)?'':'none'; }); })); }
+  if(filterBtns.length){
+    const fleetSections = document.querySelectorAll('.fleet-group[data-brand]');
+    filterBtns.forEach(btn=>btn.addEventListener('click',()=>{
+      const f=btn.dataset.filter;
+      filterBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      if(fleetSections.length){
+        fleetSections.forEach(section=>{
+          const visible=f==='all'||section.dataset.brand===f;
+          section.hidden=!visible;
+          section.classList.toggle('hide-group',!visible);
+        });
+      }
+    }));
+  }
 
   // === WhatsApp enquiry ===
   const enquiryForm = document.getElementById('whatsappEnquiryForm');
