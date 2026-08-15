@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WhatsApp Enquiry | Virtual Car Hire</title>
+  <meta name="description" content="Tell Virtual Car Hire which vehicle you would like to rent and send a prefilled WhatsApp enquiry." />
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="whatsapp-page">
+  <div class="ticker"><div class="track"><span class="item"><i class="fas fa-circle-check"></i> Fully insured PCO vehicles</span><span class="item"><i class="fas fa-bolt"></i> Same-day onboarding available</span><span class="item"><i class="fas fa-location-dot"></i> Serving drivers across London</span><span class="item"><i class="fas fa-circle-check"></i> Fully insured PCO vehicles</span><span class="item"><i class="fas fa-bolt"></i> Same-day onboarding available</span></div></div>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire" /></div><div class="text"><strong>Virtual Car Hire</strong><small>London PCO Specialists</small></div></a>
+      <nav class="nav-links"><a href="index.html"><i class="fas fa-home"></i><span>Home</span></a><a href="our-fleet.html"><i class="fas fa-car"></i><span>Our Fleet</span></a><a href="about-us.html"><i class="fas fa-circle-info"></i><span>About Us</span></a><a class="active" href="whatsapp.html"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a></nav>
+      <div class="nav-cta"><a class="phone" href="tel:+442072946756"><i class="fas fa-phone"></i><span>020 7294 6756</span></a><a class="book-btn" href="contact-us.html">Book a Car <i class="fas fa-arrow-right"></i></a></div>
+      <button class="burger" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero whatsapp-hero"><div class="container"><div class="crumbs"><a href="index.html">Home</a><span>/</span><span>WhatsApp enquiry</span></div><span class="hero-pill"><span class="dot"></span> Start your enquiry</span><h1>Let’s get you <span class="em">moving.</span></h1><p>Share your details and the car you have in mind. We’ll prepare a message for WhatsApp so our team can help you get on the road.</p></div></section>
+    <section class="whatsapp-section"><div class="container whatsapp-layout">
+      <div class="whatsapp-copy"><span class="eyebrow">Direct to our team</span><h2>A quicker way to <span class="em">hire.</span></h2><p>Choose a vehicle from our current fleet and send a clear, prefilled enquiry to Virtual Car Hire. You stay in control of the message before it opens in WhatsApp.</p><div class="whatsapp-points"><div><i class="fas fa-shield-halved"></i><span><strong>Insurance included</strong><small>Every listed vehicle is covered.</small></span></div><div><i class="fas fa-clock"></i><span><strong>Fast response</strong><small>Speak directly with our London team.</small></span></div><div><i class="fas fa-car-side"></i><span><strong>PCO-ready fleet</strong><small>Cars for Uber, Bolt and Ola drivers.</small></span></div></div></div>
+      <div class="glass-form-card"><div class="form-card-top"><span class="form-icon"><i class="fab fa-whatsapp"></i></span><div><h2>WhatsApp us</h2><p>Tell us what you need.</p></div></div><form id="whatsappEnquiryForm" novalidate><div class="form-row"><label>First name<input name="firstName" type="text" autocomplete="given-name" placeholder="e.g. Areeb" required /></label><label>Last name<input name="lastName" type="text" autocomplete="family-name" placeholder="e.g. Ansari" required /></label></div><label>Car you want to rent<select name="car" required><option value="" selected disabled>Select a vehicle</option><option>Mercedes E300</option><option>Mercedes Vito</option><option>Mercedes V-Class</option><option>Mercedes EQS</option><option>Mercedes E220</option><option>Mercedes EQE</option><option>Toyota Corolla Estate</option><option>Toyota Auris Estate</option><option>Toyota Prius</option><option>Tesla Model 3</option><option>Jaguar I-Pace</option><option>Hyundai IONIQ</option><option>MG5 EV</option><option>Ford Tourneo Custom</option><option>MG S9 PHEV SUV</option><option>Volkswagen Multivan PHEV</option></select></label><button class="btn btn-wa" type="submit"><i class="fab fa-whatsapp"></i> Prepare WhatsApp message</button><p class="form-note"><i class="fas fa-lock"></i> Your details stay in your browser until you choose to send.</p><div id="whatsappSuccess" class="whatsapp-success" aria-live="polite"><div class="success-check"><i class="fas fa-check"></i></div><h3>Your message is ready</h3><p>WhatsApp will open with your enquiry prefilled.</p><a id="sendWhatsapp" class="btn btn-wa" href="#" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Send to WhatsApp</a><button id="editEnquiry" class="edit-link" type="button">Edit my details</button></div></form></div>
+    </div></section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="foot-grid"><div class="foot-brand"><div class="mark"><img src="assets/logo.png" alt="Virtual Car Hire" /></div><div><strong>Virtual Car Hire</strong><br /><span>London PCO Specialists</span></div></div><div class="footer-col"><h4>Navigation</h4><ul><li><a href="index.html">Home</a></li><li><a href="our-fleet.html">Our Fleet</a></li><li><a href="about-us.html">About Us</a></li></ul></div><div class="footer-col"><h4>Get In Touch</h4><ul><li><a href="whatsapp.html"><i class="fab fa-whatsapp"></i> WhatsApp us</a></li><li><a href="tel:+442072946756"><i class="fas fa-phone"></i> 020 7294 6756</a></li><li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact form</a></li></ul></div><div class="footer-col"><h4>Legal</h4><ul><li><a href="privacy-policy.html">Privacy Policy</a></li><li><a href="cookie-policy.html">Cookie Policy</a></li></ul></div></div><div class="foot-bot"><div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div><div>Designed for London’s professional drivers.</div></div></div></footer>
+  <div class="float"><a class="wa" href="whatsapp.html" aria-label="WhatsApp enquiry"><i class="fa-brands fa-whatsapp"></i></a><a class="ph" href="tel:+442072946756" aria-label="Call"><i class="fa-solid fa-phone"></i></a></div>
+  <script src="assets/app.js"></script>
+</body>
+</html>
