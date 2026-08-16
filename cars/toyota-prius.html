@@ -18,26 +18,62 @@
   
   <!-- Schema.org markup for Google -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Toyota Prius PCO Hire",
-    "description": "Toyota Prius hybrid hatchback for PCO driving in London. Includes insurance, servicing, and breakdown cover.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Toyota"
+{
+  "@context": "https://schema.org",
+  "@type": [
+    "Product",
+    "Car"
+  ],
+  "name": "Toyota Prius PCO Hire",
+  "description": "Toyota Prius hybrid hatchback for PCO driving in London. Includes insurance, servicing, and breakdown cover.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Toyota"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "200",
+    "priceCurrency": "GBP",
+    "priceValidUntil": "2026-12-31",
+    "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
+    "url": "https://virtualcarhire.pages.dev/cars/toyota-prius"
+  },
+  "image": "https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/dde45622b_generated_1d4f5fee.png",
+  "@id": "https://virtualcarhire.pages.dev/cars/toyota-prius#vehicle",
+  "url": "https://virtualcarhire.pages.dev/cars/toyota-prius",
+  "category": "PCO vehicle rental",
+  "vehicleConfiguration": "Hybrid · Hatchback",
+  "fuelType": "Hybrid",
+  "vehicleTransmission": "Auto",
+  "seatingCapacity": 5,
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Pco Ready",
+      "value": "Yes"
     },
-    "offers": {
-      "@type": "Offer",
-      "price": "200",
-      "priceCurrency": "GBP",
-      "priceValidUntil": "2026-12-31",
-      "availability": "https://schema.org/InStock",
-      "itemCondition": "https://schema.org/NewCondition"
+    {
+      "@type": "PropertyValue",
+      "name": "Tfl Licensed",
+      "value": "Yes"
     },
-    "image": "https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/dde45622b_generated_1d4f5fee.png"
+    {
+      "@type": "PropertyValue",
+      "name": "Insurance",
+      "value": "Included"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Servicing",
+      "value": "Included"
+    }
+  ],
+  "isRelatedTo": {
+    "@id": "https://virtualcarhire.pages.dev/#business"
   }
-  </script>
+}
+</script>
   
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png?v=3">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png?v=3">
