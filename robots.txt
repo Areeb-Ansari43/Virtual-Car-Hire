@@ -1,5 +1,6 @@
 # Virtual Car Hire crawler policy
-# Public service, fleet and contact pages are intentionally crawlable.
+# Crawl-access revision: 2026-08-21
+# Public service, fleet, contact and vehicle pages are intentionally crawlable.
 User-agent: *
 Allow: /
 Disallow: /test.html
