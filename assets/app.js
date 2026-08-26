@@ -59,4 +59,20 @@
     });
     if(edit) edit.addEventListener('click',()=>{ enquiryForm.classList.remove('is-complete'); success.classList.remove('show'); submit.innerHTML='<i class="fab fa-whatsapp"></i> Prepare WhatsApp message'; });
   }
+
+  // === Emergency WhatsApp enquiry ===
+  const emergencyForm = document.getElementById('emergencyEnquiryForm');
+  if(emergencyForm){
+    const success = document.getElementById('emergencySuccess'), send = document.getElementById('sendEmergencyWhatsapp'), edit = document.getElementById('editEmergency'), submit = emergencyForm.querySelector('button[type="submit"]');
+    emergencyForm.addEventListener('submit',(event)=>{
+      event.preventDefault();
+      if(!emergencyForm.checkValidity()){ emergencyForm.reportValidity(); return; }
+      const data = new FormData(emergencyForm), first = String(data.get('firstName')).trim(), last = String(data.get('lastName')).trim(), issue = String(data.get('issue')).trim(), vehicle = String(data.get('vehicle')).trim(), details = String(data.get('details')).trim();
+      const message = `URGENT Virtual Car Hire enquiry. My name is ${first} ${last}. I need help with: ${issue}. Vehicle: ${vehicle}. Details: ${details}`;
+      send.href = `https://wa.me/442072946756?text=${encodeURIComponent(message)}`;
+      submit.classList.add('is-loading'); submit.disabled = true; submit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Preparing your message…';
+      window.setTimeout(()=>{ emergencyForm.classList.add('is-complete'); success.classList.add('show'); submit.classList.remove('is-loading'); submit.disabled=false; }, 720);
+    });
+    if(edit) edit.addEventListener('click',()=>{ emergencyForm.classList.remove('is-complete'); success.classList.remove('show'); submit.innerHTML='<i class="fab fa-whatsapp"></i> Prepare emergency WhatsApp'; });
+  }
 })();

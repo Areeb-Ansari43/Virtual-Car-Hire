@@ -19,12 +19,13 @@ Virtual Car Hire is based at The Vista Centre, Hounslow, London TW4 6JQ, with co
 
 ## Contact
 Phone: +44 20 7294 6756
-WhatsApp: +44 7508 496940
+WhatsApp enquiries: +44 7508 496940
+Emergency WhatsApp support: +44 20 7294 6756, available 24/7 for urgent Virtual Car Hire rental and vehicle-support enquiries
 Email: info@fa-ibi.co.uk
 Opening hours: Monday to Saturday, 09:00 to 18:00
 
 ## Search topics answered by the site
-The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability and driver onboarding.
+The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability, driver onboarding and the Virtual Car Hire emergency WhatsApp number for urgent rental support.
 
 ## Public pages
 - Homepage: https://virtualcarhire.pages.dev/
@@ -32,6 +33,7 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - About: https://virtualcarhire.pages.dev/about-us
 - Contact: https://virtualcarhire.pages.dev/contact-us
 - WhatsApp enquiry: https://virtualcarhire.pages.dev/whatsapp
+- Emergency WhatsApp support: https://virtualcarhire.pages.dev/emergency
 - XML sitemap: https://virtualcarhire.pages.dev/sitemap.xml
 
 ## Accuracy note
