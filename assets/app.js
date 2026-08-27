@@ -60,18 +60,27 @@
     if(edit) edit.addEventListener('click',()=>{ enquiryForm.classList.remove('is-complete'); success.classList.remove('show'); submit.innerHTML='<i class="fab fa-whatsapp"></i> Prepare WhatsApp message'; });
   }
 
-  // === Emergency WhatsApp enquiry ===
+  // === Emergency AI enquiry ===
   const emergencyForm = document.getElementById('emergencyEnquiryForm');
   if(emergencyForm){
-    const success = document.getElementById('emergencySuccess'), send = document.getElementById('sendEmergencyWhatsapp'), edit = document.getElementById('editEmergency'), submit = emergencyForm.querySelector('button[type="submit"]');
-    emergencyForm.addEventListener('submit',(event)=>{
+    const success = document.getElementById('emergencySuccess'), aiReply = document.getElementById('emergencyAiReply'), send = document.getElementById('sendEmergencyWhatsapp'), edit = document.getElementById('editEmergency'), submit = emergencyForm.querySelector('button[type="submit"]');
+    emergencyForm.addEventListener('submit',async(event)=>{
       event.preventDefault();
       if(!emergencyForm.checkValidity()){ emergencyForm.reportValidity(); return; }
       const data = new FormData(emergencyForm), first = String(data.get('firstName')).trim(), last = String(data.get('lastName')).trim(), issue = String(data.get('issue')).trim(), vehicle = String(data.get('vehicle')).trim(), details = String(data.get('details')).trim();
       const message = `URGENT Virtual Car Hire enquiry. My name is ${first} ${last}. I need help with: ${issue}. Vehicle: ${vehicle}. Details: ${details}`;
       send.href = `https://wa.me/442072946756?text=${encodeURIComponent(message)}`;
-      submit.classList.add('is-loading'); submit.disabled = true; submit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Preparing your message…';
-      window.setTimeout(()=>{ emergencyForm.classList.add('is-complete'); success.classList.add('show'); submit.classList.remove('is-loading'); submit.disabled=false; }, 720);
+      submit.classList.add('is-loading'); submit.disabled = true; submit.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Reading your message…';
+      if(aiReply) aiReply.textContent = 'Reading your message and preparing immediate guidance…';
+      try {
+        const response = await fetch('https://servicevch.pages.dev/api/public/ai-intake', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ kind: issue.toLowerCase().includes('breakdown') ? 'emergency' : issue.toLowerCase().includes('crash') ? 'accident' : 'whatsapp', name:`${first} ${last}`, issue, vehicle, text:details }) });
+        const result = await response.json();
+        if(aiReply) aiReply.textContent = result.reply || 'Your message has been received. Please continue in WhatsApp for live updates and media sharing.';
+      } catch(error) {
+        console.error('Emergency AI intake failed', error);
+        if(aiReply) aiReply.textContent = 'Your message is ready. Please continue in WhatsApp so the support assistant can help you immediately.';
+      }
+      emergencyForm.classList.add('is-complete'); success.classList.add('show'); submit.classList.remove('is-loading'); submit.disabled=false; submit.innerHTML='<i class="fab fa-whatsapp"></i> Prepare emergency WhatsApp';
     });
     if(edit) edit.addEventListener('click',()=>{ emergencyForm.classList.remove('is-complete'); success.classList.remove('show'); submit.innerHTML='<i class="fab fa-whatsapp"></i> Prepare emergency WhatsApp'; });
   }
