@@ -9,7 +9,7 @@ Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to Uber, Bolt and Ola dr
 Depending on the selected vehicle and current offer, hire support can include insurance, servicing, MOT, roadside breakdown cover, document checks and platform onboarding. Drivers should confirm current availability, eligibility and inclusions with the Virtual Car Hire team before booking.
 
 ## Fleet categories
-The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG, Ford and Volkswagen vehicles. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
+The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG and Ford vehicles, including the Hyundai Santa Fe. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
 
 ## Driver requirements
 Typical requirements include a valid UK driving licence, TfL Private Hire Vehicle badge, proof of address and National Insurance details. Requirements can vary by driver and vehicle, so applicants should contact the team for current confirmation.
@@ -38,3 +38,4 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 
 ## Accuracy note
 Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions. The website does not guarantee a number-one search position or a specific earnings outcome.
+Hyundai Santa Fe: 7-seat hybrid SUV for London PCO hire from £330 per week. Vehicle page: https://virtualcarhire.pages.dev/cars/hyundai-santa-fe.
