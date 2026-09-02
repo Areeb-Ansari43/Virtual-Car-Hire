@@ -9,7 +9,7 @@ Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to Uber, Bolt and Ola dr
 Depending on the selected vehicle and current offer, hire support can include insurance, servicing, MOT, roadside breakdown cover, document checks and platform onboarding. Drivers should confirm current availability, eligibility and inclusions with the Virtual Car Hire team before booking.
 
 ## Fleet categories
-The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG and Ford vehicles, including the Hyundai Santa Fe. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
+The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG and Ford vehicles, including the Hyundai Santa Fe. Weekly fleet prices and specifications are maintained on each vehicle page. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
 
 ## Driver requirements
 Typical requirements include a valid UK driving licence, TfL Private Hire Vehicle badge, proof of address and National Insurance details. Requirements can vary by driver and vehicle, so applicants should contact the team for current confirmation.
@@ -39,3 +39,18 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 ## Accuracy note
 Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions. The website does not guarantee a number-one search position or a specific earnings outcome.
 Hyundai Santa Fe: 7-seat hybrid SUV for London PCO hire from £330 per week. Vehicle page: https://virtualcarhire.pages.dev/cars/hyundai-santa-fe.
+
+Fleet pricing and specification summary:
+Mercedes EQE: £440/week, 4,500 monthly miles, £1,000 deposit, minimum 8 weeks, 2023–2024, Electric.
+Mercedes E300: £280/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2019–2020, Plug-in Hybrid.
+Mercedes E220D: £270/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2018–2019, Diesel.
+Mercedes Vito: £370/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2016–2019, Diesel.
+Toyota Corolla Estate: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019, Petrol.
+Toyota Auris Estate: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019, Hybrid.
+Toyota Prius: £200/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2016–2017, Hybrid.
+Tesla Model 3: £260/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019–2021, Electric.
+Jaguar I-Pace: £270/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2020, Electric.
+Hyundai Santa Fe: £330/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2023–2025, Plug-in Hybrid.
+Hyundai IONIQ: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2020–2022, Plug-in Hybrid.
+MG5 EV: £200/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2021–2022, Electric.
+Ford Tourneo Custom: £410/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2024–2025, Electric.
