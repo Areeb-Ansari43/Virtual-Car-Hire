@@ -69,7 +69,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   transform:translateX(-50%) translateY(-100px);
   opacity:0;
   pointer-events:none;
-  background:rgba(0,0,0,.85);
+  background:rgba(12,12,16,.96);
   backdrop-filter:blur(20px);
   -webkit-backdrop-filter:blur(20px);
   border-radius:50px;
@@ -78,8 +78,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   gap:24px;
   z-index:1001;
   transition:transform .4s cubic-bezier(.2,.9,.4,1.1), opacity .4s ease;
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:0 4px 20px rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 8px 32px rgba(0,0,0,.6);
 }
 .dynamic-island.show{
   transform:translateX(-50%) translateY(0);
@@ -507,6 +507,7 @@ section{padding:110px 0;position:relative}
 .cta-bottom .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 /* ===== Footer ===== */
 footer{background:#06060a;color:#9a9aa3;padding:80px 0 30px;font-size:14px;border-top:1px solid #1a1a22}
+footer .container{max-width:1200px;margin:0 auto}
 .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1.25fr 0.8fr;gap:40px;margin-bottom:50px}
 .foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:20px;color:#fff}
 .foot-brand .mark{width:44px;height:44px;border-radius:12px;background:var(--grad-orange);display:grid;place-items:center;color:#fff;font-size:18px}
