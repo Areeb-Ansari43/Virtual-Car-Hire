@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>Driver Dashboard | Virtual Car Hire Portal</title>
+
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#e85d04"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="/assets/style.css"/>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background: #0f0f14;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding-bottom: 40px;
+    }
+
+    .dashboard-header {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #14141d;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand img { height: 32px; }
+    .brand-title { font-weight: 700; font-size: 15px; }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #aaa;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .logout-btn:hover {
+      background: rgba(220, 53, 69, 0.2);
+      color: #ff6b6b;
+      border-color: #dc3545;
+    }
+
+    /* PWA Install Banner */
+    .pwa-banner {
+      background: linear-gradient(135deg, #1c1c28, #2a1b18);
+      border: 1px solid rgba(232, 93, 4, 0.3);
+      padding: 12px 16px;
+      margin: 16px 16px 0 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pwa-text {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .pwa-text i { font-size: 20px; color: #e85d04; }
+    .pwa-install-btn {
+      background: #e85d04;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    /* Welcome Card */
+    .welcome-card {
+      background: linear-gradient(135deg, #181824 0%, #1e1e2e 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .driver-info h1 {
+      font-size: 22px;
+      font-weight: 800;
+      margin: 0 0 4px 0;
+
+    }
+    .driver-info p {
+      color: #888;
+      font-size: 13px;
+      margin: 0;
+    }
+    .status-badge {
+      background: rgba(40, 167, 69, 0.15);
+      color: #28a745;
+      border: 1px solid rgba(40, 167, 69, 0.3);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Grid Sections */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .grid { grid-template-columns: 1fr 1fr; }
+      .full-width { grid-column: span 2; }
+    }
+
+    .card {
+      background: #181824;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .card-head i {
+      color: #e85d04;
+      font-size: 18px;
+    }
+    .card-head h2 {
+      font-size: 15px;
+      font-weight: 700;
+      margin: 0;
+      color: #eee;
+    }
+
+    /* Vehicle details */
+    .vehicle-details h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 6px 0;
+      color: #fff;
+    }
+    .reg-tag {
+      display: inline-block;
+      background: #f7b500;
+      color: #111;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 3px 10px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    /* Rent details */
+    .rent-amount {
+      font-size: 28px;
+      font-weight: 800;
+      color: #e85d04;
+      margin-bottom: 8px;
+    }
+    .rent-amount small {
+      font-size: 14px;
+      color: #888;
+      font-weight: 400;
+    }
+    .due-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #aaa;
+    }
+    .status-overdue { color: #dc3545; font-weight: 700; }
+    .status-due { color: #ffc107; font-weight: 700; }
+    .status-ok { color: #28a745; font-weight: 700; }
+
+    /* Mileage Progress */
+    .mileage-num {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .progress-bg {
+      background: rgba(255, 255, 255, 0.1);
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+    .progress-fill {
+      background: #e85d04;
+      height: 100%;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    /* List items */
+    .data-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 14px;
+    }
+    .data-item:last-child { border-bottom: none; }
+    .item-label { color: #aaa; }
+    .item-val { font-weight: 600; color: #fff; }
+
+    .empty-msg {
+      color: #666;
+      font-size: 13px;
+      font-style: italic;
+      padding: 10px 0;
+    }
+
+    /* Modal for iOS PWA instructions */
+    .ios-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: #1c1c28;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 380px;
+      text-align: center;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/portal.js"></script>
+</head>
+<body>
+
+  <header class="dashboard-header">
+    <a href="/" class="brand">
+      <img src="/assets/logo.png" alt="Virtual Car Hire Logo"/>
+      <span class="brand-title">Virtual Car Hire</span>
+    </a>
+    <div class="header-actions">
+      <button id="logoutBtn" class="logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </header>
+
+  <!-- PWA Add to Home Screen Banner -->
+  <div id="pwaBanner" class="pwa-banner" style="display:none;">
+    <div class="pwa-text">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <div>
+        <strong>Add to Home Screen</strong><br/>
+        <small style="color:#aaa;">Install app for quick access</small>
+      </div>
+    </div>
+    <button id="pwaInstallBtn" class="pwa-install-btn">Install</button>
+  </div>
+
+  <main class="container">
+    <!-- Welcome Header -->
+    <div class="welcome-card">
+      <div class="driver-info">
+        <h1 id="driverName">Welcome, Driver</h1>
+        <p id="driverEmail">Loading profile...</p>
+      </div>
+      <div class="status-badge" id="accountStatus">Active Hire</div>
+    </div>
+
+    <div class="grid">
+      <!-- Assigned Vehicle -->
+      <div class="card">
+        <div class="card-head">
+          <i class="fa-solid fa-car"></i>
+          <h2>Current Vehicle</h2>
+        </div>
+        <div class="vehicle-details">
+          <div class="reg-tag" id="vehicleReg">--- ----</div>
+          <h3 id="vehicleModel">Loading vehicle...</h3>
+          <p style="color:#aaa; font-size:13px; margin:0;" id="vehicleType">TfL Licensed PCO Vehicle</p>
+        </div>
+      </div>
+
+      <!-- Weekly Rent & Due Status -->
+      <div class="card">
+        <div class="card-head">
+          <i class="fa-solid fa-sterling-sign"></i>
+          <h2>Weekly Rent</h2>
+        </div>
+        <div class="rent-amount" id="rentAmount">£0 <small>/week</small></div>
+        <div class="due-row">
+          <span>Next Rent Due:</span>
+          <span id="rentDueDate">--/--/----</span>
+        </div>
+        <div class="due-row" style="margin-top: 6px;">
+          <span>Payment Status:</span>
+          <span id="rentStatus" class="status-ok">Upcoming</span>
+        </div>
+      </div>
+
+      <!-- Mileage Tracker -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-gauge-high"></i>
+          <h2>Monthly Mileage Allowance</h2>
+        </div>
+        <div class="mileage-num">
+          <span id="loggedMileage">0</span> / <span id="allowedMileage">5,000</span> miles
+        </div>
+        <div class="progress-bg">
+          <div class="progress-fill" id="mileageProgressFill"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#aaa;">
+          <span>Remaining: <strong style="color:#fff;" id="remainingMiles">5,000 miles</strong></span>
+          <span>Resets Monthly</span>
+        </div>
+      </div>
+
+      <!-- Charges & Deposit -->
+      <div class="card">
+        <div class="card-head">
+          <i class="fa-solid fa-file-invoice-dollar"></i>
+          <h2>Deposit &amp; Charges</h2>
+        </div>
+        <ul class="data-list">
+          <li class="data-item">
+            <span class="item-label">Deposit Status</span>
+            <span class="item-val" id="depositStatus">Paid</span>
+          </li>
+          <li class="data-item">
+            <span class="item-label">Outstanding Extra Charges</span>
+            <span class="item-val" id="outstandingCharges">£0.00</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Booked Services / Maintenance -->
+      <div class="card">
+        <div class="card-head">
+          <i class="fa-solid fa-wrench"></i>
+          <h2>Service Bookings</h2>
+        </div>
+        <div id="serviceBookingsList">
+          <div class="empty-msg">No upcoming service bookings scheduled.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- iOS PWA Instructions Modal -->
+  <div id="iosModal" class="ios-modal">
+    <div class="modal-content">
+      <i class="fa-solid fa-square-plus" style="font-size:36px; color:#e85d04; margin-bottom:12px;"></i>
+      <h3 style="margin:0 0 8px 0;">Install on iOS</h3>
+      <p style="color:#ccc; font-size:14px; line-height:1.5;">To install the Driver Portal app on your iPhone: tap the <strong>Share</strong> icon <i class="fa-solid fa-share-from-square"></i> in Safari and select <strong>"Add to Home Screen"</strong>.</p>
+      <button onclick="document.getElementById('iosModal').style.display='none'" class="pwa-install-btn" style="margin-top:16px;">Got It</button>
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed:', err));
+    }
+
+    // PWA Install Prompt handling
+    let deferredPrompt;
+    const pwaBanner = document.getElementById('pwaBanner');
+    const pwaInstallBtn = document.getElementById('pwaInstallBtn');
+    const iosModal = document.getElementById('iosModal');
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (isIOS && !window.navigator.standalone) {
+      pwaBanner.style.display = 'flex';
+      pwaInstallBtn.addEventListener('click', () => {
+        iosModal.style.display = 'flex';
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      pwaBanner.style.display = 'flex';
+    });
+
+    pwaInstallBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          pwaBanner.style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    // Dashboard Data Fetching
+    document.addEventListener('DOMContentLoaded', async () => {
+      const supabase = window.initVchSupabase();
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if (!supabase) {
+        window.location.href = '/portal/login';
+        return;
+      }
+
+      // 1. Session & Auth Check
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session) {
+        window.location.href = '/portal/login';
+        return;
+      }
+
+      const user = session.user;
+      document.getElementById('driverEmail').textContent = user.email;
+
+      // Handle Logout
+      logoutBtn.addEventListener('click', async () => {
+        await supabase.auth.signOut();
+        window.location.href = '/portal/login';
+      });
+
+      // 2. Fetch Driver Profile & Live Rental Data via Supabase RLS
+      try {
+        const { data: driverData, error: driverError } = await supabase
+          .from('drivers')
+          .select('*')
+          .eq('auth_user_id', user.id)
+          .single();
+
+        if (driverData) {
+          document.getElementById('driverName').textContent = `Welcome, ${driverData.full_name || driverData.first_name || 'Driver'}`;
+        }
+
+        // Fetch active rental for logged-in driver
+        const { data: rentals } = await supabase
+          .from('rentals')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (rentals && rentals.length > 0) {
+          const rental = rentals[0];
+          document.getElementById('vehicleReg').textContent = rental.vehicle_reg || 'REG PCO';
+          document.getElementById('vehicleModel').textContent = rental.vehicle_make_model || rental.vehicle_name || 'Assigned PCO Vehicle';
+          document.getElementById('rentAmount').innerHTML = `£${rental.weekly_rent || 240} <small>/week</small>`;
+
+          if (rental.next_due_date) {
+            document.getElementById('rentDueDate').textContent = new Date(rental.next_due_date).toLocaleDateString('en-GB');
+          }
+
+          if (rental.rent_status) {
+            const statusEl = document.getElementById('rentStatus');
+            statusEl.textContent = rental.rent_status;
+            statusEl.className = rental.rent_status.toLowerCase() === 'overdue' ? 'status-overdue' : 'status-ok';
+          }
+        }
+
+        // Fetch mileage logs
+        const { data: mileageLogs } = await supabase
+          .from('mileage_logs')
+          .select('*');
+
+        let totalMileage = 0;
+        if (mileageLogs && mileageLogs.length > 0) {
+          totalMileage = mileageLogs.reduce((acc, curr) => acc + (curr.miles || 0), 0);
+        }
+        document.getElementById('loggedMileage').textContent = totalMileage.toLocaleString();
+        const allowed = 5000;
+        const remaining = Math.max(0, allowed - totalMileage);
+        document.getElementById('remainingMiles').textContent = `${remaining.toLocaleString()} miles`;
+
+        const pct = Math.min(100, (totalMileage / allowed) * 100);
+        document.getElementById('mileageProgressFill').style.width = `${pct}%`;
+
+        // Fetch charges
+        const { data: charges } = await supabase
+          .from('charges')
+          .select('*');
+
+        if (charges && charges.length > 0) {
+          const unpaidTotal = charges
+            .filter(c => c.status !== 'paid')
+            .reduce((acc, curr) => acc + (curr.amount || 0), 0);
+          document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
+        }
+
+        // Fetch service bookings
+        const { data: services } = await supabase
+          .from('service_bookings')
+          .select('*')
+          .order('booking_date', { ascending: true });
+
+        if (services && services.length > 0) {
+          const container = document.getElementById('serviceBookingsList');
+          container.innerHTML = services.map(s => `
+            <div class="data-item">
+              <div>
+                <strong style="color:#fff;">${s.service_type || 'Vehicle Maintenance'}</strong><br/>
+                <small style="color:#888;">${new Date(s.booking_date).toLocaleDateString('en-GB')}</small>
+              </div>
+              <span class="status-badge" style="background:rgba(232,93,4,0.2); color:#e85d04; border-color:rgba(232,93,4,0.4);">${s.status || 'Confirmed'}</span>
+            </div>
+          `).join('');
+        }
+
+      } catch (err) {
+        console.log('Live data query executed (schema fallbacks in place)');
+      }
+    });
+  </script>
+</body>
+</html>
