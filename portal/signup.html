@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>Driver Registration | Virtual Car Hire Portal</title>
+
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#e85d04"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <link rel="stylesheet" href="/assets/style.css"/>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background: #0f0f14;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+    }
+
+    .portal-header {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: #14141d;
+    }
+    .portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .portal-brand img { height: 36px; }
+    .portal-brand strong { font-size: 16px; display: block; }
+    .portal-brand small { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+
+    .auth-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .auth-card {
+      background: #181824;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .auth-header h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 8px 0;
+      color: #fff;
+    }
+    .auth-header p {
+      color: #999;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .invite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(232, 93, 4, 0.15);
+      color: #e85d04;
+      border: 1px solid rgba(232, 93, 4, 0.3);
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
+    .input-wrapper {
+      position: relative;
+    }
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+      font-size: 15px;
+    }
+    .input-wrapper input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      background: #0f0f14;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.2s ease;
+    }
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: #e85d04;
+      box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
+    }
+
+    .auth-btn {
+      width: 100%;
+      background: #e85d04;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      margin-top: 24px;
+    }
+    .auth-btn:hover {
+      background: #c94e00;
+    }
+    .auth-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .alert {
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .alert-error {
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid #dc3545;
+      color: #ff6b6b;
+    }
+
+    .invalid-notice {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .invalid-notice i {
+      font-size: 48px;
+      color: #dc3545;
+      margin-bottom: 16px;
+    }
+    .invalid-notice h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .invalid-notice p {
+      color: #aaa;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .portal-footer {
+      text-align: center;
+      padding: 24px;
+      color: #666;
+      font-size: 13px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/assets/portal.js"></script>
+</head>
+<body>
+
+  <header class="portal-header">
+    <a href="/" class="portal-brand">
+      <img src="/assets/logo.png" alt="Virtual Car Hire Logo"/>
+      <div>
+        <strong>Virtual Car Hire</strong>
+        <small>Driver Portal</small>
+      </div>
+    </a>
+  </header>
+
+  <main class="auth-container">
+    <div class="auth-card">
+
+      <!-- Invalid / Missing Token View -->
+      <div id="invalidInviteBlock" class="invalid-notice">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <h2>Invalid or Used Invitation Link</h2>
+        <p>This signup link is invalid or has already been used. Please contact Virtual Car Hire staff to issue a new portal invite link.</p>
+        <a href="/portal/login" class="auth-btn" style="text-decoration:none;">Go to Driver Login</a>
+      </div>
+
+      <!-- Valid Invite Form View -->
+      <div id="signupFormBlock" style="display:none;">
+        <div class="auth-header">
+          <div class="invite-badge"><i class="fa-solid fa-envelope-open-text"></i> Staff Invitation Verified</div>
+          <h1>Complete Your Registration</h1>
+          <p>Set your password to activate your driver portal account</p>
+        </div>
+
+        <div id="alertBox" class="alert alert-error" style="display:none;"></div>
+
+        <form id="signupForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="email" required placeholder="name@example.com"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Create Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="password" required minlength="8" placeholder="At least 8 characters"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="confirmPassword" required minlength="8" placeholder="Re-enter password"/>
+            </div>
+          </div>
+
+          <button type="submit" id="signupBtn" class="auth-btn">
+            <span>Activate Account</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2026 Virtual Car Hire Ltd. All rights reserved.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const supabase = window.initVchSupabase();
+      const urlParams = new URLSearchParams(window.location.search);
+      const inviteToken = urlParams.get('invite');
+
+      const invalidBlock = document.getElementById('invalidInviteBlock');
+      const signupBlock = document.getElementById('signupFormBlock');
+      const signupForm = document.getElementById('signupForm');
+      const signupBtn = document.getElementById('signupBtn');
+      const alertBox = document.getElementById('alertBox');
+      const emailInput = document.getElementById('email');
+
+      function showAlert(msg) {
+        alertBox.textContent = msg;
+        alertBox.style.display = 'block';
+      }
+      function hideAlert() {
+        alertBox.style.display = 'none';
+      }
+
+      // Check invite token presence
+      if (!inviteToken || !supabase) {
+        invalidBlock.style.display = 'block';
+        return;
+      }
+
+      let verifiedDriver = null;
+
+      try {
+        // Use Security Definer RPC function to safely validate invite token without exposing driver table data to public SELECT
+        const { data, error } = await supabase.rpc('validate_driver_invite', { p_token: inviteToken });
+
+        if (error || !data || data.length === 0) {
+          invalidBlock.style.display = 'block';
+          return;
+        }
+
+        verifiedDriver = data[0];
+        signupBlock.style.display = 'block';
+
+        if (verifiedDriver.email) {
+          emailInput.value = verifiedDriver.email;
+        }
+
+      } catch (err) {
+        invalidBlock.style.display = 'block';
+        return;
+      }
+
+      signupForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const email = emailInput.value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+          showAlert('Passwords do not match.');
+          return;
+        }
+        if (password.length < 8) {
+          showAlert('Password must be at least 8 characters long.');
+          return;
+        }
+
+        signupBtn.disabled = true;
+        signupBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Creating Account...';
+
+        try {
+          // 1. Create Supabase Auth user (handled by Supabase Auth — passwords never touch custom code)
+          const { data: authData, error: authError } = await supabase.auth.signUp({
+            email,
+            password
+          });
+
+          if (authError) {
+            showAlert(authError.message);
+            signupBtn.disabled = false;
+            signupBtn.innerHTML = '<span>Activate Account</span> <i class="fa-solid fa-arrow-right"></i>';
+            return;
+          }
+
+          const authUser = authData.user;
+          if (!authUser) {
+            showAlert('Registration error. Please try again.');
+            signupBtn.disabled = false;
+            signupBtn.innerHTML = '<span>Activate Account</span> <i class="fa-solid fa-arrow-right"></i>';
+            return;
+          }
+
+          // 2. Safely accept driver invite & link auth_user_id via Security Definer RPC
+          const { data: accepted, error: acceptError } = await supabase.rpc('accept_driver_invite', {
+            p_token: inviteToken,
+            p_auth_user_id: authUser.id,
+            p_email: email
+          });
+
+          if (acceptError || !accepted) {
+            console.error('Failed to accept driver invite:', acceptError);
+          }
+
+          // 3. Ensure session login and redirect to dashboard
+          await supabase.auth.signInWithPassword({
+            email,
+            password
+          });
+
+          window.location.href = '/portal/dashboard';
+
+        } catch (err) {
+          showAlert(err.message || 'An error occurred during account creation.');
+          signupBtn.disabled = false;
+          signupBtn.innerHTML = '<span>Activate Account</span> <i class="fa-solid fa-arrow-right"></i>';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
