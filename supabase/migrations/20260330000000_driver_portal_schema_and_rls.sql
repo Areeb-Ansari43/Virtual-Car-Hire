@@ -107,6 +107,61 @@ CREATE POLICY "Drivers can view own rentals"
     )
   );
 
+-- 10. RLS Policies for `driver_charges`, `alerts` and `notifications`
+ALTER TABLE IF EXISTS public.driver_charges ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.alerts ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS public.notifications ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Drivers can view own driver_charges" ON public.driver_charges;
+CREATE POLICY "Drivers can view own driver_charges"
+  ON public.driver_charges
+  FOR SELECT
+  USING (
+    driver_id IN (
+      SELECT id FROM public.drivers WHERE auth_user_id = auth.uid()
+    )
+  );
+
+DROP POLICY IF EXISTS "Drivers can view own alerts" ON public.alerts;
+CREATE POLICY "Drivers can view own alerts"
+  ON public.alerts
+  FOR SELECT
+  USING (
+    driver_id IN (
+      SELECT id FROM public.drivers WHERE auth_user_id = auth.uid()
+    )
+  );
+
+DROP POLICY IF EXISTS "Drivers can update own alerts" ON public.alerts;
+CREATE POLICY "Drivers can update own alerts"
+  ON public.alerts
+  FOR UPDATE
+  USING (
+    driver_id IN (
+      SELECT id FROM public.drivers WHERE auth_user_id = auth.uid()
+    )
+  );
+
+DROP POLICY IF EXISTS "Drivers can view own notifications" ON public.notifications;
+CREATE POLICY "Drivers can view own notifications"
+  ON public.notifications
+  FOR SELECT
+  USING (
+    driver_id IN (
+      SELECT id FROM public.drivers WHERE auth_user_id = auth.uid()
+    )
+  );
+
+DROP POLICY IF EXISTS "Drivers can update own notifications" ON public.notifications;
+CREATE POLICY "Drivers can update own notifications"
+  ON public.notifications
+  FOR UPDATE
+  USING (
+    driver_id IN (
+      SELECT id FROM public.drivers WHERE auth_user_id = auth.uid()
+    )
+  );
+
 -- 6. RLS Policies for `mileage_logs`
 DROP POLICY IF EXISTS "Drivers can view own mileage logs" ON public.mileage_logs;
 CREATE POLICY "Drivers can view own mileage logs"
