@@ -22,9 +22,13 @@
 
   const SUPABASE_ANON_KEY =
     getEnvVar('SUPABASE_ANON_KEY') ||
+    getEnvVar('SUPABASE_KEY') ||
     getEnvVar('NEXT_PUBLIC_SUPABASE_ANON_KEY') ||
+    getEnvVar('NEXT_PUBLIC_SUPABASE_KEY') ||
     getEnvVar('VITE_SUPABASE_ANON_KEY') ||
+    getEnvVar('VITE_SUPABASE_KEY') ||
     getEnvVar('PUBLIC_SUPABASE_ANON_KEY') ||
+    getEnvVar('PUBLIC_SUPABASE_KEY') ||
     '';
 
   window.VCH_SUPABASE_CONFIG = {
@@ -50,6 +54,7 @@
 
     if (!key || key === 'placeholder-anon-key') {
       console.error('[VCH Supabase Error] Missing or unconfigured SUPABASE_ANON_KEY.');
+      return null;
     }
 
     try {
