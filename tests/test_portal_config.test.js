@@ -1,0 +1,61 @@
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+
+console.log('--- Testing Portal Configuration and CSP ---');
+
+// 1. Test _headers CSP Content-Security-Policy connect-src
+const headersPath = path.join(__dirname, '..', '_headers');
+const headersContent = fs.readFileSync(headersPath, 'utf8');
+
+assert(headersContent.includes('connect-src'), '_headers must contain connect-src directive');
+assert(headersContent.includes('https://hhpkffratbbnwedjlebx.supabase.co'), '_headers connect-src must include https://hhpkffratbbnwedjlebx.supabase.co');
+assert(headersContent.includes('wss://hhpkffratbbnwedjlebx.supabase.co'), '_headers connect-src must include wss://hhpkffratbbnwedjlebx.supabase.co');
+console.log('✅ PASS: _headers CSP contains Supabase https and wss domains in connect-src.');
+
+// 2. Test assets/portal.js content
+const portalJsPath = path.join(__dirname, '..', 'assets', 'portal.js');
+const portalJsContent = fs.readFileSync(portalJsPath, 'utf8');
+
+assert(!portalJsContent.includes('placeholder-project.supabase.co'), 'assets/portal.js must not contain literal placeholder-project URL');
+assert(portalJsContent.includes('https://hhpkffratbbnwedjlebx.supabase.co'), 'assets/portal.js must default to https://hhpkffratbbnwedjlebx.supabase.co');
+console.log('✅ PASS: assets/portal.js eliminated placeholder-project URL and contains default project URL.');
+
+// 3. Test runtime evaluation of assets/portal.js logic in Node context
+global.window = {};
+
+// Mock Supabase client factory
+global.window.supabase = {
+  createClient: (url, key) => ({
+    url,
+    key
+  })
+};
+
+// Execute portal.js
+eval(portalJsContent);
+
+assert.strictEqual(global.window.VCH_SUPABASE_CONFIG.url, 'https://hhpkffratbbnwedjlebx.supabase.co', 'Default URL should resolve to real project URL');
+
+const client = global.window.initVchSupabase();
+assert(client !== null, 'initVchSupabase should return client object');
+assert.strictEqual(client.url, 'https://hhpkffratbbnwedjlebx.supabase.co', 'Client should be initialized with real project URL');
+console.log('✅ PASS: initVchSupabase initializes client with correct default URL at runtime.');
+
+// 4. Test Loud Error Logging on Missing/Placeholder Keys
+let loggedErrors = [];
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  loggedErrors.push(args.join(' '));
+  originalConsoleError(...args);
+};
+
+global.window.vchSupabaseClient = null;
+global.window.VCH_SUPABASE_CONFIG.anonKey = 'placeholder-anon-key';
+global.window.initVchSupabase();
+
+assert(loggedErrors.some(msg => msg.includes('SUPABASE_ANON_KEY')), 'Missing/placeholder anonKey should log a explicit console error');
+console.error = originalConsoleError;
+console.log('✅ PASS: Loud error logged when anonKey is placeholder.');
+
+console.log('\nAll configuration and CSP tests passed successfully!');
