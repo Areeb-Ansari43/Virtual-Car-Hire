@@ -124,7 +124,6 @@
       font-size: 22px;
       font-weight: 800;
       margin: 0 0 4px 0;
-
     }
     .driver-info p {
       color: #888;
@@ -239,6 +238,104 @@
       transition: width 0.5s ease;
     }
 
+    /* Balance & Alerts Cards Styling */
+    .breakdown-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 14px;
+    }
+    .breakdown-item:last-child {
+      border-bottom: none;
+    }
+    .breakdown-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #eee;
+    }
+    .breakdown-tag {
+      background: rgba(220, 53, 69, 0.2);
+      color: #ff6b6b;
+      border: 1px solid rgba(220, 53, 69, 0.4);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .breakdown-amount {
+      font-weight: 700;
+      color: #fff;
+    }
+    .breakdown-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 2px solid rgba(232, 93, 4, 0.4);
+      font-size: 16px;
+      font-weight: 800;
+      color: #e85d04;
+    }
+
+    .alert-card {
+      background: #13131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .alert-card:last-child {
+      margin-bottom: 0;
+    }
+    .alert-card.unread {
+      border-color: rgba(232, 93, 4, 0.5);
+      background: rgba(232, 93, 4, 0.08);
+    }
+    .alert-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .alert-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .alert-date {
+      font-size: 11px;
+      color: #888;
+    }
+    .alert-msg {
+      font-size: 13px;
+      color: #ccc;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .badge-new {
+      background: #e85d04;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+
     /* List items */
     .data-list {
       list-style: none;
@@ -324,6 +421,28 @@
     </div>
 
     <div class="grid">
+      <!-- Reminder Alerts Section -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-bell"></i>
+          <h2>Reminder Alerts &amp; Notifications</h2>
+        </div>
+        <div id="reminderAlertsList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading reminders...</div>
+        </div>
+      </div>
+
+      <!-- Itemised Balance Section -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-receipt"></i>
+          <h2>Itemised Balance Breakdown</h2>
+        </div>
+        <div id="balanceBreakdownList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
+        </div>
+      </div>
+
       <!-- Assigned Vehicle -->
       <div class="card">
         <div class="card-head">
@@ -478,7 +597,7 @@
 
       // 2. Fetch Driver Profile & Live Rental Data via Supabase RLS
       try {
-        const { data: driverData, error: driverError } = await supabase
+        const { data: driverData } = await supabase
           .from('drivers')
           .select('*')
           .eq('auth_user_id', user.id)
@@ -494,24 +613,185 @@
           .select('*')
           .order('created_at', { ascending: false });
 
+        let currentRental = null;
         if (rentals && rentals.length > 0) {
-          const rental = rentals[0];
-          document.getElementById('vehicleReg').textContent = rental.vehicle_reg || 'REG PCO';
-          document.getElementById('vehicleModel').textContent = rental.vehicle_make_model || rental.vehicle_name || 'Assigned PCO Vehicle';
-          document.getElementById('rentAmount').innerHTML = `£${rental.weekly_rent || 240} <small>/week</small>`;
+          currentRental = rentals[0];
+          document.getElementById('vehicleReg').textContent = currentRental.vehicle_reg || 'REG PCO';
+          document.getElementById('vehicleModel').textContent = currentRental.vehicle_make_model || currentRental.vehicle_name || 'Assigned PCO Vehicle';
+          document.getElementById('rentAmount').innerHTML = `£${currentRental.weekly_rent || 240} <small>/week</small>`;
 
-          if (rental.next_due_date) {
-            document.getElementById('rentDueDate').textContent = new Date(rental.next_due_date).toLocaleDateString('en-GB');
+          if (currentRental.next_due_date) {
+            document.getElementById('rentDueDate').textContent = new Date(currentRental.next_due_date).toLocaleDateString('en-GB');
           }
 
-          if (rental.rent_status) {
+          if (currentRental.rent_status) {
             const statusEl = document.getElementById('rentStatus');
-            statusEl.textContent = rental.rent_status;
-            statusEl.className = rental.rent_status.toLowerCase() === 'overdue' ? 'status-overdue' : 'status-ok';
+            statusEl.textContent = currentRental.rent_status;
+            statusEl.className = currentRental.rent_status.toLowerCase() === 'overdue' ? 'status-overdue' : 'status-ok';
           }
         }
 
-        // Fetch mileage logs
+        // 3. Itemised Balance Breakdown Section
+        const breakdownContainer = document.getElementById('balanceBreakdownList');
+        const driverId = driverData ? driverData.id : null;
+
+        let chargesList = [];
+        if (driverId) {
+          let { data: dCharges, error: dcErr } = await supabase
+            .from('driver_charges')
+            .select('*')
+            .eq('driver_id', driverId);
+
+          if (dcErr || !dCharges || dCharges.length === 0) {
+            const { data: stdCharges } = await supabase
+              .from('charges')
+              .select('*');
+            dCharges = stdCharges || [];
+          }
+
+          chargesList = (dCharges || []).filter(c => c.status !== 'paid' && c.is_paid !== true);
+        }
+
+        const balanceDue = (driverData && driverData.balance_due != null) ? Number(driverData.balance_due) : ((currentRental && currentRental.balance_due != null) ? Number(currentRental.balance_due) : 0);
+        const rentStatus = (driverData && driverData.rent_status) || (currentRental && currentRental.rent_status) || 'paid';
+        const weeklyRent = (currentRental && currentRental.weekly_rent) || (driverData && driverData.weekly_rent) || 150;
+
+        const itemisedItems = [];
+
+        chargesList.forEach(c => {
+          const title = c.title || c.description || c.reason || c.charge_type || 'Extra charge';
+          const amt = Number(c.amount || c.charge_amount || 0);
+          itemisedItems.push({
+            description: title,
+            tag: 'charge',
+            amount: amt
+          });
+        });
+
+        const chargesTotal = itemisedItems.reduce((acc, item) => acc + item.amount, 0);
+        let remainingRentBalance = Math.max(0, balanceDue - chargesTotal);
+
+        if (remainingRentBalance <= 0 && (rentStatus.toLowerCase() === 'unpaid' || rentStatus.toLowerCase() === 'overdue')) {
+          remainingRentBalance = weeklyRent;
+        }
+
+        if (remainingRentBalance > 0) {
+          const missedWeeksCount = Math.max(1, Math.round(remainingRentBalance / weeklyRent));
+          const perWeekAmount = remainingRentBalance / missedWeeksCount;
+          for (let w = 1; w <= missedWeeksCount; w++) {
+            itemisedItems.unshift({
+              description: missedWeeksCount === 1 ? 'Week 1 rent' : `Week ${w} rent`,
+              tag: 'missed',
+              amount: perWeekAmount
+            });
+          }
+        }
+
+        const calculatedTotal = itemisedItems.reduce((acc, item) => acc + item.amount, 0);
+
+        if (calculatedTotal > 0 || rentStatus.toLowerCase() === 'unpaid' || rentStatus.toLowerCase() === 'overdue' || balanceDue > 0) {
+          let html = '<ul class="breakdown-list">';
+          itemisedItems.forEach(item => {
+            html += `
+              <li class="breakdown-item">
+                <div class="breakdown-label">
+                  <span>${item.description}</span>
+                  <span class="breakdown-tag">${item.tag}</span>
+                </div>
+                <div class="breakdown-amount">£${item.amount.toFixed(2).replace('.00', '')}</div>
+              </li>
+            `;
+          });
+          html += '</ul>';
+          const displayTotal = calculatedTotal > 0 ? calculatedTotal : balanceDue;
+          html += `
+            <div class="breakdown-total">
+              <span>Total due:</span>
+              <span>£${displayTotal.toFixed(2).replace('.00', '')}</span>
+            </div>
+          `;
+          breakdownContainer.innerHTML = html;
+        } else {
+          breakdownContainer.innerHTML = `
+            <div style="text-align:center; padding:18px; background:rgba(40,167,69,0.12); border:1px solid rgba(40,167,69,0.3); border-radius:12px; color:#28a745; font-weight:700; font-size:15px;">
+              <i class="fa-solid fa-circle-check" style="margin-right:8px;"></i> You're all paid up ✓
+            </div>
+          `;
+        }
+
+        // 4. Reminder Alerts & Notifications Section
+        const alertsContainer = document.getElementById('reminderAlertsList');
+        if (driverId) {
+          let { data: alertsData, error: alertsErr } = await supabase
+            .from('alerts')
+            .select('*')
+            .eq('driver_id', driverId)
+            .order('created_at', { ascending: false });
+
+          if (alertsErr || !alertsData || alertsData.length === 0) {
+            const { data: notifsData } = await supabase
+              .from('notifications')
+              .select('*')
+              .eq('driver_id', driverId)
+              .order('created_at', { ascending: false });
+            alertsData = notifsData || [];
+          }
+
+          if (alertsData && alertsData.length > 0) {
+            const unreadIds = [];
+            let alertsHtml = '';
+
+            alertsData.forEach(alert => {
+              const isRead = alert.is_read === true || alert.read === true || alert.status === 'read';
+              if (!isRead) {
+                unreadIds.push(alert.id);
+              }
+
+              const title = alert.title || alert.type || alert.alert_type || 'CRM Alert';
+              const message = alert.message || alert.body || alert.description || alert.details || '';
+              const alertDate = alert.created_at ? new Date(alert.created_at).toLocaleDateString('en-GB') : 'Recent';
+
+              alertsHtml += `
+                <div class="alert-card ${!isRead ? 'unread' : ''}">
+                  <div class="alert-head">
+                    <div class="alert-title">
+                      <i class="fa-solid fa-bell" style="color:#e85d04;"></i>
+                      <span>${title}</span>
+                      ${!isRead ? '<span class="badge-new">NEW</span>' : ''}
+                    </div>
+                    <span class="alert-date">${alertDate}</span>
+                  </div>
+                  ${message ? `<p class="alert-msg">${message}</p>` : ''}
+                </div>
+              `;
+            });
+
+            alertsContainer.innerHTML = alertsHtml;
+
+            // Mark unread alerts as read in Supabase once viewed
+            if (unreadIds.length > 0) {
+              try {
+                await supabase
+                  .from('alerts')
+                  .update({ is_read: true, status: 'read' })
+                  .in('id', unreadIds);
+              } catch (e) {
+                try {
+                  await supabase
+                    .from('notifications')
+                    .update({ is_read: true, read: true, status: 'read' })
+                    .in('id', unreadIds);
+                } catch (e2) {}
+              }
+            }
+          } else {
+            alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No active reminder alerts. Everything looks good!</div>';
+          }
+        } else {
+          alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No active reminder alerts. Everything looks good!</div>';
+        }
+
+        // 5. Mileage logs
         const { data: mileageLogs } = await supabase
           .from('mileage_logs')
           .select('*');
@@ -528,19 +808,13 @@
         const pct = Math.min(100, (totalMileage / allowed) * 100);
         document.getElementById('mileageProgressFill').style.width = `${pct}%`;
 
-        // Fetch charges
-        const { data: charges } = await supabase
-          .from('charges')
-          .select('*');
-
-        if (charges && charges.length > 0) {
-          const unpaidTotal = charges
-            .filter(c => c.status !== 'paid')
-            .reduce((acc, curr) => acc + (curr.amount || 0), 0);
+        // 6. Extra charges list
+        if (chargesList && chargesList.length > 0) {
+          const unpaidTotal = chargesList.reduce((acc, curr) => acc + (Number(curr.amount || curr.charge_amount || 0)), 0);
           document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
         }
 
-        // Fetch service bookings
+        // 7. Service bookings
         const { data: services } = await supabase
           .from('service_bookings')
           .select('*')
