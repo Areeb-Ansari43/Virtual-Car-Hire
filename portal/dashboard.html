@@ -597,14 +597,26 @@
 
       // 2. Fetch Driver Profile & Live Rental Data via Supabase RLS
       try {
-        const { data: driverData } = await supabase
-          .from('drivers')
+        let driverData = null;
+        const { data: dtData } = await supabase
+          .from('driver_tracks')
           .select('*')
           .eq('auth_user_id', user.id)
-          .single();
+          .maybeSingle();
+
+        if (dtData) {
+          driverData = dtData;
+        } else {
+          const { data: dData } = await supabase
+            .from('drivers')
+            .select('*')
+            .eq('auth_user_id', user.id)
+            .maybeSingle();
+          driverData = dData;
+        }
 
         if (driverData) {
-          document.getElementById('driverName').textContent = `Welcome, ${driverData.full_name || driverData.first_name || 'Driver'}`;
+          document.getElementById('driverName').textContent = `Welcome, ${driverData.full_name || driverData.first_name || driverData.name || 'Driver'}`;
         }
 
         // Fetch active rental for logged-in driver
