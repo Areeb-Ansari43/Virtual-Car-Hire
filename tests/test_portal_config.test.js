@@ -58,4 +58,16 @@ assert(loggedErrors.some(msg => msg.includes('SUPABASE_ANON_KEY')), 'Missing/pla
 console.error = originalConsoleError;
 console.log('✅ PASS: Loud error logged when anonKey is placeholder.');
 
+// 5. Test top navigation in index.html and our-fleet.html does not contain Luton PCO Hire nav item
+const indexHtmlContent = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+const ourFleetHtmlContent = fs.readFileSync(path.join(__dirname, '..', 'our-fleet.html'), 'utf8');
+
+const navRegex = /<nav class="nav-links">([\s\S]*?)<\/nav>/;
+const indexNavMatch = indexHtmlContent.match(navRegex);
+const ourFleetNavMatch = ourFleetHtmlContent.match(navRegex);
+
+assert(indexNavMatch && !indexNavMatch[1].includes('Luton PCO Hire'), 'index.html top nav must not contain Luton PCO Hire link');
+assert(ourFleetNavMatch && !ourFleetNavMatch[1].includes('Luton PCO Hire'), 'our-fleet.html top nav must not contain Luton PCO Hire link');
+console.log('✅ PASS: Top navigation in index.html and our-fleet.html does not contain Luton PCO Hire link.');
+
 console.log('\nAll configuration and CSP tests passed successfully!');
