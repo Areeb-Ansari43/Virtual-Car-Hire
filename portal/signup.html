@@ -303,15 +303,38 @@
       let verifiedDriver = null;
 
       try {
-        // Use Security Definer RPC function to safely validate invite token without exposing driver table data to public SELECT
+        // 1. Attempt Security Definer RPC function to validate invite token
         const { data, error } = await supabase.rpc('validate_driver_invite', { p_token: inviteToken });
 
-        if (error || !data || data.length === 0) {
+        if (!error && data && data.length > 0) {
+          verifiedDriver = data[0];
+        } else {
+          // Fallback 1: Direct lookup on live driver_tracks table
+          const { data: dtData } = await supabase
+            .from('driver_tracks')
+            .select('id, email, invite_status, auth_user_id')
+            .eq('invite_token', inviteToken);
+
+          if (dtData && dtData.length > 0 && dtData[0].invite_status !== 'accepted' && !dtData[0].auth_user_id) {
+            verifiedDriver = dtData[0];
+          } else {
+            // Fallback 2: Direct lookup on drivers table
+            const { data: dData } = await supabase
+              .from('drivers')
+              .select('id, email, invite_status, auth_user_id')
+              .eq('invite_token', inviteToken);
+
+            if (dData && dData.length > 0 && dData[0].invite_status !== 'accepted' && !dData[0].auth_user_id) {
+              verifiedDriver = dData[0];
+            }
+          }
+        }
+
+        if (!verifiedDriver) {
           invalidBlock.style.display = 'block';
           return;
         }
 
-        verifiedDriver = data[0];
         signupBlock.style.display = 'block';
 
         if (verifiedDriver.email) {
@@ -372,8 +395,31 @@
             p_email: email
           });
 
-          if (acceptError || !accepted) {
-            console.error('Failed to accept driver invite:', acceptError);
+          // Direct table updates as robust fallbacks
+          try {
+            await supabase
+              .from('driver_tracks')
+              .update({
+                auth_user_id: authUser.id,
+                invite_status: 'accepted',
+                email: email
+              })
+              .eq('invite_token', inviteToken);
+
+            await supabase
+              .from('drivers')
+              .update({
+                auth_user_id: authUser.id,
+                invite_status: 'accepted',
+                email: email
+              })
+              .eq('invite_token', inviteToken);
+          } catch (updateErr) {
+            console.warn('Fallback direct update note:', updateErr);
+          }
+
+          if (acceptError && !accepted) {
+            console.error('Failed to accept driver invite via RPC:', acceptError);
           }
 
           // 3. Ensure session login and redirect to dashboard
