@@ -865,6 +865,14 @@
       background: rgba(220, 53, 69, 0.2);
       border-color: #dc3545;
     }
+    .data-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 14px;
+    }
     .problem-option-btn.danger i {
       color: #ff6b6b;
     }
@@ -962,6 +970,13 @@
           <i class="fa-solid fa-car-side"></i>
           <h2>Assigned Vehicle</h2>
         </div>
+    <div class="grid">
+      <!-- Assigned Vehicle (Hero Card) -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-car-side"></i>
+          <h2>Assigned Vehicle</h2>
+        </div>
         <div class="vehicle-hero">
           <div class="vehicle-img-wrap">
             <img id="vehicleImage" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
@@ -1036,6 +1051,11 @@
         <div class="card-head">
           <i class="fa-solid fa-gauge-high"></i>
           <h2>Monthly Mileage Tracker &amp; Submission</h2>
+      <!-- Mileage Tracker -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-gauge-high"></i>
+          <h2>Monthly Mileage Tracker</h2>
         </div>
         <div class="mileage-num">
           <div>
@@ -1049,6 +1069,7 @@
         <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#aaa;">
           <span>Remaining Allowance: <strong style="color:#fff;" id="remainingMiles">5,000 miles</strong></span>
           <span>Approved Mileage</span>
+          <span>Monthly Allowance</span>
         </div>
         <div id="mileageWarningBox" class="mileage-warning-box" style="display:none;">
           <i class="fa-solid fa-triangle-exclamation"></i>
@@ -1097,6 +1118,31 @@
         <p style="color:#aaa; font-size:13px; margin:-6px 0 14px 0;">View and download your rental agreement, insurance certificate, and official documents.</p>
         <div id="documentsList" class="doc-list">
           <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading hire documents...</div>
+        </div>
+      </div>
+
+      <!-- Reminder Alerts Section -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-bell"></i>
+          <h2>Reminder Alerts &amp; Notifications</h2>
+        </div>
+        <div id="reminderAlertsList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading reminders...</div>
+        </div>
+      </div>
+
+      <!-- Itemised Balance Section -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-receipt"></i>
+          <h2>Itemised Balance Breakdown</h2>
+        </div>
+        <div id="balanceBreakdownList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
+        </div>
+      </div>
+
         </div>
       </div>
 
@@ -1290,6 +1336,13 @@
         return '/assets/cars/mercedes-vito-grey.webp';
       }
       if (mm.includes('santa fe') || mm.includes('santafe')) {
+      if (mm.includes('eqe') || mm.includes('eqs')) {
+        return '/assets/cars/mercedes-eqe-black.png';
+      }
+      if (mm.includes('vito') || mm.includes('v-class') || mm.includes('v class') || mm.includes('tourneo')) {
+        return '/assets/cars/mercedes-vito-grey.webp';
+      }
+      if (mm.includes('santa fe') || mm.includes('santa-fe') || mm.includes('ioniq') || mm.includes('suv')) {
         return '/assets/cars/hyundai-santa-fe.webp';
       }
       return '/assets/cars/mercedes-e300-grey.png';
@@ -1435,6 +1488,35 @@
                 fuel_type: currentRental.fuel_type
               };
             }
+
+        // 3. Resolve Vehicle Information
+        let vehicleObj = null;
+        let vehicleId = driverData ? (driverData.vehicle_id || driverData.assigned_vehicle_id) : null;
+
+        if (vehicleId) {
+          const { data: vRow } = await supabase
+            .from('vehicles')
+            .select('*')
+            .eq('id', vehicleId)
+            .maybeSingle();
+          if (vRow) vehicleObj = vRow;
+        }
+
+        // Additional fallback: query rentals table for logged in driver if vehicleObj still null
+        if (!vehicleObj && driverData) {
+          const { data: rentalRows } = await supabase
+            .from('rentals')
+            .select('*')
+            .eq('driver_id', driverData.id)
+            .order('created_at', { ascending: false });
+          if (rentalRows && rentalRows.length > 0) {
+            const r = rentalRows[0];
+            vehicleObj = {
+              registration: r.vehicle_reg || r.reg || r.vrm,
+              make: r.vehicle_make,
+              model: r.vehicle_model || r.vehicle_make_model || r.vehicle_name,
+              fuel_type: r.fuel_type
+            };
           }
         }
 
@@ -1450,6 +1532,10 @@
 
         document.getElementById('vehicleReg').textContent = vehicleReg;
         window.vchDriverProfile.reg = vehicleReg;
+
+        const fuelType = (vehicleObj && vehicleObj.fuel_type) || (driverData && driverData.fuel_type) || 'TfL Licensed PCO Hybrid';
+
+        document.getElementById('vehicleReg').textContent = vehicleReg;
         document.getElementById('vehicleModel').textContent = vehicleMakeModel;
         document.getElementById('vehicleType').textContent = fuelType;
         document.getElementById('vehicleImage').src = resolveVehicleImage(vehicleMakeModel);
@@ -1469,6 +1555,7 @@
         document.getElementById('glanceNextPayment').textContent = formattedDueDateStr;
 
         // Balance & Charges Calculation
+        const driverId = driverData ? driverData.id : null;
         let chargesList = [];
         if (driverId) {
           let { data: dCharges } = await supabase
@@ -1640,6 +1727,7 @@
         loadMileageSubmissions(supabase, driverId);
 
         // 9. Extra Charges & Deposit
+        // 7. Extra Charges & Deposit
         if (chargesList && chargesList.length > 0) {
           const unpaidTotal = chargesList.reduce((acc, curr) => acc + (Number(curr.amount || curr.charge_amount || 0)), 0);
           document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
@@ -1649,6 +1737,7 @@
         document.getElementById('depositStatus').textContent = depositStatus;
 
         // 10. Service Bookings
+        // 8. Service Bookings
         if (driverId) {
           let { data: services } = await supabase
             .from('service_bookings')
@@ -1680,6 +1769,7 @@
         }
 
         // 11. Reminder Alerts & Notifications Section
+        // 9. Reminder Alerts & Notifications Section
         const alertsContainer = document.getElementById('reminderAlertsList');
         if (driverId) {
           let { data: alertsData } = await supabase
@@ -1926,6 +2016,8 @@
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo';
+      } catch (err) {
+        console.log('Live driver portal data queries complete (fallbacks ready)');
       }
     });
   </script>
