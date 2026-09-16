@@ -24,7 +24,7 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
       margin: 0;
-      padding-bottom: 40px;
+      padding-bottom: 80px;
     }
 
     .dashboard-header {
@@ -119,6 +119,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .driver-info h1 {
       font-size: 22px;
@@ -138,6 +140,90 @@
       border-radius: 50px;
       font-size: 12px;
       font-weight: 700;
+    }
+
+    /* Emergency Quick Banner */
+    .emergency-banner {
+      background: linear-gradient(135deg, #2b1114 0%, #3a1518 100%);
+      border: 1px solid rgba(220, 53, 69, 0.4);
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .emergency-text {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .emergency-text i {
+      font-size: 24px;
+      color: #ff4d4d;
+    }
+    .emergency-text h3 {
+      margin: 0 0 2px 0;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .emergency-text p {
+      margin: 0;
+      font-size: 12px;
+      color: #ccc;
+    }
+    .report-btn-banner {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+      transition: transform 0.2s, background 0.2s;
+    }
+    .report-btn-banner:hover {
+      background: #bb2d3b;
+      transform: translateY(-1px);
+    }
+
+    /* Floating Action Button for Roadside Problem Reporting */
+    .floating-report-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 990;
+      background: linear-gradient(135deg, #dc3545, #e85d04);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: pulse-border 2s infinite;
+    }
+    .floating-report-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 24px rgba(220, 53, 69, 0.7);
+    }
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.6); }
+      70% { box-shadow: 0 0 0 12px rgba(220, 53, 69, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
     }
 
     /* Grid Sections */
@@ -336,6 +422,213 @@
       letter-spacing: 0.5px;
     }
 
+    /* Documents Styling */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #13131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      transition: border-color 0.2s;
+    }
+    .doc-item:hover {
+      border-color: rgba(232, 93, 4, 0.4);
+    }
+    .doc-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .doc-left i {
+      font-size: 20px;
+      color: #e85d04;
+    }
+    .doc-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      margin: 0 0 2px 0;
+    }
+    .doc-meta {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-type-badge {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ccc;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .doc-btn {
+      background: rgba(232, 93, 4, 0.15);
+      color: #e85d04;
+      border: 1px solid rgba(232, 93, 4, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .doc-btn:hover {
+      background: #e85d04;
+      color: #fff;
+    }
+
+    /* Mileage Submission Form & History Styling */
+    .mileage-box {
+      background: #13131c;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .mileage-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-input {
+      background: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #e85d04;
+    }
+    .file-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed rgba(232, 93, 4, 0.4);
+      background: rgba(232, 93, 4, 0.05);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .file-input-wrapper:hover {
+      background: rgba(232, 93, 4, 0.1);
+    }
+    .file-input-wrapper input[type="file"] {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .file-input-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #ccc;
+      font-size: 13px;
+    }
+    .file-input-label i {
+      font-size: 24px;
+      color: #e85d04;
+    }
+    .submit-mileage-btn {
+      background: #e85d04;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .submit-mileage-btn:hover {
+      background: #d05202;
+    }
+    .submit-mileage-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .submission-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .submission-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #13131c;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .sub-status-pending {
+      color: #ffc107;
+      background: rgba(255, 193, 7, 0.15);
+      border: 1px solid rgba(255, 193, 7, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .sub-status-approved {
+      color: #28a745;
+      background: rgba(40, 167, 69, 0.15);
+      border: 1px solid rgba(40, 167, 69, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .sub-status-rejected {
+      color: #dc3545;
+      background: rgba(220, 53, 69, 0.15);
+      border: 1px solid rgba(220, 53, 69, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
     /* List items */
     .data-list {
       list-style: none;
@@ -360,24 +653,80 @@
       padding: 10px 0;
     }
 
-    /* Modal for iOS PWA instructions */
-    .ios-modal {
+    /* Modals */
+    .modal-overlay {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0, 0, 0, 0.85);
       z-index: 2000;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .modal-content {
+    .modal-card {
       background: #1c1c28;
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 20px;
       padding: 24px;
-      max-width: 380px;
+      max-width: 440px;
+      width: 100%;
       text-align: center;
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .modal-close:hover { color: #fff; }
+
+    .problem-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .problem-option-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #14141f;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+    }
+    .problem-option-btn:hover {
+      background: rgba(232, 93, 4, 0.15);
+      border-color: #e85d04;
+      transform: translateY(-1px);
+    }
+    .problem-option-btn i {
+      font-size: 20px;
+      width: 24px;
+      text-align: center;
+    }
+    .problem-option-btn.danger {
+      border-color: rgba(220, 53, 69, 0.4);
+    }
+    .problem-option-btn.danger:hover {
+      background: rgba(220, 53, 69, 0.2);
+      border-color: #dc3545;
+    }
+    .problem-option-btn.danger i {
+      color: #ff6b6b;
     }
   </style>
 
@@ -410,6 +759,12 @@
     <button id="pwaInstallBtn" class="pwa-install-btn">Install</button>
   </div>
 
+  <!-- Floating Always-Accessible Emergency / Problem Reporting Button -->
+  <button id="floatingReportBtn" class="floating-report-btn" onclick="openProblemModal()">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <span>Report a Problem</span>
+  </button>
+
   <main class="container">
     <!-- Welcome Header -->
     <div class="welcome-card">
@@ -418,6 +773,20 @@
         <p id="driverEmail">Loading profile...</p>
       </div>
       <div class="status-badge" id="accountStatus">Active Hire</div>
+    </div>
+
+    <!-- Roadside Emergency Banner -->
+    <div class="emergency-banner">
+      <div class="emergency-text">
+        <i class="fa-solid fa-headset"></i>
+        <div>
+          <h3>Breakdown or Roadside Incident?</h3>
+          <p>Get instant automated &amp; staff response via WhatsApp 24/7</p>
+        </div>
+      </div>
+      <button class="report-btn-banner" onclick="openProblemModal()">
+        <i class="fa-brands fa-whatsapp"></i> Report Problem
+      </button>
     </div>
 
     <div class="grid">
@@ -473,11 +842,11 @@
         </div>
       </div>
 
-      <!-- Mileage Tracker -->
+      <!-- A3. Self-Service Mileage Tracker & Submission -->
       <div class="card full-width">
         <div class="card-head">
           <i class="fa-solid fa-gauge-high"></i>
-          <h2>Monthly Mileage Allowance</h2>
+          <h2>Monthly Mileage Allowance &amp; Odometer Submission</h2>
         </div>
         <div class="mileage-num">
           <span id="loggedMileage">0</span> / <span id="allowedMileage">5,000</span> miles
@@ -485,9 +854,53 @@
         <div class="progress-bg">
           <div class="progress-fill" id="mileageProgressFill"></div>
         </div>
-        <div style="display:flex; justify-content:space-between; font-size:12px; color:#aaa;">
+        <div style="display:flex; justify-content:space-between; font-size:12px; color:#aaa; margin-bottom:16px;">
           <span>Remaining: <strong style="color:#fff;" id="remainingMiles">5,000 miles</strong></span>
-          <span>Resets Monthly</span>
+          <span>Approved Mileage</span>
+        </div>
+
+        <!-- Submit Mileage Form -->
+        <div class="mileage-box">
+          <h3 style="font-size:14px; margin:0 0 10px 0; color:#fff;">Submit Odometer Reading</h3>
+          <form id="mileageForm" class="mileage-form">
+            <div class="form-group">
+              <label for="readingValue">Current Odometer Reading (Miles)</label>
+              <input type="number" id="readingValue" class="form-input" placeholder="e.g. 45280" required min="1"/>
+            </div>
+            <div class="form-group">
+              <label>Odometer Photo</label>
+              <div class="file-input-wrapper">
+                <input type="file" id="odometerPhoto" accept="image/*" capture="environment" required/>
+                <div class="file-input-label">
+                  <i class="fa-solid fa-camera"></i>
+                  <span id="photoFileName">Tap to take photo or choose image</span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" id="submitMileageBtn" class="submit-mileage-btn">
+              <i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo
+            </button>
+          </form>
+        </div>
+
+        <!-- Recent Submissions List -->
+        <div>
+          <h4 style="font-size:13px; color:#aaa; margin:0 0 8px 0; font-weight:700; text-transform:uppercase;">Recent Submissions</h4>
+          <div id="mileageSubmissionsList" class="submission-list">
+            <div class="empty-msg">No submissions recorded yet.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- A2. Hire Documents Section -->
+      <div class="card full-width">
+        <div class="card-head">
+          <i class="fa-solid fa-file-contract"></i>
+          <h2>Hire Documents</h2>
+        </div>
+        <p style="color:#aaa; font-size:13px; margin:-6px 0 14px 0;">View and download your rental agreement, insurance certificate, and official documents.</p>
+        <div id="documentsList" class="doc-list">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading hire documents...</div>
         </div>
       </div>
 
@@ -522,9 +935,53 @@
     </div>
   </main>
 
+  <!-- Report a Problem Choice Modal (A1) -->
+  <div id="problemModal" class="modal-overlay">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeProblemModal()"><i class="fa-solid fa-xmark"></i></button>
+      <i class="fa-solid fa-triangle-exclamation" style="font-size:36px; color:#dc3545; margin-bottom:10px;"></i>
+      <h3 style="margin:0 0 6px 0; font-size:18px;">Report a Problem</h3>
+      <p style="color:#aaa; font-size:13px; margin:0;">Select the type of issue. You will be redirected to WhatsApp to send pre-filled details directly to our automated response system.</p>
+
+      <div class="problem-options">
+        <button class="problem-option-btn danger" onclick="triggerProblemWhatsApp('Emergency breakdown')">
+          <i class="fa-solid fa-car-burst"></i>
+          <div>
+            <div>Breakdown / Emergency</div>
+            <small style="color:#aaa; font-weight:400;">Immediate roadside assistance required</small>
+          </div>
+        </button>
+
+        <button class="problem-option-btn danger" onclick="triggerProblemWhatsApp('Report accident')">
+          <i class="fa-solid fa-user-shield"></i>
+          <div>
+            <div>Accident Report</div>
+            <small style="color:#aaa; font-weight:400;">Report a collision or incident</small>
+          </div>
+        </button>
+
+        <button class="problem-option-btn" onclick="triggerProblemWhatsApp('Vehicle maintenance issue')">
+          <i class="fa-solid fa-wrench"></i>
+          <div>
+            <div>Maintenance / Warning Light</div>
+            <small style="color:#aaa; font-weight:400;">Mechanical fault or dash alert</small>
+          </div>
+        </button>
+
+        <button class="problem-option-btn" onclick="triggerProblemWhatsApp('General inquiry')">
+          <i class="fa-solid fa-comments"></i>
+          <div>
+            <div>General Inquiry</div>
+            <small style="color:#aaa; font-weight:400;">Account, rent or general questions</small>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- iOS PWA Instructions Modal -->
-  <div id="iosModal" class="ios-modal">
-    <div class="modal-content">
+  <div id="iosModal" class="modal-overlay">
+    <div class="modal-card">
       <i class="fa-solid fa-square-plus" style="font-size:36px; color:#e85d04; margin-bottom:12px;"></i>
       <h3 style="margin:0 0 8px 0;">Install on iOS</h3>
       <p style="color:#ccc; font-size:14px; line-height:1.5;">To install the Driver Portal app on your iPhone: tap the <strong>Share</strong> icon <i class="fa-solid fa-share-from-square"></i> in Safari and select <strong>"Add to Home Screen"</strong>.</p>
@@ -536,6 +993,13 @@
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed:', err));
     }
+
+    // State for driver and vehicle details
+    window.vchDriverProfile = {
+      name: 'Driver',
+      reg: 'REG PCO',
+      id: null
+    };
 
     // PWA Install Prompt handling
     let deferredPrompt;
@@ -566,6 +1030,37 @@
           pwaBanner.style.display = 'none';
         }
         deferredPrompt = null;
+      }
+    });
+
+    // A1. Report a Problem Functions
+    function openProblemModal() {
+      document.getElementById('problemModal').style.display = 'flex';
+    }
+
+    function closeProblemModal() {
+      document.getElementById('problemModal').style.display = 'none';
+    }
+
+    function triggerProblemWhatsApp(problemType) {
+      const driverName = window.vchDriverProfile.name || 'Driver';
+      const vehicleReg = window.vchDriverProfile.reg || 'REG PCO';
+
+      const messageText = `${problemType} - Driver: ${driverName} | Reg: ${vehicleReg}`;
+      const whatsappUrl = `https://wa.me/442072946756?text=${encodeURIComponent(messageText)}`;
+
+      window.open(whatsappUrl, '_blank');
+      closeProblemModal();
+    }
+
+    // Photo input label update
+    document.getElementById('odometerPhoto').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      const labelEl = document.getElementById('photoFileName');
+      if (file) {
+        labelEl.textContent = `Selected: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+      } else {
+        labelEl.textContent = 'Tap to take photo or choose image';
       }
     });
 
@@ -616,7 +1111,10 @@
         }
 
         if (driverData) {
-          document.getElementById('driverName').textContent = `Welcome, ${driverData.full_name || driverData.first_name || driverData.name || 'Driver'}`;
+          const name = driverData.full_name || driverData.first_name || driverData.name || 'Driver';
+          document.getElementById('driverName').textContent = `Welcome, ${name}`;
+          window.vchDriverProfile.name = name;
+          window.vchDriverProfile.id = driverData.id;
         }
 
         // Fetch active rental for logged-in driver
@@ -628,7 +1126,10 @@
         let currentRental = null;
         if (rentals && rentals.length > 0) {
           currentRental = rentals[0];
-          document.getElementById('vehicleReg').textContent = currentRental.vehicle_reg || 'REG PCO';
+          const reg = currentRental.vehicle_reg || 'REG PCO';
+          document.getElementById('vehicleReg').textContent = reg;
+          window.vchDriverProfile.reg = reg;
+
           document.getElementById('vehicleModel').textContent = currentRental.vehicle_make_model || currentRental.vehicle_name || 'Assigned PCO Vehicle';
           document.getElementById('rentAmount').innerHTML = `£${currentRental.weekly_rent || 240} <small>/week</small>`;
 
@@ -643,9 +1144,10 @@
           }
         }
 
+        const driverId = window.vchDriverProfile.id;
+
         // 3. Itemised Balance Breakdown Section
         const breakdownContainer = document.getElementById('balanceBreakdownList');
-        const driverId = driverData ? driverData.id : null;
 
         let chargesList = [];
         if (driverId) {
@@ -780,7 +1282,6 @@
 
             alertsContainer.innerHTML = alertsHtml;
 
-            // Mark unread alerts as read in Supabase once viewed
             if (unreadIds.length > 0) {
               try {
                 await supabase
@@ -803,7 +1304,7 @@
           alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No active reminder alerts. Everything looks good!</div>';
         }
 
-        // 5. Mileage logs
+        // 5. Approved Mileage logs & allowance calculation
         const { data: mileageLogs } = await supabase
           .from('mileage_logs')
           .select('*');
@@ -820,13 +1321,19 @@
         const pct = Math.min(100, (totalMileage / allowed) * 100);
         document.getElementById('mileageProgressFill').style.width = `${pct}%`;
 
-        // 6. Extra charges list
+        // 6. A2. Documents List Loading
+        loadDriverDocuments(supabase, driverId);
+
+        // 7. A3. Self-Service Mileage Submissions Loading & Form Handling
+        loadMileageSubmissions(supabase, driverId);
+
+        // 8. Extra charges list
         if (chargesList && chargesList.length > 0) {
           const unpaidTotal = chargesList.reduce((acc, curr) => acc + (Number(curr.amount || curr.charge_amount || 0)), 0);
           document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
         }
 
-        // 7. Service bookings
+        // 9. Service bookings
         const { data: services } = await supabase
           .from('service_bookings')
           .select('*')
@@ -847,6 +1354,180 @@
 
       } catch (err) {
         console.log('Live data query executed (schema fallbacks in place)');
+      }
+    });
+
+    // Helper: Load Documents for logged in driver (A2)
+    async function loadDriverDocuments(supabase, driverId) {
+      const docsContainer = document.getElementById('documentsList');
+      if (!driverId) {
+        docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents on file yet. Staff will upload your rental agreement and insurance certificate here.</div>';
+        return;
+      }
+
+      try {
+        const { data: docs, error } = await supabase
+          .from('driver_documents')
+          .select('*')
+          .eq('driver_id', driverId)
+          .order('uploaded_at', { ascending: false });
+
+        if (error || !docs || docs.length === 0) {
+          docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents on file yet. Staff will upload your rental agreement and insurance certificate here.</div>';
+          return;
+        }
+
+        let html = '';
+        for (const doc of docs) {
+          let fileUrl = doc.file_path;
+          if (fileUrl && !fileUrl.startsWith('http://') && !fileUrl.startsWith('https://')) {
+            const { data: pubData } = supabase.storage.from('driver-documents').getPublicUrl(doc.file_path);
+            fileUrl = pubData ? pubData.publicUrl : doc.file_path;
+          }
+
+          const docDate = doc.uploaded_at ? new Date(doc.uploaded_at).toLocaleDateString('en-GB') : 'Uploaded';
+          const docTypeLabel = doc.document_type || 'Document';
+
+          html += `
+            <div class="doc-item">
+              <div class="doc-left">
+                <i class="fa-solid fa-file-pdf"></i>
+                <div>
+                  <div class="doc-name">${doc.label || 'Vehicle Document'}</div>
+                  <div class="doc-meta">
+                    <span class="doc-type-badge">${docTypeLabel}</span>
+                    <span>• ${docDate}</span>
+                  </div>
+                </div>
+              </div>
+              <a href="${fileUrl}" target="_blank" rel="noopener noreferrer" class="doc-btn">
+                <i class="fa-solid fa-download"></i> View
+              </a>
+            </div>
+          `;
+        }
+        docsContainer.innerHTML = html;
+      } catch (err) {
+        docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents available.</div>';
+      }
+    }
+
+    // Helper: Load Mileage Submissions for logged in driver (A3)
+    async function loadMileageSubmissions(supabase, driverId) {
+      const container = document.getElementById('mileageSubmissionsList');
+      if (!driverId) {
+        container.innerHTML = '<div class="empty-msg">No submissions recorded yet.</div>';
+        return;
+      }
+
+      try {
+        const { data: submissions, error } = await supabase
+          .from('mileage_submissions')
+          .select('*')
+          .eq('driver_id', driverId)
+          .order('submitted_at', { ascending: false });
+
+        if (error || !submissions || submissions.length === 0) {
+          container.innerHTML = '<div class="empty-msg">No submissions recorded yet.</div>';
+          return;
+        }
+
+        let html = '';
+        submissions.forEach(sub => {
+          const subDate = sub.submitted_at ? new Date(sub.submitted_at).toLocaleDateString('en-GB') : 'Recent';
+          const reading = Number(sub.reading_value || 0).toLocaleString();
+          const status = (sub.status || 'pending').toLowerCase();
+
+          let statusClass = 'sub-status-pending';
+          let statusLabel = 'Pending Review';
+
+          if (status === 'approved') {
+            statusClass = 'sub-status-approved';
+            statusLabel = 'Approved ✓';
+          } else if (status === 'rejected') {
+            statusClass = 'sub-status-rejected';
+            statusLabel = 'Rejected';
+          }
+
+          html += `
+            <div class="submission-item">
+              <div>
+                <strong style="color:#fff;">${reading} miles</strong>
+                <span style="color:#888; font-size:12px; margin-left:6px;">(${subDate})</span>
+              </div>
+              <span class="${statusClass}">${statusLabel}</span>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = '<div class="empty-msg">Unable to load submission history.</div>';
+      }
+    }
+
+    // Handle Mileage Form Submission (A3)
+    document.getElementById('mileageForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const supabase = window.initVchSupabase();
+      const driverId = window.vchDriverProfile.id;
+      const readingVal = document.getElementById('readingValue').value;
+      const fileInput = document.getElementById('odometerPhoto');
+      const submitBtn = document.getElementById('submitMileageBtn');
+
+      if (!driverId) {
+        alert('Driver profile not identified. Please try logging in again.');
+        return;
+      }
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Please attach a photo of your odometer.');
+        return;
+      }
+
+      const photoFile = fileInput.files[0];
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading photo...';
+
+      try {
+        const fileExt = photoFile.name.split('.').pop() || 'jpg';
+        const fileName = `mileage_${driverId}_${Date.now()}.${fileExt}`;
+
+        // Upload photo to Supabase Storage bucket 'mileage-photos'
+        const { data: uploadData, error: uploadErr } = await supabase.storage
+          .from('mileage-photos')
+          .upload(fileName, photoFile, { cacheControl: '3600', upsert: true });
+
+        const imagePath = uploadData ? uploadData.path : fileName;
+
+        // Insert row in mileage_submissions table
+        const { error: insertErr } = await supabase
+          .from('mileage_submissions')
+          .insert({
+            driver_id: driverId,
+            image_path: imagePath,
+            reading_value: Number(readingVal),
+            status: 'pending',
+            submitted_at: new Date().toISOString()
+          });
+
+        if (insertErr) {
+          throw insertErr;
+        }
+
+        alert('Odometer mileage photo submitted successfully! Staff will review and update your approved mileage.');
+        document.getElementById('mileageForm').reset();
+        document.getElementById('photoFileName').textContent = 'Tap to take photo or choose image';
+
+        // Reload submissions
+        loadMileageSubmissions(supabase, driverId);
+
+      } catch (err) {
+        console.error('Mileage submission error:', err);
+        alert('Could not submit mileage. Please check your network connection or try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo';
       }
     });
   </script>
