@@ -246,6 +246,165 @@
       100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
     }
 
+    /* Rebuilt Vehicle Hero Showcase (Car as Dominant Visual) */
+    .vehicle-hero-card {
+      background: linear-gradient(145deg, #181826 0%, #101018 100%);
+      border: 1px solid rgba(232, 93, 4, 0.25);
+      border-radius: 20px;
+      padding: 24px 20px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      margin-bottom: 20px;
+    }
+    .vehicle-hero-card::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(circle, rgba(232, 93, 4, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+    }
+    .vehicle-hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .hero-title-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: #e85d04;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .vehicle-hero-display {
+      position: relative;
+      width: 100%;
+      max-width: 580px;
+      margin: 10px auto 16px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .vehicle-hero-img-wrap {
+      width: 100%;
+      max-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+    }
+    .vehicle-hero-img {
+      max-width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
+      transition: transform 0.3s ease;
+    }
+    .vehicle-hero-img:hover {
+      transform: scale(1.02);
+    }
+    .plate-overlay {
+      margin-top: -12px;
+      z-index: 3;
+    }
+    .vehicle-hero-details {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .vehicle-hero-model {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      letter-spacing: -0.4px;
+    }
+    .vehicle-hero-sub {
+      color: #aaa;
+      font-size: 13.5px;
+      margin: 0;
+    }
+    .vehicle-hero-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .hero-badge {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      font-weight: 600;
+      color: #ddd;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* UK Registration Plate Component */
+    .uk-number-plate {
+      display: inline-flex;
+      align-items: center;
+      background: #f7b500;
+      color: #111;
+      font-family: 'Inter', 'Arial Black', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      letter-spacing: 2.5px;
+      border-radius: 6px;
+      border: 2px solid #111;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      user-select: none;
+    }
+    .uk-number-plate .uk-flag-band {
+      background: #003399;
+      color: #fff;
+      padding: 6px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      line-height: 1;
+      gap: 2px;
+      height: 100%;
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    .uk-number-plate .uk-flag-band i {
+      font-size: 11px;
+      color: #ffcc00;
+    }
+    .uk-number-plate .reg-text {
+      padding: 6px 16px;
+      text-transform: uppercase;
+    }
+
     /* Grid Sections */
     .grid {
       display: grid;
@@ -280,79 +439,6 @@
       font-weight: 700;
       margin: 0;
       color: #eee;
-    }
-
-    /* UK Registration Plate Component */
-    .uk-number-plate {
-      display: inline-flex;
-      align-items: center;
-      background: #f7b500;
-      color: #111;
-      font-family: 'Inter', 'Arial Black', sans-serif;
-      font-weight: 900;
-      font-size: 16px;
-      letter-spacing: 2px;
-      border-radius: 6px;
-      border: 2px solid #111;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      margin-bottom: 14px;
-      user-select: none;
-    }
-    .uk-number-plate .uk-flag-band {
-      background: #003399;
-      color: #fff;
-      padding: 4px 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 800;
-      line-height: 1;
-      gap: 2px;
-      height: 100%;
-      border-right: 1px solid rgba(0, 0, 0, 0.2);
-    }
-    .uk-number-plate .uk-flag-band i {
-      font-size: 11px;
-      color: #ffcc00;
-    }
-    .uk-number-plate .reg-text {
-      padding: 5px 12px;
-      text-transform: uppercase;
-    }
-
-    /* Vehicle Hero Card */
-    .vehicle-hero {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    @media (min-width: 520px) {
-      .vehicle-hero {
-        flex-direction: row;
-        align-items: center;
-      }
-    }
-    .vehicle-img-wrap {
-      width: 100%;
-      max-width: 220px;
-      height: 140px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      margin: 0 auto;
-    }
-    .vehicle-img-wrap img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.5));
     }
 
     /* Rent details */
@@ -865,14 +951,6 @@
       background: rgba(220, 53, 69, 0.2);
       border-color: #dc3545;
     }
-    .data-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      font-size: 14px;
-    }
     .problem-option-btn.danger i {
       color: #ff6b6b;
     }
@@ -963,25 +1041,23 @@
       </button>
     </div>
 
-    <div class="grid">
-      <!-- Assigned Vehicle (Hero Card) -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-car-side"></i>
-          <h2>Assigned Vehicle</h2>
-        </div>
-    <div class="grid">
-      <!-- Assigned Vehicle (Hero Card) -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-car-side"></i>
-          <h2>Assigned Vehicle</h2>
-        </div>
-        <div class="vehicle-hero">
-          <div class="vehicle-img-wrap">
-            <img id="vehicleImage" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
+    <!-- Dominant Hero Showcase: Assigned Vehicle -->
+    <div class="vehicle-hero-card">
+      <div class="vehicle-hero-content">
+        <div class="hero-badge-header">
+          <div class="hero-title-tag">
+            <i class="fa-solid fa-car-side"></i> Assigned Vehicle
           </div>
-          <div style="flex:1;">
+          <span style="font-size:12px; color:#888; background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:50px; border:1px solid rgba(255,255,255,0.1);">
+            <i class="fa-solid fa-check-double" style="color:#28a745; margin-right:4px;"></i> Active Hire
+          </span>
+        </div>
+
+        <div class="vehicle-hero-display">
+          <div class="vehicle-hero-img-wrap">
+            <img id="vehicleImage" class="vehicle-hero-img" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
+          </div>
+          <div class="plate-overlay">
             <div class="uk-number-plate">
               <div class="uk-flag-band">
                 <i class="fa-solid fa-star"></i>
@@ -989,16 +1065,26 @@
               </div>
               <div class="reg-text" id="vehicleReg">--- ----</div>
             </div>
-            <h3 id="vehicleModel" style="font-size:20px; font-weight:800; margin:0 0 6px 0; color:#fff;">Loading vehicle...</h3>
-            <p style="color:#aaa; font-size:13.5px; margin:0 0 10px 0;" id="vehicleType">TfL Licensed PCO Vehicle</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12px; color:#888;">
-              <span id="vehicleFuelBadge" style="background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.1);"><i class="fa-solid fa-gas-pump" style="color:#e85d04; margin-right:4px;"></i> PCO Ready</span>
-              <span id="vehicleDepositBadge" style="background:rgba(255,255,255,0.06); padding:4px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.1);"><i class="fa-solid fa-shield-halved" style="color:#28a745; margin-right:4px;"></i> Insured &amp; Covered</span>
-            </div>
+          </div>
+        </div>
+
+        <div class="vehicle-hero-details">
+          <h2 id="vehicleModel" class="vehicle-hero-model">Loading vehicle...</h2>
+          <p id="vehicleType" class="vehicle-hero-sub">TfL Licensed PCO Vehicle</p>
+          <div class="vehicle-hero-badges">
+            <span id="vehicleFuelBadge" class="hero-badge">
+              <i class="fa-solid fa-gas-pump" style="color:#e85d04;"></i> PCO Ready
+            </span>
+            <span id="vehicleDepositBadge" class="hero-badge">
+              <i class="fa-solid fa-shield-halved" style="color:#28a745;"></i> Insured &amp; Covered
+            </span>
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Dashboard Main Grid -->
+    <div class="grid">
       <!-- Weekly Rent & Due Status -->
       <div class="card">
         <div class="card-head">
@@ -1046,16 +1132,11 @@
         </ul>
       </div>
 
-      <!-- A3. Mileage Tracker & Submission -->
+      <!-- Monthly Mileage Tracker & Submission -->
       <div class="card full-width">
         <div class="card-head">
           <i class="fa-solid fa-gauge-high"></i>
           <h2>Monthly Mileage Tracker &amp; Submission</h2>
-      <!-- Mileage Tracker -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-gauge-high"></i>
-          <h2>Monthly Mileage Tracker</h2>
         </div>
         <div class="mileage-num">
           <div>
@@ -1109,7 +1190,7 @@
         </div>
       </div>
 
-      <!-- A2. Hire Documents Section -->
+      <!-- Hire Documents Section -->
       <div class="card full-width">
         <div class="card-head">
           <i class="fa-solid fa-file-contract"></i>
@@ -1118,31 +1199,6 @@
         <p style="color:#aaa; font-size:13px; margin:-6px 0 14px 0;">View and download your rental agreement, insurance certificate, and official documents.</p>
         <div id="documentsList" class="doc-list">
           <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading hire documents...</div>
-        </div>
-      </div>
-
-      <!-- Reminder Alerts Section -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-bell"></i>
-          <h2>Reminder Alerts &amp; Notifications</h2>
-        </div>
-        <div id="reminderAlertsList">
-          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading reminders...</div>
-        </div>
-      </div>
-
-      <!-- Itemised Balance Section -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-receipt"></i>
-          <h2>Itemised Balance Breakdown</h2>
-        </div>
-        <div id="balanceBreakdownList">
-          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
-        </div>
-      </div>
-
         </div>
       </div>
 
@@ -1224,7 +1280,7 @@
     </div>
   </main>
 
-  <!-- Report a Problem Choice Modal (A1) -->
+  <!-- Report a Problem Choice Modal -->
   <div id="problemModal" class="modal-overlay">
     <div class="modal-card">
       <button class="modal-close" onclick="closeProblemModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -1329,13 +1385,6 @@
       if (mm.includes('e300') || mm.includes('e220') || mm.includes('e-class') || mm.includes('e class')) {
         return '/assets/cars/mercedes-e300-grey.png';
       }
-      if (mm.includes('eqe')) {
-        return '/assets/cars/mercedes-eqe-black.png';
-      }
-      if (mm.includes('vito')) {
-        return '/assets/cars/mercedes-vito-grey.webp';
-      }
-      if (mm.includes('santa fe') || mm.includes('santafe')) {
       if (mm.includes('eqe') || mm.includes('eqs')) {
         return '/assets/cars/mercedes-eqe-black.png';
       }
@@ -1370,7 +1419,7 @@
       return nextDate;
     }
 
-    // A1. Report a Problem Functions
+    // Report a Problem Functions
     function openProblemModal() {
       document.getElementById('problemModal').style.display = 'flex';
     }
@@ -1455,6 +1504,8 @@
         window.vchDriverProfile.name = rawName || 'Driver';
         if (driverData) window.vchDriverProfile.id = driverData.id;
 
+        const driverId = window.vchDriverProfile.id;
+
         // 3. Resolve Vehicle Information
         let vehicleObj = null;
         let vehicleId = driverData ? (driverData.vehicle_id || driverData.assigned_vehicle_id) : null;
@@ -1468,46 +1519,12 @@
           if (vRow) vehicleObj = vRow;
         }
 
-        const driverId = window.vchDriverProfile.id;
-
-        // Additional fallback: query rentals table for logged in driver if vehicleObj still null
-        let currentRental = null;
-        if (driverId) {
+        // Fallback: query rentals table for logged in driver if vehicleObj still null
+        if (!vehicleObj && driverId) {
           const { data: rentalRows } = await supabase
             .from('rentals')
             .select('*')
             .eq('driver_id', driverId)
-            .order('created_at', { ascending: false });
-          if (rentalRows && rentalRows.length > 0) {
-            currentRental = rentalRows[0];
-            if (!vehicleObj) {
-              vehicleObj = {
-                registration: currentRental.vehicle_reg || currentRental.reg || currentRental.vrm,
-                make: currentRental.vehicle_make,
-                model: currentRental.vehicle_model || currentRental.vehicle_make_model || currentRental.vehicle_name,
-                fuel_type: currentRental.fuel_type
-              };
-            }
-
-        // 3. Resolve Vehicle Information
-        let vehicleObj = null;
-        let vehicleId = driverData ? (driverData.vehicle_id || driverData.assigned_vehicle_id) : null;
-
-        if (vehicleId) {
-          const { data: vRow } = await supabase
-            .from('vehicles')
-            .select('*')
-            .eq('id', vehicleId)
-            .maybeSingle();
-          if (vRow) vehicleObj = vRow;
-        }
-
-        // Additional fallback: query rentals table for logged in driver if vehicleObj still null
-        if (!vehicleObj && driverData) {
-          const { data: rentalRows } = await supabase
-            .from('rentals')
-            .select('*')
-            .eq('driver_id', driverData.id)
             .order('created_at', { ascending: false });
           if (rentalRows && rentalRows.length > 0) {
             const r = rentalRows[0];
@@ -1531,14 +1548,10 @@
         const fuelType = (vehicleObj && vehicleObj.fuel_type) || (driverData && driverData.fuel_type) || 'TfL Licensed PCO Hybrid';
 
         document.getElementById('vehicleReg').textContent = vehicleReg;
-        window.vchDriverProfile.reg = vehicleReg;
-
-        const fuelType = (vehicleObj && vehicleObj.fuel_type) || (driverData && driverData.fuel_type) || 'TfL Licensed PCO Hybrid';
-
-        document.getElementById('vehicleReg').textContent = vehicleReg;
         document.getElementById('vehicleModel').textContent = vehicleMakeModel;
         document.getElementById('vehicleType').textContent = fuelType;
         document.getElementById('vehicleImage').src = resolveVehicleImage(vehicleMakeModel);
+        window.vchDriverProfile.reg = vehicleReg;
 
         // 4. Weekly Rent, Due Dates & Financial Status
         const weeklyRent = (driverData && (driverData.weekly_rent || driverData.rent_amount)) || 220;
@@ -1555,7 +1568,6 @@
         document.getElementById('glanceNextPayment').textContent = formattedDueDateStr;
 
         // Balance & Charges Calculation
-        const driverId = driverData ? driverData.id : null;
         let chargesList = [];
         if (driverId) {
           let { data: dCharges } = await supabase
@@ -1720,14 +1732,13 @@
           warningBox.style.display = 'none';
         }
 
-        // 7. A2. Documents List Loading
+        // 7. Documents List Loading
         loadDriverDocuments(supabase, driverId);
 
-        // 8. A3. Self-Service Mileage Submissions Loading
+        // 8. Self-Service Mileage Submissions Loading
         loadMileageSubmissions(supabase, driverId);
 
         // 9. Extra Charges & Deposit
-        // 7. Extra Charges & Deposit
         if (chargesList && chargesList.length > 0) {
           const unpaidTotal = chargesList.reduce((acc, curr) => acc + (Number(curr.amount || curr.charge_amount || 0)), 0);
           document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
@@ -1737,7 +1748,6 @@
         document.getElementById('depositStatus').textContent = depositStatus;
 
         // 10. Service Bookings
-        // 8. Service Bookings
         if (driverId) {
           let { data: services } = await supabase
             .from('service_bookings')
@@ -1769,7 +1779,6 @@
         }
 
         // 11. Reminder Alerts & Notifications Section
-        // 9. Reminder Alerts & Notifications Section
         const alertsContainer = document.getElementById('reminderAlertsList');
         if (driverId) {
           let { data: alertsData } = await supabase
@@ -1841,11 +1850,11 @@
         }
 
       } catch (err) {
-        console.log('Live driver portal data queries complete (fallbacks ready)');
+        console.log('Live driver portal data queries complete (fallbacks ready)', err);
       }
     });
 
-    // Helper: Load Documents for logged in driver (A2)
+    // Helper: Load Documents for logged in driver
     async function loadDriverDocuments(supabase, driverId) {
       const docsContainer = document.getElementById('documentsList');
       if (!driverId) {
@@ -1900,7 +1909,7 @@
       }
     }
 
-    // Helper: Load Mileage Submissions for logged in driver (A3)
+    // Helper: Load Mileage Submissions for logged in driver
     async function loadMileageSubmissions(supabase, driverId) {
       const container = document.getElementById('mileageSubmissionsList');
       if (!driverId) {
@@ -1953,7 +1962,7 @@
       }
     }
 
-    // Handle Mileage Form Submission (A3)
+    // Handle Mileage Form Submission
     document.getElementById('mileageForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -2016,8 +2025,6 @@
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo';
-      } catch (err) {
-        console.log('Live driver portal data queries complete (fallbacks ready)');
       }
     });
   </script>
