@@ -1,10 +1,10 @@
 /*
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: SAMEORIGIN
-  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Permissions-Policy: geolocation=(), microphone=(), camera=(self)
   Referrer-Policy: strict-origin-when-cross-origin
   X-Content-Type-Options: nosniff
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://hhpkffratbbnwedjlebx.supabase.co wss://hhpkffratbbnwedjlebx.supabase.co https://servicevch.pages.dev https://cloudflareinsights.com https://static.cloudflareinsights.com; img-src 'self' data: https://media.base44.com https://files.manuscdn.com https://virtualcarhire.pages.dev https://virtualcarhire.co.uk; frame-src 'self' https://www.google.com; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://hhpkffratbbnwedjlebx.supabase.co wss://hhpkffratbbnwedjlebx.supabase.co https://servicevch.pages.dev https://cloudflareinsights.com https://static.cloudflareinsights.com; img-src 'self' data: https://hhpkffratbbnwedjlebx.supabase.co https://media.base44.com https://files.manuscdn.com https://virtualcarhire.pages.dev https://virtualcarhire.co.uk; frame-src 'self' https://www.google.com; frame-ancestors 'self'
 
 /sitemap.xml
   Content-Type: application/xml; charset=UTF-8
