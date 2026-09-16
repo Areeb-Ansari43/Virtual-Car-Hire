@@ -21,6 +21,7 @@ CREATE INDEX IF NOT EXISTS idx_drivers_invite_token ON public.drivers (invite_to
 CREATE INDEX IF NOT EXISTS idx_drivers_auth_user_id ON public.drivers (auth_user_id);
 
 -- 2. Enable RLS on Driver Portal Tables
+ALTER TABLE IF EXISTS public.vehicles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS public.driver_tracks ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS public.drivers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS public.rentals ENABLE ROW LEVEL SECURITY;
@@ -207,7 +208,14 @@ GRANT EXECUTE ON FUNCTION public.validate_driver_invite(uuid) TO anon, authentic
 GRANT EXECUTE ON FUNCTION public.accept_driver_invite(text, uuid, text) TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.accept_driver_invite(uuid, uuid, text) TO anon, authenticated;
 
--- 5. RLS Policies for `rentals` and child tables
+-- 5. RLS Policies for `vehicles`, `rentals` and child tables
+DROP POLICY IF EXISTS "Authenticated drivers can view vehicles" ON public.vehicles;
+CREATE POLICY "Authenticated drivers can view vehicles"
+  ON public.vehicles
+  FOR SELECT
+  TO authenticated
+  USING (true);
+
 DROP POLICY IF EXISTS "Drivers can view own rentals" ON public.rentals;
 CREATE POLICY "Drivers can view own rentals"
   ON public.rentals
