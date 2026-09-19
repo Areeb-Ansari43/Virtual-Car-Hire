@@ -16,8 +16,18 @@ assert(dashboardContent.includes('Emergency breakdown'), 'dashboard.html must of
 assert(dashboardContent.includes('Report accident'), 'dashboard.html must offer Report accident choice');
 assert(dashboardContent.includes('Driver:'), 'dashboard.html WhatsApp message must include Driver name');
 assert(dashboardContent.includes('Reg:'), 'dashboard.html WhatsApp message must include vehicle Reg');
+assert(!dashboardContent.includes("triggerProblemWhatsApp('General inquiry')"), 'dashboard.html must NOT contain General inquiry option in Report a Problem modal');
 
-console.log('✅ PASS: A1 Report a Problem feature tests passed.');
+console.log('✅ PASS: A1 Report a Problem feature tests passed (General Inquiry removed).');
+
+// Test View Invoice & Itemised Charges
+assert(dashboardContent.includes('viewInvoiceBtn'), 'dashboard.html must contain View Invoice button');
+assert(dashboardContent.includes('invoiceModal'), 'dashboard.html must contain Invoice Modal');
+assert(dashboardContent.includes('openInvoiceModal'), 'dashboard.html must include openInvoiceModal function');
+assert(dashboardContent.includes('c.description || c.title'), 'dashboard.html must prioritize c.description for itemised extra charges');
+assert(dashboardContent.includes('@media print'), 'dashboard.html must include print media query for clean printable invoice');
+
+console.log('✅ PASS: View Invoice & Itemised Charges tests passed.');
 
 // Test A2: Documents Section
 assert(dashboardContent.includes('Hire Documents'), 'dashboard.html must contain Hire Documents card heading');
