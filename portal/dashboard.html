@@ -246,26 +246,26 @@
       100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
     }
 
-    /* Rebuilt Vehicle Hero Showcase (Car as Dominant Visual) */
+    /* Dominant Vehicle Hero Showcase (Car as Central Hero Feature) */
     .vehicle-hero-card {
-      background: linear-gradient(145deg, #181826 0%, #101018 100%);
-      border: 1px solid rgba(232, 93, 4, 0.25);
+      background: radial-gradient(circle at 50% 30%, rgba(232, 93, 4, 0.18) 0%, rgba(24, 24, 38, 0.95) 70%), linear-gradient(145deg, #1a1a28 0%, #101018 100%);
+      border: 1px solid rgba(232, 93, 4, 0.35);
       border-radius: 20px;
       padding: 24px 20px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(232, 93, 4, 0.15);
       margin-bottom: 20px;
     }
     .vehicle-hero-card::before {
       content: '';
       position: absolute;
-      top: -40%;
+      top: -30%;
       left: 50%;
       transform: translateX(-50%);
-      width: 120%;
+      width: 140%;
       height: 120%;
-      background: radial-gradient(circle, rgba(232, 93, 4, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(ellipse at center, rgba(232, 93, 4, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
       pointer-events: none;
     }
     .vehicle-hero-content {
@@ -296,8 +296,8 @@
     .vehicle-hero-display {
       position: relative;
       width: 100%;
-      max-width: 580px;
-      margin: 10px auto 16px auto;
+      max-width: 720px;
+      margin: 12px auto 20px auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -305,24 +305,40 @@
     }
     .vehicle-hero-img-wrap {
       width: 100%;
-      max-height: 260px;
+      min-height: 240px;
+      max-height: 340px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px 0;
+      padding: 12px 0;
+      position: relative;
+    }
+    .vehicle-hero-img-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      width: 75%;
+      height: 25px;
+      background: radial-gradient(ellipse at center, rgba(232, 93, 4, 0.35) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
     }
     .vehicle-hero-img {
       max-width: 100%;
-      max-height: 240px;
+      max-height: 320px;
+      width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
+      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(232, 93, 4, 0.25));
       transition: transform 0.3s ease;
+      position: relative;
+      z-index: 2;
     }
     .vehicle-hero-img:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
     }
     .plate-overlay {
-      margin-top: -12px;
+      margin-top: -10px;
       z-index: 3;
     }
     .vehicle-hero-details {
@@ -334,7 +350,7 @@
       margin-top: 8px;
     }
     .vehicle-hero-model {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       color: #fff;
       margin: 0;
@@ -342,7 +358,7 @@
     }
     .vehicle-hero-sub {
       color: #aaa;
-      font-size: 13.5px;
+      font-size: 14px;
       margin: 0;
     }
     .vehicle-hero-badges {
@@ -674,6 +690,7 @@
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
+      cursor: pointer;
     }
     .doc-btn:hover {
       background: #e85d04;
@@ -974,6 +991,196 @@
       max-width: 380px;
       text-align: center;
     }
+
+    /* Invoice Modal & Print Styling */
+    .invoice-modal-card {
+      max-width: 680px;
+      width: 100%;
+      text-align: left;
+      background: #181824;
+      color: #fff;
+      padding: 28px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .invoice-printable {
+      background: #14141d;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .invoice-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .invoice-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .invoice-logo {
+      height: 44px;
+      width: auto;
+    }
+    .invoice-company-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0;
+      color: #fff;
+    }
+    .invoice-company-sub {
+      font-size: 12px;
+      color: #e85d04;
+      margin: 2px 0;
+      font-weight: 600;
+    }
+    .invoice-company-addr {
+      font-size: 11px;
+      color: #888;
+      margin: 0;
+    }
+    .invoice-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #e85d04;
+      margin: 0 0 6px 0;
+      text-align: right;
+      letter-spacing: 0.5px;
+    }
+    .invoice-meta-item {
+      font-size: 12px;
+      color: #ccc;
+      text-align: right;
+    }
+    .invoice-divider {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin: 18px 0;
+    }
+    .invoice-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .invoice-detail-block h4 {
+      margin: 0 0 6px 0;
+      font-size: 11px;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .invoice-driver-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .invoice-driver-email {
+      font-size: 12px;
+      color: #aaa;
+    }
+    .invoice-vehicle-reg {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f7b500;
+    }
+    .invoice-vehicle-model {
+      font-size: 12px;
+      color: #aaa;
+    }
+    .invoice-weekly-rent {
+      font-size: 12px;
+      color: #e85d04;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .invoice-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+    .invoice-table th {
+      background: rgba(232, 93, 4, 0.15);
+      color: #e85d04;
+      text-align: left;
+      padding: 10px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(232, 93, 4, 0.3);
+    }
+    .invoice-table td {
+      padding: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      color: #ddd;
+    }
+    .invoice-footer-note {
+      font-size: 11.5px;
+      color: #888;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 12px;
+      line-height: 1.5;
+    }
+    .invoice-footer-note p {
+      margin: 2px 0;
+    }
+    .invoice-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #invoiceModal, #invoiceModal * {
+        visibility: visible;
+      }
+      #invoiceModal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0;
+      }
+      .invoice-modal-card {
+        background: #fff !important;
+        color: #000 !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+        padding: 20px !important;
+      }
+      .invoice-printable {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #ccc !important;
+      }
+      .invoice-company-name, .invoice-driver-name {
+        color: #000 !important;
+      }
+      .invoice-table td, .invoice-table th {
+        color: #000 !important;
+        border-bottom-color: #ddd !important;
+      }
+      .invoice-details-grid {
+        background: #f8f9fa !important;
+        border-color: #ddd !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1215,9 +1422,14 @@
 
       <!-- Itemised Balance Section -->
       <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-receipt"></i>
-          <h2>Itemised Balance Breakdown</h2>
+        <div class="card-head" style="justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-receipt"></i>
+            <h2>Itemised Balance Breakdown</h2>
+          </div>
+          <button id="viewInvoiceBtn" class="doc-btn" onclick="openInvoiceModal()" style="font-size: 13px; padding: 6px 14px; border-radius: 50px;">
+            <i class="fa-solid fa-file-invoice"></i> View Invoice
+          </button>
         </div>
         <div id="balanceBreakdownList">
           <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
@@ -1280,6 +1492,80 @@
     </div>
   </main>
 
+  <!-- View Invoice Printable Modal -->
+  <div id="invoiceModal" class="modal-overlay">
+    <div class="modal-card invoice-modal-card">
+      <button class="modal-close no-print" onclick="closeInvoiceModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <div class="invoice-printable" id="invoicePrintArea">
+        <div class="invoice-header">
+          <div class="invoice-brand">
+            <img src="/assets/logo.png" alt="Virtual Car Hire" class="invoice-logo"/>
+            <div>
+              <h2 class="invoice-company-name">Virtual Car Hire</h2>
+              <p class="invoice-company-sub">FA-IBI LTD • London PCO Vehicle Specialists</p>
+              <p class="invoice-company-addr">Hounslow, West London • Support: +44 20 7294 6756</p>
+            </div>
+          </div>
+          <div class="invoice-meta">
+            <h3 class="invoice-title">STATEMENT / INVOICE</h3>
+            <div class="invoice-meta-item"><strong>Date:</strong> <span id="invoiceDate">--/--/----</span></div>
+            <div class="invoice-meta-item"><strong>Invoice Ref:</strong> <span id="invoiceRef">INV-000000</span></div>
+          </div>
+        </div>
+
+        <hr class="invoice-divider"/>
+
+        <div class="invoice-details-grid">
+          <div class="invoice-detail-block">
+            <h4>DRIVER DETAILS</h4>
+            <div id="invoiceDriverName" class="invoice-driver-name">--</div>
+            <div id="invoiceDriverEmail" class="invoice-driver-email">--</div>
+          </div>
+          <div class="invoice-detail-block">
+            <h4>VEHICLE DETAILS</h4>
+            <div id="invoiceVehicleReg" class="invoice-vehicle-reg">--</div>
+            <div id="invoiceVehicleModel" class="invoice-vehicle-model">--</div>
+            <div id="invoiceWeeklyRent" class="invoice-weekly-rent">Weekly Rent: £0/week</div>
+          </div>
+        </div>
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Type</th>
+              <th style="text-align: right;">Amount (£)</th>
+            </tr>
+          </thead>
+          <tbody id="invoiceTableBody">
+            <!-- Populated dynamically -->
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2" style="text-align: right; font-weight: 700;">TOTAL BALANCE DUE:</td>
+              <td id="invoiceTotalAmount" style="text-align: right; font-weight: 800; color: #e85d04; font-size: 18px;">£0.00</td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="invoice-footer-note">
+          <p><strong>Payment Terms:</strong> Please settle outstanding balances via Direct Debit or Bank Transfer.</p>
+          <p>For support or billing inquiries, contact us on WhatsApp: <strong>+44 20 7294 6756</strong> or visit our office in Hounslow.</p>
+        </div>
+      </div>
+
+      <div class="invoice-actions no-print">
+        <button class="submit-mileage-btn" onclick="window.print()" style="background: #e85d04;">
+          <i class="fa-solid fa-print"></i> Print / Save as PDF
+        </button>
+        <button class="logout-btn" onclick="closeInvoiceModal()" style="margin: 0;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Report a Problem Choice Modal -->
   <div id="problemModal" class="modal-overlay">
     <div class="modal-card">
@@ -1310,14 +1596,6 @@
           <div>
             <div>Maintenance / Warning Light</div>
             <small style="color:#aaa; font-weight:400;">Mechanical fault or dash alert</small>
-          </div>
-        </button>
-
-        <button class="problem-option-btn" onclick="triggerProblemWhatsApp('General inquiry')">
-          <i class="fa-solid fa-comments"></i>
-          <div>
-            <div>General Inquiry</div>
-            <small style="color:#aaa; font-weight:400;">Account, rent or general questions</small>
           </div>
         </button>
       </div>
@@ -1379,20 +1657,59 @@
     });
 
     // Vehicle Image Resolver
-    function resolveVehicleImage(makeModel) {
+    function resolveVehicleImage(makeModel, explicitUrl) {
+      if (explicitUrl && typeof explicitUrl === 'string' && explicitUrl.trim() !== '') {
+        return explicitUrl.trim();
+      }
       if (!makeModel) return '/assets/cars/mercedes-e300-grey.png';
       const mm = makeModel.toLowerCase();
-      if (mm.includes('e300') || mm.includes('e220') || mm.includes('e-class') || mm.includes('e class')) {
-        return '/assets/cars/mercedes-e300-grey.png';
-      }
-      if (mm.includes('eqe') || mm.includes('eqs')) {
+      if (mm.includes('eqe')) {
         return '/assets/cars/mercedes-eqe-black.png';
       }
-      if (mm.includes('vito') || mm.includes('v-class') || mm.includes('v class') || mm.includes('tourneo')) {
+      if (mm.includes('eqs')) {
+        return '/assets/social/mercedes-eqs-v2.jpg';
+      }
+      if (mm.includes('vito')) {
         return '/assets/cars/mercedes-vito-grey.webp';
       }
-      if (mm.includes('santa fe') || mm.includes('santa-fe') || mm.includes('ioniq') || mm.includes('suv')) {
+      if (mm.includes('v-class') || mm.includes('v class') || mm.includes('v250') || mm.includes('v300')) {
+        return '/assets/social/mercedes-v-class-v2.jpg';
+      }
+      if (mm.includes('santa fe') || mm.includes('santa-fe')) {
         return '/assets/cars/hyundai-santa-fe.webp';
+      }
+      if (mm.includes('ioniq')) {
+        return '/assets/social/hyundai-ioniq-v2.jpg';
+      }
+      if (mm.includes('prius')) {
+        return '/assets/social/toyota-prius-v2.jpg';
+      }
+      if (mm.includes('corolla')) {
+        return '/assets/social/toyota-corolla-estate-v2.jpg';
+      }
+      if (mm.includes('auris')) {
+        return '/assets/social/toyota-auris-estate-v2.jpg';
+      }
+      if (mm.includes('model 3') || mm.includes('tesla')) {
+        return '/assets/social/tesla-model-3-v2.jpg';
+      }
+      if (mm.includes('i-pace') || mm.includes('jaguar')) {
+        return '/assets/social/jaguar-i-pace-v2.jpg';
+      }
+      if (mm.includes('mg5') || mm.includes('mg 5')) {
+        return '/assets/social/mg5-ev-v2.jpg';
+      }
+      if (mm.includes('mg s9') || mm.includes('s9')) {
+        return '/assets/social/mg-s9-phev-suv-v2.jpg';
+      }
+      if (mm.includes('tourneo') || mm.includes('ford')) {
+        return '/assets/social/ford-tourneo-custom-v2.jpg';
+      }
+      if (mm.includes('multivan') || mm.includes('volkswagen') || mm.includes('vw')) {
+        return '/assets/social/volkswagen-multivan-phev-v2.jpg';
+      }
+      if (mm.includes('e300') || mm.includes('e220') || mm.includes('e-class') || mm.includes('e class') || mm.includes('mercedes e')) {
+        return '/assets/cars/mercedes-e300-grey.png';
       }
       return '/assets/cars/mercedes-e300-grey.png';
     }
@@ -1439,6 +1756,56 @@
       closeProblemModal();
     }
 
+    // View Invoice Modal Functions
+    function openInvoiceModal() {
+      const modal = document.getElementById('invoiceModal');
+      const profile = window.vchDriverProfile || {};
+      const todayStr = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      const refCode = `INV-${(profile.id || '000000').toString().slice(-6).toUpperCase()}-${Date.now().toString().slice(-4)}`;
+
+      document.getElementById('invoiceDate').textContent = todayStr;
+      document.getElementById('invoiceRef').textContent = refCode;
+      document.getElementById('invoiceDriverName').textContent = profile.name || 'Driver';
+      document.getElementById('invoiceDriverEmail').textContent = profile.email || document.getElementById('userEmailNav').textContent || '';
+      document.getElementById('invoiceVehicleReg').textContent = profile.reg || 'REG PCO';
+      document.getElementById('invoiceVehicleModel').textContent = document.getElementById('vehicleModel').textContent || 'Assigned PCO Vehicle';
+      document.getElementById('invoiceWeeklyRent').textContent = `Weekly Rent: £${profile.weeklyRent || 220}/week`;
+
+      const items = profile.itemisedItems || [];
+      const tbody = document.getElementById('invoiceTableBody');
+
+      if (items.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td>Standard Weekly Rent</td>
+            <td>Rent</td>
+            <td style="text-align: right; font-weight: 700;">£${Number(profile.weeklyRent || 220).toFixed(2)}</td>
+          </tr>
+        `;
+        document.getElementById('invoiceTotalAmount').textContent = `£${Number(profile.weeklyRent || 220).toFixed(2)}`;
+      } else {
+        let html = '';
+        items.forEach(item => {
+          html += `
+            <tr>
+              <td><strong>${item.description}</strong></td>
+              <td><span style="text-transform: uppercase; font-size: 11px; font-weight: 700; color: #e85d04;">${item.tag}</span></td>
+              <td style="text-align: right; font-weight: 700;">£${Number(item.amount).toFixed(2)}</td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+        const total = items.reduce((acc, curr) => acc + curr.amount, 0);
+        document.getElementById('invoiceTotalAmount').textContent = `£${total.toFixed(2)}`;
+      }
+
+      modal.style.display = 'flex';
+    }
+
+    function closeInvoiceModal() {
+      document.getElementById('invoiceModal').style.display = 'none';
+    }
+
     // Photo input label update
     document.getElementById('odometerPhoto').addEventListener('change', (e) => {
       const file = e.target.files[0];
@@ -1471,6 +1838,7 @@
       document.getElementById('driverEmailSub').innerHTML = `<i class="fa-regular fa-envelope"></i> ${user.email}`;
       document.getElementById('userEmailNav').textContent = user.email;
       document.getElementById('userChip').style.display = 'flex';
+      window.vchDriverProfile.email = user.email;
 
       // Handle Logout
       logoutBtn.addEventListener('click', async () => {
@@ -1532,10 +1900,14 @@
               registration: r.vehicle_reg || r.reg || r.vrm,
               make: r.vehicle_make,
               model: r.vehicle_model || r.vehicle_make_model || r.vehicle_name,
-              fuel_type: r.fuel_type
+              fuel_type: r.fuel_type,
+              image_url: r.vehicle_image || r.image_url
             };
           }
         }
+
+        const explicitVehicleImg = (vehicleObj && (vehicleObj.image_url || vehicleObj.image || vehicleObj.photo_url || vehicleObj.vehicle_image)) ||
+                                   (driverData && (driverData.vehicle_image_url || driverData.vehicle_image || driverData.car_image));
 
         const vehicleReg = (vehicleObj && (vehicleObj.registration || vehicleObj.reg || vehicleObj.vrm)) ||
                            (driverData && (driverData.vehicle_reg || driverData.reg || driverData.vrm)) ||
@@ -1550,11 +1922,12 @@
         document.getElementById('vehicleReg').textContent = vehicleReg;
         document.getElementById('vehicleModel').textContent = vehicleMakeModel;
         document.getElementById('vehicleType').textContent = fuelType;
-        document.getElementById('vehicleImage').src = resolveVehicleImage(vehicleMakeModel);
+        document.getElementById('vehicleImage').src = resolveVehicleImage(vehicleMakeModel, explicitVehicleImg);
         window.vchDriverProfile.reg = vehicleReg;
 
         // 4. Weekly Rent, Due Dates & Financial Status
         const weeklyRent = (driverData && (driverData.weekly_rent || driverData.rent_amount)) || 220;
+        window.vchDriverProfile.weeklyRent = weeklyRent;
         document.getElementById('rentAmount').innerHTML = `£${weeklyRent} <small>/week</small>`;
 
         const rentDueDay = (driverData && (driverData.rent_due_day || driverData.due_day)) || 'Tuesday';
@@ -1583,7 +1956,7 @@
             dCharges = stdCharges || [];
           }
 
-          chargesList = (dCharges || []).filter(c => c.status !== 'paid' && c.is_paid !== true);
+          chargesList = (dCharges || []).filter(c => c.status !== 'paid' && c.is_paid !== true && c.status !== 'settled' && c.status !== 'cancelled');
         }
 
         const balanceDue = (driverData && driverData.balance_due != null) ? Number(driverData.balance_due) : 0;
@@ -1615,21 +1988,28 @@
         const breakdownContainer = document.getElementById('balanceBreakdownList');
         const itemisedItems = [];
 
+        // Render each extra charge individually with description and amount
         chargesList.forEach(c => {
-          const title = c.title || c.description || c.reason || c.charge_type || 'Extra charge';
-          const amt = Number(c.amount || c.charge_amount || 0);
+          const desc = c.description || c.title || c.reason || c.details || c.charge_type || 'Extra charge';
+          const amt = Number(c.amount || c.charge_amount || c.cost || 0);
           itemisedItems.push({
-            description: title,
+            description: desc,
             tag: 'charge',
             amount: amt
           });
         });
 
-        const chargesTotal = itemisedItems.reduce((acc, item) => acc + item.amount, 0);
-        let remainingRentBalance = Math.max(0, balanceDue - chargesTotal);
+        const extraChargesSum = itemisedItems.reduce((acc, item) => acc + item.amount, 0);
 
-        if (remainingRentBalance <= 0 && isOverdue) {
-          remainingRentBalance = weeklyRent;
+        // Account for rent balance / missed rent weeks
+        let remainingRentBalance = Math.max(0, balanceDue - extraChargesSum);
+
+        if (remainingRentBalance <= 0 && (balanceDue > 0 || isOverdue)) {
+          if (balanceDue > 0 && extraChargesSum === 0) {
+            remainingRentBalance = balanceDue;
+          } else if (isOverdue) {
+            remainingRentBalance = weeklyRent;
+          }
         }
 
         if (remainingRentBalance > 0) {
@@ -1637,16 +2017,18 @@
           const perWeekAmount = remainingRentBalance / missedWeeksCount;
           for (let w = 1; w <= missedWeeksCount; w++) {
             itemisedItems.unshift({
-              description: missedWeeksCount === 1 ? 'Week 1 rent' : `Week ${w} rent`,
-              tag: 'missed',
+              description: missedWeeksCount === 1 ? 'Missed Rent (1 week)' : `Missed Rent (Week ${w})`,
+              tag: 'missed rent',
               amount: perWeekAmount
             });
           }
         }
 
         const calculatedTotal = itemisedItems.reduce((acc, item) => acc + item.amount, 0);
+        window.vchDriverProfile.itemisedItems = itemisedItems;
+        window.vchDriverProfile.totalDue = calculatedTotal;
 
-        if (calculatedTotal > 0 || isOverdue) {
+        if (itemisedItems.length > 0 || isOverdue) {
           let html = '<ul class="breakdown-list">';
           itemisedItems.forEach(item => {
             html += `
@@ -1738,10 +2120,14 @@
         // 8. Self-Service Mileage Submissions Loading
         loadMileageSubmissions(supabase, driverId);
 
-        // 9. Extra Charges & Deposit
-        if (chargesList && chargesList.length > 0) {
+        // 9. Extra Charges & Deposit Summary
+        if (extraChargesSum > 0) {
+          document.getElementById('outstandingCharges').textContent = `£${extraChargesSum.toFixed(2)}`;
+        } else if (chargesList && chargesList.length > 0) {
           const unpaidTotal = chargesList.reduce((acc, curr) => acc + (Number(curr.amount || curr.charge_amount || 0)), 0);
           document.getElementById('outstandingCharges').textContent = `£${unpaidTotal.toFixed(2)}`;
+        } else {
+          document.getElementById('outstandingCharges').textContent = '£0.00';
         }
 
         const depositStatus = (driverData && driverData.deposit_status) || 'Paid & Held';
