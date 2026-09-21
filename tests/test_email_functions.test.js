@@ -230,6 +230,21 @@ async function runTests() {
 
   console.log("✅ PASS: thank-you.html page canonical, noindex, and 24-hour wording verified.");
 
+  // 8. Verify contact-us.html page requirements
+  const contactUsHtml = fs.readFileSync(path.join(__dirname, "../contact-us.html"), "utf8");
+  assert.ok(!contactUsHtml.includes("formsubmit.co"), "contact-us.html has no formsubmit.co reference");
+  assert.ok(!contactUsHtml.includes('name="_subject"'), "contact-us.html has no FormSubmit _subject field");
+  assert.ok(!contactUsHtml.includes('name="_captcha"'), "contact-us.html has no FormSubmit _captcha field");
+  assert.ok(!contactUsHtml.includes('name="_template"'), "contact-us.html has no FormSubmit _template field");
+  assert.ok(!contactUsHtml.includes('name="_next"'), "contact-us.html has no FormSubmit _next field");
+  assert.ok(contactUsHtml.includes('<form id="contactForm" method="POST">'), "contact-us.html form uses method POST without FormSubmit action");
+  assert.ok(contactUsHtml.includes("We Reply Within 24 Hours"), "contact-us.html hero pill says We Reply Within 24 Hours");
+  assert.ok(contactUsHtml.includes("fetch('/api/submit-contact'"), "contact-us.html JS posts to /api/submit-contact");
+  assert.ok(contactUsHtml.includes("window.location.href = '/thank-you'"), "contact-us.html JS redirects to /thank-you on success");
+  assert.ok(contactUsHtml.includes('href="https://www.virtual-carhire.co.uk/contact-us"'), "contact-us.html canonical URL preserved");
+
+  console.log("✅ PASS: contact-us.html page form markup, 24-hour wording, JS endpoint, and canonical URL verified.");
+
   console.log("\n🎉 All submit-contact unit tests passed successfully!");
 }
 
