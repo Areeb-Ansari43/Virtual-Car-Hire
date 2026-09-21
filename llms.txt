@@ -28,17 +28,17 @@ Opening hours: Monday to Saturday, 09:00 to 18:00
 The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability, driver onboarding and the Virtual Car Hire emergency WhatsApp number for after-hours support, emergency breakdowns, crash reports and situations where a team member is not responding.
 
 ## Public pages
-- Homepage: https://virtualcarhire.pages.dev/
-- Fleet: https://virtualcarhire.pages.dev/our-fleet
-- About: https://virtualcarhire.pages.dev/about-us
-- Contact: https://virtualcarhire.pages.dev/contact-us
-- WhatsApp enquiry: https://virtualcarhire.pages.dev/whatsapp
-- Emergency WhatsApp support: https://virtualcarhire.pages.dev/emergency
-- XML sitemap: https://virtualcarhire.pages.dev/sitemap.xml
+- Homepage: https://www.virtual-carhire.co.uk/
+- Fleet: https://www.virtual-carhire.co.uk/our-fleet
+- About: https://www.virtual-carhire.co.uk/about-us
+- Contact: https://www.virtual-carhire.co.uk/contact-us
+- WhatsApp enquiry: https://www.virtual-carhire.co.uk/whatsapp
+- Emergency WhatsApp support: https://www.virtual-carhire.co.uk/emergency
+- XML sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
 
 ## Accuracy note
 Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions. The website does not guarantee a number-one search position or a specific earnings outcome.
-Hyundai Santa Fe: 7-seat hybrid SUV for London PCO hire from £330 per week. Vehicle page: https://virtualcarhire.pages.dev/cars/hyundai-santa-fe.
+Hyundai Santa Fe: 7-seat hybrid SUV for London PCO hire from £330 per week. Vehicle page: https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe.
 
 Fleet pricing and specification summary:
 Mercedes EQE: £440/week, 4,500 monthly miles, £1,000 deposit, minimum 8 weeks, 2023–2024, Electric.
