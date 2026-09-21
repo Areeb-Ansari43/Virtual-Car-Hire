@@ -663,11 +663,7 @@
     <div class="contact-grid">
       <div class="form-card">
         <h3>Send us a message</h3>
-        <form id="contactForm" action="https://formsubmit.co/AAnsari100@outlook.com" method="POST">
-          <input type="hidden" name="_subject" value="New Contact Form Submission - Virtual Car Hire">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="box">
-          <input type="hidden" name="_next" value="https://virtualcarhire.pages.dev/thank-you.html">
+        <form id="contactForm" method="POST">
           <input type="text" name="_honey" style="display:none">
           
           <div class="form-row">
@@ -806,22 +802,57 @@
 
 <script src="assets/app.js"></script>
 <script>
-  // Form submission
+  // Form submission via /api/submit-contact
   document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
     const formStatus = document.getElementById('formStatus');
-    
+    const form = e.target;
+
+    // Check honeypot
+    if (form._honey && form._honey.value) {
+      return;
+    }
+
     submitBtn.classList.add('btn-submitting');
+    submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     formStatus.innerHTML = '';
-    
-    setTimeout(function() {
-      if (submitBtn.classList.contains('btn-submitting')) {
-        submitBtn.classList.remove('btn-submitting');
-        submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
-        formStatus.innerHTML = '<div class="form-error">Network error. Please try again or call us directly.</div>';
+
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (!key.startsWith('_')) {
+        payload[key] = value;
       }
-    }, 10000);
+    });
+
+    fetch('/api/submit-contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+      submitBtn.classList.remove('btn-submitting');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
+
+      if (data.success) {
+        window.location.href = '/thank-you.html';
+      } else {
+        formStatus.innerHTML = '<div class="form-error">' + (data.error || 'Failed to submit form. Please try again.') + '</div>';
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      submitBtn.classList.remove('btn-submitting');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
+      formStatus.innerHTML = '<div class="form-error">Network error. Please try again or call us directly.</div>';
+    });
   });
 
   // Cookie Consent
