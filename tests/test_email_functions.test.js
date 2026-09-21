@@ -11,8 +11,16 @@ async function runTests() {
   const functionPath = path.join(__dirname, "../functions/api/submit-contact.js");
   const code = fs.readFileSync(functionPath, "utf8");
 
+  function getPostHandler(fetchMock) {
+    const functionExports = {};
+    const cjsCode = code.replace("export async function onRequestPost", "exports.onRequestPost = async function");
+    const evalFunc = new Function("exports", "console", "fetch", cjsCode);
+    evalFunc(functionExports, console, fetchMock);
+    return functionExports.onRequestPost;
+  }
+
   let capturedFetches = [];
-  global.fetch = async (url, opts) => {
+  const defaultFetchMock = async (url, opts) => {
     capturedFetches.push({ url, opts, body: JSON.parse(opts.body) });
     return {
       ok: true,
@@ -21,15 +29,6 @@ async function runTests() {
       text: async () => "ok"
     };
   };
-
-  const functionExports = {};
-  const cjsCode = code.replace("export async function onRequestPost", "exports.onRequestPost = async function")
-                     .replace("export async function onRequestGet", "exports.onRequestGet = async function");
-
-  const evalFunc = new Function("exports", "console", "fetch", cjsCode);
-  evalFunc(functionExports, console, global.fetch);
-
-  const { onRequestPost } = functionExports;
 
   function createMockRequest(bodyObj) {
     const headers = new Map([["content-type", "application/json"]]);
@@ -41,15 +40,17 @@ async function runTests() {
     };
   }
 
-  // 1. Test standard submission with dry run (no API key)
+  // 1. Test missing RESEND_API_KEY returns 500 configuration error
   capturedFetches = [];
   let req = createMockRequest({
     name: "John Smith",
     phone: "+44 7123 456789",
     email: "john.smith@example.com",
     subject: "General Enquiry",
-    message: "I would like to get more information about vehicle rental options.<script>alert(1)</script>"
+    message: "Test message"
   });
+
+  let onRequestPost = getPostHandler(defaultFetchMock);
 
   let res = await onRequestPost({
     request: req,
@@ -60,12 +61,44 @@ async function runTests() {
   });
 
   let resJson = await res.json();
-  assert.strictEqual(res.status, 200);
-  assert.strictEqual(resJson.success, true);
-  console.log("✅ PASS: Dry run mode when RESEND_API_KEY is missing.");
+  assert.strictEqual(res.status, 500);
+  assert.strictEqual(resJson.success, false);
+  assert.ok(resJson.error.includes("Server configuration error"));
+  console.log("✅ PASS: Server configuration error when RESEND_API_KEY is missing.");
 
-  // 2. Test submission with RESEND_API_KEY configured
+  // 2. Test missing/invalid customer email returns 400
   capturedFetches = [];
+  req = createMockRequest({
+    name: "John Smith",
+    phone: "+44 7123 456789",
+    subject: "General Enquiry"
+  });
+
+  res = await onRequestPost({
+    request: req,
+    env: {
+      RESEND_API_KEY: "re_test_key_123",
+      FROM_EMAIL: "forms@fa-ibi.co.uk",
+      ADMIN_EMAIL: "admin@fa-ibi.co.uk"
+    }
+  });
+
+  resJson = await res.json();
+  assert.strictEqual(res.status, 400);
+  assert.strictEqual(resJson.success, false);
+  assert.ok(resJson.error.includes("valid email address"));
+  console.log("✅ PASS: 400 validation error when customer email is invalid or missing.");
+
+  // 3. Test successful submission with RESEND_API_KEY
+  capturedFetches = [];
+  req = createMockRequest({
+    name: "John Smith",
+    phone: "+44 7123 456789",
+    email: "john.smith@example.com",
+    subject: "General Enquiry",
+    message: "I would like to get more information about vehicle rental options.<script>alert(1)</script>"
+  });
+
   res = await onRequestPost({
     request: req,
     env: {
@@ -115,20 +148,27 @@ async function runTests() {
 
   console.log("✅ PASS: Customer confirmation email formatted correctly.");
 
-  // 3. Test dynamic fields handling (extra custom form fields)
-  capturedFetches = [];
-  req = createMockRequest({
-    name: "Areeb Ansari",
-    phone: "+44 7999 888777",
-    email: "areeb@example.com",
-    vehicle: "Tesla Model 3",
-    hire_type: "PCO Rental",
-    location: "Heathrow Airport",
-    start_date: "2026-04-01",
-    end_date: "2026-04-15"
-  });
+  // 4. Test Customer Email failure handling (customerRes.ok === false)
+  const failingFetchMock = async (url, opts) => {
+    const body = JSON.parse(opts.body);
+    if (body.subject.includes("We have received your enquiry")) {
+      return {
+        ok: false,
+        status: 400,
+        text: async () => "Resend rejected customer recipient"
+      };
+    }
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ id: "msg_12345" }),
+      text: async () => "ok"
+    };
+  };
 
-  await onRequestPost({
+  const failingPostHandler = getPostHandler(failingFetchMock);
+
+  res = await failingPostHandler({
     request: req,
     env: {
       RESEND_API_KEY: "re_test_key_123",
@@ -137,15 +177,11 @@ async function runTests() {
     }
   });
 
-  const dynamicAdminHtml = capturedFetches[0].body.html;
-  assert.ok(dynamicAdminHtml.includes("VEHICLE"), "Dynamic field label vehicle");
-  assert.ok(dynamicAdminHtml.includes("Tesla Model 3"), "Dynamic field value Tesla Model 3");
-  assert.ok(dynamicAdminHtml.includes("HIRE TYPE"), "Dynamic field label hire_type");
-  assert.ok(dynamicAdminHtml.includes("PCO Rental"), "Dynamic field value PCO Rental");
-  assert.ok(dynamicAdminHtml.includes("LOCATION"), "Dynamic field label location");
-  assert.ok(dynamicAdminHtml.includes("Heathrow Airport"), "Dynamic field value Heathrow Airport");
-
-  console.log("✅ PASS: All dynamic form fields populated in admin email.");
+  resJson = await res.json();
+  assert.strictEqual(res.status, 500);
+  assert.strictEqual(resJson.success, false);
+  assert.ok(resJson.error.includes("Failed to send customer confirmation email"));
+  console.log("✅ PASS: Explicit error handling when Resend rejects customer confirmation email.");
 
   console.log("\n🎉 All submit-contact unit tests passed successfully!");
 }

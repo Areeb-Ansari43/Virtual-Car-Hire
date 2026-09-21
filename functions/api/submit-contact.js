@@ -243,6 +243,14 @@ export async function onRequestPost(context) {
     const fromEmail = env.FROM_EMAIL || "forms@fa-ibi.co.uk";
     const adminEmail = env.ADMIN_EMAIL || "info@fa-ibi.co.uk";
 
+    if (!resendApiKey) {
+      console.error("Resend API key missing server-side (RESEND_API_KEY).");
+      return new Response(
+        JSON.stringify({ success: false, error: "Server configuration error. Please try again later or call us directly." }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
     // Format From header
     const senderFromHeader = `Virtual Car Hire <${fromEmail.trim()}>`;
 
@@ -270,9 +278,10 @@ export async function onRequestPost(context) {
     const rawCustomerEmail = (formData.email || "").trim();
     const customerEmailValid = isValidEmail(rawCustomerEmail);
 
-    if (!customerEmailValid && !formData.phone) {
+    // REQUIRE VALID CUSTOMER EMAIL
+    if (!customerEmailValid) {
       return new Response(
-        JSON.stringify({ success: false, error: "Please provide a valid email address or phone number." }),
+        JSON.stringify({ success: false, error: "Please enter a valid email address." }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -285,22 +294,10 @@ export async function onRequestPost(context) {
     const adminResendPayload = {
       from: senderFromHeader,
       to: [adminEmail],
+      reply_to: rawCustomerEmail,
       subject: adminSubject,
       html: adminHtml,
     };
-
-    // If customer provided a valid email, set Reply-To for Admin Email so admin can directly reply
-    if (customerEmailValid) {
-      adminResendPayload.reply_to = rawCustomerEmail;
-    }
-
-    if (!resendApiKey) {
-      console.log("[DRY RUN] Resend API Key not configured. Admin Email payload:", adminResendPayload);
-      return new Response(
-        JSON.stringify({ success: true, message: "Form submitted successfully (Dry Run Mode)." }),
-        { status: 200, headers: { "Content-Type": "application/json" } }
-      );
-    }
 
     // 1. Send Admin Notification Email
     const adminRes = await fetch("https://api.resend.com/emails", {
@@ -321,29 +318,32 @@ export async function onRequestPost(context) {
       );
     }
 
-    // 2. Send Customer Confirmation Email (if valid email provided)
-    if (customerEmailValid) {
-      const customerHtml = generateCustomerConfirmationHtml(customerName);
-      const customerResendPayload = {
-        from: senderFromHeader,
-        to: [rawCustomerEmail],
-        reply_to: "info@fa-ibi.co.uk",
-        subject: "We have received your enquiry — Virtual Car Hire",
-        html: customerHtml,
-      };
+    // 2. Send Customer Confirmation Email & handle response explicitly
+    const customerHtml = generateCustomerConfirmationHtml(customerName);
+    const customerResendPayload = {
+      from: senderFromHeader,
+      to: [rawCustomerEmail],
+      reply_to: "info@fa-ibi.co.uk",
+      subject: "We have received your enquiry — Virtual Car Hire",
+      html: customerHtml,
+    };
 
-      try {
-        await fetch("https://api.resend.com/emails", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${resendApiKey}`,
-          },
-          body: JSON.stringify(customerResendPayload),
-        });
-      } catch (err) {
-        console.error("Failed to send customer confirmation email:", err);
-      }
+    const customerRes = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendApiKey}`,
+      },
+      body: JSON.stringify(customerResendPayload),
+    });
+
+    if (!customerRes.ok) {
+      const errText = await customerRes.text();
+      console.error("Resend API Customer Confirmation Email Error:", errText);
+      return new Response(
+        JSON.stringify({ success: false, error: "Failed to send customer confirmation email. Please try again later." }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      );
     }
 
     return new Response(
@@ -357,12 +357,4 @@ export async function onRequestPost(context) {
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
-}
-
-// Allow GET for sanity check
-export async function onRequestGet() {
-  return new Response(
-    JSON.stringify({ status: "ok", service: "Virtual Car Hire Contact API" }),
-    { status: 200, headers: { "Content-Type": "application/json" } }
-  );
 }

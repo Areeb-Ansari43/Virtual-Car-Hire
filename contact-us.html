@@ -841,7 +841,7 @@
       submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
 
       if (data.success) {
-        window.location.href = '/thank-you.html';
+        window.location.href = '/thank-you';
       } else {
         formStatus.innerHTML = '<div class="form-error">' + (data.error || 'Failed to submit form. Please try again.') + '</div>';
       }
