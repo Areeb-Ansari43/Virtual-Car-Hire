@@ -801,22 +801,63 @@
 
 <script src="assets/app.js"></script>
 <script>
-  // Form submission
+  // Form submission via /api/submit-contact
   document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     const submitBtn = document.getElementById('submitBtn');
     const formStatus = document.getElementById('formStatus');
-    
+    const form = e.target;
+
+    // Check honeypot
+    if (form._honey && form._honey.value) {
+      return;
+    }
+
     submitBtn.classList.add('btn-submitting');
+    submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
     formStatus.innerHTML = '';
-    
-    setTimeout(function() {
-      if (submitBtn.classList.contains('btn-submitting')) {
-        submitBtn.classList.remove('btn-submitting');
-        submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
-        formStatus.innerHTML = '<div class="form-error">Network error. Please try again or call us directly.</div>';
+
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (!key.startsWith('_')) {
+        payload[key] = value;
       }
-    }, 10000);
+    });
+
+    fetch('/api/submit-contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+      submitBtn.classList.remove('btn-submitting');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
+
+      if (data.success) {
+        window.location.href = '/thank-you';
+      } else {
+        const errDiv = document.createElement('div');
+        errDiv.className = 'form-error';
+        errDiv.textContent = data.error || 'Failed to submit form. Please try again.';
+        formStatus.replaceChildren(errDiv);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      submitBtn.classList.remove('btn-submitting');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Submit <i class="fa-solid fa-paper-plane"></i>';
+      const errDiv = document.createElement('div');
+      errDiv.className = 'form-error';
+      errDiv.textContent = 'Network error. Please try again or call us directly.';
+      formStatus.replaceChildren(errDiv);
+    });
   });
 
   // Cookie Consent
