@@ -30,9 +30,10 @@ async function runTests() {
     };
   };
 
-  function createMockRequest(bodyObj) {
+  function createMockRequest(bodyObj, method = "POST") {
     const headers = new Map([["content-type", "application/json"]]);
     return {
+      method: method,
       headers: {
         get: (h) => headers.get(h.toLowerCase()) || null
       },
@@ -40,9 +41,22 @@ async function runTests() {
     };
   }
 
-  // 1. Test missing RESEND_API_KEY returns 500 configuration error
+  const onRequestPost = getPostHandler(defaultFetchMock);
+
+  // 1. Test non-POST method returns 405 Method Not Allowed
+  let req = createMockRequest({}, "GET");
+  let res = await onRequestPost({
+    request: req,
+    env: { RESEND_API_KEY: "re_test" }
+  });
+  let resJson = await res.json();
+  assert.strictEqual(res.status, 405);
+  assert.strictEqual(resJson.success, false);
+  console.log("✅ PASS: 405 Method Not Allowed on non-POST requests.");
+
+  // 2. Test missing RESEND_API_KEY returns 500 configuration error
   capturedFetches = [];
-  let req = createMockRequest({
+  req = createMockRequest({
     name: "John Smith",
     phone: "+44 7123 456789",
     email: "john.smith@example.com",
@@ -50,9 +64,7 @@ async function runTests() {
     message: "Test message"
   });
 
-  let onRequestPost = getPostHandler(defaultFetchMock);
-
-  let res = await onRequestPost({
+  res = await onRequestPost({
     request: req,
     env: {
       FROM_EMAIL: "forms@fa-ibi.co.uk",
@@ -60,13 +72,13 @@ async function runTests() {
     }
   });
 
-  let resJson = await res.json();
+  resJson = await res.json();
   assert.strictEqual(res.status, 500);
   assert.strictEqual(resJson.success, false);
   assert.ok(resJson.error.includes("Server configuration error"));
   console.log("✅ PASS: Server configuration error when RESEND_API_KEY is missing.");
 
-  // 2. Test missing/invalid customer email returns 400
+  // 3. Test missing/invalid customer email returns 400
   capturedFetches = [];
   req = createMockRequest({
     name: "John Smith",
@@ -89,7 +101,7 @@ async function runTests() {
   assert.ok(resJson.error.includes("valid email address"));
   console.log("✅ PASS: 400 validation error when customer email is invalid or missing.");
 
-  // 3. Test successful submission with RESEND_API_KEY
+  // 4. Test successful submission with RESEND_API_KEY
   capturedFetches = [];
   req = createMockRequest({
     name: "John Smith",
@@ -148,8 +160,34 @@ async function runTests() {
 
   console.log("✅ PASS: Customer confirmation email formatted correctly.");
 
-  // 4. Test Customer Email failure handling (customerRes.ok === false)
-  const failingFetchMock = async (url, opts) => {
+  // 5. Test Admin Email failure handling (adminRes.ok === false)
+  const failingAdminFetchMock = async (url, opts) => {
+    return {
+      ok: false,
+      status: 400,
+      text: async () => "Resend rejected admin email"
+    };
+  };
+
+  const failingAdminPostHandler = getPostHandler(failingAdminFetchMock);
+
+  res = await failingAdminPostHandler({
+    request: req,
+    env: {
+      RESEND_API_KEY: "re_test_key_123",
+      FROM_EMAIL: "forms@fa-ibi.co.uk",
+      ADMIN_EMAIL: "admin@fa-ibi.co.uk"
+    }
+  });
+
+  resJson = await res.json();
+  assert.strictEqual(res.status, 500);
+  assert.strictEqual(resJson.success, false);
+  assert.ok(resJson.error.includes("Failed to send notification email"));
+  console.log("✅ PASS: Explicit error handling when Resend rejects admin email.");
+
+  // 6. Test Customer Email failure handling (customerRes.ok === false)
+  const failingCustomerFetchMock = async (url, opts) => {
     const body = JSON.parse(opts.body);
     if (body.subject.includes("We have received your enquiry")) {
       return {
@@ -166,9 +204,9 @@ async function runTests() {
     };
   };
 
-  const failingPostHandler = getPostHandler(failingFetchMock);
+  const failingCustomerPostHandler = getPostHandler(failingCustomerFetchMock);
 
-  res = await failingPostHandler({
+  res = await failingCustomerPostHandler({
     request: req,
     env: {
       RESEND_API_KEY: "re_test_key_123",
@@ -182,6 +220,15 @@ async function runTests() {
   assert.strictEqual(resJson.success, false);
   assert.ok(resJson.error.includes("Failed to send customer confirmation email"));
   console.log("✅ PASS: Explicit error handling when Resend rejects customer confirmation email.");
+
+  // 7. Verify thank-you.html page requirements
+  const thankYouHtml = fs.readFileSync(path.join(__dirname, "../thank-you.html"), "utf8");
+  assert.ok(thankYouHtml.includes('name="robots" content="noindex,follow"'), "thank-you.html includes noindex,follow");
+  assert.ok(thankYouHtml.includes('rel="canonical" href="https://www.virtual-carhire.co.uk/thank-you"'), "thank-you.html uses canonical www URL");
+  assert.ok(thankYouHtml.includes("within 24 hours"), "thank-you.html says 24 hours");
+  assert.ok(!thankYouHtml.includes("virtualcarhire.pages.dev"), "thank-you.html has no pages.dev URLs");
+
+  console.log("✅ PASS: thank-you.html page canonical, noindex, and 24-hour wording verified.");
 
   console.log("\n🎉 All submit-contact unit tests passed successfully!");
 }

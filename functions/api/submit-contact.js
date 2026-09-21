@@ -238,6 +238,14 @@ export async function onRequestPost(context) {
   try {
     const { request, env } = context;
 
+    // Strict method check
+    if (request.method !== "POST") {
+      return new Response(
+        JSON.stringify({ success: false, error: "Method Not Allowed" }),
+        { status: 405, headers: { "Content-Type": "application/json", "Allow": "POST" } }
+      );
+    }
+
     // Environment variables with fallbacks
     const resendApiKey = env.RESEND_API_KEY;
     const fromEmail = env.FROM_EMAIL || "forms@fa-ibi.co.uk";
