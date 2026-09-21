@@ -116,6 +116,16 @@
       box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
     }
 
+    /* 2FA Digit Input Code Styling */
+    .code-input-wrapper input {
+      text-align: center;
+      letter-spacing: 8px;
+      font-size: 22px;
+      font-weight: 700;
+      font-family: monospace;
+      padding: 14px;
+    }
+
     .form-actions {
       display: flex;
       justify-content: flex-end;
@@ -153,6 +163,32 @@
       cursor: not-allowed;
     }
 
+    .secondary-btn {
+      width: 100%;
+      background: transparent;
+      color: #aaa;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      transition: all 0.2s ease;
+    }
+    .secondary-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+    }
+    .secondary-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .alert {
       padding: 12px 16px;
       border-radius: 8px;
@@ -171,6 +207,106 @@
       color: #51cf66;
     }
 
+    /* Success Checkmark Animation Card */
+    .success-animation-card {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+    .checkmark-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(40, 167, 69, 0.2);
+      border: 2px solid #28a745;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px auto;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .checkmark-circle i {
+      font-size: 36px;
+      color: #28a745;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Modal Overlay for One-Time Terms & Conditions Popup */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.88);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .modal-card {
+      background: #181824;
+      border: 1px solid rgba(232, 93, 4, 0.4);
+      border-radius: 20px;
+      padding: 32px 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+      text-align: left;
+      position: relative;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .terms-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .terms-header i {
+      font-size: 32px;
+      color: #e85d04;
+    }
+    .terms-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .terms-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .terms-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: #ddd;
+      line-height: 1.5;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .terms-list li i {
+      color: #28a745;
+      font-size: 16px;
+      margin-top: 3px;
+    }
+
     .portal-footer {
       text-align: center;
       padding: 24px;
@@ -178,14 +314,6 @@
       font-size: 13px;
       border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
-
-    /*
-      SECURITY ARCHITECTURE NOTE:
-      There is deliberately NO "Create Account" or "Sign Up" link on this login page.
-      Virtual Car Hire Driver Portal registration is strictly invite-only.
-      New driver accounts can only be initiated by authorized company staff via the internal CRM,
-      which generates a unique invite link sent directly to the driver.
-    */
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -206,40 +334,119 @@
 
   <main class="auth-container">
     <div class="auth-card">
-      <div class="auth-header">
-        <h1>Driver Login</h1>
-        <p>Access your rental details, mileage &amp; documents</p>
-      </div>
-
       <div id="alertBox" class="alert alert-error"></div>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-envelope"></i>
-            <input type="email" id="email" required placeholder="name@example.com" autocomplete="email"/>
+      <!-- Step 1: Standard Email & Password Form -->
+      <div id="stepPassword">
+        <div class="auth-header">
+          <h1>Driver Login</h1>
+          <p>Access your rental details, mileage &amp; documents</p>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="email" required placeholder="name@example.com" autocomplete="email"/>
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <div class="input-wrapper">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password"/>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password"/>
+            </div>
           </div>
+
+          <div class="form-actions">
+            <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button type="submit" id="loginBtn" class="auth-btn">
+            <span>Continue</span> <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Step 2: Two-Factor Code Entry Form -->
+      <div id="step2FA" style="display: none;">
+        <div class="auth-header">
+          <h1>Two-Factor Verification</h1>
+          <p>Enter the 6-digit security code sent to <strong id="sentEmailDisplay" style="color:#fff;"></strong></p>
         </div>
 
-        <div class="form-actions">
-          <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot password?</a>
-        </div>
+        <form id="2faForm">
+          <div class="form-group">
+            <label for="twoFactorCodeInput">Verification Code</label>
+            <div class="input-wrapper code-input-wrapper">
+              <input type="text" id="twoFactorCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required autocomplete="one-time-code"/>
+            </div>
+          </div>
 
-        <button type="submit" id="loginBtn" class="auth-btn">
-          <span>Log In</span> <i class="fa-solid fa-right-to-bracket"></i>
-        </button>
-      </form>
+          <button type="submit" id="verify2faBtn" class="auth-btn">
+            <span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>
+          </button>
+
+          <button type="button" id="resend2faBtn" class="secondary-btn">
+            <i class="fa-solid fa-rotate-right"></i> Resend Code <span id="cooldownText"></span>
+          </button>
+
+          <div style="text-align: center; margin-top: 16px;">
+            <a href="#" id="backToPasswordLink" style="color: #aaa; font-size: 13px; text-decoration: none;">
+              <i class="fa-solid fa-arrow-left"></i> Back to login
+            </a>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 3: Checkmark Success Animation Card -->
+      <div id="successAnimationCard" class="success-animation-card">
+        <div class="checkmark-circle">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 style="font-size: 20px; font-weight: 800; margin: 0 0 6px 0; color: #fff;">Verification Successful!</h2>
+        <p style="color: #aaa; font-size: 14px; margin: 0;">Accessing your driver dashboard...</p>
+      </div>
     </div>
   </main>
+
+  <!-- One-Time Terms & Conditions Modal Popup -->
+  <div id="termsModal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="terms-header">
+        <i class="fa-solid fa-bell-concierge"></i>
+        <div>
+          <h2>Important Driver Updates</h2>
+          <small style="color: #888; text-transform: uppercase; letter-spacing: 0.5px;">Vehicle Maintenance &amp; Reminders</small>
+        </div>
+      </div>
+
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 16px; line-height: 1.5;">
+        Welcome to Virtual Car Hire! Please acknowledge the following vehicle management notification terms:
+      </p>
+
+      <ul class="terms-list">
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <div>By default, you are enrolled in automated email reminders for <strong>MOT</strong>, <strong>routine servicing</strong>, and <strong>PCO licence renewals</strong>.</div>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <div>Once your vehicle hire contract ends, these automated reminder notifications stop automatically.</div>
+        </li>
+        <li>
+          <i class="fa-solid fa-circle-check"></i>
+          <div>If you return as an active driver at a later date, you will be automatically re-enrolled to keep your vehicle compliant.</div>
+        </li>
+      </ul>
+
+      <button id="acceptTermsBtn" class="auth-btn">
+        <i class="fa-solid fa-check-double"></i> I Understand &amp; Continue
+      </button>
+    </div>
+  </div>
 
   <footer class="portal-footer">
     &copy; 2026 Virtual Car Hire Ltd. All rights reserved.
@@ -252,10 +459,32 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
       const supabase = window.initVchSupabase();
+
+      // UI Elements
       const loginForm = document.getElementById('loginForm');
       const loginBtn = document.getElementById('loginBtn');
+      const stepPassword = document.getElementById('stepPassword');
+
+      const step2FA = document.getElementById('step2FA');
+      const twoFactorForm = document.getElementById('2faForm');
+      const twoFactorCodeInput = document.getElementById('twoFactorCodeInput');
+      const verify2faBtn = document.getElementById('verify2faBtn');
+      const resend2faBtn = document.getElementById('resend2faBtn');
+      const cooldownText = document.getElementById('cooldownText');
+      const backToPasswordLink = document.getElementById('backToPasswordLink');
+      const sentEmailDisplay = document.getElementById('sentEmailDisplay');
+
       const alertBox = document.getElementById('alertBox');
       const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+      const successAnimationCard = document.getElementById('successAnimationCard');
+      const termsModal = document.getElementById('termsModal');
+      const acceptTermsBtn = document.getElementById('acceptTermsBtn');
+
+      // State variables
+      let currentSessionUser = null;
+      let currentEmail = '';
+      let cooldownSeconds = 0;
+      let cooldownInterval = null;
 
       function showAlert(msg, isSuccess = false) {
         alertBox.textContent = msg;
@@ -267,15 +496,34 @@
         alertBox.style.display = 'none';
       }
 
+      function startResendCooldown() {
+        cooldownSeconds = 30;
+        resend2faBtn.disabled = true;
+        cooldownText.textContent = `(${cooldownSeconds}s)`;
+
+        if (cooldownInterval) clearInterval(cooldownInterval);
+        cooldownInterval = setInterval(() => {
+          cooldownSeconds--;
+          if (cooldownSeconds > 0) {
+            cooldownText.textContent = `(${cooldownSeconds}s)`;
+          } else {
+            clearInterval(cooldownInterval);
+            resend2faBtn.disabled = false;
+            cooldownText.textContent = '';
+          }
+        }, 1000);
+      }
+
       // Check if user is already logged in
       if (supabase) {
         const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
+        if (session && session.user && sessionStorage.getItem('vch_2fa_verified_' + session.user.id) === 'true') {
           window.location.href = '/portal/dashboard';
           return;
         }
       }
 
+      // 1. Step Password Submission
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
@@ -289,14 +537,14 @@
         }
 
         loginBtn.disabled = true;
-        loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging in...';
+        loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
 
         try {
           if (!supabase) {
             throw new Error('Supabase client connection not configured.');
           }
 
-          // Step 1: Standard Password Sign-in (Designed with modular boundary so a 2-step MFA/OTP step can slot in here later)
+          // Verify email and password against Supabase Auth
           const { data, error } = await supabase.auth.signInWithPassword({
             email,
             password
@@ -305,19 +553,196 @@
           if (error) {
             showAlert(error.message);
             loginBtn.disabled = false;
-            loginBtn.innerHTML = '<span>Log In</span> <i class="fa-solid fa-right-to-bracket"></i>';
+            loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
             return;
           }
 
-          // Successful login -> Redirect to driver dashboard
-          window.location.href = '/portal/dashboard';
+          currentSessionUser = data.user;
+          currentEmail = email;
+          sentEmailDisplay.textContent = email;
+
+          // Generate & Send 2FA Code
+          await sendTwoFactorCode(email, currentSessionUser.id);
+
+          // Transition to Step 2FA Screen
+          stepPassword.style.display = 'none';
+          step2FA.style.display = 'block';
+          twoFactorCodeInput.focus();
+          startResendCooldown();
+
         } catch (err) {
           showAlert(err.message || 'An error occurred during login. Please try again.');
           loginBtn.disabled = false;
-          loginBtn.innerHTML = '<span>Log In</span> <i class="fa-solid fa-right-to-bracket"></i>';
+          loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
         }
       });
 
+      // Helper function to generate and invoke send-email Edge Function
+      async function sendTwoFactorCode(email, userId) {
+        const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+        // Save code in Supabase DB via RPC function
+        try {
+          await supabase.rpc('create_2fa_code', {
+            p_email: email,
+            p_user_id: userId,
+            p_code: code,
+            p_expires_in_minutes: 10
+          });
+        } catch (rpcErr) {
+          console.warn('Fallback: DB RPC create_2fa_code notice:', rpcErr);
+        }
+
+        // Send code using shared Edge Function 'send-email' with auth@fa-ibi.co.uk
+        try {
+          const { data: fnData, error: fnErr } = await supabase.functions.invoke('send-email', {
+            body: {
+              to: email,
+              from: 'auth@fa-ibi.co.uk',
+              template: '2fa_code',
+              code: code,
+              email: email,
+              subject: 'Your Virtual Car Hire Verification Code'
+            }
+          });
+          if (fnErr) {
+            console.warn('Edge Function send-email response warning:', fnErr);
+          }
+        } catch (fnErr) {
+          console.warn('Edge Function invocation error:', fnErr);
+        }
+
+        return code;
+      }
+
+      // 2. Resend 2FA Code
+      resend2faBtn.addEventListener('click', async () => {
+        if (cooldownSeconds > 0) return;
+        hideAlert();
+
+        resend2faBtn.disabled = true;
+        resend2faBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Resending...';
+
+        try {
+          await sendTwoFactorCode(currentEmail, currentSessionUser ? currentSessionUser.id : null);
+          showAlert('A new 6-digit verification code has been sent to your email.', true);
+          startResendCooldown();
+        } catch (err) {
+          showAlert('Failed to resend code. Please try again.');
+        } finally {
+          resend2faBtn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Resend Code <span id="cooldownText"></span>';
+        }
+      });
+
+      // Back to Password
+      backToPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        hideAlert();
+        step2FA.style.display = 'none';
+        stepPassword.style.display = 'block';
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
+      });
+
+      // 3. Step 2FA Submission
+      twoFactorForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const enteredCode = twoFactorCodeInput.value.trim();
+        if (!enteredCode || enteredCode.length !== 6) {
+          showAlert('Please enter the 6-digit numeric verification code.');
+          return;
+        }
+
+        verify2faBtn.disabled = true;
+        verify2faBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+
+        try {
+          // Verify code with Supabase RPC function verify_2fa_code
+          let isCodeValid = false;
+
+          const { data: verifiedResult, error: verifyErr } = await supabase.rpc('verify_2fa_code', {
+            p_email: currentEmail,
+            p_code: enteredCode
+          });
+
+          if (!verifyErr && verifiedResult === true) {
+            isCodeValid = true;
+          }
+
+          if (!isCodeValid) {
+            showAlert('Invalid or expired verification code. Please check your email or click Resend.');
+            verify2faBtn.disabled = false;
+            verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
+            return;
+          }
+
+          // Mark 2FA as verified for current session
+          if (currentSessionUser) {
+            sessionStorage.setItem('vch_2fa_verified_' + currentSessionUser.id, 'true');
+          }
+
+          // Verification Successful -> Hide 2FA step & Show Success Checkmark Animation
+          step2FA.style.display = 'none';
+          successAnimationCard.style.display = 'block';
+
+          // Check if driver has previously accepted terms & conditions
+          let termsAccepted = false;
+          if (currentSessionUser) {
+            try {
+              const { data: termsStatus } = await supabase.rpc('check_driver_terms_accepted', {
+                p_user_id: currentSessionUser.id,
+                p_email: currentEmail
+              });
+              if (termsStatus === true) {
+                termsAccepted = true;
+              }
+            } catch (err) {
+              console.warn('Check terms status warning:', err);
+            }
+          }
+
+          if (!termsAccepted) {
+            // First-Ever 2FA Verification -> Show One-Time Terms Popup Modal
+            setTimeout(() => {
+              termsModal.style.display = 'flex';
+            }, 600);
+          } else {
+            // Already accepted terms -> Redirect straight to dashboard
+            setTimeout(() => {
+              window.location.href = '/portal/dashboard';
+            }, 800);
+          }
+
+        } catch (err) {
+          showAlert('Verification failed. Please try again.');
+          verify2faBtn.disabled = false;
+          verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
+        }
+      });
+
+      // 4. Terms Acceptance Button Click
+      acceptTermsBtn.addEventListener('click', async () => {
+        acceptTermsBtn.disabled = true;
+        acceptTermsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+        if (currentSessionUser) {
+          try {
+            await supabase.rpc('accept_driver_terms', {
+              p_user_id: currentSessionUser.id,
+              p_email: currentEmail
+            });
+          } catch (err) {
+            console.warn('Accept driver terms RPC warning:', err);
+          }
+        }
+
+        // Navigate to Driver Dashboard
+        window.location.href = '/portal/dashboard';
+      });
+
+      // Forgot Password link
       forgotPasswordLink.addEventListener('click', async (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value.trim();

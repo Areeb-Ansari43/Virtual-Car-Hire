@@ -1492,6 +1492,42 @@
     </div>
   </main>
 
+  <!-- One-Time Terms & Conditions Modal Popup on Dashboard -->
+  <div id="dashboardTermsModal" class="modal-overlay" style="z-index: 3500;">
+    <div class="modal-card" style="text-align: left; max-width: 480px; border-color: rgba(232, 93, 4, 0.4); padding: 32px 28px;">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+        <i class="fa-solid fa-bell-concierge" style="font-size: 32px; color: #e85d04;"></i>
+        <div>
+          <h2 style="margin: 0; font-size: 20px; font-weight: 800; color: #fff;">Important Driver Updates</h2>
+          <small style="color: #888; text-transform: uppercase; letter-spacing: 0.5px;">Vehicle Maintenance &amp; Reminders</small>
+        </div>
+      </div>
+
+      <p style="color: #ccc; font-size: 14px; margin-bottom: 16px; line-height: 1.5;">
+        Welcome to Virtual Car Hire! Please acknowledge the following vehicle management notification terms:
+      </p>
+
+      <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 14px;">
+        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
+          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+          <div>By default, you are enrolled in automated email reminders for <strong>MOT</strong>, <strong>routine servicing</strong>, and <strong>PCO licence renewals</strong>.</div>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
+          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+          <div>Once your vehicle hire contract ends, these automated reminder notifications stop automatically.</div>
+        </li>
+        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
+          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+          <div>If you return as an active driver at a later date, you will be automatically re-enrolled to keep your vehicle compliant.</div>
+        </li>
+      </ul>
+
+      <button id="dashAcceptTermsBtn" class="submit-mileage-btn" style="width: 100%; font-size: 16px; padding: 14px;">
+        <i class="fa-solid fa-check-double"></i> I Understand &amp; Continue
+      </button>
+    </div>
+  </div>
+
   <!-- View Invoice Printable Modal -->
   <div id="invoiceModal" class="modal-overlay">
     <div class="modal-card invoice-modal-card">
@@ -1874,6 +1910,26 @@
 
         const driverId = window.vchDriverProfile.id;
 
+        // Check Terms Acceptance Status on Dashboard
+        try {
+          let isTermsAccepted = false;
+          const { data: termsStatus } = await supabase.rpc('check_driver_terms_accepted', {
+            p_user_id: user.id,
+            p_email: user.email
+          });
+          if (termsStatus === true) {
+            isTermsAccepted = true;
+          } else if (driverData && (driverData.terms_accepted === true || driverData.terms_accepted_at != null)) {
+            isTermsAccepted = true;
+          }
+
+          if (!isTermsAccepted) {
+            document.getElementById('dashboardTermsModal').style.display = 'flex';
+          }
+        } catch (err) {
+          console.warn('Terms status check error:', err);
+        }
+
         // 3. Resolve Vehicle Information
         let vehicleObj = null;
         let vehicleId = driverData ? (driverData.vehicle_id || driverData.assigned_vehicle_id) : null;
@@ -2237,6 +2293,30 @@
 
       } catch (err) {
         console.log('Live driver portal data queries complete (fallbacks ready)', err);
+      }
+    });
+
+    // Terms Acceptance Click Handler on Dashboard
+    document.addEventListener('DOMContentLoaded', () => {
+      const dashAcceptTermsBtn = document.getElementById('dashAcceptTermsBtn');
+      if (dashAcceptTermsBtn) {
+        dashAcceptTermsBtn.addEventListener('click', async () => {
+          const supabase = window.initVchSupabase();
+          dashAcceptTermsBtn.disabled = true;
+          dashAcceptTermsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && session.user) {
+              await supabase.rpc('accept_driver_terms', {
+                p_user_id: session.user.id,
+                p_email: session.user.email
+              });
+            }
+          } catch (e) {}
+
+          document.getElementById('dashboardTermsModal').style.display = 'none';
+        });
       }
     });
 
