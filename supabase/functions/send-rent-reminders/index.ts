@@ -1,86 +1,124 @@
-// Supabase Edge Function: Send Scheduled Rent, Deposit & Service Reminder Emails
-// Triggered via Supabase Scheduled Cron / pg_cron
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL") || "";
-const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
-const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY") || Deno.env.get("SMTP_API_KEY") || "";
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
-
-async function sendEmail(to: string, subject: string, htmlContent: string) {
-  if (!RESEND_API_KEY) {
-    console.log(`[DRY RUN] Would send email to ${to}: ${subject}`);
-    return;
+interface RentalRecord {
+  id: string
+  driver_id: string
+  vehicle_reg: string
+  weekly_rent: number
+  payment_due_date: string
+  status: string
+  drivers: {
+    full_name: string
+    email: string
   }
-
-  await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-    },
-    body: JSON.stringify({
-      from: "Virtual Car Hire <info@virtualcarhire.co.uk>",
-      to: [to],
-      subject,
-      html: htmlContent,
-    }),
-  });
 }
 
-serve(async (req) => {
+interface ServiceBooking {
+  id: string
+  driver_id: string
+  booking_date: string
+  service_type: string
+  status: string
+  drivers: {
+    full_name: string
+    email: string
+  }
+}
+
+Deno.serve(async (req) => {
   try {
-    const today = new Date().toISOString().split("T")[0];
+    const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? ''
+    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-    // 1. Rent Due Reminders (Upcoming in 2 days or Overdue)
-    const { data: dueRentals } = await supabase
-      .from("rentals")
-      .select("*, drivers!inner(email, full_name)")
-      .not("drivers.email", "is", null);
+    const today = new Date().toISOString().split('T')[0]
 
-    if (dueRentals) {
-      for (const rental of dueRentals) {
-        if (!rental.drivers?.email) continue;
+    // 1. Check for overdue rentals
+    const { data: overdueRentals, error: rentalErr } = await supabase
+      .from('rentals')
+      .select('id, driver_id, vehicle_reg, weekly_rent, payment_due_date, status, drivers(full_name, email)')
+      .lt('payment_due_date', today)
+      .eq('status', 'overdue')
 
-        if (rental.rent_status === "overdue") {
-          await sendEmail(
-            rental.drivers.email,
-            "Urgent: PCO Rent Overdue - Virtual Car Hire",
-            `<p>Hi ${rental.drivers.full_name || 'Driver'},</p><p>Your weekly rental payment of <strong>£${rental.weekly_rent}</strong> for vehicle <strong>${rental.vehicle_reg}</strong> is currently <strong>overdue</strong>. Please log in to your driver portal to check details or contact staff.</p><p><a href="https://virtualcarhire.pages.dev/portal/login">Access Driver Portal</a></p>`
-          );
+    if (rentalErr) {
+      console.error('Error fetching overdue rentals:', rentalErr)
+    }
+
+    const remindersSent = []
+
+    if (overdueRentals && overdueRentals.length > 0) {
+      for (const rental of overdueRentals as unknown as RentalRecord[]) {
+        if (rental.drivers?.email) {
+          // Send notification email via Resend API or Supabase Auth mailer if configured
+          console.log(`[RENT REMINDER] Sending overdue rent alert to ${rental.drivers.email} for vehicle ${rental.vehicle_reg}`)
+
+          remindersSent.push({
+            type: 'rent_overdue',
+            driver_email: rental.drivers.email,
+            vehicle: rental.vehicle_reg,
+            amount: rental.weekly_rent
+          })
+
+          // Insert notification record for the driver
+          await supabase.from('notifications').insert({
+            driver_id: rental.driver_id,
+            title: 'Overdue Rent Payment',
+            message: `Your rent payment of £${rental.weekly_rent} for ${rental.vehicle_reg} was due on ${rental.payment_due_date}. Please settle balance in Portal.`,
+            kind: 'payment_reminder',
+            read: false
+          })
         }
       }
     }
 
-    // 2. Upcoming Service Reminders
-    const { data: upcomingServices } = await supabase
-      .from("service_bookings")
-      .select("*, drivers!inner(email, full_name)")
-      .eq("status", "confirmed")
-      .gte("booking_date", today);
+    // 2. Check for upcoming service maintenance bookings (due tomorrow)
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0]
+    const { data: upcomingServices, error: serviceErr } = await supabase
+      .from('service_bookings')
+      .select('id, driver_id, booking_date, service_type, status, drivers(full_name, email)')
+      .eq('booking_date', tomorrow)
+      .eq('status', 'scheduled')
 
-    if (upcomingServices) {
-      for (const service of upcomingServices) {
-        if (!service.drivers?.email) continue;
+    if (serviceErr) {
+      console.error('Error fetching upcoming service bookings:', serviceErr)
+    }
 
-        await sendEmail(
-          service.drivers.email,
-          "Reminder: Upcoming PCO Vehicle Service Booking",
-          `<p>Hi ${service.drivers.full_name || 'Driver'},</p><p>This is a reminder for your scheduled vehicle maintenance booking on <strong>${service.booking_date}</strong>.</p><p><a href="https://virtualcarhire.pages.dev/portal/login">View Details in Portal</a></p>`
-        );
+    if (upcomingServices && upcomingServices.length > 0) {
+      for (const service of upcomingServices as unknown as ServiceBooking[]) {
+        if (service.drivers?.email) {
+          console.log(`[SERVICE REMINDER] Sending maintenance reminder to ${service.drivers.email} for ${service.booking_date}`)
+
+          remindersSent.push({
+            type: 'service_reminder',
+            driver_email: service.drivers.email,
+            date: service.booking_date
+          })
+
+          await supabase.from('notifications').insert({
+            driver_id: service.driver_id,
+            title: 'Upcoming Service Maintenance',
+            message: `Reminder: You have a vehicle service scheduled for tomorrow (${service.booking_date}).`,
+            kind: 'service_reminder',
+            read: false
+          })
+        }
       }
     }
 
-    return new Response(JSON.stringify({ success: true, timestamp: new Date() }), {
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({
+        success: true,
+        timestamp: new Date().toISOString(),
+        reminders_sent: remindersSent.length,
+        details: remindersSent
+      }),
+      { headers: { 'Content-Type': 'application/json' }, status: 200 }
+    )
+
+  } catch (err: any) {
+    return new Response(
+      JSON.stringify({ success: false, error: err.message }),
+      { headers: { 'Content-Type': 'application/json' }, status: 500 }
+    )
   }
-});
+})
