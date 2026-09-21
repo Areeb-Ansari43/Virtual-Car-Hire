@@ -1,5 +1,5 @@
 # Virtual Car Hire crawler policy
-# Crawl-access revision: 2026-08-21
+# Crawl-access revision: 2026-10-15
 # Public service, fleet, contact and vehicle pages are intentionally crawlable.
 User-agent: *
 Allow: /
@@ -31,4 +31,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://virtualcarhire.pages.dev/sitemap.xml
+Sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
