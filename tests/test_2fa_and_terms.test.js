@@ -39,7 +39,7 @@ assert(loginHtmlContent.includes('id="resend2faBtn"'), 'login.html must contain 
 
 // Shared Edge Function Integration
 assert(loginHtmlContent.includes("auth@fa-ibi.co.uk"), 'login.html must specify auth@fa-ibi.co.uk as sender address');
-assert(loginHtmlContent.includes("template: '2fa_code'") || loginHtmlContent.includes('template: "2fa_code"'), 'login.html must use 2fa_code template');
+assert(loginHtmlContent.includes("type: '2fa_code'") || loginHtmlContent.includes('type: "2fa_code"'), 'login.html must specify type: 2fa_code in payload');
 assert(loginHtmlContent.includes("supabase.functions.invoke('send-email'"), 'login.html must invoke shared send-email Edge Function');
 
 // Session 2FA Verification
