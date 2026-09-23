@@ -4,6 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
   <title>Customer Portal | Virtual Car Hire</title>
+  <meta name="robots" content="noindex, nofollow"/>
 
   <link rel="manifest" href="/manifest.json"/>
   <meta name="theme-color" content="#f7791f"/>
@@ -1066,6 +1067,22 @@
       gap: 12px;
       justify-content: flex-end;
       margin-top: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 16px 12px; }
+      .portal-header-banner { padding: 16px; }
+      .greeting-text h1 { font-size: 19px; }
+      .user-chip #userEmailNav { max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .mileage-box { padding: 12px; }
+      .mileage-box form > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; gap: 12px; }
+      .invoice-details-grid { grid-template-columns: 1fr !important; gap: 10px; }
+      .invoice-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .invoice-modal-card { padding: 16px; }
+      .invoice-printable { padding: 16px; }
+      .floating-report-btn { bottom: 16px; right: 14px; padding: 10px 16px; font-size: 12.5px; }
+      .doc-item { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .doc-btn { width: 100%; justify-content: center; }
     }
 
     @media print {
