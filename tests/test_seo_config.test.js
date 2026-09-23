@@ -57,7 +57,7 @@ console.log('✅ PASS: sitemap.xml is valid XML, contains valid canonical URLs, 
 
 // 3. Verify HTML pages metadata, syntax, domain consistency, and structured data
 const publicPages = [
-  'index.html', 'our-fleet.html', 'about-us.html', 'contact-us.html',
+  'index.html', 'our-fleet.html', 'how-it-works.html', 'support.html', 'about-us.html', 'contact-us.html',
   'pco-car-hire-luton.html', 'whatsapp.html', 'emergency.html',
   'privacy-policy.html', 'cookie-policy.html', 'thank-you.html', '404.html',
   ...carFiles.map(c => `cars/${c}`)

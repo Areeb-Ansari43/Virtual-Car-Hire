@@ -3,50 +3,66 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-  <title>Driver Dashboard | Virtual Car Hire Portal</title>
+  <title>Customer Portal | Virtual Car Hire</title>
 
   <link rel="manifest" href="/manifest.json"/>
-  <meta name="theme-color" content="#e85d04"/>
+  <meta name="theme-color" content="#f7791f"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"/>
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <link rel="stylesheet" href="/assets/style.css"/>
 
   <style>
-    * { box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #0f0f14;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       min-height: 100vh;
-      margin: 0;
-      padding-bottom: 80px;
+      line-height: 1.5;
+      padding-bottom: 60px;
     }
 
+    /* Top Navigation Header */
     .dashboard-header {
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: #14141d;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 12px 24px;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
-      color: #fff;
+      color: #0f172a;
     }
-    .brand img { height: 32px; }
-    .brand-title { font-weight: 700; font-size: 15px; }
+    .brand img { height: 36px; width: auto; }
+    .brand-title {
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -0.3px;
+      color: #0f172a;
+    }
+    .brand-sub {
+      font-size: 11px;
+      color: #64748b;
+      display: block;
+      font-weight: 500;
+    }
     .header-actions {
       display: flex;
       align-items: center;
@@ -56,20 +72,21 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 6px 12px;
-      border-radius: 50px;
-      font-size: 12px;
-      color: #ccc;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
     }
-    .user-chip i { color: #e85d04; }
+    .user-chip i { color: #f7791f; }
     .logout-btn {
-      background: rgba(255, 255, 255, 0.08);
-      color: #aaa;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #ffffff;
+      color: #dc2626;
+      border: 1px solid #fca5a5;
       border-radius: 8px;
-      padding: 8px 14px;
+      padding: 7px 14px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
@@ -79,17 +96,54 @@
       transition: all 0.2s;
     }
     .logout-btn:hover {
-      background: rgba(220, 53, 69, 0.2);
-      color: #ff6b6b;
-      border-color: #dc3545;
+      background: #fef2f2;
+      border-color: #dc2626;
+    }
+
+    /* Sub Navigation Bar */
+    .portal-nav-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 61px;
+      z-index: 90;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding: 0 24px;
+      scrollbar-width: none;
+    }
+    .nav-container::-webkit-scrollbar { display: none; }
+    .nav-link {
+      padding: 12px 16px;
+      color: #64748b;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-link i { font-size: 14px; }
+    .nav-link:hover, .nav-link.active {
+      color: #f7791f;
+      border-bottom-color: #f7791f;
     }
 
     /* PWA Install Banner */
     .pwa-banner {
-      background: linear-gradient(135deg, #1c1c28, #2a1b18);
-      border: 1px solid rgba(232, 93, 4, 0.3);
-      padding: 12px 16px;
-      margin: 16px 16px 0 16px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 12px 20px;
+      margin: 16px auto 0 auto;
+      max-width: 1200px;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -100,32 +154,34 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 13px;
+      font-size: 13.5px;
+      color: #1e3a8a;
     }
-    .pwa-text i { font-size: 20px; color: #e85d04; }
+    .pwa-text i { font-size: 20px; color: #2563eb; }
     .pwa-install-btn {
-      background: #e85d04;
-      color: #fff;
+      background: #2563eb;
+      color: #ffffff;
       border: none;
-      border-radius: 50px;
+      border-radius: 8px;
       padding: 8px 16px;
-      font-size: 12px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
     }
 
+    /* Main Container */
     .container {
-      max-width: 850px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 20px 16px;
+      padding: 24px;
     }
 
-    /* Welcome Card */
-    .welcome-card {
-      background: linear-gradient(135deg, #181824 0%, #221c28 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
+    /* Top Greeting Banner */
+    .portal-header-banner {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
       padding: 24px;
       margin-bottom: 20px;
       display: flex;
@@ -133,42 +189,40 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
-    .driver-info h1 {
-      font-size: 24px;
+    .greeting-text h1 {
+      font-size: 22px;
       font-weight: 800;
-      margin: 0 0 6px 0;
-      color: #fff;
+      color: #0f172a;
+      margin-bottom: 4px;
       letter-spacing: -0.3px;
     }
-    .driver-info p {
-      color: #999;
-      font-size: 13.5px;
+    .greeting-text p {
+      color: #64748b;
+      font-size: 14px;
       margin: 0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
     .status-badge {
-      background: rgba(40, 167, 69, 0.15);
-      color: #28a745;
-      border: 1px solid rgba(40, 167, 69, 0.3);
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
       padding: 6px 14px;
-      border-radius: 50px;
-      font-size: 12px;
+      border-radius: 9999px;
+      font-size: 12.5px;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
-    /* Emergency Quick Banner */
+    /* Roadside Emergency Banner */
     .emergency-banner {
-      background: linear-gradient(135deg, #2b1114 0%, #3a1518 100%);
-      border: 1px solid rgba(220, 53, 69, 0.4);
-      border-radius: 16px;
+      background: #fff5f5;
+      border: 1px solid #fecaca;
+      border-radius: 12px;
       padding: 16px 20px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -178,207 +232,152 @@
     .emergency-text {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .emergency-text i {
-      font-size: 24px;
-      color: #ff4d4d;
+      font-size: 22px;
+      color: #dc2626;
     }
     .emergency-text h3 {
       margin: 0 0 2px 0;
       font-size: 15px;
       font-weight: 700;
-      color: #fff;
+      color: #991b1b;
     }
     .emergency-text p {
       margin: 0;
-      font-size: 12px;
-      color: #ccc;
+      font-size: 13px;
+      color: #7f1d1d;
     }
     .report-btn-banner {
-      background: #dc3545;
-      color: #fff;
+      background: #dc2626;
+      color: #ffffff;
       border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
+      border-radius: 8px;
+      padding: 9px 18px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
-      transition: transform 0.2s, background 0.2s;
+      transition: background 0.2s;
     }
     .report-btn-banner:hover {
-      background: #bb2d3b;
-      transform: translateY(-1px);
+      background: #b91c1c;
     }
 
-    /* Floating Action Button for Roadside Problem Reporting */
+    /* Floating Report Button */
     .floating-report-btn {
       position: fixed;
       bottom: 24px;
       right: 20px;
       z-index: 990;
-      background: linear-gradient(135deg, #dc3545, #e85d04);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50px;
+      background: #dc2626;
+      color: #ffffff;
+      border: 1px solid #ef4444;
+      border-radius: 9999px;
       padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 800;
+      font-size: 13.5px;
+      font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.5);
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: pulse-border 2s infinite;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+      transition: transform 0.2s, background 0.2s;
     }
     .floating-report-btn:hover {
-      transform: scale(1.04);
-      box-shadow: 0 8px 24px rgba(220, 53, 69, 0.7);
-    }
-    @keyframes pulse-border {
-      0% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.6); }
-      70% { box-shadow: 0 0 0 12px rgba(220, 53, 69, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(220, 53, 69, 0); }
+      background: #b91c1c;
+      transform: translateY(-2px);
     }
 
-    /* Dominant Vehicle Hero Showcase (Car as Central Hero Feature) */
-    .vehicle-hero-card {
-      background: radial-gradient(circle at 50% 30%, rgba(232, 93, 4, 0.18) 0%, rgba(24, 24, 38, 0.95) 70%), linear-gradient(145deg, #1a1a28 0%, #101018 100%);
-      border: 1px solid rgba(232, 93, 4, 0.35);
-      border-radius: 20px;
-      padding: 24px 20px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 20px rgba(232, 93, 4, 0.15);
-      margin-bottom: 20px;
+    /* Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
     }
-    .vehicle-hero-card::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140%;
-      height: 120%;
-      background: radial-gradient(ellipse at center, rgba(232, 93, 4, 0.22) 0%, rgba(0, 0, 0, 0) 70%);
-      pointer-events: none;
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-6 { grid-column: span 6; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 900px) {
+      .col-8, .col-6, .col-4 { grid-column: span 12; }
     }
-    .vehicle-hero-content {
+
+    /* Cards */
+    .card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .card-head {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-    .hero-badge-header {
-      width: 100%;
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
     }
-    .hero-title-tag {
-      font-size: 13px;
-      font-weight: 700;
-      color: #e85d04;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .card-title-wrap {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    .vehicle-hero-display {
-      position: relative;
-      width: 100%;
-      max-width: 720px;
-      margin: 12px auto 20px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .vehicle-hero-img-wrap {
-      width: 100%;
-      min-height: 240px;
-      max-height: 340px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 0;
-      position: relative;
-    }
-    .vehicle-hero-img-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 10px;
-      width: 75%;
-      height: 25px;
-      background: radial-gradient(ellipse at center, rgba(232, 93, 4, 0.35) 0%, rgba(0,0,0,0) 70%);
-      border-radius: 50%;
-      z-index: 1;
-      pointer-events: none;
-    }
-    .vehicle-hero-img {
-      max-width: 100%;
-      max-height: 320px;
-      width: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(232, 93, 4, 0.25));
-      transition: transform 0.3s ease;
-      position: relative;
-      z-index: 2;
-    }
-    .vehicle-hero-img:hover {
-      transform: scale(1.03);
-    }
-    .plate-overlay {
-      margin-top: -10px;
-      z-index: 3;
-    }
-    .vehicle-hero-details {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .vehicle-hero-model {
-      font-size: 26px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0;
-      letter-spacing: -0.4px;
-    }
-    .vehicle-hero-sub {
-      color: #aaa;
-      font-size: 14px;
-      margin: 0;
-    }
-    .vehicle-hero-badges {
-      display: flex;
       gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 8px;
     }
-    .hero-badge {
-      background: rgba(255, 255, 255, 0.06);
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      font-size: 12px;
-      font-weight: 600;
-      color: #ddd;
-      display: inline-flex;
+    .card-head i {
+      color: #f7791f;
+      font-size: 18px;
+    }
+    .card-head h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    /* Vehicle Card */
+    .vehicle-display {
+      display: flex;
+      gap: 24px;
       align-items: center;
-      gap: 6px;
+    }
+    @media (max-width: 640px) {
+      .vehicle-display { flex-direction: column; text-align: center; }
+    }
+    .vehicle-img-wrap {
+      width: 220px;
+      height: 140px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      border-radius: 10px;
+      border: 1px solid #f1f5f9;
+      padding: 8px;
+    }
+    .vehicle-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .vehicle-details {
+      flex: 1;
+    }
+    .vehicle-model-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .vehicle-sub {
+      color: #64748b;
+      font-size: 13.5px;
+      margin-bottom: 12px;
     }
 
     /* UK Registration Plate Component */
@@ -389,23 +388,24 @@
       color: #111;
       font-family: 'Inter', 'Arial Black', sans-serif;
       font-weight: 900;
-      font-size: 18px;
-      letter-spacing: 2.5px;
+      font-size: 16px;
+      letter-spacing: 2px;
       border-radius: 6px;
       border: 2px solid #111;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
       overflow: hidden;
       user-select: none;
+      margin-bottom: 10px;
     }
     .uk-number-plate .uk-flag-band {
       background: #003399;
       color: #fff;
-      padding: 6px 8px;
+      padding: 4px 6px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 800;
       line-height: 1;
       gap: 2px;
@@ -413,60 +413,24 @@
       border-right: 1px solid rgba(0, 0, 0, 0.2);
     }
     .uk-number-plate .uk-flag-band i {
-      font-size: 11px;
+      font-size: 10px;
       color: #ffcc00;
     }
     .uk-number-plate .reg-text {
-      padding: 6px 16px;
+      padding: 4px 12px;
       text-transform: uppercase;
-    }
-
-    /* Grid Sections */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-    @media (min-width: 640px) {
-      .grid { grid-template-columns: 1fr 1fr; }
-      .full-width { grid-column: span 2; }
-    }
-
-    .card {
-      background: #181824;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      padding: 20px;
-    }
-    .card-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .card-head i {
-      color: #e85d04;
-      font-size: 18px;
-    }
-    .card-head h2 {
-      font-size: 15px;
-      font-weight: 700;
-      margin: 0;
-      color: #eee;
     }
 
     /* Rent details */
     .rent-amount {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 800;
-      color: #e85d04;
+      color: #f7791f;
       margin-bottom: 12px;
     }
     .rent-amount small {
       font-size: 14px;
-      color: #888;
+      color: #64748b;
       font-weight: 400;
     }
     .due-row {
@@ -474,17 +438,20 @@
       justify-content: space-between;
       align-items: center;
       font-size: 13.5px;
-      color: #aaa;
-      padding: 4px 0;
+      color: #475569;
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f5f9;
     }
-    .status-overdue { color: #ff5252; font-weight: 700; }
-    .status-due { color: #ffc107; font-weight: 700; }
-    .status-ok { color: #28a745; font-weight: 700; }
+    .due-row:last-child { border-bottom: none; }
+    .status-overdue { color: #dc2626; font-weight: 700; }
+    .status-due { color: #d97706; font-weight: 700; }
+    .status-ok { color: #16a34a; font-weight: 700; }
 
     /* Mileage Progress */
     .mileage-num {
       font-size: 22px;
       font-weight: 800;
+      color: #0f172a;
       margin-bottom: 10px;
       display: flex;
       align-items: baseline;
@@ -493,215 +460,43 @@
     .mileage-num small {
       font-size: 12px;
       font-weight: 500;
-      color: #888;
+      color: #64748b;
     }
     .progress-bg {
-      background: rgba(255, 255, 255, 0.1);
-      height: 12px;
-      border-radius: 6px;
+      background: #e2e8f0;
+      height: 10px;
+      border-radius: 9999px;
       overflow: hidden;
       margin-bottom: 10px;
     }
     .progress-fill {
-      background: linear-gradient(90deg, #e85d04, #ff8533);
+      background: #f7791f;
       height: 100%;
       width: 0%;
       transition: width 0.5s ease;
-      border-radius: 6px;
+      border-radius: 9999px;
     }
-    .progress-fill.warning {
-      background: linear-gradient(90deg, #ffc107, #ff9800);
-    }
-    .progress-fill.exceeded {
-      background: linear-gradient(90deg, #dc3545, #ff5252);
-    }
+    .progress-fill.warning { background: #d97706; }
+    .progress-fill.exceeded { background: #dc2626; }
 
     .mileage-warning-box {
-      background: rgba(220, 53, 69, 0.12);
-      border: 1px solid rgba(220, 53, 69, 0.3);
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
       border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 12px;
-      color: #ff6b6b;
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Balance & Alerts Cards Styling */
-    .breakdown-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .breakdown-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      font-size: 14px;
-    }
-    .breakdown-item:last-child {
-      border-bottom: none;
-    }
-    .breakdown-label {
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #991b1b;
+      margin-top: 12px;
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #eee;
-    }
-    .breakdown-tag {
-      background: rgba(220, 53, 69, 0.2);
-      color: #ff6b6b;
-      border: 1px solid rgba(220, 53, 69, 0.4);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-    .breakdown-amount {
-      font-weight: 700;
-      color: #fff;
-    }
-    .breakdown-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 16px;
-      padding-top: 14px;
-      border-top: 2px solid rgba(232, 93, 4, 0.4);
-      font-size: 16px;
-      font-weight: 800;
-      color: #e85d04;
     }
 
-    .alert-card {
-      background: #13131c;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      position: relative;
-    }
-    .alert-card:last-child {
-      margin-bottom: 0;
-    }
-    .alert-card.unread {
-      border-color: rgba(232, 93, 4, 0.5);
-      background: rgba(232, 93, 4, 0.08);
-    }
-    .alert-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .alert-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .alert-date {
-      font-size: 11px;
-      color: #888;
-    }
-    .alert-msg {
-      font-size: 13px;
-      color: #ccc;
-      margin: 0;
-      line-height: 1.4;
-    }
-    .badge-new {
-      background: #e85d04;
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 4px;
-      letter-spacing: 0.5px;
-    }
-
-    /* Documents Styling */
-    .doc-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .doc-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #13131c;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      padding: 12px 16px;
-      transition: border-color 0.2s;
-    }
-    .doc-item:hover {
-      border-color: rgba(232, 93, 4, 0.4);
-    }
-    .doc-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .doc-left i {
-      font-size: 20px;
-      color: #e85d04;
-    }
-    .doc-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: #fff;
-      margin: 0 0 2px 0;
-    }
-    .doc-meta {
-      font-size: 12px;
-      color: #888;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .doc-type-badge {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ccc;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-transform: uppercase;
-    }
-    .doc-btn {
-      background: rgba(232, 93, 4, 0.15);
-      color: #e85d04;
-      border: 1px solid rgba(232, 93, 4, 0.3);
-      border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-    .doc-btn:hover {
-      background: #e85d04;
-      color: #fff;
-    }
-
-    /* Mileage Submission Form & History Styling */
+    /* Mileage Submission Form */
     .mileage-box {
-      background: #13131c;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
       padding: 16px;
       margin-top: 16px;
       margin-bottom: 16px;
@@ -719,38 +514,39 @@
     .form-group label {
       font-size: 12px;
       font-weight: 700;
-      color: #aaa;
+      color: #475569;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .form-input {
-      background: #1a1a24;
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 10px 12px;
-      color: #fff;
+      color: #0f172a;
       font-size: 14px;
       font-family: inherit;
       outline: none;
     }
     .form-input:focus {
-      border-color: #e85d04;
+      border-color: #f7791f;
+      box-shadow: 0 0 0 3px rgba(247, 121, 31, 0.15);
     }
     .file-input-wrapper {
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px dashed rgba(232, 93, 4, 0.4);
-      background: rgba(232, 93, 4, 0.05);
-      border-radius: 10px;
-      padding: 18px;
+      border: 2px dashed #cbd5e1;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 16px;
       text-align: center;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: border-color 0.2s;
     }
     .file-input-wrapper:hover {
-      background: rgba(232, 93, 4, 0.1);
+      border-color: #f7791f;
     }
     .file-input-wrapper input[type="file"] {
       position: absolute;
@@ -763,20 +559,20 @@
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      color: #ccc;
+      color: #64748b;
       font-size: 13px;
     }
     .file-input-label i {
-      font-size: 24px;
-      color: #e85d04;
+      font-size: 20px;
+      color: #f7791f;
     }
     .submit-mileage-btn {
-      background: #e85d04;
-      color: #fff;
+      background: #f7791f;
+      color: #ffffff;
       border: none;
       border-radius: 8px;
-      padding: 12px;
-      font-size: 14px;
+      padding: 11px;
+      font-size: 13.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -786,10 +582,10 @@
       transition: background 0.2s;
     }
     .submit-mileage-btn:hover {
-      background: #d05202;
+      background: #e0630b;
     }
     .submit-mileage-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.6;
       cursor: not-allowed;
     }
 
@@ -803,75 +599,222 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 12px;
-      background: #13131c;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
       border-radius: 8px;
       font-size: 13px;
     }
     .sub-status-pending {
-      color: #ffc107;
-      background: rgba(255, 193, 7, 0.15);
-      border: 1px solid rgba(255, 193, 7, 0.3);
+      color: #b45309;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
       padding: 2px 8px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 700;
     }
     .sub-status-approved {
-      color: #28a745;
-      background: rgba(40, 167, 69, 0.15);
-      border: 1px solid rgba(40, 167, 69, 0.3);
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
       padding: 2px 8px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 700;
     }
     .sub-status-rejected {
-      color: #dc3545;
-      background: rgba(220, 53, 69, 0.15);
-      border: 1px solid rgba(220, 53, 69, 0.3);
+      color: #b91c1c;
+      background: #fee2e2;
+      border: 1px solid #fecaca;
       padding: 2px 8px;
       border-radius: 4px;
       font-size: 11px;
       font-weight: 700;
     }
 
+    /* Breakdown List */
+    .breakdown-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13.5px;
+    }
+    .breakdown-item:last-child { border-bottom: none; }
+    .breakdown-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #334155;
+    }
+    .breakdown-tag {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .breakdown-amount { font-weight: 700; color: #0f172a; }
+    .breakdown-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 2px solid #e2e8f0;
+      font-size: 15px;
+      font-weight: 800;
+      color: #f7791f;
+    }
+
+    /* Alert Cards */
+    .alert-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-bottom: 8px;
+    }
+    .alert-card:last-child { margin-bottom: 0; }
+    .alert-card.unread {
+      border-color: #fdba74;
+      background: #fff7ed;
+    }
+    .alert-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+    .alert-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0f172a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .alert-date { font-size: 11px; color: #64748b; }
+    .alert-msg { font-size: 13px; color: #475569; margin: 0; line-height: 1.4; }
+    .badge-new {
+      background: #f7791f;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* Documents Styling */
+    .doc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      transition: border-color 0.2s;
+    }
+    .doc-item:hover { border-color: #cbd5e1; }
+    .doc-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .doc-left i {
+      font-size: 20px;
+      color: #dc2626;
+    }
+    .doc-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0 0 2px 0;
+    }
+    .doc-meta {
+      font-size: 12px;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-type-badge {
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .doc-btn {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .doc-btn:hover {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+    }
+
     /* Support Section Buttons */
     .support-buttons {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 12px;
     }
-    @media (min-width: 480px) {
-      .support-buttons {
-        grid-template-columns: 1fr 1fr;
-      }
+    @media (max-width: 640px) {
+      .support-buttons { grid-template-columns: 1fr; }
     }
     .support-btn {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
-      border-radius: 12px;
+      border-radius: 10px;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 14px;
-      transition: transform 0.2s, background 0.2s;
+      font-weight: 600;
+      font-size: 13.5px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #0f172a;
+      transition: all 0.2s;
     }
     .support-btn:hover {
-      transform: translateY(-2px);
+      border-color: #cbd5e1;
+      background: #f8fafc;
     }
-    .support-btn.whatsapp {
-      background: #25d366;
-      color: #0b2b18;
-    }
-    .support-btn.breakdown {
-      background: rgba(232, 93, 4, 0.15);
-      color: #ff8533;
-      border: 1px solid rgba(232, 93, 4, 0.3);
-    }
+    .support-btn i { font-size: 20px; }
+    .support-btn.whatsapp i { color: #16a34a; }
+    .support-btn.portal-help i { color: #f7791f; }
+    .support-btn.breakdown i { color: #dc2626; }
 
-    /* List items */
+    /* Data List */
     .data-list {
       list-style: none;
       padding: 0;
@@ -882,15 +825,15 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-      font-size: 14px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13.5px;
     }
     .data-item:last-child { border-bottom: none; }
-    .item-label { color: #aaa; }
-    .item-val { font-weight: 600; color: #fff; }
+    .item-label { color: #64748b; }
+    .item-val { font-weight: 600; color: #0f172a; }
 
     .empty-msg {
-      color: #666;
+      color: #64748b;
       font-size: 13px;
       font-style: italic;
       padding: 10px 0;
@@ -899,23 +842,26 @@
     /* Modals */
     .modal-overlay {
       display: none;
+      position fixed;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
       z-index: 2000;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
     .modal-card {
-      background: #1c1c28;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
       padding: 24px;
       max-width: 440px;
       width: 100%;
       text-align: center;
       position: relative;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
     }
     .modal-close {
       position: absolute;
@@ -923,89 +869,77 @@
       right: 16px;
       background: none;
       border: none;
-      color: #888;
-      font-size: 20px;
+      color: #64748b;
+      font-size: 18px;
       cursor: pointer;
     }
-    .modal-close:hover { color: #fff; }
+    .modal-close:hover { color: #0f172a; }
 
     .problem-options {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
+      margin-top: 18px;
     }
     .problem-option-btn {
       display: flex;
       align-items: center;
-      gap: 14px;
-      background: #14141f;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 14px 16px;
-      color: #fff;
+      gap: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #0f172a;
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
       text-align: left;
     }
     .problem-option-btn:hover {
-      background: rgba(232, 93, 4, 0.15);
-      border-color: #e85d04;
-      transform: translateY(-1px);
+      background: #fff7ed;
+      border-color: #fdba74;
     }
-    .problem-option-btn i {
-      font-size: 20px;
-      width: 24px;
-      text-align: center;
-    }
-    .problem-option-btn.danger {
-      border-color: rgba(220, 53, 69, 0.4);
-    }
-    .problem-option-btn.danger:hover {
-      background: rgba(220, 53, 69, 0.2);
-      border-color: #dc3545;
-    }
-    .problem-option-btn.danger i {
-      color: #ff6b6b;
-    }
+    .problem-option-btn i { font-size: 18px; width: 24px; text-align: center; color: #f7791f; }
+    .problem-option-btn.danger { border-color: #fecaca; }
+    .problem-option-btn.danger:hover { background: #fef2f2; border-color: #fca5a5; }
+    .problem-option-btn.danger i { color: #dc2626; }
 
-    /* Modal for iOS PWA instructions */
+    /* Modal for iOS PWA */
     .ios-modal {
       display: none;
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(15, 23, 42, 0.6);
       z-index: 2000;
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
     .modal-content {
-      background: #1c1c28;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 20px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
       padding: 24px;
       max-width: 380px;
       text-align: center;
     }
 
-    /* Invoice Modal & Print Styling */
+    /* Invoice Modal Styling */
     .invoice-modal-card {
       max-width: 680px;
       width: 100%;
       text-align: left;
-      background: #181824;
-      color: #fff;
-      padding: 28px;
+      background: #ffffff;
+      color: #0f172a;
+      padding: 24px;
       max-height: 90vh;
       overflow-y: auto;
     }
     .invoice-printable {
-      background: #14141d;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 12px;
       padding: 24px;
     }
@@ -1022,82 +956,81 @@
       gap: 12px;
     }
     .invoice-logo {
-      height: 44px;
+      height: 40px;
       width: auto;
     }
     .invoice-company-name {
       font-size: 18px;
       font-weight: 800;
       margin: 0;
-      color: #fff;
+      color: #0f172a;
     }
     .invoice-company-sub {
       font-size: 12px;
-      color: #e85d04;
+      color: #f7791f;
       margin: 2px 0;
       font-weight: 600;
     }
     .invoice-company-addr {
       font-size: 11px;
-      color: #888;
+      color: #64748b;
       margin: 0;
     }
     .invoice-title {
       font-size: 16px;
       font-weight: 800;
-      color: #e85d04;
+      color: #f7791f;
       margin: 0 0 6px 0;
       text-align: right;
-      letter-spacing: 0.5px;
     }
     .invoice-meta-item {
       font-size: 12px;
-      color: #ccc;
+      color: #475569;
       text-align: right;
     }
     .invoice-divider {
       border: none;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      margin: 18px 0;
+      border-top: 1px solid #e2e8f0;
+      margin: 16px 0;
     }
     .invoice-details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
       margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.03);
+      background: #f8fafc;
       padding: 14px;
       border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      border: 1px solid #e2e8f0;
     }
     .invoice-detail-block h4 {
       margin: 0 0 6px 0;
       font-size: 11px;
-      color: #888;
+      color: #64748b;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
+      letter-spacing: 0.5px;
     }
     .invoice-driver-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 700;
-      color: #fff;
+      color: #0f172a;
     }
     .invoice-driver-email {
       font-size: 12px;
-      color: #aaa;
+      color: #64748b;
     }
     .invoice-vehicle-reg {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
-      color: #f7b500;
+      color: #0f172a;
     }
     .invoice-vehicle-model {
       font-size: 12px;
-      color: #aaa;
+      color: #64748b;
     }
     .invoice-weekly-rent {
       font-size: 12px;
-      color: #e85d04;
+      color: #f7791f;
       font-weight: 600;
       margin-top: 2px;
     }
@@ -1108,28 +1041,26 @@
       font-size: 13px;
     }
     .invoice-table th {
-      background: rgba(232, 93, 4, 0.15);
-      color: #e85d04;
+      background: #f1f5f9;
+      color: #334155;
       text-align: left;
       padding: 10px;
       font-weight: 700;
-      border-bottom: 1px solid rgba(232, 93, 4, 0.3);
+      border-bottom: 1px solid #cbd5e1;
     }
     .invoice-table td {
       padding: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      color: #ddd;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
     }
     .invoice-footer-note {
       font-size: 11.5px;
-      color: #888;
-      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      color: #64748b;
+      border-top: 1px dashed #cbd5e1;
       padding-top: 12px;
       line-height: 1.5;
     }
-    .invoice-footer-note p {
-      margin: 2px 0;
-    }
+    .invoice-footer-note p { margin: 2px 0; }
     .invoice-actions {
       display: flex;
       gap: 12px;
@@ -1138,48 +1069,24 @@
     }
 
     @media print {
-      body * {
-        visibility: hidden;
-      }
-      #invoiceModal, #invoiceModal * {
-        visibility: visible;
-      }
+      body * { visibility: hidden; }
+      #invoiceModal, #invoiceModal * { visibility: visible; }
       #invoiceModal {
         position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: auto;
+        left: 0; top: 0; width: 100%; height: auto;
         background: #fff !important;
-        color: #000 !important;
         padding: 0;
       }
       .invoice-modal-card {
         background: #fff !important;
-        color: #000 !important;
         max-width: 100% !important;
         box-shadow: none !important;
-        padding: 20px !important;
+        padding: 0 !important;
       }
       .invoice-printable {
-        background: #fff !important;
-        color: #000 !important;
         border: 1px solid #ccc !important;
       }
-      .invoice-company-name, .invoice-driver-name {
-        color: #000 !important;
-      }
-      .invoice-table td, .invoice-table th {
-        color: #000 !important;
-        border-bottom-color: #ddd !important;
-      }
-      .invoice-details-grid {
-        background: #f8f9fa !important;
-        border-color: #ddd !important;
-      }
-      .no-print {
-        display: none !important;
-      }
+      .no-print { display: none !important; }
     }
   </style>
 
@@ -1188,49 +1095,69 @@
 </head>
 <body>
 
+  <!-- Top Navigation Header -->
   <header class="dashboard-header">
-    <a href="/" class="brand">
-      <img src="/assets/logo.png" alt="Virtual Car Hire Logo"/>
-      <span class="brand-title">Virtual Car Hire</span>
-    </a>
-    <div class="header-actions">
-      <div class="user-chip" id="userChip" style="display:none;">
-        <i class="fa-solid fa-circle-user"></i>
-        <span id="userEmailNav">driver@example.com</span>
+    <div class="header-inner">
+      <a href="/" class="brand">
+        <img src="/assets/logo.png" alt="Virtual Car Hire Logo"/>
+        <div>
+          <span class="brand-title">Virtual Car Hire</span>
+          <span class="brand-sub">Customer Account Portal</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <div class="user-chip" id="userChip" style="display:none;">
+          <i class="fa-solid fa-circle-user"></i>
+          <span id="userEmailNav">driver@example.com</span>
+        </div>
+        <button id="logoutBtn" class="logout-btn">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
       </div>
-      <button id="logoutBtn" class="logout-btn">
-        <i class="fa-solid fa-right-from-bracket"></i> Logout
-      </button>
     </div>
   </header>
 
-  <!-- PWA Add to Home Screen Banner -->
+  <!-- Sub Navigation Bar -->
+  <nav class="portal-nav-bar">
+    <div class="nav-container">
+      <a href="#dashboard" class="nav-link active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+      <a href="#vehicle-section" class="nav-link"><i class="fa-solid fa-car"></i> My Rental</a>
+      <a href="#rent-section" class="nav-link"><i class="fa-solid fa-sterling-sign"></i> Payments</a>
+      <a href="#balance-section" class="nav-link"><i class="fa-solid fa-file-invoice-dollar"></i> Invoices</a>
+      <a href="#documents-section" class="nav-link"><i class="fa-solid fa-file-contract"></i> Documents</a>
+      <a href="#odometer-section" class="nav-link"><i class="fa-solid fa-gauge-high"></i> Odometer</a>
+      <a href="#support-section" class="nav-link"><i class="fa-solid fa-headset"></i> Support</a>
+      <a href="#account-section" class="nav-link"><i class="fa-solid fa-user-gear"></i> My Account</a>
+    </div>
+  </nav>
+
+  <!-- PWA Install Banner -->
   <div id="pwaBanner" class="pwa-banner" style="display:none;">
     <div class="pwa-text">
       <i class="fa-solid fa-mobile-screen-button"></i>
       <div>
-        <strong>Add to Home Screen</strong><br/>
-        <small style="color:#aaa;">Install app for quick access</small>
+        <strong>Add Virtual Car Hire to Home Screen</strong><br/>
+        <small style="color:#475569;">Install app for easy single-tap portal access</small>
       </div>
     </div>
     <button id="pwaInstallBtn" class="pwa-install-btn">Install</button>
   </div>
 
-  <!-- Floating Always-Accessible Emergency / Problem Reporting Button -->
+  <!-- Floating Always-Accessible Emergency Button -->
   <button id="floatingReportBtn" class="floating-report-btn" onclick="openProblemModal()">
     <i class="fa-solid fa-triangle-exclamation"></i>
     <span>Report a Problem</span>
   </button>
 
-  <main class="container">
-    <!-- Welcome Header -->
-    <div class="welcome-card">
-      <div class="driver-info">
-        <h1 id="driverGreeting">Welcome back</h1>
-        <p id="driverEmailSub"><i class="fa-regular fa-envelope"></i> Loading profile...</p>
+  <main class="container" id="dashboard">
+    <!-- Top Greeting Banner -->
+    <div class="portal-header-banner">
+      <div class="greeting-text">
+        <h1 id="driverGreeting">Good morning, Driver</h1>
+        <p id="driverEmailSub">Here's everything you need to manage your rental with Virtual Car Hire.</p>
       </div>
       <div class="status-badge" id="accountStatus">
-        <i class="fa-solid fa-circle" style="font-size:8px;"></i> Active Hire
+        <i class="fa-solid fa-circle" style="font-size:8px;"></i> Active Rental
       </div>
     </div>
 
@@ -1239,8 +1166,8 @@
       <div class="emergency-text">
         <i class="fa-solid fa-headset"></i>
         <div>
-          <h3>Breakdown or Roadside Incident?</h3>
-          <p>Get instant automated &amp; staff response via WhatsApp 24/7</p>
+          <h3>Breakdown or Vehicle Incident?</h3>
+          <p>Contact our roadside team directly on WhatsApp for instant assistance</p>
         </div>
       </div>
       <button class="report-btn-banner" onclick="openProblemModal()">
@@ -1248,23 +1175,25 @@
       </button>
     </div>
 
-    <!-- Dominant Hero Showcase: Assigned Vehicle -->
-    <div class="vehicle-hero-card">
-      <div class="vehicle-hero-content">
-        <div class="hero-badge-header">
-          <div class="hero-title-tag">
-            <i class="fa-solid fa-car-side"></i> Assigned Vehicle
+    <!-- Main Dashboard Cards Grid -->
+    <div class="dashboard-grid">
+
+      <!-- CURRENT VEHICLE CARD -->
+      <div class="card col-8" id="vehicle-section">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-car-side"></i>
+            <h2>Current Vehicle</h2>
           </div>
-          <span style="font-size:12px; color:#888; background:rgba(255,255,255,0.06); padding:4px 10px; border-radius:50px; border:1px solid rgba(255,255,255,0.1);">
-            <i class="fa-solid fa-check-double" style="color:#28a745; margin-right:4px;"></i> Active Hire
+          <span style="font-size:12px; color:#166534; background:#f0fdf4; border:1px solid #bbf7d0; padding:3px 10px; border-radius:9999px; font-weight:700;">
+            <i class="fa-solid fa-check" style="font-size:10px; margin-right:2px;"></i> Active Hire
           </span>
         </div>
-
-        <div class="vehicle-hero-display">
-          <div class="vehicle-hero-img-wrap">
-            <img id="vehicleImage" class="vehicle-hero-img" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
+        <div class="vehicle-display">
+          <div class="vehicle-img-wrap">
+            <img id="vehicleImage" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
           </div>
-          <div class="plate-overlay">
+          <div class="vehicle-details">
             <div class="uk-number-plate">
               <div class="uk-flag-band">
                 <i class="fa-solid fa-star"></i>
@@ -1272,180 +1201,48 @@
               </div>
               <div class="reg-text" id="vehicleReg">--- ----</div>
             </div>
-          </div>
-        </div>
-
-        <div class="vehicle-hero-details">
-          <h2 id="vehicleModel" class="vehicle-hero-model">Loading vehicle...</h2>
-          <p id="vehicleType" class="vehicle-hero-sub">TfL Licensed PCO Vehicle</p>
-          <div class="vehicle-hero-badges">
-            <span id="vehicleFuelBadge" class="hero-badge">
-              <i class="fa-solid fa-gas-pump" style="color:#e85d04;"></i> PCO Ready
-            </span>
-            <span id="vehicleDepositBadge" class="hero-badge">
-              <i class="fa-solid fa-shield-halved" style="color:#28a745;"></i> Insured &amp; Covered
-            </span>
+            <h3 id="vehicleModel" class="vehicle-model-name">Loading vehicle...</h3>
+            <p id="vehicleType" class="vehicle-sub">TfL Licensed PCO Vehicle</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12.5px; color:#475569;">
+              <span id="vehicleFuelBadge"><i class="fa-solid fa-gas-pump" style="color:#f7791f;"></i> PCO Ready</span>
+              <span id="vehicleDepositBadge"><i class="fa-solid fa-shield-halved" style="color:#16a34a;"></i> Fully Insured</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Dashboard Main Grid -->
-    <div class="grid">
-      <!-- Weekly Rent & Due Status -->
-      <div class="card">
+      <!-- WEEKLY RENT CARD -->
+      <div class="card col-4" id="rent-section">
         <div class="card-head">
-          <i class="fa-solid fa-sterling-sign"></i>
-          <h2>Weekly Rent &amp; Status</h2>
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-sterling-sign"></i>
+            <h2>Weekly Rent</h2>
+          </div>
+          <span id="rentStatus" class="status-ok">Up to Date</span>
         </div>
         <div class="rent-amount" id="rentAmount">£0 <small>/week</small></div>
         <div class="due-row">
           <span>Rent Due Day:</span>
-          <strong style="color:#fff;" id="rentDueDay">--</strong>
+          <strong id="rentDueDay">--</strong>
         </div>
         <div class="due-row">
-          <span>Next Rent Due:</span>
-          <span id="rentDueDate">--/--/----</span>
-        </div>
-        <div class="due-row" style="margin-top: 6px;">
-          <span>Payment Status:</span>
-          <span id="rentStatus" class="status-ok">Up to Date</span>
+          <span>Next Payment Date:</span>
+          <strong id="rentDueDate">--/--/----</strong>
         </div>
       </div>
 
-      <!-- Upcoming Dates at a Glance -->
-      <div class="card">
+      <!-- DEPOSIT & CHARGES CARD -->
+      <div class="card col-4" id="account-section">
         <div class="card-head">
-          <i class="fa-solid fa-calendar-days"></i>
-          <h2>Upcoming Dates at a Glance</h2>
-        </div>
-        <ul class="data-list">
-          <li class="data-item">
-            <span class="item-label"><i class="fa-solid fa-clock" style="margin-right:6px; color:#e85d04;"></i> Next Payment</span>
-            <span class="item-val" id="glanceNextPayment">--/--/----</span>
-          </li>
-          <li class="data-item">
-            <span class="item-label"><i class="fa-solid fa-clipboard-check" style="margin-right:6px; color:#e85d04;"></i> Next MOT Date</span>
-            <span class="item-val" id="glanceNextMot">--/--/----</span>
-          </li>
-          <li class="data-item">
-            <span class="item-label"><i class="fa-solid fa-wrench" style="margin-right:6px; color:#e85d04;"></i> Next Service</span>
-            <span class="item-val" id="glanceNextService">--/--/----</span>
-          </li>
-          <li class="data-item">
-            <span class="item-label"><i class="fa-solid fa-id-card" style="margin-right:6px; color:#e85d04;"></i> PCO Licence Expiry</span>
-            <span class="item-val" id="glancePcoExpiry">--/--/----</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Monthly Mileage Tracker & Submission -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-gauge-high"></i>
-          <h2>Monthly Mileage Tracker &amp; Submission</h2>
-        </div>
-        <div class="mileage-num">
-          <div>
-            <span id="loggedMileage">0</span> <small style="color:#aaa; font-weight:400;">/ <span id="allowedMileage">5,000</span> miles</small>
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-vault"></i>
+            <h2>Deposit &amp; Account</h2>
           </div>
-          <small id="excessRateNotice">Excess: 15p / mile</small>
-        </div>
-        <div class="progress-bg">
-          <div class="progress-fill" id="mileageProgressFill"></div>
-        </div>
-        <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#aaa;">
-          <span>Remaining Allowance: <strong style="color:#fff;" id="remainingMiles">5,000 miles</strong></span>
-          <span>Approved Mileage</span>
-          <span>Monthly Allowance</span>
-        </div>
-        <div id="mileageWarningBox" class="mileage-warning-box" style="display:none;">
-          <i class="fa-solid fa-triangle-exclamation"></i>
-          <span id="mileageWarningText">You are approaching your monthly mileage allowance.</span>
-        </div>
-
-        <!-- Submit Mileage Form -->
-        <div class="mileage-box">
-          <h3 style="font-size:14px; margin:0 0 10px 0; color:#fff;">Submit Odometer Reading</h3>
-          <form id="mileageForm" class="mileage-form">
-            <div class="form-group">
-              <label for="readingValue">Current Odometer Reading (Miles)</label>
-              <input type="number" id="readingValue" class="form-input" placeholder="e.g. 45280" required min="1"/>
-            </div>
-            <div class="form-group">
-              <label>Odometer Photo</label>
-              <div class="file-input-wrapper">
-                <input type="file" id="odometerPhoto" accept="image/*" capture="environment" required/>
-                <div class="file-input-label">
-                  <i class="fa-solid fa-camera"></i>
-                  <span id="photoFileName">Tap to take photo or choose image</span>
-                </div>
-              </div>
-            </div>
-            <button type="submit" id="submitMileageBtn" class="submit-mileage-btn">
-              <i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo
-            </button>
-          </form>
-        </div>
-
-        <!-- Recent Submissions List -->
-        <div>
-          <h4 style="font-size:13px; color:#aaa; margin:0 0 8px 0; font-weight:700; text-transform:uppercase;">Recent Submissions</h4>
-          <div id="mileageSubmissionsList" class="submission-list">
-            <div class="empty-msg">No submissions recorded yet.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Hire Documents Section -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-file-contract"></i>
-          <h2>Hire Documents</h2>
-        </div>
-        <p style="color:#aaa; font-size:13px; margin:-6px 0 14px 0;">View and download your rental agreement, insurance certificate, and official documents.</p>
-        <div id="documentsList" class="doc-list">
-          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading hire documents...</div>
-        </div>
-      </div>
-
-      <!-- Reminder Alerts Section -->
-      <div class="card full-width">
-        <div class="card-head">
-          <i class="fa-solid fa-bell"></i>
-          <h2>Reminder Alerts &amp; Notifications</h2>
-        </div>
-        <div id="reminderAlertsList">
-          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading reminders...</div>
-        </div>
-      </div>
-
-      <!-- Itemised Balance Section -->
-      <div class="card full-width">
-        <div class="card-head" style="justify-content: space-between;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-receipt"></i>
-            <h2>Itemised Balance Breakdown</h2>
-          </div>
-          <button id="viewInvoiceBtn" class="doc-btn" onclick="openInvoiceModal()" style="font-size: 13px; padding: 6px 14px; border-radius: 50px;">
-            <i class="fa-solid fa-file-invoice"></i> View Invoice
-          </button>
-        </div>
-        <div id="balanceBreakdownList">
-          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
-        </div>
-      </div>
-
-      <!-- Deposit & Charges -->
-      <div class="card">
-        <div class="card-head">
-          <i class="fa-solid fa-file-invoice-dollar"></i>
-          <h2>Deposit &amp; Account Summary</h2>
         </div>
         <ul class="data-list">
           <li class="data-item">
             <span class="item-label">Deposit Status</span>
-            <span class="item-val" id="depositStatus">Paid</span>
+            <span class="item-val" id="depositStatus">Paid &amp; Held</span>
           </li>
           <li class="data-item">
             <span class="item-label">Outstanding Extra Charges</span>
@@ -1454,75 +1251,219 @@
         </ul>
       </div>
 
-      <!-- Service Bookings / Maintenance -->
-      <div class="card">
+      <!-- UPCOMING DATES CARD -->
+      <div class="card col-8">
         <div class="card-head">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
-          <h2>Service Bookings</h2>
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-calendar-days"></i>
+            <h2>Upcoming Key Dates</h2>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:16px;">
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next Payment</small>
+            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextPayment">--/--/----</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next MOT</small>
+            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextMot">--/--/----</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next Service</small>
+            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextService">--/--/----</div>
+          </div>
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
+            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">PCO Licence Expiry</small>
+            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glancePcoExpiry">--/--/----</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ODOMETER & MILEAGE TRACKER CARD -->
+      <div class="card col-12" id="odometer-section">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h2>Odometer &amp; Monthly Mileage Tracker</h2>
+          </div>
+        </div>
+        <div class="mileage-num">
+          <div>
+            <span id="loggedMileage">0</span> <small>/ <span id="allowedMileage">5,000</span> miles monthly allowance</small>
+          </div>
+          <small id="excessRateNotice">Excess: 15p / mile</small>
+        </div>
+        <div class="progress-bg">
+          <div class="progress-fill" id="mileageProgressFill"></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:12.5px; color:#64748b; margin-bottom:12px;">
+          <span>Remaining Allowance: <strong style="color:#0f172a;" id="remainingMiles">5,000 miles</strong></span>
+          <span>Monthly Allowance Limit</span>
+        </div>
+        <div id="mileageWarningBox" class="mileage-warning-box" style="display:none;">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="mileageWarningText">You are approaching your monthly mileage allowance.</span>
+        </div>
+
+        <!-- Submit Mileage Form -->
+        <div class="mileage-box">
+          <h3 style="font-size:14px; margin:0 0 10px 0; color:#0f172a;">Submit Odometer Reading</h3>
+          <form id="mileageForm" class="mileage-form">
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+              <div class="form-group">
+                <label for="readingValue">Current Odometer Reading (Miles)</label>
+                <input type="number" id="readingValue" class="form-input" placeholder="e.g. 45280" required min="1"/>
+              </div>
+              <div class="form-group">
+                <label>Odometer Dashboard Photo</label>
+                <div class="file-input-wrapper">
+                  <input type="file" id="odometerPhoto" accept="image/*" capture="environment" required/>
+                  <div class="file-input-label">
+                    <i class="fa-solid fa-camera"></i>
+                    <span id="photoFileName">Tap to take photo or choose image</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" id="submitMileageBtn" class="submit-mileage-btn">
+              <i class="fa-solid fa-paper-plane"></i> Submit New Reading
+            </button>
+          </form>
+        </div>
+
+        <!-- Recent Submissions -->
+        <div>
+          <h4 style="font-size:12px; color:#64748b; margin:0 0 8px 0; font-weight:700; text-transform:uppercase;">Recent Odometer Submissions</h4>
+          <div id="mileageSubmissionsList" class="submission-list">
+            <div class="empty-msg">No submissions recorded yet.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ITEMISED BALANCE BREAKDOWN & INVOICE -->
+      <div class="card col-12" id="balance-section">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-receipt"></i>
+            <h2>Itemised Account Balance &amp; Statements</h2>
+          </div>
+          <button id="viewInvoiceBtn" class="doc-btn" onclick="openInvoiceModal()">
+            <i class="fa-solid fa-file-invoice"></i> View Invoice
+          </button>
+        </div>
+        <div id="balanceBreakdownList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading balance details...</div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS SECTION -->
+      <div class="card col-12" id="documents-section">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-file-contract"></i>
+            <h2>Hire Documents</h2>
+          </div>
+        </div>
+        <p style="color:#64748b; font-size:13.5px; margin:-6px 0 14px 0;">Access and download your rental agreement, insurance documentation, and vehicle paperwork.</p>
+        <div id="documentsList" class="doc-list">
+          <div class="empty-msg"><div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading rental documents...</div></div>
+        </div>
+      </div>
+
+      <!-- ACTION ALERTS & REMINDERS -->
+      <div class="card col-12">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-bell"></i>
+            <h2>Notifications &amp; Action Required</h2>
+          </div>
+        </div>
+        <div id="reminderAlertsList">
+          <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading notifications...</div>
+        </div>
+      </div>
+
+      <!-- SERVICE BOOKINGS -->
+      <div class="card col-6">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-wrench"></i>
+            <h2>Service &amp; Maintenance Bookings</h2>
+          </div>
         </div>
         <div id="serviceBookingsList">
           <div class="empty-msg">No upcoming service bookings scheduled.</div>
         </div>
       </div>
 
-      <!-- Fast Contact & Breakdown Support -->
-      <div class="card full-width">
+      <!-- SUPPORT SECTION -->
+      <div class="card col-6" id="support-section">
         <div class="card-head">
-          <i class="fa-solid fa-headset"></i>
-          <h2>Driver Support &amp; Breakdown Contact</h2>
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-headset"></i>
+            <h2>Need Help?</h2>
+          </div>
         </div>
-        <p style="color:#aaa; font-size:13.5px; margin:0 0 16px 0;">Need quick assistance, servicing guidance, or emergency breakdown help? Get in touch directly with our operational team in Hounslow.</p>
+        <p style="color:#64748b; font-size:13.5px; margin:0 0 16px 0;">Find answers in our support centre, read guides on rental management, or contact our team.</p>
         <div class="support-buttons">
-          <a href="https://wa.me/442072946756" target="_blank" class="support-btn whatsapp">
-            <i class="fa-brands fa-whatsapp" style="font-size:22px;"></i>
+          <a href="/support" class="support-btn portal-help">
+            <i class="fa-solid fa-circle-question"></i>
             <div>
-              <div style="font-size:14px;">WhatsApp Driver Support</div>
-              <small style="font-weight:400; opacity:0.85;">+44 20 7294 6756</small>
+              <div>Support Centre</div>
+              <small style="color:#64748b; font-weight:400;">Guides &amp; FAQs</small>
+            </div>
+          </a>
+          <a href="https://wa.me/442072946756" target="_blank" class="support-btn whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div>
+              <div>WhatsApp</div>
+              <small style="color:#64748b; font-weight:400;">+44 20 7294 6756</small>
             </div>
           </a>
           <a href="/emergency.html" class="support-btn breakdown">
-            <i class="fa-solid fa-truck-pickup" style="font-size:20px;"></i>
+            <i class="fa-solid fa-truck-pickup"></i>
             <div>
-              <div style="font-size:14px;">Breakdown &amp; Garage Support</div>
-              <small style="font-weight:400; opacity:0.85;">Full Roadside Cover Details</small>
+              <div>Breakdown</div>
+              <small style="color:#64748b; font-weight:400;">Roadside Cover</small>
             </div>
           </a>
         </div>
       </div>
+
     </div>
   </main>
 
   <!-- One-Time Terms & Conditions Modal Popup on Dashboard -->
   <div id="dashboardTermsModal" class="modal-overlay" style="z-index: 3500;">
-    <div class="modal-card" style="text-align: left; max-width: 480px; border-color: rgba(232, 93, 4, 0.4); padding: 32px 28px;">
-      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-        <i class="fa-solid fa-bell-concierge" style="font-size: 32px; color: #e85d04;"></i>
+    <div class="modal-card" style="text-align: left; max-width: 480px; padding: 28px;">
+      <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid #e2e8f0;">
+        <i class="fa-solid fa-bell-concierge" style="font-size: 28px; color: #f7791f;"></i>
         <div>
-          <h2 style="margin: 0; font-size: 20px; font-weight: 800; color: #fff;">Important Driver Updates</h2>
-          <small style="color: #888; text-transform: uppercase; letter-spacing: 0.5px;">Vehicle Maintenance &amp; Reminders</small>
+          <h2 style="margin: 0; font-size: 18px; font-weight: 800; color: #0f172a;">Important Driver Updates</h2>
+          <small style="color: #64748b; text-transform: uppercase; letter-spacing: 0.5px;">Vehicle Maintenance &amp; Reminders</small>
         </div>
       </div>
 
-      <p style="color: #ccc; font-size: 14px; margin-bottom: 16px; line-height: 1.5;">
+      <p style="color: #475569; font-size: 13.5px; margin-bottom: 16px; line-height: 1.5;">
         Welcome to Virtual Car Hire! Please acknowledge the following vehicle management notification terms:
       </p>
 
-      <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 14px;">
-        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
-          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+      <ul style="list-style: none; padding: 0; margin: 0 0 24px 0; display: flex; flex-direction: column; gap: 12px;">
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <i class="fa-solid fa-circle-check" style="color: #16a34a; font-size: 15px; margin-top: 2px;"></i>
           <div>By default, you are enrolled in automated email reminders for <strong>MOT</strong>, <strong>routine servicing</strong>, and <strong>PCO licence renewals</strong>.</div>
         </li>
-        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
-          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <i class="fa-solid fa-circle-check" style="color: #16a34a; font-size: 15px; margin-top: 2px;"></i>
           <div>Once your vehicle hire contract ends, these automated reminder notifications stop automatically.</div>
         </li>
-        <li style="display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: #ddd; line-height: 1.5; background: rgba(255, 255, 255, 0.03); padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.06);">
-          <i class="fa-solid fa-circle-check" style="color: #28a745; font-size: 16px; margin-top: 3px;"></i>
+        <li style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px 12px; border-radius: 8px; border: 1px solid #e2e8f0;">
+          <i class="fa-solid fa-circle-check" style="color: #16a34a; font-size: 15px; margin-top: 2px;"></i>
           <div>If you return as an active driver at a later date, you will be automatically re-enrolled to keep your vehicle compliant.</div>
         </li>
       </ul>
 
-      <button id="dashAcceptTermsBtn" class="submit-mileage-btn" style="width: 100%; font-size: 16px; padding: 14px;">
+      <button id="dashAcceptTermsBtn" class="submit-mileage-btn" style="width: 100%; font-size: 15px; padding: 12px;">
         <i class="fa-solid fa-check-double"></i> I Understand &amp; Continue
       </button>
     </div>
@@ -1580,7 +1521,7 @@
           <tfoot>
             <tr>
               <td colspan="2" style="text-align: right; font-weight: 700;">TOTAL BALANCE DUE:</td>
-              <td id="invoiceTotalAmount" style="text-align: right; font-weight: 800; color: #e85d04; font-size: 18px;">£0.00</td>
+              <td id="invoiceTotalAmount" style="text-align: right; font-weight: 800; color: #f7791f; font-size: 16px;">£0.00</td>
             </tr>
           </tfoot>
         </table>
@@ -1592,7 +1533,7 @@
       </div>
 
       <div class="invoice-actions no-print">
-        <button class="submit-mileage-btn" onclick="window.print()" style="background: #e85d04;">
+        <button class="submit-mileage-btn" onclick="window.print()">
           <i class="fa-solid fa-print"></i> Print / Save as PDF
         </button>
         <button class="logout-btn" onclick="closeInvoiceModal()" style="margin: 0;">
@@ -1606,16 +1547,16 @@
   <div id="problemModal" class="modal-overlay">
     <div class="modal-card">
       <button class="modal-close" onclick="closeProblemModal()"><i class="fa-solid fa-xmark"></i></button>
-      <i class="fa-solid fa-triangle-exclamation" style="font-size:36px; color:#dc3545; margin-bottom:10px;"></i>
-      <h3 style="margin:0 0 6px 0; font-size:18px;">Report a Problem</h3>
-      <p style="color:#aaa; font-size:13px; margin:0;">Select the type of issue. You will be redirected to WhatsApp to send pre-filled details directly to our automated response system.</p>
+      <i class="fa-solid fa-triangle-exclamation" style="font-size:32px; color:#dc2626; margin-bottom:10px;"></i>
+      <h3 style="margin:0 0 6px 0; font-size:17px; color:#0f172a;">Report a Problem</h3>
+      <p style="color:#64748b; font-size:13px; margin:0;">Select the type of issue. You will be redirected to WhatsApp to send details directly to our response system.</p>
 
       <div class="problem-options">
         <button class="problem-option-btn danger" onclick="triggerProblemWhatsApp('Emergency breakdown')">
           <i class="fa-solid fa-car-burst"></i>
           <div>
             <div>Breakdown / Emergency</div>
-            <small style="color:#aaa; font-weight:400;">Immediate roadside assistance required</small>
+            <small style="color:#64748b; font-weight:400;">Immediate roadside assistance required</small>
           </div>
         </button>
 
@@ -1623,7 +1564,7 @@
           <i class="fa-solid fa-user-shield"></i>
           <div>
             <div>Accident Report</div>
-            <small style="color:#aaa; font-weight:400;">Report a collision or incident</small>
+            <small style="color:#64748b; font-weight:400;">Report a collision or incident</small>
           </div>
         </button>
 
@@ -1631,7 +1572,7 @@
           <i class="fa-solid fa-wrench"></i>
           <div>
             <div>Maintenance / Warning Light</div>
-            <small style="color:#aaa; font-weight:400;">Mechanical fault or dash alert</small>
+            <small style="color:#64748b; font-weight:400;">Mechanical fault or dash alert</small>
           </div>
         </button>
       </div>
@@ -1641,9 +1582,9 @@
   <!-- iOS PWA Instructions Modal -->
   <div id="iosModal" class="ios-modal">
     <div class="modal-content">
-      <i class="fa-solid fa-square-plus" style="font-size:36px; color:#e85d04; margin-bottom:12px;"></i>
-      <h3 style="margin:0 0 8px 0;">Install on iOS</h3>
-      <p style="color:#ccc; font-size:14px; line-height:1.5;">To install the Driver Portal app on your iPhone: tap the <strong>Share</strong> icon <i class="fa-solid fa-share-from-square"></i> in Safari and select <strong>"Add to Home Screen"</strong>.</p>
+      <i class="fa-solid fa-square-plus" style="font-size:32px; color:#f7791f; margin-bottom:10px;"></i>
+      <h3 style="margin:0 0 8px 0; color:#0f172a;">Install on iOS</h3>
+      <p style="color:#475569; font-size:13.5px; line-height:1.5;">To install the Driver Portal app on your iPhone: tap the <strong>Share</strong> icon <i class="fa-solid fa-share-from-square"></i> in Safari and select <strong>"Add to Home Screen"</strong>.</p>
       <button onclick="document.getElementById('iosModal').style.display='none'" class="pwa-install-btn" style="margin-top:16px;">Got It</button>
     </div>
   </div>
@@ -1825,7 +1766,7 @@
           html += `
             <tr>
               <td><strong>${item.description}</strong></td>
-              <td><span style="text-transform: uppercase; font-size: 11px; font-weight: 700; color: #e85d04;">${item.tag}</span></td>
+              <td><span style="text-transform: uppercase; font-size: 11px; font-weight: 700; color: #f7791f;">${item.tag}</span></td>
               <td style="text-align: right; font-weight: 700;">£${Number(item.amount).toFixed(2)}</td>
             </tr>
           `;
@@ -1871,10 +1812,18 @@
       }
 
       const user = session.user;
-      document.getElementById('driverEmailSub').innerHTML = `<i class="fa-regular fa-envelope"></i> ${user.email}`;
       document.getElementById('userEmailNav').textContent = user.email;
       document.getElementById('userChip').style.display = 'flex';
       window.vchDriverProfile.email = user.email;
+
+      // Time-appropriate greeting
+      const currentHour = new Date().getHours();
+      let timeOfDayGreeting = 'Good morning';
+      if (currentHour >= 12 && currentHour < 17) {
+        timeOfDayGreeting = 'Good afternoon';
+      } else if (currentHour >= 17) {
+        timeOfDayGreeting = 'Good evening';
+      }
 
       // Handle Logout
       logoutBtn.addEventListener('click', async () => {
@@ -1904,7 +1853,7 @@
 
         const rawName = driverData ? (driverData.driver_name || driverData.full_name || driverData.first_name || driverData.name) : null;
         const driverFirstName = rawName ? rawName.trim().split(' ')[0] : 'Driver';
-        document.getElementById('driverGreeting').textContent = `Welcome back, ${driverFirstName}`;
+        document.getElementById('driverGreeting').textContent = `${timeOfDayGreeting}, ${driverFirstName}`;
         window.vchDriverProfile.name = rawName || 'Driver';
         if (driverData) window.vchDriverProfile.id = driverData.id;
 
@@ -2023,7 +1972,7 @@
         const rentStatusEl = document.getElementById('rentStatus');
 
         if (isOverdue) {
-          rentStatusEl.textContent = 'Missed / Overdue';
+          rentStatusEl.textContent = 'Overdue';
           rentStatusEl.className = 'status-overdue';
         } else if (computedDueDate) {
           const now = new Date();
@@ -2032,11 +1981,11 @@
             rentStatusEl.textContent = 'Due Soon';
             rentStatusEl.className = 'status-due';
           } else {
-            rentStatusEl.textContent = 'Up to Date ✓';
+            rentStatusEl.textContent = 'Up to Date';
             rentStatusEl.className = 'status-ok';
           }
         } else {
-          rentStatusEl.textContent = 'Up to Date ✓';
+          rentStatusEl.textContent = 'Up to Date';
           rentStatusEl.className = 'status-ok';
         }
 
@@ -2101,15 +2050,15 @@
           const displayTotal = calculatedTotal > 0 ? calculatedTotal : balanceDue;
           html += `
             <div class="breakdown-total">
-              <span>Total due:</span>
+              <span>Total balance due:</span>
               <span>£${displayTotal.toFixed(2).replace('.00', '')}</span>
             </div>
           `;
           breakdownContainer.innerHTML = html;
         } else {
           breakdownContainer.innerHTML = `
-            <div style="text-align:center; padding:18px; background:rgba(40,167,69,0.12); border:1px solid rgba(40,167,69,0.3); border-radius:12px; color:#28a745; font-weight:700; font-size:15px;">
-              <i class="fa-solid fa-circle-check" style="margin-right:8px;"></i> You're all paid up ✓
+            <div style="padding:16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; color:#166534; font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px;">
+              <i class="fa-solid fa-circle-check" style="font-size:16px;"></i> All payments up to date. No outstanding balance due.
             </div>
           `;
         }
@@ -2211,10 +2160,10 @@
             container.innerHTML = services.map(s => `
               <div class="data-item">
                 <div>
-                  <strong style="color:#fff;">${s.service_type || s.description || 'Vehicle Maintenance'}</strong><br/>
-                  <small style="color:#888;">${new Date(s.booking_date || s.created_at).toLocaleDateString('en-GB')}</small>
+                  <strong style="color:#0f172a;">${s.service_type || s.description || 'Vehicle Maintenance'}</strong><br/>
+                  <small style="color:#64748b;">${new Date(s.booking_date || s.created_at).toLocaleDateString('en-GB')}</small>
                 </div>
-                <span class="status-badge" style="background:rgba(232,93,4,0.2); color:#e85d04; border-color:rgba(232,93,4,0.4);">${s.status || 'Confirmed'}</span>
+                <span class="status-badge" style="background:#eff6ff; color:#1d4ed8; border-color:#bfdbfe;">${s.status || 'Confirmed'}</span>
               </div>
             `).join('');
           }
@@ -2248,7 +2197,7 @@
                 unreadIds.push(alert.id);
               }
 
-              const title = alert.title || alert.type || alert.alert_type || 'CRM Alert';
+              const title = alert.title || alert.type || alert.alert_type || 'Account Notification';
               const message = alert.message || alert.body || alert.description || alert.details || '';
               const alertDate = alert.created_at ? new Date(alert.created_at).toLocaleDateString('en-GB') : 'Recent';
 
@@ -2256,7 +2205,7 @@
                 <div class="alert-card ${!isRead ? 'unread' : ''}">
                   <div class="alert-head">
                     <div class="alert-title">
-                      <i class="fa-solid fa-bell" style="color:#e85d04;"></i>
+                      <i class="fa-solid fa-bell" style="color:#f7791f;"></i>
                       <span>${title}</span>
                       ${!isRead ? '<span class="badge-new">NEW</span>' : ''}
                     </div>
@@ -2285,10 +2234,10 @@
               }
             }
           } else {
-            alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No active reminder alerts. Everything looks good!</div>';
+            alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-check" style="color:#16a34a; margin-right:6px;"></i> No outstanding notifications or action required. Your account is fully up to date.</div>';
           }
         } else {
-          alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No active reminder alerts. Everything looks good!</div>';
+          alertsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-check" style="color:#16a34a; margin-right:6px;"></i> No outstanding notifications or action required. Your account is fully up to date.</div>';
         }
 
       } catch (err) {
@@ -2324,7 +2273,7 @@
     async function loadDriverDocuments(supabase, driverId) {
       const docsContainer = document.getElementById('documentsList');
       if (!driverId) {
-        docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents on file yet. Staff will upload your rental agreement and insurance certificate here.</div>';
+        docsContainer.innerHTML = '<div class="empty-msg">No documents uploaded yet. Rental agreement and insurance paperwork will appear here.</div>';
         return;
       }
 
@@ -2336,7 +2285,7 @@
           .order('uploaded_at', { ascending: false });
 
         if (error || !docs || docs.length === 0) {
-          docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents on file yet. Staff will upload your rental agreement and insurance certificate here.</div>';
+          docsContainer.innerHTML = '<div class="empty-msg">No documents uploaded yet. Rental agreement and insurance paperwork will appear here.</div>';
           return;
         }
 
@@ -2364,14 +2313,14 @@
                 </div>
               </div>
               <a href="${fileUrl}" target="_blank" rel="noopener noreferrer" class="doc-btn">
-                <i class="fa-solid fa-download"></i> View
+                <i class="fa-solid fa-download"></i> View Document
               </a>
             </div>
           `;
         }
         docsContainer.innerHTML = html;
       } catch (err) {
-        docsContainer.innerHTML = '<div class="empty-msg"><i class="fa-solid fa-circle-info" style="margin-right:6px;"></i> No documents available.</div>';
+        docsContainer.innerHTML = '<div class="empty-msg">No documents available.</div>';
       }
     }
 
@@ -2415,8 +2364,8 @@
           html += `
             <div class="submission-item">
               <div>
-                <strong style="color:#fff;">${reading} miles</strong>
-                <span style="color:#888; font-size:12px; margin-left:6px;">(${subDate})</span>
+                <strong style="color:#0f172a;">${reading} miles</strong>
+                <span style="color:#64748b; font-size:12px; margin-left:6px;">(${subDate})</span>
               </div>
               <span class="${statusClass}">${statusLabel}</span>
             </div>
@@ -2490,7 +2439,7 @@
         alert('Could not submit mileage. Please check your network connection or try again.');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit Odometer Photo';
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
       }
     });
   </script>
