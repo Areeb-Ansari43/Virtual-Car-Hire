@@ -3,6 +3,7 @@
 # Public service, fleet, contact and vehicle pages are intentionally crawlable.
 User-agent: *
 Allow: /
+Disallow: /portal/
 Disallow: /test.html
 Disallow: /google5d00861e8f9fe673.html
 Disallow: /BingSiteAuth.xml
