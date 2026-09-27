@@ -40,9 +40,48 @@
     window.addEventListener('scroll', handleHeaderScroll, { passive: true });
   }
 
-  // === Mobile menu ===
+  // === Navigation Dropdown & Mobile menu ===
+  const dropdownToggles = document.querySelectorAll('.nav-dropdown-toggle');
+  dropdownToggles.forEach(toggle => {
+    const container = toggle.closest('.nav-dropdown');
+    if (!container) return;
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const isOpen = container.classList.contains('is-open');
+      container.classList.toggle('is-open', !isOpen);
+      toggle.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.nav-dropdown.is-open').forEach(container => {
+      if (!container.contains(e.target)) {
+        container.classList.remove('is-open');
+        const toggle = container.querySelector('.nav-dropdown-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.nav-dropdown.is-open').forEach(container => {
+        container.classList.remove('is-open');
+        const toggle = container.querySelector('.nav-dropdown-toggle');
+        if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
   const burger = document.querySelector('.burger'), navLinks = document.querySelector('.nav-links');
-  if(burger && navLinks){ burger.addEventListener('click',()=>{ navLinks.classList.toggle('open'); if(navLinks.classList.contains('open')) Object.assign(navLinks.style,{display:'flex',flexDirection:'column',position:'absolute',top:'72px',right:'20px',background:'#0f0f12',padding:'14px',border:'1px solid #22222a',borderRadius:'14px',gap:'4px',zIndex:'200'}); else navLinks.style.cssText=''; }); }
+  if (burger && navLinks) {
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+    });
+  }
 
   // === Fleet filter (only on fleet page) ===
   const filterBtns = document.querySelectorAll('.car-filters [data-filter]');
