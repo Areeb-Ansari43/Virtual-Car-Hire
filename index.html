@@ -582,10 +582,16 @@
     <nav class="nav-links">
       <a class="active" href="/"><i class="fa-solid fa-house"></i> Home</a>
       <a href="/our-fleet"><i class="fa-solid fa-car"></i> Fleet</a>
-      <a href="/how-it-works"><i class="fa-solid fa-route"></i> How It Works</a>
-      <a href="/support"><i class="fa-solid fa-headset"></i> Support</a>
-      <a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a>
-      <a href="/about-us"><i class="fa-solid fa-circle-info"></i> About Us</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          <i class="fa-solid fa-circle-info"></i> About Us <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
+        </button>
+        <div class="nav-dropdown-menu" role="menu">
+          <a href="/how-it-works" role="menuitem"><i class="fa-solid fa-route"></i> How It Works</a>
+          <a href="/support" role="menuitem"><i class="fa-solid fa-headset"></i> Support</a>
+          <a href="/areas-we-cover" role="menuitem"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a>
+        </div>
+      </div>
       <a href="/contact-us"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
     <div class="nav-cta">

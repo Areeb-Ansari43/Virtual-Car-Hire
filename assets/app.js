@@ -40,9 +40,40 @@
     window.addEventListener('scroll', handleHeaderScroll, { passive: true });
   }
 
-  // === Mobile menu ===
+  // === Navigation Dropdown & Mobile menu ===
+  const dropdownToggle = document.querySelector('.nav-dropdown-toggle');
+  const dropdownContainer = document.querySelector('.nav-dropdown');
+
+  if (dropdownToggle && dropdownContainer) {
+    dropdownToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dropdownContainer.classList.contains('is-open');
+      dropdownContainer.classList.toggle('is-open', !isOpen);
+      dropdownToggle.setAttribute('aria-expanded', !isOpen);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!dropdownContainer.contains(e.target)) {
+        dropdownContainer.classList.remove('is-open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdownContainer.classList.remove('is-open');
+        dropdownToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
   const burger = document.querySelector('.burger'), navLinks = document.querySelector('.nav-links');
-  if(burger && navLinks){ burger.addEventListener('click',()=>{ navLinks.classList.toggle('open'); if(navLinks.classList.contains('open')) Object.assign(navLinks.style,{display:'flex',flexDirection:'column',position:'absolute',top:'72px',right:'20px',background:'#0f0f12',padding:'14px',border:'1px solid #22222a',borderRadius:'14px',gap:'4px',zIndex:'200'}); else navLinks.style.cssText=''; }); }
+  if (burger && navLinks) {
+    burger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+    });
+  }
 
   // === Fleet filter (only on fleet page) ===
   const filterBtns = document.querySelectorAll('.car-filters [data-filter]');
