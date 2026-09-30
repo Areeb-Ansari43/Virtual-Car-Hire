@@ -3,4 +3,24 @@
 /contact /contact-us 301
 /luton-pco-car-hire /pco-car-hire-luton 301
 /london-pco-car-hire / 301
+
+# Legacy vehicle URL redirects (solving blocked/missing path reports in Search Console)
+/ford-tourneo-custom /cars/ford-tourneo-custom 301
+/hyundai-ioniq /cars/hyundai-ioniq 301
+/hyundai-ioing /cars/hyundai-ioniq 301
+/hyundai-santa-fe /cars/hyundai-santa-fe 301
+/jaguar-i-pace /cars/jaguar-i-pace 301
+/mercedes-e220 /cars/mercedes-e220 301
+/mercedes-e300 /cars/mercedes-e300 301
+/mercedes-eqe /cars/mercedes-eqe 301
+/mercedes-eqs /cars/mercedes-eqs 301
+/mercedes-v-class /cars/mercedes-v-class 301
+/mercedes-vito /cars/mercedes-vito 301
+/mg-s9-phev-suv /cars/mg-s9-phev-suv 301
+/mg5-ev /cars/mg5-ev 301
+/tesla-model-3 /cars/tesla-model-3 301
+/toyota-auris-estate /cars/toyota-auris-estate 301
+/toyota-corolla-estate /cars/toyota-corolla-estate 301
+/toyota-prius /cars/toyota-prius 301
+
 https://virtualcarhire.pages.dev/* https://www.virtual-carhire.co.uk/:splat 301
