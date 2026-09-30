@@ -60,6 +60,10 @@ const publicPages = [
   'index.html', 'our-fleet.html', 'how-it-works.html', 'support.html', 'about-us.html', 'contact-us.html',
   'pco-car-hire-luton.html', 'areas-we-cover.html', 'whatsapp.html', 'emergency.html',
   'privacy-policy.html', 'cookie-policy.html', 'thank-you.html', '404.html',
+  'how-to-get-pco-licence-london.html',
+  'uber-bolt-pco-cars-london.html',
+  'pco-car-hire-london-guide.html',
+  'start-driving-uber-bolt-london.html',
   ...carFiles.map(c => `cars/${c}`)
 ];
 
