@@ -45,13 +45,16 @@ urlBlocks.forEach(block => {
   locMatches.push(url);
 });
 
-// Check all vehicle pages are included in sitemap.xml
+// Check all vehicle pages and new hubs are included in sitemap.xml
 const carFiles = fs.readdirSync(path.join(__dirname, '..', 'cars')).filter(f => f.endsWith('.html'));
 carFiles.forEach(car => {
   const slug = car.replace('.html', '');
   const carUrl = `${CANONICAL_DOMAIN}/cars/${slug}`;
   assert(locMatches.includes(carUrl), `sitemap.xml must contain vehicle page URL: ${carUrl}`);
 });
+
+assert(locMatches.includes(`${CANONICAL_DOMAIN}/guides`), 'sitemap.xml must contain /guides');
+assert(locMatches.includes(`${CANONICAL_DOMAIN}/the-auto-surgeon`), 'sitemap.xml must contain /the-auto-surgeon');
 
 console.log('✅ PASS: sitemap.xml is valid XML, contains valid canonical URLs, correct dates, and all vehicles.');
 
@@ -60,6 +63,7 @@ const publicPages = [
   'index.html', 'our-fleet.html', 'how-it-works.html', 'support.html', 'about-us.html', 'contact-us.html',
   'pco-car-hire-luton.html', 'areas-we-cover.html', 'whatsapp.html', 'emergency.html',
   'privacy-policy.html', 'cookie-policy.html', 'thank-you.html', '404.html',
+  'guides.html', 'the-auto-surgeon.html',
   'how-to-get-pco-licence-london.html',
   'uber-bolt-pco-cars-london.html',
   'pco-car-hire-london-guide.html',
