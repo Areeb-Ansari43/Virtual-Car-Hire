@@ -612,8 +612,6 @@
 <div class="dynamic-island" id="dynamicIsland">
   <a href="/"><i class="fa-solid fa-house"></i><span>Home</span></a>
   <a href="/our-fleet"><i class="fa-solid fa-car"></i><span>Fleet</span></a>
-  <a href="/how-it-works"><i class="fa-solid fa-route"></i><span>How It Works</span></a>
-  <a href="/support"><i class="fa-solid fa-headset"></i><span>Support</span></a>
   <a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i><span>Areas</span></a>
   <a href="/about-us"><i class="fa-solid fa-circle-info"></i><span>About</span></a>
   <a href="/contact-us" class="active"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
@@ -629,19 +627,8 @@
     <nav class="nav-links">
       <a href="/"><i class="fa-solid fa-house"></i> Home</a>
       <a href="/our-fleet"><i class="fa-solid fa-car"></i> Fleet</a>
-      <div class="nav-dropdown">
-        <div class="nav-dropdown-trigger">
-          <a href="/about-us" class="nav-link"><i class="fa-solid fa-circle-info"></i> About Us</a>
-          <button type="button" class="nav-dropdown-toggle" aria-label="Toggle About Us menu" aria-expanded="false" aria-haspopup="true">
-            <i class="fa-solid fa-chevron-down dropdown-arrow"></i>
-          </button>
-        </div>
-        <div class="nav-dropdown-menu" role="menu">
-          <a href="/how-it-works" role="menuitem"><i class="fa-solid fa-route"></i> How It Works</a>
-          <a href="/support" role="menuitem"><i class="fa-solid fa-headset"></i> Support</a>
-          <a href="/areas-we-cover" role="menuitem"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a>
-        </div>
-      </div>
+      <a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i> Areas</a>
+      <a href="/about-us"><i class="fa-solid fa-circle-info"></i> About</a>
       <a class="active" href="/contact-us"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
     <div class="nav-cta">
@@ -655,11 +642,7 @@
 <!-- Page Hero -->
 <section class="page-hero">
   <div class="container">
-    <div class="crumbs">
-      <a href="index.html">Home</a>
-      <span>›</span>
-      <span>Contact</span>
-    </div>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/"><i class="fa-solid fa-house"></i> Home</a><span class="sep"><i class="fa-solid fa-chevron-right"></i></span><span class="current">Contact Us</span></nav>
     <span class="hero-pill"><span class="dot"></span> We Reply Within 24 Hours</span>
     <h1>Contact <span class="em">Virtual Car Hire</span></h1>
     <h2>London's Most Trusted <span class="em">PCO Car Hire</span> Specialists</h2>
@@ -764,9 +747,9 @@
         </div>
         <p>Premium PCO car hire for professional drivers across London and Luton.</p>
         <div class="foot-socials">
-          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" aria-label="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-          <a href="https://www.instagram.com/virtual.car.hire/" aria-label="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://www.tiktok.com/@virtual.car.hire" aria-label="TikTok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.facebook.com/people/Virtual-Car-Hire/100057211609176/" aria-label="Facebook" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/virtual.car.hire/" aria-label="Instagram" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@virtual.car.hire" aria-label="TikTok" target="_blank" rel="noopener"><i class="fa-brands fa-tiktok"></i></a>
           <a href="/whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
         </div>
       </div>
@@ -782,18 +765,31 @@
       <div>
         <h4>DRIVERS</h4>
         <ul>
-          <li><a href="/our-fleet"><i class="fa-solid fa-car"></i> Our Fleet</a></li>
-          <li><a href="/how-it-works"><i class="fa-solid fa-route"></i> How It Works</a></li>
-          <li><a href="/support"><i class="fa-solid fa-headset"></i> Support</a></li>
+          <li><a href="/our-fleet"><i class="fa-solid fa-car"></i> Fleet</a></li>
           <li><a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a></li>
           <li><a href="/pco-car-hire-luton"><i class="fa-solid fa-plane-arrival"></i> Luton PCO Hire</a></li>
+          <li><a href="/how-it-works"><i class="fa-solid fa-route"></i> How It Works</a></li>
+          <li><a href="/support"><i class="fa-solid fa-headset"></i> Support</a></li>
         </ul>
       </div>
       <div>
-        <h4>GET IN TOUCH</h4>
+        <h4>PCO DRIVER GUIDES</h4>
         <ul>
-          <li><a href="https://wa.me/442072946756"><i class="fa-solid fa-phone"></i> +44 20 7294 6756</a></li>
-          <li><a href="/contact-us"><i class="fa-solid fa-envelope"></i> Contact Us</a></li>
+          <li><a href="/guides"><i class="fa-solid fa-book-open"></i> Guides Hub</a></li>
+          <li><a href="/guides/how-to-get-a-pco-licence"><i class="fa-solid fa-id-card"></i> How to Get a PCO Licence</a></li>
+          <li><a href="/guides/uber-bolt-eligible-cars"><i class="fa-solid fa-car-side"></i> Uber &amp; Bolt Eligible Cars</a></li>
+          <li><a href="/guides/pco-car-hire-advice"><i class="fa-solid fa-clipboard-check"></i> PCO Car Hire Advice</a></li>
+          <li><a href="/guides/how-to-start-driving"><i class="fa-solid fa-circle-play"></i> How to Start Driving</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>AUTOMOTIVE</h4>
+        <ul>
+          <li><a href="/the-auto-surgeon"><i class="fa-solid fa-wrench"></i> The Auto Surgeon</a></li>
+        </ul>
+        <h4 style="margin-top:20px;">LEGAL</h4>
+        <ul>
+          <li><a href="/privacy-policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
         </ul>
       </div>
     </div>
