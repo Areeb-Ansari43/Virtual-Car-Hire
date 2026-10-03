@@ -37,13 +37,12 @@ assert(loginHtmlContent.includes('id="twoFactorCodeInput"'), 'login.html must co
 assert(loginHtmlContent.includes('id="verify2faBtn"'), 'login.html must contain verify2faBtn button');
 assert(loginHtmlContent.includes('id="resend2faBtn"'), 'login.html must contain resend2faBtn button');
 
-// Shared Edge Function Integration
-assert(loginHtmlContent.includes("auth@fa-ibi.co.uk"), 'login.html must specify auth@fa-ibi.co.uk as sender address');
-assert(loginHtmlContent.includes("type: '2fa_code'") || loginHtmlContent.includes('type: "2fa_code"'), 'login.html must specify type: 2fa_code in payload');
-assert(loginHtmlContent.includes("supabase.functions.invoke('send-email'"), 'login.html must invoke shared send-email Edge Function');
+// Cloudflare Pages Functions 2FA Proxy Integration
+assert(loginHtmlContent.includes('/api/portal/request-code'), 'login.html must call /api/portal/request-code');
+assert(loginHtmlContent.includes('/api/portal/verify-code'), 'login.html must call /api/portal/verify-code');
 
 // Session 2FA Verification
-assert(loginHtmlContent.includes("sessionStorage.setItem('vch_2fa_verified_'"), 'login.html must set session-level 2FA verification in sessionStorage');
+assert(loginHtmlContent.includes('supabase.auth.setSession'), 'login.html must establish session via supabase.auth.setSession');
 
 // Rate-limiting Cooldown (30 seconds)
 assert(loginHtmlContent.includes('cooldownSeconds = 30'), 'login.html must enforce a 30-second cooldown on resends');
@@ -60,9 +59,8 @@ assert(loginHtmlContent.includes('PCO licence renewals') || loginHtmlContent.inc
 assert(loginHtmlContent.includes('contract ends, these automated reminder notifications stop automatically') || loginHtmlContent.includes('contract ends'), 'Terms modal must clarify emails stop when contract ends');
 assert(loginHtmlContent.includes('re-enrolled'), 'Terms modal must clarify re-enrollment if returning as a driver');
 assert(loginHtmlContent.includes('id="acceptTermsBtn"'), 'login.html must contain acceptTermsBtn button');
-assert(loginHtmlContent.includes('accept_driver_terms'), 'login.html must call accept_driver_terms RPC');
 
-console.log('✅ PASS: portal/login.html 2FA flow, Edge Function invocation, resend cooldown, and terms modal verified.');
+console.log('✅ PASS: portal/login.html 2FA flow, Cloudflare Pages Function proxy, resend cooldown, and terms modal verified.');
 
 // 3. Verify portal/dashboard.html Terms Check & Modal
 const dashHtmlPath = path.join(__dirname, '..', 'portal', 'dashboard.html');

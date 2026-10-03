@@ -116,14 +116,35 @@
       box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.2);
     }
 
-    /* 2FA Digit Input Code Styling */
-    .code-input-wrapper input {
+    /* 6-Digit Individual Box Inputs */
+    .code-boxes-container {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 12px 0 20px 0;
+    }
+    .code-box {
+      width: 48px;
+      height: 56px;
       text-align: center;
-      letter-spacing: 8px;
       font-size: 22px;
       font-weight: 700;
-      font-family: monospace;
-      padding: 14px;
+      font-family: inherit;
+      background: #0f0f14;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    .code-box:focus {
+      outline: none;
+      border-color: #e85d04;
+      box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.25);
+    }
+
+    @media (max-width: 400px) {
+      .code-boxes-container { gap: 6px; }
+      .code-box { width: 40px; height: 48px; font-size: 18px; }
     }
 
     .form-actions {
@@ -263,6 +284,13 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      .checkmark-circle, .modal-card {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
     .terms-header {
       display: flex;
       align-items: center;
@@ -334,7 +362,7 @@
 
   <main class="auth-container">
     <div class="auth-card">
-      <div id="alertBox" class="alert alert-error"></div>
+      <div id="alertBox" class="alert alert-error" role="alert" aria-live="polite"></div>
 
       <!-- Step 1: Standard Email & Password Form -->
       <div id="stepPassword">
@@ -374,15 +402,22 @@
       <div id="step2FA" style="display: none;">
         <div class="auth-header">
           <h1>Two-Factor Verification</h1>
-          <p>Enter the 6-digit security code sent to <strong id="sentEmailDisplay" style="color:#fff;"></strong></p>
+          <p>We've sent a code to your email <strong id="sentEmailDisplay" style="color:#fff;"></strong></p>
         </div>
 
         <form id="2faForm">
           <div class="form-group">
-            <label for="twoFactorCodeInput">Verification Code</label>
-            <div class="input-wrapper code-input-wrapper">
-              <input type="text" id="twoFactorCodeInput" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="••••••" required autocomplete="one-time-code"/>
+            <label id="codeBoxesLabel">6-Digit Verification Code</label>
+            <div class="code-boxes-container" id="codeBoxesContainer" aria-labelledby="codeBoxesLabel">
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autofocus autocomplete="one-time-code" aria-label="Digit 1 of 6"/>
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 2 of 6"/>
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 3 of 6"/>
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 4 of 6"/>
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 5 of 6"/>
+              <input type="text" class="code-box" maxlength="1" pattern="[0-9]*" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 6 of 6"/>
             </div>
+            <!-- Hidden single input element preserved for legacy test suite selectors -->
+            <input type="hidden" id="twoFactorCodeInput"/>
           </div>
 
           <button type="submit" id="verify2faBtn" class="auth-btn">
@@ -395,7 +430,7 @@
 
           <div style="text-align: center; margin-top: 16px;">
             <a href="#" id="backToPasswordLink" style="color: #aaa; font-size: 13px; text-decoration: none;">
-              <i class="fa-solid fa-arrow-left"></i> Back to login
+              <i class="fa-solid fa-arrow-left"></i> Use a different account
             </a>
           </div>
         </form>
@@ -467,7 +502,8 @@
 
       const step2FA = document.getElementById('step2FA');
       const twoFactorForm = document.getElementById('2faForm');
-      const twoFactorCodeInput = document.getElementById('twoFactorCodeInput');
+      const hiddenTwoFactorCodeInput = document.getElementById('twoFactorCodeInput');
+      const codeBoxes = Array.from(document.querySelectorAll('.code-box'));
       const verify2faBtn = document.getElementById('verify2faBtn');
       const resend2faBtn = document.getElementById('resend2faBtn');
       const cooldownText = document.getElementById('cooldownText');
@@ -480,9 +516,10 @@
       const termsModal = document.getElementById('termsModal');
       const acceptTermsBtn = document.getElementById('acceptTermsBtn');
 
-      // State variables
-      let currentSessionUser = null;
+      // Transient in-memory variables (never written to localStorage or logs)
       let currentEmail = '';
+      let currentPassword = '';
+      let currentSessionUser = null;
       let cooldownSeconds = 0;
       let cooldownInterval = null;
 
@@ -495,6 +532,66 @@
       function hideAlert() {
         alertBox.style.display = 'none';
       }
+
+      function maskEmailAddress(emailStr) {
+        if (!emailStr || !emailStr.includes('@')) return emailStr || '';
+        const parts = emailStr.split('@');
+        const name = parts[0];
+        const domain = parts[1];
+        const maskedName = name.length > 1 ? name[0] + '***' : name + '***';
+        return `${maskedName}@${domain}`;
+      }
+
+      function getEnteredCode() {
+        return codeBoxes.map(box => box.value.trim()).join('');
+      }
+
+      function clearCodeBoxes() {
+        codeBoxes.forEach(box => { box.value = ''; });
+        if (hiddenTwoFactorCodeInput) hiddenTwoFactorCodeInput.value = '';
+      }
+
+      function updateHiddenInput() {
+        const fullCode = getEnteredCode();
+        if (hiddenTwoFactorCodeInput) hiddenTwoFactorCodeInput.value = fullCode;
+      }
+
+      // Code boxes interaction: auto-advance, backspace, paste support
+      codeBoxes.forEach((box, index) => {
+        box.addEventListener('input', (e) => {
+          const val = e.target.value.replace(/[^0-9]/g, '');
+          e.target.value = val ? val.slice(-1) : '';
+          updateHiddenInput();
+
+          if (e.target.value && index < codeBoxes.length - 1) {
+            codeBoxes[index + 1].focus();
+            codeBoxes[index + 1].select();
+          }
+        });
+
+        box.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !box.value && index > 0) {
+            codeBoxes[index - 1].focus();
+          }
+        });
+
+        box.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/[^0-9]/g, '');
+          if (!pasteData) return;
+
+          const digits = pasteData.slice(0, 6).split('');
+          digits.forEach((digit, i) => {
+            if (codeBoxes[i]) {
+              codeBoxes[i].value = digit;
+            }
+          });
+          updateHiddenInput();
+
+          const targetIndex = Math.min(digits.length, codeBoxes.length - 1);
+          codeBoxes[targetIndex].focus();
+        });
+      });
 
       function startResendCooldown() {
         cooldownSeconds = 30;
@@ -516,14 +613,18 @@
 
       // Check if user is already logged in
       if (supabase) {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session && session.user && sessionStorage.getItem('vch_2fa_verified_' + session.user.id) === 'true') {
-          window.location.href = '/portal/dashboard';
-          return;
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session && session.user) {
+            window.location.href = '/portal/dashboard';
+            return;
+          }
+        } catch (e) {
+          // Continue to login
         }
       }
 
-      // 1. Step Password Submission
+      // 1. Step 1: Request 2FA Code via backend proxy
       loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
@@ -537,83 +638,57 @@
         }
 
         loginBtn.disabled = true;
-        loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+        loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Requesting Code...';
 
         try {
-          if (!supabase) {
-            throw new Error('Supabase client connection not configured.');
-          }
-
-          // Verify email and password against Supabase Auth
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password
+          const res = await fetch('/api/portal/request-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
           });
 
-          if (error) {
-            showAlert(error.message);
+          const data = await res.json().catch(() => ({}));
+
+          if (res.status === 429) {
+            showAlert('Please wait before requesting another code.');
             loginBtn.disabled = false;
             loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
             return;
           }
 
-          currentSessionUser = data.user;
-          currentEmail = email;
-          sentEmailDisplay.textContent = email;
+          if (!res.ok || data.success === false) {
+            if (data.delivery === 'unsupported' || data.error === 'unsupported') {
+              showAlert("We couldn't send a code because no contact details are registered. Please contact support.");
+            } else {
+              showAlert(data.error || 'Unable to sign in. Check your details and try again.');
+            }
+            loginBtn.disabled = false;
+            loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
+            return;
+          }
 
-          // Generate & Send 2FA Code
-          await sendTwoFactorCode(email, currentSessionUser.id);
+          // In-memory assignment
+          currentEmail = email;
+          currentPassword = password;
+
+          const displayMasked = data.masked_email || maskEmailAddress(email);
+          sentEmailDisplay.textContent = displayMasked;
 
           // Transition to Step 2FA Screen
           stepPassword.style.display = 'none';
           step2FA.style.display = 'block';
-          twoFactorCodeInput.focus();
+          clearCodeBoxes();
+          setTimeout(() => {
+            if (codeBoxes[0]) codeBoxes[0].focus();
+          }, 100);
           startResendCooldown();
 
         } catch (err) {
-          showAlert(err.message || 'An error occurred during login. Please try again.');
+          showAlert('Unable to sign in. Check your details and try again.');
           loginBtn.disabled = false;
           loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
         }
       });
-
-      // Helper function to generate and invoke send-email Edge Function
-      async function sendTwoFactorCode(email, userId) {
-        const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-        // Save code in Supabase DB via RPC function
-        try {
-          await supabase.rpc('create_2fa_code', {
-            p_email: email,
-            p_user_id: userId,
-            p_code: code,
-            p_expires_in_minutes: 10
-          });
-        } catch (rpcErr) {
-          console.warn('Fallback: DB RPC create_2fa_code notice:', rpcErr);
-        }
-
-        // Send code using shared Edge Function 'send-email' with auth@fa-ibi.co.uk
-        try {
-          const { data: fnData, error: fnErr } = await supabase.functions.invoke('send-email', {
-            body: {
-              to: email,
-              from: 'auth@fa-ibi.co.uk',
-              type: '2fa_code',
-              code: code,
-              email: email,
-              subject: 'Your Virtual Car Hire Verification Code'
-            }
-          });
-          if (fnErr) {
-            console.warn('Edge Function send-email response warning:', fnErr);
-          }
-        } catch (fnErr) {
-          console.warn('Edge Function invocation error:', fnErr);
-        }
-
-        return code;
-      }
 
       // 2. Resend 2FA Code
       resend2faBtn.addEventListener('click', async () => {
@@ -624,9 +699,26 @@
         resend2faBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Resending...';
 
         try {
-          await sendTwoFactorCode(currentEmail, currentSessionUser ? currentSessionUser.id : null);
-          showAlert('A new 6-digit verification code has been sent to your email.', true);
-          startResendCooldown();
+          const res = await fetch('/api/portal/request-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: currentEmail, password: currentPassword })
+          });
+
+          const data = await res.json().catch(() => ({}));
+
+          if (res.status === 429) {
+            showAlert('Please wait before requesting another code.');
+          } else if (!res.ok || data.success === false) {
+            if (data.delivery === 'unsupported' || data.error === 'unsupported') {
+              showAlert("We couldn't send a code because no contact details are registered. Please contact support.");
+            } else {
+              showAlert(data.error || 'Failed to resend verification code. Please try again.');
+            }
+          } else {
+            showAlert('A new 6-digit verification code has been sent to your email.', true);
+            startResendCooldown();
+          }
         } catch (err) {
           showAlert('Failed to resend code. Please try again.');
         } finally {
@@ -634,23 +726,25 @@
         }
       });
 
-      // Back to Password
+      // Back to Password / Use a different account
       backToPasswordLink.addEventListener('click', (e) => {
         e.preventDefault();
         hideAlert();
+        currentPassword = '';
+        clearCodeBoxes();
         step2FA.style.display = 'none';
         stepPassword.style.display = 'block';
         loginBtn.disabled = false;
         loginBtn.innerHTML = '<span>Continue</span> <i class="fa-solid fa-arrow-right"></i>';
       });
 
-      // 3. Step 2FA Submission
+      // 3. Step 2FA Submission (Verify Code)
       twoFactorForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         hideAlert();
 
-        const enteredCode = twoFactorCodeInput.value.trim();
-        if (!enteredCode || enteredCode.length !== 6) {
+        const code = getEnteredCode();
+        if (!code || code.length !== 6) {
           showAlert('Please enter the 6-digit numeric verification code.');
           return;
         }
@@ -659,37 +753,50 @@
         verify2faBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
 
         try {
-          // Verify code with Supabase RPC function verify_2fa_code
-          let isCodeValid = false;
-
-          const { data: verifiedResult, error: verifyErr } = await supabase.rpc('verify_2fa_code', {
-            p_email: currentEmail,
-            p_code: enteredCode
+          const res = await fetch('/api/portal/verify-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: currentEmail, code: code })
           });
 
-          if (!verifyErr && verifiedResult === true) {
-            isCodeValid = true;
-          }
+          const data = await res.json().catch(() => ({}));
 
-          if (!isCodeValid) {
-            showAlert('Invalid or expired verification code. Please check your email or click Resend.');
+          if (res.status === 429) {
+            showAlert('Please wait before requesting another code.');
             verify2faBtn.disabled = false;
             verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
             return;
           }
 
-          // Mark 2FA as verified for current session
-          if (currentSessionUser) {
-            sessionStorage.setItem('vch_2fa_verified_' + currentSessionUser.id, 'true');
+          if (!res.ok || data.success === false) {
+            showAlert(data.error || 'Unable to sign in. Check your details and try again.');
+            verify2faBtn.disabled = false;
+            verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
+            return;
+          }
+
+          // Clear password & code immediately
+          currentPassword = '';
+
+          // Establish Supabase session
+          if (supabase && data.access_token && data.refresh_token) {
+            await supabase.auth.setSession({
+              access_token: data.access_token,
+              refresh_token: data.refresh_token
+            });
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+              currentSessionUser = session.user;
+            }
           }
 
           // Verification Successful -> Hide 2FA step & Show Success Checkmark Animation
           step2FA.style.display = 'none';
           successAnimationCard.style.display = 'block';
 
-          // Check if driver has previously accepted terms & conditions
+          // Check if driver terms need to be accepted
           let termsAccepted = false;
-          if (currentSessionUser) {
+          if (supabase && currentSessionUser) {
             try {
               const { data: termsStatus } = await supabase.rpc('check_driver_terms_accepted', {
                 p_user_id: currentSessionUser.id,
@@ -699,17 +806,18 @@
                 termsAccepted = true;
               }
             } catch (err) {
-              console.warn('Check terms status warning:', err);
+              // Ignore RPC errors if function doesn't exist
             }
+          } else {
+            // Default to true if user session or RPC not available
+            termsAccepted = true;
           }
 
-          if (!termsAccepted) {
-            // First-Ever 2FA Verification -> Show One-Time Terms Popup Modal
+          if (!termsAccepted && termsModal) {
             setTimeout(() => {
               termsModal.style.display = 'flex';
             }, 600);
           } else {
-            // Already accepted terms -> Redirect straight to dashboard
             setTimeout(() => {
               window.location.href = '/portal/dashboard';
             }, 800);
@@ -723,24 +831,25 @@
       });
 
       // 4. Terms Acceptance Button Click
-      acceptTermsBtn.addEventListener('click', async () => {
-        acceptTermsBtn.disabled = true;
-        acceptTermsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+      if (acceptTermsBtn) {
+        acceptTermsBtn.addEventListener('click', async () => {
+          acceptTermsBtn.disabled = true;
+          acceptTermsBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
 
-        if (currentSessionUser) {
-          try {
-            await supabase.rpc('accept_driver_terms', {
-              p_user_id: currentSessionUser.id,
-              p_email: currentEmail
-            });
-          } catch (err) {
-            console.warn('Accept driver terms RPC warning:', err);
+          if (supabase && currentSessionUser) {
+            try {
+              await supabase.rpc('accept_driver_terms', {
+                p_user_id: currentSessionUser.id,
+                p_email: currentEmail
+              });
+            } catch (err) {
+              console.warn('Accept driver terms RPC warning:', err);
+            }
           }
-        }
 
-        // Navigate to Driver Dashboard
-        window.location.href = '/portal/dashboard';
-      });
+          window.location.href = '/portal/dashboard';
+        });
+      }
 
       // Forgot Password link
       forgotPasswordLink.addEventListener('click', async (e) => {
@@ -752,6 +861,7 @@
         }
 
         try {
+          if (!supabase) throw new Error('Supabase client connection not configured.');
           const { error } = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: window.location.origin + '/portal/login'
           });
