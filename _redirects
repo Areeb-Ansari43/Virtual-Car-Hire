@@ -3,10 +3,8 @@
 /contact /contact-us 301
 /luton-pco-car-hire /pco-car-hire-luton 301
 /london-pco-car-hire / 301
-/guides /guides.html 200
 /guides/how-to-get-a-pco-licence /how-to-get-pco-licence-london.html 200
 /guides/uber-bolt-eligible-cars /uber-bolt-pco-cars-london.html 200
 /guides/pco-car-hire-advice /pco-car-hire-london-guide.html 200
 /guides/how-to-start-driving /start-driving-uber-bolt-london.html 200
-/the-auto-surgeon /the-auto-surgeon.html 200
 https://virtualcarhire.pages.dev/* https://www.virtual-carhire.co.uk/:splat 301
