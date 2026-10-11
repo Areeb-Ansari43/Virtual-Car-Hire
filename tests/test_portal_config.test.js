@@ -45,7 +45,7 @@ assert.strictEqual(client.url, 'https://hhpkffratbbnwedjlebx.supabase.co', 'Clie
 assert(client.key.startsWith('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'), 'Client should be initialized with hardcoded anon key');
 console.log('✅ PASS: initVchSupabase initializes client with correct hardcoded URL and key at runtime.');
 
-// 4. Test top navigation in index.html and our-fleet.html does not contain Luton PCO Hire nav item
+// 4. Test top navigation in index.html and our-fleet.html contains About dropdown with 3 destinations
 const indexHtmlContent = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const ourFleetHtmlContent = fs.readFileSync(path.join(__dirname, '..', 'our-fleet.html'), 'utf8');
 
@@ -53,9 +53,12 @@ const navRegex = /<nav class="nav-links">([\s\S]*?)<\/nav>/;
 const indexNavMatch = indexHtmlContent.match(navRegex);
 const ourFleetNavMatch = ourFleetHtmlContent.match(navRegex);
 
-assert(indexNavMatch && !indexNavMatch[1].includes('Luton PCO Hire'), 'index.html top nav must not contain Luton PCO Hire link');
-assert(ourFleetNavMatch && !ourFleetNavMatch[1].includes('Luton PCO Hire'), 'our-fleet.html top nav must not contain Luton PCO Hire link');
-console.log('✅ PASS: Top navigation in index.html and our-fleet.html does not contain Luton PCO Hire link.');
+assert(indexNavMatch && indexNavMatch[1].includes('aboutDropdown'), 'index.html top nav must contain aboutDropdown');
+assert(indexNavMatch[1].includes('href="/areas-we-cover"'), 'index.html About dropdown must contain Areas We Cover link');
+assert(indexNavMatch[1].includes('href="/pco-car-hire-luton"'), 'index.html About dropdown must contain Luton PCO Hire link');
+assert(indexNavMatch[1].includes('href="/how-it-works"'), 'index.html About dropdown must contain How It Works link');
+assert(ourFleetNavMatch && ourFleetNavMatch[1].includes('aboutDropdown'), 'our-fleet.html top nav must contain aboutDropdown');
+console.log('✅ PASS: Top navigation in index.html and our-fleet.html contains About dropdown with 3 destinations.');
 
 // 5. Test portal/dashboard.html features, vehicle resolution, UK plate, and RLS schema
 const dashboardHtmlContent = fs.readFileSync(path.join(__dirname, '..', 'portal', 'dashboard.html'), 'utf8');

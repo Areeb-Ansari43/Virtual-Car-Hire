@@ -160,17 +160,36 @@ function generateAdminEmailHtml(formData) {
 </html>`;
 }
 
-function generateCustomerConfirmationHtml(customerName) {
+function generateCustomerConfirmationHtml(formData) {
   const logoUrl = "https://www.virtual-carhire.co.uk/assets/logo.png";
   const siteUrl = "https://www.virtual-carhire.co.uk/";
-  const safeName = escapeHtml(customerName || "Customer");
+
+  const customerName = (formData.name || formData.full_name || [formData.firstName, formData.lastName].filter(Boolean).join(" ") || "Customer").trim();
+  const phone = (formData.phone || formData.mobile || formData.telephone || "").trim();
+  const email = (formData.email || "").trim();
+  const subject = (formData.subject || "").trim();
+  const message = (formData.message || formData.details || "").trim();
+
+  const safeName = escapeHtml(customerName);
+
+  // Construct dynamic pre-filled WhatsApp follow-up message
+  const waLines = ["Hello Virtual Car Hire, I am following up on my inquiry."];
+  if (customerName) waLines.push(`Name: ${customerName}`);
+  if (phone) waLines.push(`Phone: ${phone}`);
+  if (email) waLines.push(`Email: ${email}`);
+  if (subject) waLines.push(`Subject: ${subject}`);
+  if (message) waLines.push(`Original message: ${message}`);
+  waLines.push("Please could you provide an update on my inquiry?");
+
+  const waText = waLines.join("\n\n");
+  const waUrl = `https://wa.me/447508496940?text=${encodeURIComponent(waText)}`;
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thank You for Contacting Virtual Car Hire</title>
+  <title>We have received your enquiry — Virtual Car Hire</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f3f4f6; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
   <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color: #f3f4f6; padding: 20px 10px;">
@@ -194,13 +213,18 @@ function generateCustomerConfirmationHtml(customerName) {
                 Dear ${safeName},
               </p>
               <p style="margin: 0 0 16px;">
-                Thank you for contacting Virtual Car Hire.
+                We have received your inquiry.
               </p>
               <p style="margin: 0 0 16px;">
-                We have received your request and a member of our team will get back to you within 24 hours.
+                Thank you for contacting Virtual Car Hire. Our team will respond as soon as possible.
               </p>
               <p style="margin: 0 0 16px;">
-                If you have not received a response within this time, please contact us on <strong>+44 20 7294 6756</strong>.
+                If no reply has been made to the inquiry, please also text this WhatsApp number:
+              </p>
+              <p style="margin: 0 0 24px; text-align: center;">
+                <a href="${escapeHtml(waUrl)}" target="_blank" style="display: inline-block; background-color: #25d366; color: #ffffff; font-weight: 700; font-size: 15px; padding: 12px 26px; border-radius: 999px; text-decoration: none; box-shadow: 0 4px 12px rgba(37,211,102,0.3);">
+                  Text Us on WhatsApp (+44 7508 496940) &rarr;
+                </a>
               </p>
               <p style="margin: 0 0 24px; padding: 12px 16px; background-color: #fff7ed; border-left: 4px solid #f7791f; border-radius: 6px; color: #9a3412; font-size: 14px;">
                 Please note that our office is closed on Saturdays and Sundays, and we do not respond to enquiries during weekends.
@@ -327,7 +351,7 @@ export async function onRequestPost(context) {
     }
 
     // 2. Send Customer Confirmation Email & handle response explicitly
-    const customerHtml = generateCustomerConfirmationHtml(customerName);
+    const customerHtml = generateCustomerConfirmationHtml(formData);
     const customerResendPayload = {
       from: senderFromHeader,
       to: [rawCustomerEmail],
