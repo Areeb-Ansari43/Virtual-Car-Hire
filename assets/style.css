@@ -906,6 +906,13 @@ footer .container{max-width:1200px;margin:0 auto}
 @media (max-width:600px){.whatsapp-section{padding:70px 0}.glass-form-card{padding:24px 20px;border-radius:22px}.whatsapp-copy h2{font-size:42px}.whatsapp-hero{padding:125px 0 70px}.whatsapp-copy>p{font-size:15px}.form-row{grid-template-columns:1fr!important;}}
 @media (prefers-reduced-motion:reduce){.whatsapp-success.show,.float .wa::before{animation:none}.ticker .track{animation:none}.hero-glow{animation:none}}
 
+/* ===== Vehicle Page Navigation Buttons & Breadcrumbs ===== */
+.back-link{display:inline-flex;align-items:center;gap:8px;color:#cbd5e1;font-size:13.5px;font-weight:600;padding:8px 16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:999px;transition:all .25s ease;text-decoration:none;z-index:2;position:relative}
+.back-link:hover{color:#fff;background:rgba(255,255,255,0.16);border-color:var(--orange)}
+.bottom-nav-links{display:flex;justify-content:center;align-items:center;gap:14px;margin-top:28px;z-index:2;position:relative;flex-wrap:wrap}
+.bottom-nav-links a{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;font-size:13.5px;font-weight:600;background:#fff;border:1px solid #d1d5db;color:#111827;transition:all .25s ease;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.06)}
+.bottom-nav-links a:hover{background:var(--grad-orange);color:#fff;border-color:transparent;transform:translateY(-2px);box-shadow:0 8px 20px rgba(247,121,31,0.3)}
+
 /* ===== Vehicle Detail Page Styles ===== */
 .car-detail-hero{background:linear-gradient(180deg,#0a0a0c 0%,#16161b 100%);padding:40px 0 50px;color:#fff}
 .fuel-badge{display:inline-flex;align-items:center;gap:6px;color:#fff;padding:5px 14px;border-radius:50px;font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:16px}
