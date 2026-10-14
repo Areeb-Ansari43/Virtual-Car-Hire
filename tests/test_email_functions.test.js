@@ -154,8 +154,11 @@ async function runTests() {
 
   const customerHtml = customerEmailCall.body.html;
   assert.ok(customerHtml.includes("Dear John Smith,"), "Customer name present in confirmation");
+  assert.ok(customerHtml.includes("We have received your inquiry."), "Inquiry confirmation body present");
   assert.ok(customerHtml.includes("Thank you for contacting Virtual Car Hire."), "Confirmation body present");
-  assert.ok(customerHtml.includes("+44 20 7294 6756"), "Phone number present in confirmation");
+  assert.ok(customerHtml.includes("If no reply has been made to the inquiry, please also text this WhatsApp number"), "WhatsApp text instruction present");
+  assert.ok(customerHtml.includes("https://wa.me/447508496940?text="), "WhatsApp click-to-chat URL present");
+  assert.ok(customerHtml.includes("John%20Smith"), "URL-encoded submitted customer name present in WhatsApp text");
   assert.ok(customerHtml.includes("closed on Saturdays and Sundays"), "Weekend notice present in confirmation");
 
   console.log("✅ PASS: Customer confirmation email formatted correctly.");

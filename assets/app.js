@@ -104,6 +104,21 @@
   // === WhatsApp enquiry ===
   const enquiryForm = document.getElementById('whatsappEnquiryForm');
   if(enquiryForm){
+    const select = enquiryForm.querySelector('select[name="car"]');
+    if(select){
+      const params = new URLSearchParams(window.location.search);
+      const carParam = params.get('car') || params.get('vehicle');
+      if(carParam){
+        const cleanParam = carParam.toLowerCase().replace(/[^a-z0-9]/g, '');
+        Array.from(select.options).forEach(opt => {
+          if(!opt.value && !opt.text) return;
+          const cleanOpt = (opt.value || opt.text).toLowerCase().replace(/[^a-z0-9]/g, '');
+          if(cleanOpt && (cleanOpt === cleanParam || cleanParam.includes(cleanOpt) || cleanOpt.includes(cleanParam))){
+            select.value = opt.value || opt.text;
+          }
+        });
+      }
+    }
     const success = document.getElementById('whatsappSuccess'), send = document.getElementById('sendWhatsapp'), edit = document.getElementById('editEnquiry'), submit = enquiryForm.querySelector('button[type="submit"]');
     enquiryForm.addEventListener('submit',(event)=>{
       event.preventDefault();
