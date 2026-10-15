@@ -34,7 +34,7 @@
   <link rel="shortcut icon" href="/assets/favicon.ico?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="/assets/style.css"/>
 
@@ -86,6 +86,18 @@
 </head>
 <body>
 
+<!-- Cookie Consent Banner -->
+<div id="cookieConsent" style="position: fixed; bottom: 0; left: 0; right: 0; background: #1a1a1a; color: #fff; padding: 16px 24px; z-index: 1000; display: none; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;">
+  <div style="flex: 1; font-size: 13px; line-height: 1.5;">
+    <i class="fa-solid fa-cookie-bite"></i> We use cookies to improve your experience. By using our site, you accept our
+    <a href="/cookie-policy" style="color: #f7791f;">Cookie Policy</a> and <a href="/privacy-policy" style="color: #f7791f;">Privacy Policy</a>.
+  </div>
+  <div style="display: flex; gap: 12px;">
+    <button id="acceptCookies" style="background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600;">Accept</button>
+    <button id="declineCookies" style="background: transparent; color:#ccc; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer;">Decline</button>
+  </div>
+</div>
+
 <!-- Dynamic Island (Top Floating Nav) -->
 <div class="dynamic-island" id="dynamicIsland">
   <a href="/"><i class="fa-solid fa-house"></i><span>Home</span></a>
@@ -126,29 +138,29 @@
 </header>
 
 <!-- Page Hero -->
-<section class="page-hero">
-  <div class="container">
+<section class="page-hero" style="background: linear-gradient(180deg, rgba(8,8,12,0.85) 0%, rgba(12,12,18,0.92) 100%), radial-gradient(ellipse at top, rgba(247,121,31,0.2), transparent 60%), #0a0a0c;">
+  <div class="container" style="max-width:1240px;">
     <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/" style="color:#cbd5e1;"><i class="fa-solid fa-house"></i> Home</a>
       <span class="sep"><i class="fa-solid fa-chevron-right"></i></span>
-      <span class="current">The Auto Surgeon</span>
+      <span class="current" style="color:#f7791f;font-weight:600;">The Auto Surgeon</span>
     </nav>
-    <h1 style="color:#ffffff;">The Auto Surgeon — <span class="em" style="color:#f7791f;">Garage &amp; Vehicle Maintenance</span></h1>
-    <p style="color:#e0e0e0;">The Auto Surgeon is the automotive garage associated with Virtual Car Hire, providing vehicle maintenance services including tyres, servicing, brakes, wheel alignment and diagnostics in Hayes.</p>
+    <h1 style="color:#ffffff; font-family:'Playfair Display',serif; font-size:clamp(36px,5.5vw,60px); font-weight:700; margin-bottom:16px;">The Auto Surgeon — <span class="em" style="color:#f7791f; font-style:italic;">Garage &amp; Vehicle Maintenance</span></h1>
+    <p style="color:#e2e8f0; font-size:17px; max-width:720px; margin:0 auto; line-height:1.65;">The Auto Surgeon is the official automotive garage supporting Virtual Car Hire in Hayes. Providing professional vehicle maintenance, servicing, tyres, brakes, wheel alignment and diagnostics.</p>
   </div>
 </section>
 
-<!-- Main Content -->
-<section style="padding:60px 0 100px;">
-  <div class="container">
+<!-- Main Content Section -->
+<section style="padding:60px 0 100px; background:#fafafb;">
+  <div class="container" style="max-width:1240px;">
 
     <!-- Relationship Banner -->
-    <div style="background:#1c1c28;border:1px solid rgba(247,121,31,0.3);border-radius:20px;padding:32px;margin-bottom:50px;">
-      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-        <div style="font-size:36px;color:#e85d04;"><i class="fa-solid fa-wrench"></i></div>
-        <div style="flex:1;">
-          <h2 style="color:#fff;font-size:24px;margin-bottom:8px;font-family:'Playfair Display',Georgia,serif;">Expert Fleet &amp; Private Vehicle Care in Hayes</h2>
-          <p style="color:#bbb;line-height:1.6;font-size:15px;margin:0;">The Auto Surgeon maintains and services the entire Virtual Car Hire PCO fleet to ensure maximum reliability and safety on London roads. The garage also offers professional vehicle repairs and maintenance to private hire drivers and local motorist customers.</p>
+    <div style="background:#ffffff;border:1px solid #e2e8f0;border-left:4px solid #f7791f;border-radius:18px;padding:32px;margin-bottom:50px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+        <div style="font-size:36px;color:#f7791f;width:60px;height:60px;border-radius:50%;background:#ffedd5;display:grid;place-items:center;flex-shrink:0;"><i class="fa-solid fa-wrench"></i></div>
+        <div style="flex:1;min-width:280px;">
+          <h2 style="color:#0f172a;font-size:24px;margin-bottom:8px;font-family:'Playfair Display',Georgia,serif;font-weight:700;">Expert Fleet &amp; Private Vehicle Care in Hayes</h2>
+          <p style="color:#334155;line-height:1.65;font-size:15.5px;margin:0;">The Auto Surgeon maintains and services the entire Virtual Car Hire PCO fleet to ensure maximum reliability and safety on London roads. The garage also offers professional vehicle repairs and maintenance to private hire drivers and local motorist customers.</p>
         </div>
         <div>
           <a href="https://theautosurgeon.co.uk/" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Official Auto Surgeon Site</a>
@@ -156,57 +168,57 @@
       </div>
     </div>
 
-    <!-- Services Grid -->
-    <div style="margin-bottom:48px;">
-      <span class="eyebrow center">Garage Services</span>
-      <h2 class="title center" style="color:#fff;">Comprehensive Garage Services in <span class="em">Hayes</span></h2>
-      <p class="lede center" style="color:#aaa;">Equipped with modern diagnostic technology and experienced technicians for hybrid, electric and conventional petrol/diesel vehicles.</p>
+    <!-- Services Section Heading -->
+    <div style="margin-bottom:48px;text-align:center;">
+      <span class="eyebrow center" style="color:#c94e00;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-size:12px;display:block;margin-bottom:8px;">Garage Services</span>
+      <h2 class="title center" style="color:#0f172a;font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:12px;">Comprehensive Garage Services in <span class="em" style="color:#f7791f;font-style:italic;">Hayes</span></h2>
+      <p class="lede center" style="color:#475569;max-width:680px;margin:0 auto;font-size:16px;line-height:1.65;">Equipped with modern diagnostic technology and experienced technicians for hybrid, electric and conventional petrol/diesel vehicles.</p>
     </div>
 
-    <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;">
+    <div class="features-grid" style="display:grid;grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:24px;">
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-compact-disc"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">Tyres &amp; Fitting</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Premium and budget tyre replacements, puncture repairs, wheel balancing, and seasonal tyre inspections for high-mileage drivers.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-compact-disc"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">Tyres &amp; Fitting</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Premium and budget tyre replacements, puncture repairs, wheel balancing, and seasonal tyre inspections for high-mileage drivers.</p>
       </div>
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-oil-can"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">Interim &amp; Full Servicing</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Scheduled oil changes, filter replacements, fluid top-ups, and full vehicle safety checks tailored for intensive PCO usage.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-oil-can"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">Interim &amp; Full Servicing</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Scheduled oil changes, filter replacements, fluid top-ups, and full vehicle safety checks tailored for intensive PCO usage.</p>
       </div>
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-drum-steelpan"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">Brake Systems</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Brake pad and disc replacements, brake fluid change, and inspection of regenerative braking systems on hybrid and electric cars.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-drum-steelpan"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">Brake Systems</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Brake pad and disc replacements, brake fluid change, and inspection of regenerative braking systems on hybrid and electric cars.</p>
       </div>
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-arrows-to-dot"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">3D Wheel Alignment</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Precision laser wheel alignment to reduce uneven tyre wear, improve handling stability, and boost fuel and battery efficiency.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-arrows-to-dot"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">3D Wheel Alignment</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Precision laser wheel alignment to reduce uneven tyre wear, improve handling stability, and boost fuel and battery efficiency.</p>
       </div>
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-laptop-code"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">Engine &amp; EV Diagnostics</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Advanced OBD diagnostics, fault code clearance, sensor troubleshooting, and electronic system checks for all major vehicle makes.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-laptop-code"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">Engine &amp; EV Diagnostics</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Advanced OBD diagnostics, fault code clearance, sensor troubleshooting, and electronic system checks for all major vehicle makes.</p>
       </div>
 
-      <div class="feature" style="background:#181822;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:28px;">
-        <div class="ic" style="color:#e85d04;font-size:24px;margin-bottom:14px;"><i class="fa-solid fa-bolt"></i></div>
-        <h3 style="color:#fff;font-size:18px;margin-bottom:10px;">Tesla &amp; EV Specialist Service</h3>
-        <p style="color:#bbb;line-height:1.6;font-size:14px;">Dedicated maintenance for electric vehicles including Tesla Model 3, Mercedes EQE/EQS, MG, and Hyundai EV drivetrains.</p>
+      <div class="feature" style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:28px;box-shadow:0 4px 16px rgba(0,0,0,0.03);">
+        <div class="ic" style="color:#f7791f;font-size:26px;margin-bottom:14px;"><i class="fa-solid fa-bolt"></i></div>
+        <h3 style="color:#0f172a;font-size:19px;margin-bottom:10px;font-weight:700;">Tesla &amp; EV Specialist Service</h3>
+        <p style="color:#334155;line-height:1.6;font-size:14.5px;margin:0;">Dedicated maintenance for electric vehicles including Tesla Model 3, Mercedes EQE/EQS, MG, and Hyundai EV drivetrains.</p>
       </div>
 
     </div>
 
     <!-- Call to Action Section -->
-    <div style="margin-top:60px;background:linear-gradient(135deg,#181822,#101018);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:40px;text-align:center;">
-      <h3 style="color:#fff;font-size:24px;margin-bottom:12px;font-family:'Playfair Display',Georgia,serif;">Looking for PCO Car Hire or Garage Support?</h3>
-      <p style="color:#aaa;max-width:650px;margin:0 auto 24px;font-size:15px;">Whether you need a TfL-licensed PCO rental car or want to visit the official garage website, Virtual Car Hire and The Auto Surgeon have you covered.</p>
+    <div style="margin-top:60px;background:#181826;border:1px solid #f7791f;border-radius:20px;padding:40px 32px;text-align:center;box-shadow:0 16px 40px rgba(0,0,0,0.3);">
+      <h3 style="color:#ffffff;font-size:26px;margin-bottom:12px;font-family:'Playfair Display',Georgia,serif;font-weight:700;">Looking for PCO Car Hire or Garage Support?</h3>
+      <p style="color:#cbd5e1;max-width:680px;margin:0 auto 28px;font-size:16px;line-height:1.65;">Whether you need a TfL-licensed PCO rental car or want to visit the official garage website, Virtual Car Hire and The Auto Surgeon have you covered.</p>
       <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
         <a href="/" class="btn btn-primary"><i class="fa-solid fa-house"></i> Virtual Car Hire Home</a>
         <a href="/our-fleet" class="btn btn-ghost"><i class="fa-solid fa-car"></i> View PCO Fleet</a>
@@ -287,5 +299,29 @@
 </footer>
 
 <script src="/assets/app.js"></script>
+<script>
+  (function() {
+    const cookieConsent = document.getElementById('cookieConsent');
+    const acceptBtn = document.getElementById('acceptCookies');
+    const declineBtn = document.getElementById('declineCookies');
+    function setCookie(n,v,d){const date=new Date();date.setTime(date.getTime()+(d*86400000));document.cookie=n+"="+v+";expires="+date.toUTCString()+";path=/";}
+    function getCookie(n){const v="; "+document.cookie;const p=v.split("; "+n+"=");if(p.length===2)return p.pop().split(";").shift();}
+    if(!getCookie('cookieConsent')&&cookieConsent){cookieConsent.style.display='flex';}
+    if(acceptBtn){acceptBtn.onclick=function(){setCookie('cookieConsent','accepted',365);cookieConsent.style.display='none';};}
+    if(declineBtn){declineBtn.onclick=function(){setCookie('cookieConsent','declined',30);cookieConsent.style.display='none';};}
+  })();
+
+  const mainHeader = document.getElementById('mainHeader');
+  const dynamicIsland = document.getElementById('dynamicIsland');
+  function handleScroll() {
+    if (window.scrollY > 50) {
+      mainHeader.classList.add('hide'); dynamicIsland.classList.add('show');
+    } else {
+      mainHeader.classList.remove('hide'); dynamicIsland.classList.remove('show');
+    }
+  }
+  handleScroll();
+  window.addEventListener('scroll', handleScroll);
+</script>
 </body>
 </html>
