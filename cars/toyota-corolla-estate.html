@@ -148,11 +148,13 @@
     .dynamic-island a:hover i { transform: translateX(4px); color: #e85d04; }
     .dynamic-island a.active { background: rgba(232, 93, 4, 0.3); color: #e85d04; box-shadow: 0 0 8px rgba(232, 93, 4, 0.4); }
     
-    .hero { background: #1a1a1a; padding: 40px 0 0; }
-    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .hero { background: #000000 !important; background-image: none !important; padding: 40px 0 0; }
+    .hero::before { display: none !important; }
+    .hero { padding: 40px 0 0; }
+    .hero-inner { max-width: 1320px; margin: 0 auto; padding: 0 24px; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; color: #aaa; font-size: 14px; margin-bottom: 28px; transition: color 0.2s; }
     .back-link:hover { color: #fff; }
-    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding-bottom: 48px; }
+    .hero-grid { display: grid; grid-template-columns: 0.95fr 1.25fr; gap: 40px; align-items: center; padding-bottom: 48px; }
     .fuel-badge { display: inline-block; color: #fff; padding: 4px 14px; border-radius: 50px; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 16px; }
     .fuel-badge.diesel { background: #444; }
     .fuel-badge.electric { background: #1a6b3c; }
@@ -170,7 +172,7 @@
     .btn-secondary { background: transparent; color: #fff; padding: 14px 28px; border-radius: 50px; font-size: 15px; font-weight: 600; border: 2px solid #444; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; }
     .btn-secondary:hover { border-color: #fff; }
     .hero-right { display: flex; align-items: center; justify-content: center; }
-    .hero-img-wrap img { width: 100%; border-radius: 16px; display: block; max-width: 520px; }
+    .hero-img-wrap img { width: 100%; height: auto; display: block; max-width: 750px; max-height: 480px; object-fit: contain; filter: drop-shadow(0 20px 35px rgba(0,0,0,0.85)); }
     .terms-strip { background: #f9f9f9; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 20px 24px; text-align: center; }
     .terms-strip p { font-size: 13px; color: #666; line-height: 1.7; max-width: 860px; margin: 0 auto; }
     .terms-strip p + p { margin-top: 6px; font-style: italic; }
@@ -228,7 +230,7 @@
     .whatsapp-fab:hover { transform: scale(1.1); }
     @media (max-width: 900px) { 
       .hero-grid { grid-template-columns: 1fr; } 
-      .hero-right { display: none; } 
+      .hero-right { display: flex; width: 100%; justify-content: center; }
       .specs-trust { grid-template-columns: 1fr; } 
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; } 
       .hero-title { font-size: 36px; }
@@ -317,7 +319,7 @@
   .hero-grid { grid-template-columns: 1fr; gap: 26px; padding-bottom: 34px; }
   .hero-right { order: -1; }
   .hero-img-wrap { width: 100%; }
-  .hero-img-wrap img { width: 100%; max-width: 100%; max-height: 290px; object-fit: contain; }
+  .hero-img-wrap img { width: 100%; max-width: 100%; max-height: 380px; object-fit: contain; }
   .hero-title { font-size: clamp(32px, 10vw, 44px); line-height: 1.05; }
   .hero-subtitle { font-size: 14px; }
   .hero-desc { font-size: 14px; line-height: 1.65; margin-bottom: 20px; }
@@ -433,7 +435,6 @@
       </div>
     </div>
   </div>
-  <div class="bottom-nav-links"><a href="/"><i class="fa-solid fa-house"></i> Homepage</a><a href="/our-fleet"><i class="fa-solid fa-car"></i> Back to full fleet</a></div>
 </section>
 
 <div class="terms-strip"><p>Weekly rate is for <strong>5,000 miles per month</strong>. <strong>Contract term: minimum 6 weeks</strong>. Any miles over <strong>5,000 per month</strong> are charged at <strong>20p per mile</strong>*, in accordance with the rental contract. A deposit of <strong>&pound;500</strong> is required. Fully comprehensive insurance is included. Terms &amp; conditions apply.</p><p>*If you are to return your vehicle, you must give a 1-week notice before returning your car.</p></div>
@@ -494,14 +495,30 @@
   </div>
 </div>
 
-<section class="cta-section">
-  <h2>Interested in the Toyota Corolla Estate?</h2>
-  <p>Get in touch &mdash; we'll have you on the road the same day.</p>
-  <div class="cta-btns">
-    <a class="btn btn-primary" href="/contact-us">Contact Us <i class="fa-solid fa-arrow-right"></i></a>
-    <a class="btn btn-ghost" href="/our-fleet" style="color:#0f0f12;border-color:#ccc;"><i class="fa-solid fa-car"></i> View All Fleet</a>
+<section class="vehicle-action-section" style="background:#111116;color:#fff;padding:60px 24px;text-align:center;border-top:1px solid rgba(255,255,255,0.12);">
+  <div class="container" style="max-width:960px;margin:0 auto;">
+    <span style="display:inline-block;color:#f7791f;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;"><i class="fa-solid fa-key"></i> Ready To Drive?</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:12px;color:#fff;">Hire The Toyota Corolla Hybrid Estate PCO & PCL Hire London Today</h2>
+    <p style="color:#cbd5e1;font-size:16px;max-width:600px;margin:0 auto 32px;line-height:1.6;">Contact our team now for instant availability, same-day onboarding, and simple document verification.</p>
+
+    <div class="vehicle-action-buttons" style="display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-bottom:28px;">
+      <a class="btn btn-primary" href="/contact-us" style="background:linear-gradient(135deg,#ff9a3d 0%,#f7791f 50%,#e25f00 100%);color:#fff;padding:16px 32px;border-radius:999px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 10px 28px -10px rgba(247,121,31,0.5);">
+        <i class="fa-solid fa-car"></i> Book This Car <i class="fa-solid fa-arrow-right"></i>
+      </a>
+      <a class="btn btn-wa" href="/whatsapp?car=toyota-corolla-estate" style="background:#25d366;color:#fff;padding:16px 32px;border-radius:999px;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;box-shadow:0 10px 28px -10px rgba(37,211,102,0.4);">
+        <i class="fa-brands fa-whatsapp"></i> WhatsApp Enquiry
+      </a>
+      <a class="btn btn-ghost" href="/our-fleet" style="background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.22);padding:16px 28px;border-radius:999px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;">
+        <i class="fa-solid fa-border-all"></i> View All Fleet
+      </a>
+    </div>
+
+    <div class="vehicle-secondary-nav" style="display:flex;justify-content:center;gap:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);flex-wrap:wrap;">
+      <a href="/" style="color:#94a3b8;font-size:13.5px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fa-solid fa-house"></i> Return to Homepage</a>
+      <span style="color:#475569;">•</span>
+      <a href="/our-fleet" style="color:#94a3b8;font-size:13.5px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;"><i class="fa-solid fa-arrow-left"></i> Back to Full Fleet</a>
+    </div>
   </div>
-  <div class="bottom-nav-links"><a href="/"><i class="fa-solid fa-house"></i> Homepage</a><a href="/our-fleet"><i class="fa-solid fa-car"></i> Back to full fleet</a></div>
 </section>
   <section class="emergency-support-strip" role="region" aria-label="Virtual Car Hire car enquiries and emergency support" style="background:linear-gradient(135deg,#111118,#1d1d25);color:#fff;padding:30px 20px;border-top:1px solid rgba(247,121,31,.28);border-bottom:1px solid rgba(247,121,31,.28);font-family:Inter,Arial,sans-serif;text-align:center;">
     <div style="max-width:980px;margin:0 auto;">

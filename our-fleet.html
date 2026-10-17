@@ -764,7 +764,7 @@
 
 <script src="assets/app.js"></script>
 <script>
-    // DEALERSHIP FLEET FILTERING
+  // DEALERSHIP FLEET FILTERING
   document.addEventListener('DOMContentLoaded', function() {
     const makeSelect = document.getElementById('makeFilter');
     const fuelSelect = document.getElementById('fuelFilter');
@@ -820,9 +820,16 @@
       }
     }
 
-    if (makeSelect) makeSelect.addEventListener('change', applyFilters);
-    if (fuelSelect) fuelSelect.addEventListener('change', applyFilters);
-    if (platformSelect) platformSelect.addEventListener('change', applyFilters);
+    const filterSelects = [makeSelect, fuelSelect, platformSelect].filter(Boolean);
+    filterSelects.forEach(select => {
+      select.addEventListener('change', applyFilters);
+      select.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyFilters();
+        }
+      });
+    });
 
     function resetAll() {
       if (makeSelect) makeSelect.value = 'all';
@@ -835,9 +842,6 @@
     if (resetBtn) resetBtn.addEventListener('click', resetAll);
 
     applyFilters();
-  });
-      });
-    });
   });
 
   // Cookie Consent Functionality
