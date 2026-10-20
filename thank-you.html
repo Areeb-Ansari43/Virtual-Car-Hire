@@ -18,8 +18,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 92px 24px;
+      padding: 72px 24px;
       overflow: hidden;
       position: relative;
       background:
@@ -39,85 +38,235 @@
     }
     .thankyou-container::before { left: -130px; top: 18%; }
     .thankyou-container::after { right: -140px; bottom: 8%; animation-delay: -4s; }
-    .thankyou-content {
-      max-width: 650px;
+
+    .thankyou-wrapper {
+      max-width: 1120px;
       margin: 0 auto;
       position: relative;
       z-index: 1;
+      width: 100%;
+    }
+    .thankyou-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .thankyou-left {
+      text-align: center;
       animation: thankyou-rise .75s cubic-bezier(.2,.9,.3,1) both;
     }
     .thankyou-icon {
-      width: 118px;
-      height: 118px;
-      margin: 0 auto 30px;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 24px;
       display: grid;
       place-items: center;
       position: relative;
       color: #fff;
-      font-size: 48px;
-      border-radius: 38px;
+      font-size: 44px;
+      border-radius: 34px;
       background: linear-gradient(145deg, #31c976, #129447);
-      box-shadow: 0 24px 50px -18px rgba(22,163,74,.6), inset 0 1px 0 rgba(255,255,255,.55);
+      box-shadow: 0 20px 40px -15px rgba(22,163,74,.55), inset 0 1px 0 rgba(255,255,255,.55);
       animation: thankyou-pop .9s .15s cubic-bezier(.2,1.45,.35,1) both, thankyou-float 4s 1.1s ease-in-out infinite;
     }
     .thankyou-icon::before,
     .thankyou-icon::after {
       content: '';
       position: absolute;
-      inset: -13px;
+      inset: -12px;
       border: 1px solid rgba(22,163,74,.28);
-      border-radius: 44px;
+      border-radius: 40px;
       animation: thankyou-ring 2.6s ease-out infinite;
     }
     .thankyou-icon::after { animation-delay: 1.3s; }
     .thankyou-icon i { animation: thankyou-check .65s .48s cubic-bezier(.2,.9,.3,1) both; }
     .thankyou-spark {
       position: absolute;
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 3px;
       background: #f7791f;
-      box-shadow: 0 0 0 5px rgba(247,121,31,.1);
+      box-shadow: 0 0 0 4px rgba(247,121,31,.1);
       animation: thankyou-sparkle 2.4s ease-in-out infinite;
     }
-    .thankyou-spark.one { left: calc(50% - 112px); top: 40px; animation-delay: -.4s; }
-    .thankyou-spark.two { right: calc(50% - 122px); top: 88px; transform: rotate(45deg); animation-delay: -1.2s; }
-    .thankyou-spark.three { left: calc(50% - 100px); bottom: 70px; width: 6px; height: 6px; animation-delay: -1.8s; }
+    .thankyou-spark.one { left: calc(50% - 100px); top: 30px; animation-delay: -.4s; }
+    .thankyou-spark.two { right: calc(50% - 110px); top: 75px; transform: rotate(45deg); animation-delay: -1.2s; }
+    .thankyou-spark.three { left: calc(50% - 90px); bottom: 60px; width: 6px; height: 6px; animation-delay: -1.8s; }
     .thankyou-title {
-      font-size: clamp(38px, 6vw, 58px);
+      font-size: clamp(34px, 5vw, 52px);
       font-weight: 800;
       font-family: 'Playfair Display', serif;
       color: #1a1a1a;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       letter-spacing: -.8px;
     }
     .thankyou-title span { color: #f7791f; font-style: italic; }
     .thankyou-message {
       color: #666;
-      font-size: 18px;
-      line-height: 1.7;
-      max-width: 540px;
-      margin: 0 auto 32px;
+      font-size: 17px;
+      line-height: 1.65;
+      max-width: 500px;
+      margin: 0 auto 28px;
     }
     .thankyou-buttons {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       justify-content: center;
       flex-wrap: wrap;
     }
     .response-time {
-      margin: 34px auto 0;
-      padding: 16px 22px;
+      margin: 28px auto 0;
+      padding: 14px 20px;
       width: fit-content;
       max-width: 100%;
       border: 1px solid rgba(247,121,31,.16);
       border-radius: 999px;
-      background: rgba(255,255,255,.68);
-      box-shadow: 0 12px 30px -20px rgba(0,0,0,.3);
-      color: #888;
-      font-size: 14px;
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 10px 25px -18px rgba(0,0,0,.25);
+      color: #777;
+      font-size: 13.5px;
     }
     .response-time i { color: #f7791f; margin-right: 5px; }
+
+    /* Next Steps Section */
+    .thankyou-right {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(247,121,31,.2);
+      box-shadow: 0 16px 36px -18px rgba(0,0,0,.08);
+      animation: thankyou-rise .75s .15s cubic-bezier(.2,.9,.3,1) both;
+      text-align: left;
+    }
+    .next-steps-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+    .next-steps-subtitle {
+      color: #666;
+      font-size: 13.5px;
+      margin-bottom: 20px;
+    }
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fafafa;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .step-card:hover {
+      border-color: #f7791f;
+      background: #fff;
+      box-shadow: 0 4px 14px rgba(247,121,31,.08);
+    }
+    .step-card.active {
+      border-color: #f7791f;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(247,121,31,.12);
+    }
+    .step-header {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .step-title-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .step-number {
+      font-size: 12px;
+      font-weight: 800;
+      color: #f7791f;
+      background: rgba(247,121,31,.1);
+      padding: 4px 8px;
+      border-radius: 8px;
+      letter-spacing: .5px;
+      flex-shrink: 0;
+    }
+    .step-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .step-summary {
+      font-size: 13px;
+      color: #666;
+      margin-top: 2px;
+    }
+    .step-chevron {
+      color: #f7791f;
+      font-size: 13px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .step-card.active .step-chevron {
+      transform: rotate(180deg);
+    }
+    .step-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+      padding: 0 18px;
+      color: #555;
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .step-card.active .step-body {
+      max-height: 200px;
+      padding: 0 18px 16px 18px;
+    }
+
+    /* Important Red Email Alert */
+    .email-alert-box {
+      margin-top: 32px;
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      border-radius: 16px;
+      padding: 20px 24px;
+      text-align: left;
+      color: #991b1b;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      box-shadow: 0 4px 16px rgba(239,68,68,.06);
+    }
+    .email-alert-icon {
+      font-size: 22px;
+      color: #dc2626;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .email-alert-content strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+      color: #991b1b;
+      margin-bottom: 6px;
+    }
+    .email-alert-content p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #7f1d1d;
+      margin-bottom: 6px;
+    }
+    .email-alert-content p:last-child {
+      margin-bottom: 0;
+    }
+
     @keyframes thankyou-rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes thankyou-pop { 0% { opacity: 0; transform: scale(.45) rotate(-12deg); } 70% { transform: scale(1.08) rotate(3deg); } 100% { opacity: 1; transform: scale(1) rotate(0); } }
     @keyframes thankyou-check { from { opacity: 0; transform: scale(.3) rotate(-25deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
@@ -125,15 +274,22 @@
     @keyframes thankyou-float { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
     @keyframes thankyou-drift { from { transform: translate3d(0,0,0) rotate(0); } to { transform: translate3d(26px,-18px,0) rotate(16deg); } }
     @keyframes thankyou-sparkle { 0%,100% { opacity: .25; transform: scale(.75) rotate(0); } 50% { opacity: 1; transform: scale(1.2) rotate(90deg); } }
+
+    @media (max-width: 900px) {
+      .thankyou-container { padding: 50px 20px; }
+      .thankyou-grid { grid-template-columns: 1fr; gap: 32px; }
+      .thankyou-right { padding: 22px; }
+      .email-alert-box { margin-top: 24px; padding: 18px; flex-direction: column; gap: 10px; }
+    }
     @media (max-width: 600px) {
-      .thankyou-container { min-height: 68vh; padding: 70px 20px; }
-      .thankyou-icon { width: 94px; height: 94px; border-radius: 31px; font-size: 38px; }
-      .thankyou-icon::before, .thankyou-icon::after { border-radius: 37px; }
-      .thankyou-message { font-size: 16px; }
-      .response-time { border-radius: 18px; line-height: 1.5; }
+      .thankyou-container { min-height: auto; padding: 40px 16px; }
+      .thankyou-icon { width: 90px; height: 90px; border-radius: 28px; font-size: 36px; }
+      .thankyou-icon::before, .thankyou-icon::after { border-radius: 34px; }
+      .thankyou-message { font-size: 15.5px; }
+      .response-time { border-radius: 18px; line-height: 1.5; font-size: 13px; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .thankyou-content, .thankyou-icon, .thankyou-icon i, .thankyou-container::before, .thankyou-container::after, .thankyou-icon::before, .thankyou-icon::after, .thankyou-spark { animation: none; }
+      .thankyou-left, .thankyou-right, .thankyou-icon, .thankyou-icon i, .thankyou-container::before, .thankyou-container::after, .thankyou-icon::before, .thankyou-icon::after, .thankyou-spark, .step-chevron, .step-card, .step-body { animation: none !important; transition: none !important; }
     }
 
     /* Cookie Consent Banner Styles */
@@ -152,33 +308,11 @@
       align-items: center;
       gap: 16px;
     }
-    #cookieConsent a {
-      color: #f7791f;
-    }
-    .cookie-buttons {
-      display: flex;
-      gap: 12px;
-    }
-    .cookie-accept {
-      background: #f7791f;
-      color: #fff;
-      border: none;
-      padding: 8px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .cookie-decline {
-      background: transparent;
-      color: #aaa;
-      border: 1px solid #444;
-      padding: 8px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      #cookieConsent { flex-direction: column; text-align: center; }
-    }
+    #cookieConsent a { color: #f7791f; }
+    .cookie-buttons { display: flex; gap: 12px; }
+    .cookie-accept { background: #f7791f; color: #fff; border: none; padding: 8px 20px; border-radius: 50px; cursor: pointer; font-weight: 600; }
+    .cookie-decline { background: transparent; color: #aaa; border: 1px solid #444; padding: 8px 20px; border-radius: 50px; cursor: pointer; }
+    @media (max-width: 768px) { #cookieConsent { flex-direction: column; text-align: center; } }
   </style>
   <meta name="description" content="Thank you for contacting Virtual Car Hire. Our team will review your enquiry and get back to you shortly.">
   <meta name="keywords" content="PCO car hire London, PCO rental London, Uber car hire London, Bolt car hire London, electric PCO cars, hybrid PCO cars">
@@ -192,16 +326,16 @@
   <meta property="og:site_name" content="Virtual Car Hire">
   <meta property="og:url" content="https://www.virtual-carhire.co.uk/thank-you">
   <meta property="og:title" content="Thank You | Virtual Car Hire">
-  <meta property="og:description" content="Thank you for contacting Virtual Car Hire.">
+  <meta property="og:description" content="Thank you for contacting Virtual Car Hire. Our team will review your enquiry and get back to you within 24 hours.">
   <meta property="og:image" content="https://www.virtual-carhire.co.uk/assets/social/virtual-car-hire-preview-v2.jpg?v=2">
-    <meta property="og:image:width" content="1200">
+  <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:alt" content="Virtual Car Hire vehicle preview">
-<meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://www.virtual-carhire.co.uk/thank-you">
   <meta property="twitter:title" content="Thank You | Virtual Car Hire">
-  <meta property="twitter:description" content="Thank you for contacting Virtual Car Hire.">
+  <meta property="twitter:description" content="Thank you for contacting Virtual Car Hire. Our team will review your enquiry and get back to you within 24 hours.">
   <meta property="twitter:image" content="https://www.virtual-carhire.co.uk/assets/social/virtual-car-hire-preview-v2.jpg?v=2">
   <link rel="canonical" href="https://www.virtual-carhire.co.uk/thank-you">
   <link rel="alternate" type="text/plain" href="/llms.txt" title="AI-readable site summary">
@@ -209,7 +343,10 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Virtual Car Hire",
+  "@id": "https://www.virtual-carhire.co.uk/#organization",
+  "name": "FA-IBI LTD",
+  "legalName": "FA-IBI LTD",
+  "alternateName": "Virtual Car Hire",
   "url": "https://www.virtual-carhire.co.uk",
   "logo": "https://www.virtual-carhire.co.uk/assets/logo.png"
 }
@@ -218,6 +355,7 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": "https://www.virtual-carhire.co.uk/#website",
   "name": "Virtual Car Hire",
   "url": "https://www.virtual-carhire.co.uk"
 }
@@ -282,34 +420,125 @@
 </header>
 
 <section class="thankyou-container">
-  <div class="thankyou-content">
-    <div class="thankyou-icon" aria-hidden="true">
-      <i class="fa-solid fa-check"></i>
+  <div class="thankyou-wrapper">
+    <div class="thankyou-grid">
+      <!-- Left Column: Thank You Message -->
+      <div class="thankyou-left">
+        <div class="thankyou-icon" aria-hidden="true">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <span class="thankyou-spark one" aria-hidden="true"></span>
+        <span class="thankyou-spark two" aria-hidden="true"></span>
+        <span class="thankyou-spark three" aria-hidden="true"></span>
+        <h1 class="thankyou-title">Thank <span>You!</span></h1>
+        <p class="thankyou-message">Your message has been sent successfully. Our team will review it and get back to you within 24 hours.</p>
+        <div class="thankyou-buttons">
+          <a href="/" class="btn btn-primary">Back to Home</a>
+          <a href="/our-fleet" class="btn btn-dark">Browse Our Fleet</a>
+        </div>
+        <div class="response-time">
+          <i class="fa-solid fa-clock"></i> Need a faster response? Call us directly at <strong>+44 207 294 6756</strong>
+        </div>
+      </div>
+
+      <!-- Right Column: The Next Steps Accordion -->
+      <div class="thankyou-right">
+        <h2 class="next-steps-heading">The Next Steps</h2>
+        <p class="next-steps-subtitle">Here’s what happens after you submit your enquiry.</p>
+
+        <div class="steps-list" role="region" aria-label="Next steps after submitting enquiry">
+          <!-- Step 01 -->
+          <div class="step-card active" tabindex="0" role="button" aria-expanded="true" aria-controls="step-body-1">
+            <div class="step-header">
+              <div class="step-title-block">
+                <span class="step-number">01</span>
+                <div>
+                  <div class="step-title">Enquiry Received</div>
+                  <div class="step-summary">We've received your enquiry.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-down step-chevron" aria-hidden="true"></i>
+            </div>
+            <div class="step-body" id="step-body-1">
+              Your enquiry has been submitted successfully. Our team will review the details you provided.
+            </div>
+          </div>
+
+          <!-- Step 02 -->
+          <div class="step-card" tabindex="0" role="button" aria-expanded="false" aria-controls="step-body-2">
+            <div class="step-header">
+              <div class="step-title-block">
+                <span class="step-number">02</span>
+                <div>
+                  <div class="step-title">Team Review</div>
+                  <div class="step-summary">We review your requirements.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-down step-chevron" aria-hidden="true"></i>
+            </div>
+            <div class="step-body" id="step-body-2">
+              We check your vehicle preferences and rental requirements. If we need any additional information, our team may contact you.
+            </div>
+          </div>
+
+          <!-- Step 03 -->
+          <div class="step-card" tabindex="0" role="button" aria-expanded="false" aria-controls="step-body-3">
+            <div class="step-header">
+              <div class="step-title-block">
+                <span class="step-number">03</span>
+                <div>
+                  <div class="step-title">Our Response</div>
+                  <div class="step-summary">We aim to respond within 24 hours.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-down step-chevron" aria-hidden="true"></i>
+            </div>
+            <div class="step-body" id="step-body-3">
+              We'll contact you using the details you provided. Please check your inbox and Junk or Spam folder for our emails. Our office is closed on Saturdays and Sundays.
+            </div>
+          </div>
+
+          <!-- Step 04 -->
+          <div class="step-card" tabindex="0" role="button" aria-expanded="false" aria-controls="step-body-4">
+            <div class="step-header">
+              <div class="step-title-block">
+                <span class="step-number">04</span>
+                <div>
+                  <div class="step-title">Your Car Hire</div>
+                  <div class="step-summary">Find out what happens next.</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-chevron-down step-chevron" aria-hidden="true"></i>
+            </div>
+            <div class="step-body" id="step-body-4">
+              Once your enquiry has been reviewed, we'll explain the relevant vehicle availability, rental requirements and next steps for progressing your booking.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <span class="thankyou-spark one" aria-hidden="true"></span>
-    <span class="thankyou-spark two" aria-hidden="true"></span>
-    <span class="thankyou-spark three" aria-hidden="true"></span>
-    <h1 class="thankyou-title">Thank <span>You!</span></h1>
-    <p class="thankyou-message">Your message has been sent successfully. Our team will review it and get back to you within 24 hours.</p>
-    <div class="thankyou-buttons">
-      <a href="index.html" class="btn btn-primary">Back to Home</a>
-      <a href="our-fleet.html" class="btn btn-dark">Browse Our Fleet</a>
-    </div>
-    <div class="response-time">
-      <i class="fa-solid fa-clock"></i> Need a faster response? Call us directly at <strong>+44 207 294 6756</strong>
+
+    <!-- Red Email Alert Box -->
+    <div class="email-alert-box" role="alert">
+      <i class="fa-solid fa-triangle-exclamation email-alert-icon"></i>
+      <div class="email-alert-content">
+        <strong>IMPORTANT: Please check your Junk or Spam folder</strong>
+        <p>We have sent a confirmation of your enquiry from an email address ending in <strong>@fa-ibi.co.uk</strong>. If you cannot find it in your inbox, please check your Junk or Spam folder.</p>
+        <p>If you have not received a reply within 24 hours, we apologise for the inconvenience. Please open your enquiry confirmation email and contact us through the dedicated WhatsApp link provided in that email.</p>
+      </div>
     </div>
   </div>
 </section>
-  <section class="emergency-support-strip" role="region" aria-label="Virtual Car Hire car enquiries and emergency support" style="background:linear-gradient(135deg,#111118,#1d1d25);color:#fff;padding:30px 20px;border-top:1px solid rgba(247,121,31,.28);border-bottom:1px solid rgba(247,121,31,.28);font-family:Inter,Arial,sans-serif;text-align:center;">
-    <div style="max-width:980px;margin:0 auto;">
-      <p style="color:#ff9a3d;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;"><i class="fas fa-triangle-exclamation" style="margin-right:7px;"></i>Virtual Car Hire support line</p>
-      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);line-height:1.1;margin:0 0 10px;">Car enquiries &amp; emergency support</h2>
-      <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
-        <a class="emergency-number-link" href="https://www.virtual-carhire.co.uk/emergency" rel="noopener" title="WhatsApp +44 20 7294 6756" aria-label="WhatsApp +44 20 7294 6756" style="display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#fff;padding:12px 20px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp +44 20 7294 6756</a>
-      </div>
-    </div>
-  </section>
 
+<section class="emergency-support-strip" role="region" aria-label="Virtual Car Hire car enquiries and emergency support" style="background:linear-gradient(135deg,#111118,#1d1d25);color:#fff;padding:30px 20px;border-top:1px solid rgba(247,121,31,.28);border-bottom:1px solid rgba(247,121,31,.28);font-family:Inter,Arial,sans-serif;text-align:center;">
+  <div style="max-width:980px;margin:0 auto;">
+    <p style="color:#ff9a3d;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;"><i class="fas fa-triangle-exclamation" style="margin-right:7px;"></i>Virtual Car Hire support line</p>
+    <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);line-height:1.1;margin:0 0 10px;">Car enquiries &amp; emergency support</h2>
+    <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
+      <a class="emergency-number-link" href="https://www.virtual-carhire.co.uk/emergency" rel="noopener" title="WhatsApp +44 20 7294 6756" aria-label="WhatsApp +44 20 7294 6756" style="display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#fff;padding:12px 20px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp +44 20 7294 6756</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="container">
@@ -373,7 +602,7 @@
     </div>
     <div class="foot-bot">
       <div>© 2026 Virtual Car Hire Ltd. All rights reserved.</div>
-      <div>Virtual Car Hire is a trading name of FA-IBI LTD (Company No. 08844002).</div>
+      <div>Virtual Car Hire is the trading name of FA-IBI LTD (Company No. 08844002), providing PCO vehicle hire for private hire drivers in London.</div>
     </div>
   </div>
 </footer>
@@ -385,6 +614,29 @@
 
 <script src="assets/app.js"></script>
 <script>
+  // Accordion toggle logic for Next Steps
+  document.querySelectorAll('.step-card').forEach(card => {
+    function toggleStep() {
+      const isExpanded = card.classList.contains('active');
+      document.querySelectorAll('.step-card').forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-expanded', 'false');
+      });
+      if (!isExpanded) {
+        card.classList.add('active');
+        card.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    card.addEventListener('click', toggleStep);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleStep();
+      }
+    });
+  });
+
   // Cookie Consent Functionality
   (function() {
     const cookieConsent = document.getElementById('cookieConsent');
