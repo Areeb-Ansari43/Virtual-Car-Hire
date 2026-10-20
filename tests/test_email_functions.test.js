@@ -230,8 +230,16 @@ async function runTests() {
   assert.ok(thankYouHtml.includes('rel="canonical" href="https://www.virtual-carhire.co.uk/thank-you"'), "thank-you.html uses canonical www URL");
   assert.ok(thankYouHtml.includes("within 24 hours"), "thank-you.html says 24 hours");
   assert.ok(!thankYouHtml.includes("virtualcarhire.pages.dev"), "thank-you.html has no pages.dev URLs");
+  assert.ok(thankYouHtml.includes("The Next Steps"), "thank-you.html includes The Next Steps section");
+  assert.ok(thankYouHtml.includes("01"), "thank-you.html includes Step 01");
+  assert.ok(thankYouHtml.includes("Enquiry Received"), "thank-you.html includes Step 01 title");
+  assert.ok(thankYouHtml.includes("Team Review"), "thank-you.html includes Step 02 title");
+  assert.ok(thankYouHtml.includes("Our Response"), "thank-you.html includes Step 03 title");
+  assert.ok(thankYouHtml.includes("Your Car Hire"), "thank-you.html includes Step 04 title");
+  assert.ok(thankYouHtml.includes("IMPORTANT: Please check your Junk or Spam folder"), "thank-you.html includes red email alert header");
+  assert.ok(thankYouHtml.includes("@fa-ibi.co.uk"), "thank-you.html references @fa-ibi.co.uk email domain");
 
-  console.log("✅ PASS: thank-you.html page canonical, noindex, and 24-hour wording verified.");
+  console.log("✅ PASS: thank-you.html page canonical, noindex, two-column layout, steps, and red email alert verified.");
 
   // 8. Verify contact-us.html page requirements
   const contactUsHtml = fs.readFileSync(path.join(__dirname, "../contact-us.html"), "utf8");
