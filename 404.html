@@ -577,8 +577,53 @@
   ]
 }
 </script>
+<style id="vch-404-redesign">
+  :root { --vch-orange:#f7791f; --vch-orange-light:#ffb15c; --vch-ink:#0b0d14; --vch-muted:#aeb5c4; }
+  body.vch-404-body { background:#080a10; }
+  .vch-404-stage { position:relative; isolation:isolate; min-height:calc(100vh - 82px); overflow:hidden; display:grid; place-items:center; padding:64px 28px 76px; background:radial-gradient(circle at 78% 25%, rgba(247,121,31,.16), transparent 28%), radial-gradient(circle at 16% 70%, rgba(65,87,145,.20), transparent 35%), linear-gradient(135deg,#080a10 0%,#111521 54%,#0a0c12 100%); color:#fff; }
+  .vch-404-stage::before { content:""; position:absolute; inset:0; z-index:-2; opacity:.22; background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px); background-size:64px 64px; mask-image:linear-gradient(to bottom,transparent,#000 20%,#000 80%,transparent); animation:vch-grid-drift 18s linear infinite; }
+  .vch-404-stage::after { content:""; position:absolute; width:520px; height:520px; right:-180px; top:-180px; border:1px solid rgba(255,177,92,.22); border-radius:50%; box-shadow:0 0 0 50px rgba(247,121,31,.035),0 0 0 100px rgba(247,121,31,.025); animation:vch-orbit 22s linear infinite; }
+  .vch-404-shell { width:min(1240px,100%); display:grid; grid-template-columns:minmax(0,1fr) minmax(380px,.9fr); gap:clamp(38px,7vw,110px); align-items:center; }
+  .vch-404-copy { position:relative; z-index:2; animation:vch-rise .8s cubic-bezier(.2,.8,.2,1) both; }
+  .vch-404-kicker { display:inline-flex; align-items:center; gap:9px; color:var(--vch-orange-light); font-size:11px; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; margin-bottom:20px; }
+  .vch-404-kicker::before { content:""; width:32px; height:2px; background:var(--vch-orange); box-shadow:0 0 14px var(--vch-orange); }
+  .vch-404-title { margin:0; font-family:'Playfair Display',Georgia,serif; font-size:clamp(44px,5vw,78px); line-height:.98; letter-spacing:-2px; color:#fff; max-width:700px; }
+  .vch-404-title em { color:var(--vch-orange-light); font-style:italic; }
+  .vch-404-lead { max-width:590px; color:#c5cad5; font-size:clamp(15px,1.5vw,18px); line-height:1.7; margin:22px 0 30px; }
+  .vch-404-actions { display:flex; flex-wrap:wrap; gap:12px; }
+  .vch-404-btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:14px 22px; border-radius:999px; text-decoration:none; font-size:14px; font-weight:800; transition:transform .25s,box-shadow .25s,background .25s; }
+  .vch-404-btn:hover { transform:translateY(-3px); }
+  .vch-404-btn.primary { background:linear-gradient(135deg,#ffad55,var(--vch-orange)); color:#fff; box-shadow:0 14px 30px rgba(247,121,31,.24); }
+  .vch-404-btn.primary:hover { box-shadow:0 18px 38px rgba(247,121,31,.36); }
+  .vch-404-btn.secondary { color:#e9edf5; border:1px solid rgba(255,255,255,.22); background:rgba(255,255,255,.06); backdrop-filter:blur(12px); }
+  .vch-404-btn.secondary:hover { background:rgba(255,255,255,.12); }
+  .vch-404-links { display:flex; flex-wrap:wrap; gap:18px; margin-top:25px; }
+  .vch-404-links a { color:#aeb5c4; font-size:12px; text-decoration:none; border-bottom:1px solid transparent; transition:color .2s,border-color .2s; }
+  .vch-404-links a:hover { color:var(--vch-orange-light); border-color:var(--vch-orange-light); }
+  .vch-404-visual { position:relative; min-height:390px; display:grid; place-items:center; animation:vch-rise .9s .12s cubic-bezier(.2,.8,.2,1) both; }
+  .vch-404-orb { position:absolute; width:min(34vw,390px); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 34% 30%,rgba(255,255,255,.12),transparent 13%),radial-gradient(circle,rgba(247,121,31,.2),rgba(247,121,31,.04) 45%,transparent 70%); border:1px solid rgba(255,177,92,.24); box-shadow:inset 0 0 45px rgba(255,255,255,.04),0 0 80px rgba(247,121,31,.12); animation:vch-float 5s ease-in-out infinite; }
+  .vch-404-orb::before,.vch-404-orb::after { content:""; position:absolute; inset:12%; border:1px dashed rgba(255,177,92,.3); border-radius:50%; animation:vch-spin 16s linear infinite; }
+  .vch-404-orb::after { inset:25%; border-style:solid; border-color:rgba(255,255,255,.08) transparent rgba(255,255,255,.08) transparent; animation-direction:reverse; animation-duration:11s; }
+  .vch-404-number { position:relative; z-index:2; font-family:'Playfair Display',Georgia,serif; font-size:clamp(130px,17vw,230px); font-weight:700; line-height:1; letter-spacing:-14px; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.34); text-shadow:0 0 40px rgba(247,121,31,.22); }
+  .vch-404-number span { color:var(--vch-orange-light); -webkit-text-stroke:0; text-shadow:0 0 28px rgba(247,121,31,.5); }
+  .vch-404-car { position:absolute; z-index:3; left:50%; bottom:74px; transform:translateX(-50%); color:#fff; font-size:clamp(42px,5vw,66px); filter:drop-shadow(0 0 12px rgba(255,177,92,.8)); animation:vch-drive 3.8s ease-in-out infinite; }
+  .vch-404-road { position:absolute; left:7%; right:7%; bottom:55px; height:66px; border-top:2px solid rgba(255,255,255,.25); border-bottom:2px solid rgba(255,255,255,.09); transform:perspective(160px) rotateX(23deg); background:linear-gradient(90deg,transparent 0 7%,rgba(247,121,31,.55) 7% 15%,transparent 15% 28%,rgba(247,121,31,.55) 28% 36%,transparent 36% 49%,rgba(247,121,31,.55) 49% 57%,transparent 57% 70%,rgba(247,121,31,.55) 70% 78%,transparent 78%); background-size:220px 100%; animation:vch-road 1.2s linear infinite; opacity:.75; }
+  .vch-404-pin { position:absolute; width:9px; height:9px; border-radius:50%; background:var(--vch-orange-light); box-shadow:0 0 0 6px rgba(255,177,92,.1),0 0 20px var(--vch-orange); animation:vch-pulse 2s ease-in-out infinite; }
+  .vch-404-pin.one { top:18%; right:17%; } .vch-404-pin.two { top:35%; left:10%; animation-delay:.7s; } .vch-404-pin.three { bottom:21%; right:8%; animation-delay:1.3s; }
+  @keyframes vch-rise { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+  @keyframes vch-float { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-12px) rotate(2deg)} }
+  @keyframes vch-spin { to{transform:rotate(360deg)} }
+  @keyframes vch-orbit { to{transform:rotate(360deg)} }
+  @keyframes vch-road { to{background-position:-220px 0} }
+  @keyframes vch-drive { 0%,100%{transform:translateX(-50%) translateY(0) rotate(0)} 45%{transform:translateX(-44%) translateY(-5px) rotate(-2deg)} 72%{transform:translateX(-57%) translateY(0) rotate(2deg)} }
+  @keyframes vch-pulse { 0%,100%{transform:scale(.8);opacity:.55} 50%{transform:scale(1.25);opacity:1} }
+  @keyframes vch-grid-drift { to{background-position:64px 64px} }
+  @media (max-width:900px) { .vch-404-stage{padding:52px 20px 68px}.vch-404-shell{grid-template-columns:1fr;gap:12px}.vch-404-copy{text-align:center}.vch-404-kicker{justify-content:center}.vch-404-lead{margin-left:auto;margin-right:auto}.vch-404-actions,.vch-404-links{justify-content:center}.vch-404-visual{min-height:330px;order:-1}.vch-404-orb{width:min(68vw,330px)}.vch-404-road{bottom:38px}.vch-404-car{bottom:58px} }
+  @media (max-width:520px) { .vch-404-stage{min-height:calc(100vh - 74px);padding:34px 16px 48px}.vch-404-title{font-size:clamp(39px,12vw,58px);letter-spacing:-1px}.vch-404-lead{font-size:14px;line-height:1.6;margin:16px 0 22px}.vch-404-btn{width:100%;padding:13px 18px}.vch-404-links{gap:12px 16px;margin-top:20px}.vch-404-visual{min-height:255px}.vch-404-number{font-size:142px;letter-spacing:-9px}.vch-404-orb{width:255px}.vch-404-road{left:0;right:0;bottom:29px;height:48px}.vch-404-car{bottom:48px;font-size:44px} }
+  @media (prefers-reduced-motion:reduce) { .vch-404-stage::before,.vch-404-stage::after,.vch-404-orb,.vch-404-orb::before,.vch-404-orb::after,.vch-404-car,.vch-404-road,.vch-404-pin,.vch-404-copy,.vch-404-visual{animation:none!important} }
+</style>
 </head>
-<body>
+<body class="vch-404-body">
 <!-- Cookie Consent Banner -->
 <div id="cookieConsent">
   <div style="flex: 1; font-size: 13px; line-height: 1.5;">
@@ -624,31 +669,31 @@
 </header>
 
 <!-- Custom 404 Content -->
-<section class="error-container">
-  <div class="error-content">
-    <div class="error-icon">
-      <i class="fa-solid fa-compass"></i>
-    </div>
-    <div class="error-code">404</div>
-    <h1 class="error-title">Page Not Found</h1>
-    <p class="error-message">Oops! The page you're looking for doesn't exist or has been moved. Let's get you back on the road.</p>
-    <div class="error-buttons">
-      <a href="/index.html" class="btn-404 btn-404-primary"><i class="fa-solid fa-home"></i> Back to Home</a>
-      <a href="/our-fleet.html" class="btn-404 btn-404-secondary"><i class="fa-solid fa-car"></i> Browse Our Fleet</a>
-    </div>
-    <div class="suggestions">
-      <h4>Popular Pages You Might Be Looking For:</h4>
-      <div class="suggestions-links">
-        <a href="/our-fleet.html">Our Fleet</a>
-        <a href="/cars/mercedes-e300.html">Mercedes E300</a>
-        <a href="/cars/tesla-model-3.html">Tesla Model 3</a>
-        <a href="/cars/toyota-corolla-estate.html">Toyota Corolla Estate</a>
-        <a href="/contact-us.html">Contact Us</a>
-        <a href="/about-us.html">About Us</a>
+<main class="vch-404-stage" aria-labelledby="error-title">
+  <span class="vch-404-pin one" aria-hidden="true"></span><span class="vch-404-pin two" aria-hidden="true"></span><span class="vch-404-pin three" aria-hidden="true"></span>
+  <div class="vch-404-shell">
+    <div class="vch-404-copy">
+      <div class="vch-404-kicker"><span>Route not found</span></div>
+      <h1 class="vch-404-title" id="error-title">Looks like this ride took a <em>wrong turn.</em></h1>
+      <p class="vch-404-lead">The page you’re looking for has moved, disappeared, or taken the scenic route. Let’s get you back to the Virtual Car Hire fleet.</p>
+      <div class="vch-404-actions">
+        <a href="/" class="vch-404-btn primary"><i class="fa-solid fa-house"></i> Back to home</a>
+        <a href="/our-fleet" class="vch-404-btn secondary"><i class="fa-solid fa-car-side"></i> Explore the fleet</a>
+      </div>
+      <div class="vch-404-links" aria-label="Helpful links">
+        <a href="/contact-us"><i class="fa-solid fa-envelope"></i> Contact us</a>
+        <a href="/whatsapp"><i class="fa-brands fa-whatsapp"></i> WhatsApp the team</a>
+        <a href="/support"><i class="fa-solid fa-headset"></i> Support centre</a>
       </div>
     </div>
+    <div class="vch-404-visual" aria-hidden="true">
+      <div class="vch-404-orb"></div>
+      <div class="vch-404-number">4<span>0</span>4</div>
+      <i class="fa-solid fa-car-side vch-404-car"></i>
+      <div class="vch-404-road"></div>
+    </div>
   </div>
-</section>
+</main>
 
 <!-- Footer -->
   <section class="emergency-support-strip" role="region" aria-label="Virtual Car Hire car enquiries and emergency support" style="background:linear-gradient(135deg,#111118,#1d1d25);color:#fff;padding:30px 20px;border-top:1px solid rgba(247,121,31,.28);border-bottom:1px solid rgba(247,121,31,.28);font-family:Inter,Arial,sans-serif;text-align:center;">
