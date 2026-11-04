@@ -622,6 +622,37 @@
   @media (max-width:520px) { .vch-404-stage{min-height:calc(100vh - 74px);padding:34px 16px 48px}.vch-404-title{font-size:clamp(39px,12vw,58px);letter-spacing:-1px}.vch-404-lead{font-size:14px;line-height:1.6;margin:16px 0 22px}.vch-404-btn{width:100%;padding:13px 18px}.vch-404-links{gap:12px 16px;margin-top:20px}.vch-404-visual{min-height:255px}.vch-404-number{font-size:142px;letter-spacing:-9px}.vch-404-orb{width:255px}.vch-404-road{left:0;right:0;bottom:29px;height:48px}.vch-404-car{bottom:48px;font-size:44px} }
   @media (prefers-reduced-motion:reduce) { .vch-404-stage::before,.vch-404-stage::after,.vch-404-orb,.vch-404-orb::before,.vch-404-orb::after,.vch-404-car,.vch-404-road,.vch-404-pin,.vch-404-copy,.vch-404-visual{animation:none!important} }
 </style>
+<style id="vch-404-followup">
+  .vch-404-car.car-two,.vch-404-car.car-three { z-index:4; font-size:clamp(23px,3vw,38px); bottom:93px; opacity:.72; filter:drop-shadow(0 0 8px rgba(255,177,92,.55)); animation:vch-drive-left 5.8s linear infinite; }
+  .vch-404-car.car-two { left:22%; color:#ffb15c; animation-delay:-2.3s; transform:scaleX(-1); }
+  .vch-404-car.car-three { left:78%; bottom:62px; color:#c7d1e1; font-size:clamp(20px,2.5vw,32px); animation-name:vch-drive-right; animation-delay:-4s; }
+  @keyframes vch-drive-left { 0%{transform:translateX(-40px) scaleX(-1);opacity:0} 12%,80%{opacity:.72} 100%{transform:translateX(360px) scaleX(-1);opacity:0} }
+  @keyframes vch-drive-right { 0%{transform:translateX(40px);opacity:0} 12%,80%{opacity:.62} 100%{transform:translateX(-360px);opacity:0} }
+  .vch-404-road { background-image:linear-gradient(90deg,transparent 0 7%,rgba(247,121,31,.55) 7% 15%,transparent 15% 28%,rgba(247,121,31,.55) 28% 36%,transparent 36% 49%,rgba(247,121,31,.55) 49% 57%,transparent 57% 70%,rgba(247,121,31,.55) 70% 78%,transparent 78%),linear-gradient(90deg,transparent 0 47%,rgba(255,255,255,.85) 47% 53%,transparent 53%); }
+  .vch-404-map-section { position:relative; overflow:hidden; padding:clamp(72px,9vw,126px) 28px clamp(80px,10vw,140px); background:#f5f1eb; color:#161820; }
+  .vch-404-map-section::before { content:""; position:absolute; inset:0; opacity:.42; background-image:linear-gradient(rgba(20,25,35,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(20,25,35,.055) 1px,transparent 1px); background-size:58px 58px; transform:translateY(calc(var(--route-shift, 0px) * .18)); }
+  .vch-404-map-shell { position:relative; z-index:1; width:min(1240px,100%); margin:0 auto; display:grid; grid-template-columns:minmax(250px,.65fr) minmax(0,1.35fr); gap:clamp(38px,8vw,120px); align-items:start; }
+  .vch-404-map-intro { position:sticky; top:110px; }
+  .vch-404-map-eyebrow { color:#e86d16; font-size:11px; letter-spacing:2.4px; font-weight:800; text-transform:uppercase; }
+  .vch-404-map-intro h2 { margin:13px 0 16px; font:600 clamp(34px,4vw,58px)/1.02 'Playfair Display',Georgia,serif; letter-spacing:-1px; }
+  .vch-404-map-intro p { color:#687080; line-height:1.7; max-width:340px; margin:0 0 24px; }
+  .vch-404-route-card { position:relative; min-height:350px; padding:30px; border:1px solid rgba(18,24,35,.12); border-radius:28px; background:rgba(255,255,255,.65); box-shadow:0 22px 60px rgba(28,31,38,.09); overflow:hidden; }
+  .vch-404-route-card::after { content:""; position:absolute; left:32px; top:42px; bottom:42px; width:2px; background:repeating-linear-gradient(to bottom,#e98335 0 10px,transparent 10px 20px); transform:translateY(calc(var(--route-shift, 0px) * -.22)); }
+  .vch-404-route-dot { position:absolute; left:25px; width:16px; height:16px; border-radius:50%; background:#f7791f; border:4px solid #fff; box-shadow:0 0 0 1px rgba(247,121,31,.35); z-index:2; transform:translateY(calc(var(--route-shift, 0px) * -.1)); }
+  .vch-404-route-dot.start { top:36px; } .vch-404-route-dot.end { bottom:34px; background:#17202e; }
+  .vch-404-route-car { position:absolute; right:26px; top:45%; color:#f7791f; font-size:28px; transform:translateY(calc(var(--route-shift, 0px) * .18)) rotate(-4deg); filter:drop-shadow(0 5px 4px rgba(0,0,0,.13)); transition:transform .12s linear; }
+  .vch-404-route-card h3 { margin:0 0 22px 28px; font:600 24px 'Playfair Display',Georgia,serif; }
+  .vch-404-route-card p { margin:0 30px 0 28px; color:#697180; font-size:13px; line-height:1.6; }
+  .vch-404-sitemap { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 34px; }
+  .vch-404-sitemap-group { padding:0 0 24px; }
+  .vch-404-sitemap-group h3 { margin:0 0 12px; color:#1a202b; font-size:12px; letter-spacing:1.8px; text-transform:uppercase; }
+  .vch-404-sitemap-group a { display:flex; align-items:center; gap:9px; width:max-content; max-width:100%; color:#6a7280; font-size:13px; line-height:1.35; text-decoration:none; padding:5px 0; transition:color .2s,transform .2s; }
+  .vch-404-sitemap-group a::before { content:"↗"; color:#e86d16; font-weight:800; }
+  .vch-404-sitemap-group a:hover { color:#e86d16; transform:translateX(4px); }
+  @media (max-width:900px) { .vch-404-map-section{padding-left:20px;padding-right:20px}.vch-404-map-shell{grid-template-columns:1fr;gap:42px}.vch-404-map-intro{position:relative;top:auto}.vch-404-map-intro p{max-width:620px}.vch-404-sitemap{grid-template-columns:repeat(2,minmax(0,1fr))}.vch-404-route-card{min-height:290px} }
+  @media (max-width:520px) { .vch-404-shell{transform:translateY(-22px)} .vch-404-map-section{padding:58px 16px 76px}.vch-404-sitemap{grid-template-columns:1fr;gap:0}.vch-404-map-intro h2{font-size:42px}.vch-404-route-card{padding:25px 22px}.vch-404-route-card::after{left:25px}.vch-404-route-dot{left:18px}.vch-404-route-car{right:20px}.vch-404-car.car-two{left:18%;bottom:68px}.vch-404-car.car-three{left:82%;bottom:48px} }
+  @media (prefers-reduced-motion:reduce) { .vch-404-car.car-two,.vch-404-car.car-three,.vch-404-route-car,.vch-404-route-card::after,.vch-404-route-dot,.vch-404-map-section::before{animation:none!important;transition:none!important;transform:none!important} }
+</style>
 </head>
 <body class="vch-404-body">
 <!-- Cookie Consent Banner -->
@@ -690,22 +721,39 @@
       <div class="vch-404-orb"></div>
       <div class="vch-404-number">4<span>0</span>4</div>
       <i class="fa-solid fa-car-side vch-404-car"></i>
+      <i class="fa-solid fa-car-side vch-404-car car-two"></i>
+      <i class="fa-solid fa-taxi vch-404-car car-three"></i>
       <div class="vch-404-road"></div>
     </div>
   </div>
 </main>
 
-<!-- Footer -->
-  <section class="emergency-support-strip" role="region" aria-label="Virtual Car Hire car enquiries and emergency support" style="background:linear-gradient(135deg,#111118,#1d1d25);color:#fff;padding:30px 20px;border-top:1px solid rgba(247,121,31,.28);border-bottom:1px solid rgba(247,121,31,.28);font-family:Inter,Arial,sans-serif;text-align:center;">
-    <div style="max-width:980px;margin:0 auto;">
-      <p style="color:#ff9a3d;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;"><i class="fas fa-triangle-exclamation" style="margin-right:7px;"></i>Virtual Car Hire support line</p>
-      <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(24px,3vw,36px);line-height:1.1;margin:0 0 10px;">Car enquiries &amp; emergency support</h2>
-      <div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
-        <a class="emergency-number-link" href="https://www.virtual-carhire.co.uk/emergency" rel="noopener" title="WhatsApp +44 20 7294 6756" aria-label="WhatsApp +44 20 7294 6756" style="display:inline-flex;align-items:center;gap:9px;background:#25d366;color:#fff;padding:12px 20px;border-radius:999px;font-weight:700;font-size:14px;text-decoration:none;"><i class="fab fa-whatsapp"></i> WhatsApp +44 20 7294 6756</a>
+<!-- Helpful sitemap for visitors who took a wrong turn -->
+<section class="vch-404-map-section" aria-labelledby="vch-404-map-title">
+  <div class="vch-404-map-shell">
+    <div class="vch-404-map-intro">
+      <div class="vch-404-map-eyebrow">Find your route</div>
+      <h2 id="vch-404-map-title">A better way forward.</h2>
+      <p>Use the route map to find the fleet, PCO driver guides, support, and the pages visitors ask for most.</p>
+      <div class="vch-404-route-card">
+        <span class="vch-404-route-dot start"></span><span class="vch-404-route-dot end"></span>
+        <i class="fa-solid fa-car-side vch-404-route-car" aria-hidden="true"></i>
+        <h3>Your next stop</h3>
+        <p>Scroll through the route and choose the destination that gets you moving again.</p>
       </div>
     </div>
-  </section>
+    <nav class="vch-404-sitemap" aria-label="Website sitemap">
+      <div class="vch-404-sitemap-group"><h3>Start here</h3><a href="/">Home</a><a href="/our-fleet">Our Fleet</a><a href="/about-us">About Us</a><a href="/contact-us">Contact Us</a></div>
+      <div class="vch-404-sitemap-group"><h3>Driver help</h3><a href="/how-it-works">How It Works</a><a href="/support">Support Centre</a><a href="/areas-we-cover">Areas We Cover</a><a href="/pco-car-hire-luton">Luton PCO Hire</a></div>
+      <div class="vch-404-sitemap-group"><h3>Guides</h3><a href="/guides">Guides Hub</a><a href="/how-to-get-pco-licence-london">Get a PCO Licence</a><a href="/start-driving-uber-bolt-london">Start Driving</a><a href="/uber-bolt-pco-cars-london">Uber &amp; Bolt Cars</a></div>
+      <div class="vch-404-sitemap-group"><h3>Popular cars</h3><a href="/cars/hyundai-santa-fe">Hyundai Santa Fe</a><a href="/cars/hyundai-santa-fe-2026">Santa Fe 2026</a><a href="/cars/mercedes-e300">Mercedes E300</a><a href="/cars/tesla-model-3">Tesla Model 3</a></div>
+      <div class="vch-404-sitemap-group"><h3>More fleet</h3><a href="/cars/mercedes-eqe">Mercedes EQE</a><a href="/cars/mercedes-vito">Mercedes Vito</a><a href="/cars/mg-s9-phev-suv">MG S9 PHEV</a><a href="/cars/ford-tourneo-custom">Ford Tourneo Custom</a></div>
+      <div class="vch-404-sitemap-group"><h3>Company</h3><a href="/whatsapp">WhatsApp Enquiries</a><a href="/emergency">Emergency Support</a><a href="/privacy-policy">Privacy Policy</a><a href="/cookie-policy">Cookie Policy</a></div>
+    </nav>
+  </div>
+</section>
 
+<!-- Footer -->
 <footer>
   <div class="container">
     <div class="foot-grid">
@@ -850,6 +898,16 @@
       }
     }
   });
+</script>
+<script>
+  (function(){
+    const map=document.querySelector('.vch-404-map-section');
+    if(!map || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let ticking=false;
+    const update=()=>{ map.style.setProperty('--route-shift', ((window.scrollY-map.offsetTop)*.16).toFixed(1)+'px'); ticking=false; };
+    window.addEventListener('scroll',()=>{ if(!ticking){ requestAnimationFrame(update); ticking=true; } },{passive:true});
+    update();
+  })();
 </script>
 </body>
 </html>
