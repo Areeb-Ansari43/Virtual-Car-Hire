@@ -1241,3 +1241,20 @@ table.data-table td strong { color: #0f172a; }
   #cookieConsent .cookie-accept,
   #cookieConsent .cookie-decline { padding: 7px 11px !important; font-size: 11px; white-space: nowrap; }
 }
+
+/* ===== Ultrawide monitor optimisation ===== */
+@media (min-width:1600px){
+  .container, footer .container{max-width:1600px;padding-left:44px;padding-right:44px}
+  .hero-inner{padding-top:46px;padding-bottom:64px}
+  .hero-grid{gap:clamp(72px,6vw,120px)}
+  h1.hero-title{font-size:clamp(54px,3.6vw,74px);max-width:760px}
+  .hero-sub{font-size:20px;max-width:700px}
+  .hero-visual{min-height:560px}
+  .hero-orb{width:min(560px,40vw);height:min(560px,40vw)}
+  .page-hero .container{max-width:1600px}
+  .section-inner,.article-container{max-width:1600px}
+}
+@media (min-width:2000px){
+  .container, footer .container{max-width:1760px;padding-left:56px;padding-right:56px}
+  .hero-grid{grid-template-columns:1.1fr .9fr}
+}
