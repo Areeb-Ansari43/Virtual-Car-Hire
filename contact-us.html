@@ -725,7 +725,7 @@
             <div class="field"><label>Subject *</label>
               <select name="subject" required>
                 <option value="">Choose a topic</option>
-                <option>Book a Call</option>
+                <option>Book a car</option>
                 <option>Fleet Inquiry</option>
                 <option>General question</option>
                 <option>Press / partnership</option>
@@ -892,12 +892,12 @@
 
 <script src="assets/app.js"></script>
 <script>
-  // Show vehicle selection only for Book a Call and Fleet Inquiry.
+  // Show vehicle selection only for Book a car and Fleet Inquiry.
   const enquiryType = document.querySelector('select[name="subject"]');
   const vehicleSelection = document.getElementById('vehicleSelection');
   const vehicleSelect = document.getElementById('vehicle');
   function syncVehicleSelection() {
-    const needsVehicle = enquiryType && (enquiryType.value === 'Book a Call' || enquiryType.value === 'Fleet Inquiry');
+    const needsVehicle = enquiryType && (enquiryType.value === 'Book a car' || enquiryType.value === 'Fleet Inquiry');
     vehicleSelection.hidden = !needsVehicle;
     vehicleSelect.required = needsVehicle;
     if (!needsVehicle) vehicleSelect.value = '';
