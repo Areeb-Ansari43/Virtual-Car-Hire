@@ -33,16 +33,18 @@ const loginHtmlContent = fs.readFileSync(loginHtmlPath, 'utf8');
 // Password & 2FA Step Elements
 assert(loginHtmlContent.includes('id="stepPassword"'), 'login.html must contain stepPassword container');
 assert(loginHtmlContent.includes('id="step2FA"'), 'login.html must contain step2FA container');
-assert(loginHtmlContent.includes('id="twoFactorCodeInput"'), 'login.html must contain twoFactorCodeInput element');
+assert(loginHtmlContent.includes('class="otp-input"'), 'login.html must contain otp-input elements');
 assert(loginHtmlContent.includes('id="verify2faBtn"'), 'login.html must contain verify2faBtn button');
 assert(loginHtmlContent.includes('id="resend2faBtn"'), 'login.html must contain resend2faBtn button');
 
-// Shared Edge Function Integration
-assert(loginHtmlContent.includes("auth@fa-ibi.co.uk"), 'login.html must specify auth@fa-ibi.co.uk as sender address');
-assert(loginHtmlContent.includes("type: '2fa_code'") || loginHtmlContent.includes('type: "2fa_code"'), 'login.html must specify type: 2fa_code in payload');
-assert(loginHtmlContent.includes("supabase.functions.invoke('send-email'"), 'login.html must invoke shared send-email Edge Function');
+// Secure Server-to-Server Proxy Architecture (Browser only talks to own domain)
+assert(loginHtmlContent.includes("fetch('/api/portal/request-code'"), 'login.html must call /api/portal/request-code');
+assert(loginHtmlContent.includes("fetch('/api/portal/verify-code'"), 'login.html must call /api/portal/verify-code');
+assert(!loginHtmlContent.includes("supabase.functions.invoke('send-email'"), 'login.html must NOT call send-email Edge Function directly');
+assert(!loginHtmlContent.includes('supabase.auth.signInWithPassword'), 'login.html must NOT call signInWithPassword directly');
 
-// Session 2FA Verification
+// Session 2FA Verification & Token handling
+assert(loginHtmlContent.includes('supabase.auth.setSession'), 'login.html must call supabase.auth.setSession on successful verification');
 assert(loginHtmlContent.includes("sessionStorage.setItem('vch_2fa_verified_'"), 'login.html must set session-level 2FA verification in sessionStorage');
 
 // Rate-limiting Cooldown (30 seconds)
@@ -62,7 +64,7 @@ assert(loginHtmlContent.includes('re-enrolled'), 'Terms modal must clarify re-en
 assert(loginHtmlContent.includes('id="acceptTermsBtn"'), 'login.html must contain acceptTermsBtn button');
 assert(loginHtmlContent.includes('accept_driver_terms'), 'login.html must call accept_driver_terms RPC');
 
-console.log('✅ PASS: portal/login.html 2FA flow, Edge Function invocation, resend cooldown, and terms modal verified.');
+console.log('✅ PASS: portal/login.html 2FA flow, proxy calls, resend cooldown, and terms modal verified.');
 
 // 3. Verify portal/dashboard.html Terms Check & Modal
 const dashHtmlPath = path.join(__dirname, '..', 'portal', 'dashboard.html');
