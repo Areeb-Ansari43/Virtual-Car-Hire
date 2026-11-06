@@ -72,6 +72,19 @@
       margin: 0 auto;
       font-size: 17px;
     }
+    .compact-contact-hero { padding: 86px 0 48px; }
+    .compact-contact-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 12px 0; }
+    .compact-contact-hero h2 { font-size: clamp(24px, 3.2vw, 34px); margin: 8px 0 14px; }
+    .compact-contact-hero .crumbs { margin-bottom: 16px; }
+    .vehicle-selection { margin: 18px 0 20px; padding: 16px; border: 1px solid rgba(247,121,31,.28); border-radius: 16px; background: rgba(247,121,31,.06); }
+    .vehicle-selection[hidden] { display: none; }
+    .vehicle-selection-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 11px; color: #f7791f; }
+    .vehicle-selection-heading i { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(247,121,31,.14); }
+    .vehicle-selection-heading div { display: flex; flex-direction: column; gap: 2px; }
+    .vehicle-selection-heading strong { color: #222; font-size: 14px; }
+    .vehicle-selection-heading span { color: #777; font-size: 12px; }
+    .vehicle-selection select { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #ddd; background: #fff; color: #222; font: inherit; }
+    @media (max-width: 600px) { .compact-contact-hero { padding: 72px 0 38px; } .compact-contact-hero h1 { font-size: clamp(34px, 10vw, 48px); } }
     .crumbs {
       display: flex;
       justify-content: center;
@@ -684,7 +697,7 @@
 </header>
 
 <!-- Page Hero -->
-<section class="page-hero">
+<section class="page-hero compact-contact-hero">
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/"><i class="fa-solid fa-house"></i> Home</a><span class="sep"><i class="fa-solid fa-chevron-right"></i></span><span class="current">Contact Us</span></nav>
     <span class="hero-pill"><span class="dot"></span> We Reply Within 24 Hours</span>
@@ -712,12 +725,35 @@
             <div class="field"><label>Subject *</label>
               <select name="subject" required>
                 <option value="">Choose a topic</option>
-                <option>Book a car</option>
-                <option>Fleet enquiry</option>
+                <option>Book a Call</option>
+                <option>Fleet Inquiry</option>
                 <option>General question</option>
                 <option>Press / partnership</option>
               </select>
             </div>
+          </div>
+          <div id="vehicleSelection" class="vehicle-selection" hidden>
+            <div class="vehicle-selection-heading"><i class="fa-solid fa-car-side"></i><div><strong>Specify your car</strong><span>Select the vehicle you are asking about</span></div></div>
+            <select id="vehicle" name="vehicle" aria-label="Specify your car">
+              <option value="">Choose a vehicle</option>
+                <option value="Mercedes E220D">Mercedes E220D</option>
+                <option value="Mercedes E300">Mercedes E300</option>
+                <option value="Mercedes EQE">Mercedes EQE</option>
+                <option value="Mercedes EQS">Mercedes EQS</option>
+                <option value="Mercedes Vito">Mercedes Vito</option>
+                <option value="Mercedes V-Class">Mercedes V-Class</option>
+                <option value="Toyota Corolla Estate">Toyota Corolla Estate</option>
+                <option value="Toyota Auris Estate">Toyota Auris Estate</option>
+                <option value="Toyota Prius">Toyota Prius</option>
+                <option value="Tesla Model 3">Tesla Model 3</option>
+                <option value="Jaguar I-Pace">Jaguar I-Pace</option>
+                <option value="Hyundai IONIQ">Hyundai IONIQ</option>
+                <option value="Hyundai Santa Fe">Hyundai Santa Fe</option>
+                <option value="Hyundai Santa Fe 2026">Hyundai Santa Fe 2026</option>
+                <option value="MG5 EV">MG5 EV</option>
+                <option value="MG S9 PHEV SUV">MG S9 PHEV SUV</option>
+                <option value="Ford Tourneo Custom">Ford Tourneo Custom</option>
+            </select>
           </div>
           <div class="field"><label>Message *</label><textarea name="message" placeholder="Tell us what you need..." required></textarea></div>
           <button class="btn-primary" type="submit" id="submitBtn">Submit <i class="fa-solid fa-paper-plane"></i></button>
@@ -856,6 +892,19 @@
 
 <script src="assets/app.js"></script>
 <script>
+  // Show vehicle selection only for Book a Call and Fleet Inquiry.
+  const enquiryType = document.querySelector('select[name="subject"]');
+  const vehicleSelection = document.getElementById('vehicleSelection');
+  const vehicleSelect = document.getElementById('vehicle');
+  function syncVehicleSelection() {
+    const needsVehicle = enquiryType && (enquiryType.value === 'Book a Call' || enquiryType.value === 'Fleet Inquiry');
+    vehicleSelection.hidden = !needsVehicle;
+    vehicleSelect.required = needsVehicle;
+    if (!needsVehicle) vehicleSelect.value = '';
+  }
+  enquiryType.addEventListener('change', syncVehicleSelection);
+  syncVehicleSelection();
+
   // Form submission via /api/submit-contact
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();

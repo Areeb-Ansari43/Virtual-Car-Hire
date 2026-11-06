@@ -178,6 +178,7 @@ function generateCustomerConfirmationHtml(formData) {
   if (phone) waLines.push(`Phone: ${phone}`);
   if (email) waLines.push(`Email: ${email}`);
   if (subject) waLines.push(`Subject: ${subject}`);
+  if (formData.vehicle) waLines.push(`Vehicle: ${formData.vehicle}`);
   if (message) waLines.push(`Original message: ${message}`);
   waLines.push("Please could you provide an update on my inquiry?");
 
@@ -320,7 +321,8 @@ export async function onRequestPost(context) {
 
     // Build Admin Email HTML and Subject
     const adminHtml = generateAdminEmailHtml(formData);
-    const adminSubject = `New Virtual Car Hire Enquiry — ${customerName}`;
+    const selectedVehicle = (formData.vehicle || '').trim();
+    const adminSubject = `New Virtual Car Hire Enquiry — ${customerName}${selectedVehicle ? ` — ${selectedVehicle}` : ''}`;
 
     // Admin Payload
     const adminResendPayload = {

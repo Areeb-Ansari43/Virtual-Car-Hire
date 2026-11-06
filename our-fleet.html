@@ -56,6 +56,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
+    .compact-fleet-hero { padding: 92px 0 42px; }
+    .compact-fleet-hero .crumbs { margin-bottom: 16px; }
+    .compact-fleet-hero h1 { font-size: clamp(40px, 5.5vw, 68px); margin: 12px 0; }
+    .compact-fleet-hero .dealership-filter-bar { margin-top: 20px !important; padding: 15px 18px !important; }
+    @media (max-width: 600px) { .compact-fleet-hero { padding: 72px 0 30px; } .compact-fleet-hero h1 { font-size: clamp(34px, 10vw, 50px); } .compact-fleet-hero .dealership-filter-bar { padding: 13px !important; } }
+
     .car-visual {
       background: #f5f5f5 !important;
       border-radius: 20px 20px 0 0;
@@ -522,7 +528,7 @@
   </div>
 </header>
 
-<section class="page-hero bg-fleet">
+<section class="page-hero bg-fleet compact-fleet-hero">
   <div class="hero-glow"></div>
   <div class="container">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/"><i class="fa-solid fa-house"></i> Home</a><span class="sep"><i class="fa-solid fa-chevron-right"></i></span><span class="current">Our Fleet</span></nav>
