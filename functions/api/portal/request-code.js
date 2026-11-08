@@ -1,5 +1,20 @@
 // Cloudflare Pages Function: /api/portal/request-code
 // Proxies 2FA request-code calls to the backend CRM portal-auth service server-to-server.
+//
+// Flow: browser -> this function -> CRM /api/public/portal-auth/request-code (X-Portal-Secret)
+//       -> password check -> login_otps row -> code email from auth@fa-ibi.co.uk
+//
+// Drivers only ever see friendly generic text. The specific reason is written to the
+// Cloudflare function log and (when the CRM is reachable) to portal_auth_events.
+
+import {
+  USER_MESSAGES,
+  jsonResponse,
+  getConfig,
+  recordFailure,
+  classifyUpstream,
+  clientIpFrom,
+} from '../../_lib/portal-proxy.js';
 
 function isValidEmail(email) {
   if (typeof email !== 'string') return false;
@@ -23,10 +38,7 @@ export async function onRequestPost(context) {
 
   // 1. Method guard
   if (request.method !== 'POST') {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Method Not Allowed' }),
-      { status: 405, headers: { 'Content-Type': 'application/json', Allow: 'POST' } }
-    );
+    return jsonResponse({ success: false, error: 'Method Not Allowed' }, 405, { Allow: 'POST' });
   }
 
   // 2. Parse request payload
@@ -34,100 +46,84 @@ export async function onRequestPost(context) {
   try {
     payload = await request.json();
   } catch (e) {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Invalid JSON payload.' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+    return jsonResponse({ success: false, error: 'Invalid JSON payload.' }, 400);
   }
 
   const { email, password } = payload || {};
   if (!email || !password || !isValidEmail(email)) {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Please enter a valid email address and password.' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
-    );
+    return jsonResponse({ success: false, error: 'Please enter a valid email address and password.' }, 400);
   }
+  const normalizedEmail = email.trim().toLowerCase();
 
   // 3. Environment configuration check
-  const crmApiUrl = env.CRM_API_URL ? env.CRM_API_URL.replace(/\/+$/, '') : '';
-  const portalSharedSecret = env.PORTAL_SHARED_SECRET;
-
-  if (!crmApiUrl || !portalSharedSecret) {
-    console.error('Server configuration error: CRM_API_URL or PORTAL_SHARED_SECRET is not configured.');
-    return new Response(
-      JSON.stringify({ success: false, error: 'Authentication service temporarily unavailable. Please try again later.' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+  const config = getConfig(env);
+  if (config.missing.length) {
+    await recordFailure(config, {
+      email: normalizedEmail,
+      step: 'request_code',
+      resultCode: 'missing_config',
+      reason: `Website env missing: ${config.missing.join(', ')}`,
+    });
+    return jsonResponse({ success: false, error: USER_MESSAGES.unavailable }, 500);
   }
 
   // 4. Resolve client IP
-  const clientIp = request.headers.get('cf-connecting-ip') ||
-                   request.headers.get('x-client-ip') ||
-                   (request.headers.get('x-forwarded-for') ? request.headers.get('x-forwarded-for').split(',')[0].trim() : '') ||
-                   '';
+  const clientIp = clientIpFrom(request);
 
   // 5. Forward request to CRM endpoint
-  const targetUrl = `${crmApiUrl}/api/public/portal-auth/request-code`;
+  const targetUrl = `${config.crmApiUrl}/api/public/portal-auth/request-code`;
 
+  let upstreamRes;
   try {
-    const upstreamRes = await fetch(targetUrl, {
+    upstreamRes = await fetch(targetUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Portal-Secret': portalSharedSecret,
-        ...(clientIp ? { 'X-Client-IP': clientIp } : {})
+        'X-Portal-Secret': config.portalSharedSecret,
+        ...(clientIp ? { 'X-Client-IP': clientIp } : {}),
       },
-      body: JSON.stringify({
-        email: email.trim().toLowerCase(),
-        password
-      })
+      body: JSON.stringify({ email: normalizedEmail, password }),
     });
-
-    if (upstreamRes.status === 429) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Please wait before requesting another code.' }),
-        { status: 429, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    let upstreamData = {};
-    try {
-      upstreamData = await upstreamRes.json();
-    } catch (e) {
-      // Non-JSON response from upstream
-    }
-
-    if (!upstreamRes.ok) {
-      let mappedError = 'Invalid email or password.';
-      if (upstreamRes.status === 401 || upstreamRes.status === 403) {
-        mappedError = upstreamData.error || 'Invalid email or password.';
-      } else if (upstreamRes.status >= 500) {
-        mappedError = 'Authentication service temporarily unavailable. Please try again later.';
-      } else if (upstreamData.error) {
-        mappedError = upstreamData.error;
-      }
-
-      return new Response(
-        JSON.stringify({ success: false, error: mappedError }),
-        { status: upstreamRes.status, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    const masked = upstreamData.maskedEmail || maskEmail(email);
-
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Verification code sent.',
-        maskedEmail: masked
-      }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
   } catch (err) {
-    console.error('Portal request-code upstream error:', err);
-    return new Response(
-      JSON.stringify({ success: false, error: 'Unable to reach authentication server. Please try again later.' }),
-      { status: 502, headers: { 'Content-Type': 'application/json' } }
-    );
+    await recordFailure(config, {
+      email: normalizedEmail,
+      step: 'request_code',
+      resultCode: 'crm_unreachable',
+      reason: `${targetUrl}: ${(err && err.message) || err}`,
+    });
+    return jsonResponse({ success: false, error: USER_MESSAGES.unavailable }, 502);
   }
+
+  if (upstreamRes.status === 429) {
+    return jsonResponse({ success: false, error: 'Please wait before requesting another code.' }, 429);
+  }
+
+  let upstreamData = {};
+  try {
+    upstreamData = await upstreamRes.json();
+  } catch (e) {
+    // Non-JSON response from upstream (e.g. a Cloudflare error page)
+  }
+
+  if (!upstreamRes.ok) {
+    const status = upstreamRes.status;
+
+    // Wrong email/password or disabled account: a normal outcome, already logged by the CRM.
+    if (status === 400) {
+      return jsonResponse({ success: false, error: upstreamData.error || 'Invalid email or password.' }, 400);
+    }
+
+    const resultCode = classifyUpstream(status, upstreamData);
+    await recordFailure(config, {
+      email: normalizedEmail,
+      step: 'request_code',
+      resultCode,
+      reason: `CRM HTTP ${status}${upstreamData.code ? ` code=${upstreamData.code}` : ''}`,
+    });
+    const error = resultCode === 'email_send_failed' ? USER_MESSAGES.sendFailed : USER_MESSAGES.unavailable;
+    return jsonResponse({ success: false, error }, status >= 500 ? status : 502);
+  }
+
+  const masked = upstreamData.maskedEmail || maskEmail(email);
+  return jsonResponse({ success: true, message: 'Verification code sent.', maskedEmail: masked }, 200);
 }
