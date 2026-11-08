@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
   if (!crmApiUrl || !portalSharedSecret) {
     console.error('Server configuration error: CRM_API_URL or PORTAL_SHARED_SECRET is not configured.');
-    return res.status(500).json({ success: false, error: 'Authentication service temporarily unavailable. Please try again later.' });
+    return res.status(500).json({ success: false, error: 'Sign-in is temporarily unavailable. Please try again in a few minutes.' });
   }
 
   const clientIp = req.headers['x-forwarded-for']
@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       } else if (rawError.includes('invalid') || rawError.includes('wrong') || rawError.includes('incorrect')) {
         mappedError = upstreamData.error || 'Incorrect verification code. Please check and try again.';
       } else if (upstreamRes.status >= 500) {
-        mappedError = 'Authentication service temporarily unavailable. Please try again later.';
+        mappedError = 'Sign-in is temporarily unavailable. Please try again in a few minutes.';
       } else if (upstreamData.error) {
         mappedError = upstreamData.error;
       }
