@@ -1146,7 +1146,43 @@
       }
       .no-print { display: none !important; }
     }
-  </style>
+  
+    /* ===== Phone layout polish ===== */
+    @media (max-width: 640px) {
+      .header-inner { gap: 10px; }
+      .user-chip { display: none !important; } /* email shown in My Account instead */
+      .brand-title { white-space: nowrap; font-size: 15px; }
+      .brand-sub { white-space: nowrap; font-size: 11px; }
+      .logout-btn { padding: 7px 12px; white-space: nowrap; }
+
+      .card { padding: 16px; }
+      .card-head { flex-wrap: wrap; gap: 8px; }
+      .rental-hero-photo { min-height: 200px; padding: 12px; }
+      .rental-title { font-size: 21px; }
+
+      /* Mileage tracker: stack the numbers so nothing is squeezed */
+      .mileage-num { flex-direction: column; align-items: flex-start; gap: 4px; }
+      #odometer-section > div[style*="justify-content:space-between"] { flex-direction: column; gap: 2px; }
+      .mileage-form .submit-mileage-btn, #docUploadBtn { width: 100%; }
+
+      /* Lists: give text room, buttons/badges go underneath */
+      .doc-item { flex-direction: column; align-items: stretch; gap: 10px; }
+      .doc-btn { text-align: center; justify-content: center; }
+      .doc-meta { flex-wrap: wrap; }
+      .alert-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .submission-item { flex-wrap: wrap; gap: 8px; }
+      .breakdown-item { gap: 10px; }
+      .breakdown-label { flex-wrap: wrap; }
+
+      /* Floating "Report a Problem": compact round button so it doesn't cover content */
+      .floating-report-btn { width: 52px; height: 52px; padding: 0; border-radius: 50%; justify-content: center; right: 14px; bottom: max(16px, env(safe-area-inset-bottom)); }
+      .floating-report-btn span { display: none; }
+      .floating-report-btn i { margin: 0; font-size: 20px; }
+      .container { padding-bottom: 84px; } /* room so the button never hides the last card */
+
+      input, select, textarea { font-size: 16px; } /* stop iOS zooming into fields */
+    }
+</style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/assets/portal.js"></script>
