@@ -1709,7 +1709,7 @@
       const now = new Date();
       const currentDayIndex = now.getDay();
       let diff = targetDayIndex - currentDayIndex;
-      if (diff <= 0) diff += 7; // Next occurrence
+      if (diff < 0) diff += 7; // Next occurrence (today counts, same as the CRM)
 
       const nextDate = new Date(now);
       nextDate.setDate(now.getDate() + diff);
@@ -1749,7 +1749,7 @@
       document.getElementById('invoiceDriverEmail').textContent = profile.email || document.getElementById('userEmailNav').textContent || '';
       document.getElementById('invoiceVehicleReg').textContent = profile.reg || 'REG PCO';
       document.getElementById('invoiceVehicleModel').textContent = document.getElementById('vehicleModel').textContent || 'Assigned PCO Vehicle';
-      document.getElementById('invoiceWeeklyRent').textContent = `Weekly Rent: £${profile.weeklyRent || 220}/week`;
+      document.getElementById('invoiceWeeklyRent').textContent = profile.weeklyRent ? `Weekly Rent: £${profile.weeklyRent}/week` : 'Weekly Rent: not set';
 
       const items = profile.itemisedItems || [];
       const tbody = document.getElementById('invoiceTableBody');
@@ -1759,10 +1759,10 @@
           <tr>
             <td>Standard Weekly Rent</td>
             <td>Rent</td>
-            <td style="text-align: right; font-weight: 700;">£${Number(profile.weeklyRent || 220).toFixed(2)}</td>
+            <td style="text-align: right; font-weight: 700;">£${Number(profile.weeklyRent || 0).toFixed(2)}</td>
           </tr>
         `;
-        document.getElementById('invoiceTotalAmount').textContent = `£${Number(profile.weeklyRent || 220).toFixed(2)}`;
+        document.getElementById('invoiceTotalAmount').textContent = `£${Number(profile.weeklyRent || 0).toFixed(2)}`;
       } else {
         let html = '';
         items.forEach(item => {
@@ -1796,6 +1796,228 @@
         labelEl.textContent = 'Tap to take photo or choose image';
       }
     });
+
+    // ---- CRM-backed dashboard (preferred) ---------------------------------------
+    // Loads the driver's data through /api/portal/me, which the CRM answers with its service
+    // role. Falls back to direct Supabase queries only if this endpoint is unavailable.
+    function escapeHtml(v) {
+      return String(v == null ? '' : v)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+    function fmtDate(v) {
+      if (!v) return null;
+      const d = new Date(String(v).length === 10 ? v + 'T12:00:00' : v);
+      return isNaN(d.getTime()) ? null : d.toLocaleDateString('en-GB');
+    }
+    function money(n) {
+      return '£' + Number(n || 0).toFixed(2).replace('.00', '');
+    }
+
+    async function portalApi(path, session, body) {
+      const res = await fetch(path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+        body: JSON.stringify(body || {}),
+      });
+      let data = {};
+      try { data = await res.json(); } catch (e) { data = {}; }
+      return { res, data };
+    }
+
+    async function loadDashboardFromCrm(session, greeting) {
+      let res, data;
+      try {
+        ({ res, data } = await portalApi('/api/portal/me', session, { mark_read: true }));
+      } catch (e) {
+        return false;
+      }
+      if (!res.ok || !data || !data.ok) {
+        console.warn('Portal: /api/portal/me unavailable, using direct queries', res && res.status, data && data.code);
+        return false;
+      }
+
+      const d = data.driver || {};
+      const v = data.vehicle || {};
+      window.vchDriverProfile.id = d.id;
+      window.vchDriverProfile.name = d.name || 'Driver';
+      const firstName = d.name ? String(d.name).trim().split(' ')[0] : 'Driver';
+      document.getElementById('driverGreeting').textContent = `${greeting}, ${firstName}`;
+
+      // Vehicle
+      const makeModel = [v.make, v.model].filter(Boolean).join(' ') || 'Assigned PCO Vehicle';
+      window.vchDriverProfile.reg = v.reg || 'REG PCO';
+      document.getElementById('vehicleReg').textContent = v.reg || 'Not assigned';
+      document.getElementById('vehicleModel').textContent = makeModel;
+      document.getElementById('vehicleType').textContent = v.fuel_type || 'PCO vehicle';
+      document.getElementById('vehicleImage').src = resolveVehicleImage(makeModel, null);
+
+      // Rent: exactly what the CRM holds
+      const weeklyRent = d.weekly_rent ? Number(d.weekly_rent) : 0;
+      window.vchDriverProfile.weeklyRent = weeklyRent;
+      document.getElementById('rentAmount').innerHTML = weeklyRent
+        ? `£${escapeHtml(weeklyRent)} <small>/week</small>`
+        : 'Not set <small>(contact us)</small>';
+      document.getElementById('rentDueDay').textContent = d.rent_due_day || 'Not set';
+      const dueStr = fmtDate(d.next_due_date) || '--/--/----';
+      document.getElementById('rentDueDate').textContent = dueStr;
+      document.getElementById('glanceNextPayment').textContent = dueStr;
+
+      const balance = Number(d.balance_due || 0);
+      const charges = Array.isArray(data.charges) ? data.charges : [];
+      const chargesSum = charges.reduce((a, c) => a + Number(c.amount || 0), 0);
+      const statusEl = document.getElementById('rentStatus');
+      const daysToDue = d.next_due_date
+        ? Math.round((new Date(d.next_due_date + 'T12:00:00') - new Date(new Date().toDateString() + ' 12:00:00')) / 86400000)
+        : null;
+      if (String(d.rent_status).toLowerCase() === 'paid' && balance <= 0) {
+        statusEl.textContent = 'Paid';
+        statusEl.className = 'status-ok';
+      } else if (balance > 0 && String(d.rent_status).toLowerCase() !== 'paid') {
+        statusEl.textContent = daysToDue === 0 ? 'Due Today' : daysToDue !== null && daysToDue <= 2 ? 'Due Soon' : 'Unpaid';
+        statusEl.className = daysToDue !== null && daysToDue <= 2 ? 'status-due' : 'status-overdue';
+      } else if (daysToDue !== null && daysToDue <= 2) {
+        statusEl.textContent = daysToDue === 0 ? 'Due Today' : 'Due Soon';
+        statusEl.className = 'status-due';
+      } else {
+        statusEl.textContent = 'Up to Date';
+        statusEl.className = 'status-ok';
+      }
+
+      // Balance breakdown: extra charges + remaining rent balance (from the CRM)
+      const items = charges.map((c) => ({ description: c.description || 'Extra charge', tag: 'charge', amount: Number(c.amount || 0) }));
+      const rentPart = Math.max(0, balance - chargesSum);
+      if (rentPart > 0) items.unshift({ description: 'Rent balance', tag: 'rent', amount: rentPart });
+      window.vchDriverProfile.itemisedItems = items;
+      const total = items.reduce((a, i) => a + i.amount, 0);
+      window.vchDriverProfile.totalDue = total;
+      const breakdown = document.getElementById('balanceBreakdownList');
+      if (items.length) {
+        breakdown.innerHTML = '<ul class="breakdown-list">' + items.map((i) => `
+          <li class="breakdown-item">
+            <div class="breakdown-label"><span>${escapeHtml(i.description)}</span><span class="breakdown-tag">${escapeHtml(i.tag)}</span></div>
+            <div class="breakdown-amount">${money(i.amount)}</div>
+          </li>`).join('') + '</ul>' +
+          `<div class="breakdown-total"><span>Total balance due:</span><span>${money(total)}</span></div>`;
+      } else {
+        breakdown.innerHTML = '<div style="padding:16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; color:#166534; font-weight:600; font-size:14px; display:flex; align-items:center; gap:8px;"><i class="fa-solid fa-circle-check" style="font-size:16px;"></i> All payments up to date. No outstanding balance due.</div>';
+      }
+      document.getElementById('outstandingCharges').textContent = money(chargesSum);
+      document.getElementById('depositStatus').textContent = d.deposit_status || 'Held';
+
+      // Key dates
+      document.getElementById('glanceNextMot').textContent = fmtDate(v.next_mot_date) || 'Not recorded';
+      document.getElementById('glanceNextService').textContent = fmtDate(v.next_service_date) || 'Scheduled at garage';
+      document.getElementById('glancePcoExpiry').textContent = fmtDate(v.pco_expiry_date) || 'Not recorded';
+
+      // Mileage
+      // Miles used this period (odometer now minus odometer at the start of the period), as the CRM does.
+      const current = d.miles_this_period != null
+        ? Number(d.miles_this_period)
+        : Math.max(0, Number(d.current_mileage || 0) - Number(d.start_mileage || 0));
+      const allowed = Number(d.allowance || 0) || 5000;
+      const rate = d.excess_rate_pence != null ? Number(d.excess_rate_pence) : 15;
+      document.getElementById('loggedMileage').textContent = current.toLocaleString();
+      document.getElementById('allowedMileage').textContent = allowed.toLocaleString();
+      document.getElementById('excessRateNotice').textContent = `Excess: ${rate}p / mile`;
+      const remaining = Math.max(0, allowed - current);
+      document.getElementById('remainingMiles').textContent = `${remaining.toLocaleString()} miles`;
+      const pct = Math.min(100, (current / allowed) * 100);
+      const fill = document.getElementById('mileageProgressFill');
+      fill.style.width = `${pct}%`;
+      const warnBox = document.getElementById('mileageWarningBox');
+      const warnText = document.getElementById('mileageWarningText');
+      if (current > allowed) {
+        fill.className = 'progress-fill exceeded';
+        warnBox.style.display = 'flex';
+        const over = current - allowed;
+        warnText.textContent = `Allowance exceeded by ${over.toLocaleString()} miles. Estimated charge: £${(over * rate / 100).toFixed(2)} (${rate}p/mi).`;
+      } else if (pct >= 85) {
+        fill.className = 'progress-fill warning';
+        warnBox.style.display = 'flex';
+        warnText.textContent = `Approaching your allowance (${remaining.toLocaleString()} miles remaining). Excess rate is ${rate}p/mile.`;
+      } else {
+        fill.className = 'progress-fill';
+        warnBox.style.display = 'none';
+      }
+
+      renderSubmissionsFromCrm(data.submissions || []);
+
+      // Documents
+      const docs = Array.isArray(data.documents) ? data.documents : [];
+      const docsEl = document.getElementById('documentsList');
+      docsEl.innerHTML = docs.length ? docs.map((doc) => `
+        <div class="doc-item">
+          <div class="doc-left">
+            <i class="fa-solid fa-file-pdf"></i>
+            <div>
+              <div class="doc-name">${escapeHtml(doc.name)}</div>
+              <div class="doc-meta"><span class="doc-type-badge">${escapeHtml(doc.type)}</span><span>• ${escapeHtml(fmtDate(doc.uploaded_at) || 'Uploaded')}</span></div>
+            </div>
+          </div>
+          ${doc.url ? `<a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener noreferrer" class="doc-btn"><i class="fa-solid fa-download"></i> View Document</a>` : ''}
+        </div>`).join('') : '<div class="empty-msg">No documents uploaded yet. Rental agreement and insurance paperwork will appear here.</div>';
+
+      // Notifications (rent-due reminders etc. written by the CRM)
+      const notes = Array.isArray(data.notifications) ? data.notifications : [];
+      const alertsEl = document.getElementById('reminderAlertsList');
+      alertsEl.innerHTML = notes.length ? notes.map((n) => `
+        <div class="alert-card ${n.read ? '' : 'unread'}">
+          <div class="alert-head">
+            <div class="alert-title"><i class="fa-solid fa-bell" style="color:#f7791f;"></i><span>${escapeHtml(n.title || 'Account Notification')}</span>${n.read ? '' : '<span class="badge-new">NEW</span>'}</div>
+            <span class="alert-date">${escapeHtml(fmtDate(n.created_at) || 'Recent')}</span>
+          </div>
+          ${n.message ? `<p class="alert-msg">${escapeHtml(n.message)}</p>` : ''}
+        </div>`).join('') : '<div class="empty-msg"><i class="fa-solid fa-circle-check" style="color:#16a34a; margin-right:6px;"></i> No outstanding notifications or action required. Your account is fully up to date.</div>';
+
+      return true;
+    }
+
+    function renderSubmissionsFromCrm(subs) {
+      const el = document.getElementById('mileageSubmissionsList');
+      if (!subs.length) {
+        el.innerHTML = '<div class="empty-msg">No submissions recorded yet.</div>';
+        return;
+      }
+      el.innerHTML = subs.map((sub) => {
+        const status = String(sub.status || 'pending').toLowerCase();
+        const cls = status === 'approved' ? 'sub-status-approved' : status === 'rejected' ? 'sub-status-rejected' : 'sub-status-pending';
+        const label = status === 'approved' ? 'Approved ✓' : status === 'rejected' ? 'Rejected' : 'Pending Review';
+        const miles = sub.approved_mileage || sub.reading;
+        return `
+          <div class="submission-item">
+            <div>
+              <strong style="color:#0f172a;">${miles ? Number(miles).toLocaleString() + ' miles' : 'Reading submitted'}</strong>
+              <span style="color:#64748b; font-size:12px; margin-left:6px;">(${escapeHtml(fmtDate(sub.submitted_at) || 'Recent')})</span>
+              ${status === 'rejected' && sub.rejection_reason ? `<div style="color:#b91c1c; font-size:12px;">${escapeHtml(sub.rejection_reason)}</div>` : ''}
+            </div>
+            <span class="${cls}">${label}</span>
+          </div>`;
+      }).join('');
+    }
+
+    // Shrinks a phone photo before upload (max 1600px, JPEG) so it uploads fast on mobile data.
+    function photoToDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error('Could not read photo'));
+        reader.onload = () => {
+          const img = new Image();
+          img.onload = () => {
+            const max = 1600;
+            const scale = Math.min(1, max / Math.max(img.width, img.height));
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(img.width * scale);
+            canvas.height = Math.round(img.height * scale);
+            canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+          };
+          img.onerror = () => resolve(reader.result); // not decodable here (e.g. HEIC): send as-is
+          img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
 
     // Dashboard Data Fetching
     document.addEventListener('DOMContentLoaded', async () => {
@@ -1834,7 +2056,18 @@
         window.location.href = '/portal/login';
       });
 
-      // 2. Fetch Driver Profile directly from `driver_tracks` (fallback `drivers`)
+      // 2. Preferred: load everything from the CRM (works regardless of Supabase RLS).
+      if (await loadDashboardFromCrm(session, timeOfDayGreeting)) {
+        try {
+          const { data: termsStatus } = await supabase.rpc('check_driver_terms_accepted', { p_user_id: user.id, p_email: user.email });
+          if (termsStatus === false) document.getElementById('dashboardTermsModal').style.display = 'flex';
+        } catch (err) {
+          console.warn('Terms status check error:', err);
+        }
+        return;
+      }
+
+      // Fallback: fetch Driver Profile directly from `driver_tracks` (fallback `drivers`)
       try {
         let driverData = null;
         const { data: dtData } = await supabase
@@ -1934,12 +2167,12 @@
         window.vchDriverProfile.reg = vehicleReg;
 
         // 4. Weekly Rent, Due Dates & Financial Status
-        const weeklyRent = (driverData && (driverData.weekly_rent || driverData.rent_amount)) || 220;
+        const weeklyRent = Number((driverData && (driverData.weekly_rent || driverData.rent_amount)) || 0);
         window.vchDriverProfile.weeklyRent = weeklyRent;
-        document.getElementById('rentAmount').innerHTML = `£${weeklyRent} <small>/week</small>`;
+        document.getElementById('rentAmount').innerHTML = weeklyRent ? `£${weeklyRent} <small>/week</small>` : 'Not set <small>(contact us)</small>';
 
-        const rentDueDay = (driverData && (driverData.rent_due_day || driverData.due_day)) || 'Tuesday';
-        document.getElementById('rentDueDay').textContent = rentDueDay;
+        const rentDueDay = (driverData && (driverData.rent_due_day || driverData.due_day)) || null;
+        document.getElementById('rentDueDay').textContent = rentDueDay || 'Not set';
 
         const explicitNextDate = driverData ? (driverData.next_payment_date || driverData.next_due_date) : null;
         const computedDueDate = computeNextDueDate(rentDueDay, explicitNextDate);
@@ -2021,7 +2254,7 @@
         }
 
         if (remainingRentBalance > 0) {
-          const missedWeeksCount = Math.max(1, Math.round(remainingRentBalance / weeklyRent));
+          const missedWeeksCount = weeklyRent > 0 ? Math.max(1, Math.round(remainingRentBalance / weeklyRent)) : 1;
           const perWeekAmount = remainingRentBalance / missedWeeksCount;
           for (let w = 1; w <= missedWeeksCount; w++) {
             itemisedItems.unshift({
@@ -2078,20 +2311,12 @@
         document.getElementById('glancePcoExpiry').textContent = pcoExpiryDate ? new Date(pcoExpiryDate).toLocaleDateString('en-GB') : 'Active TfL Licence';
 
         // 6. Mileage Tracking
-        let currentMileage = (driverData && (driverData.current_mileage != null ? driverData.current_mileage : driverData.mileage)) || 0;
+        // Miles used this period = odometer now - odometer at the start of the period (as the CRM does)
+        const odometerNow = (driverData && (driverData.current_mileage != null ? driverData.current_mileage : driverData.mileage)) || 0;
+        let currentMileage = Math.max(0, Number(odometerNow) - Number((driverData && driverData.start_mileage) || 0));
         let allowedMileage = (driverData && (driverData.mileage_allowance != null ? driverData.mileage_allowance : driverData.allowance)) || 5000;
         let excessPenceRate = (driverData && (driverData.rate_pence != null ? driverData.rate_pence : driverData.excess_mileage_rate)) || 15;
 
-        // Fallback: check mileage_logs table
-        if (currentMileage === 0 && driverId) {
-          const { data: mileageLogs } = await supabase
-            .from('mileage_logs')
-            .select('*')
-            .eq('driver_id', driverId);
-          if (mileageLogs && mileageLogs.length > 0) {
-            currentMileage = mileageLogs.reduce((acc, curr) => Math.max(acc, curr.miles || curr.current_mileage || 0), 0);
-          }
-        }
 
         document.getElementById('loggedMileage').textContent = currentMileage.toLocaleString();
         document.getElementById('allowedMileage').textContent = allowedMileage.toLocaleString();
@@ -2350,7 +2575,7 @@
         let html = '';
         submissions.forEach(sub => {
           const subDate = sub.submitted_at ? new Date(sub.submitted_at).toLocaleDateString('en-GB') : 'Recent';
-          const reading = Number(sub.reading_value || 0).toLocaleString();
+          const reading = Number(sub.approved_mileage || sub.reading_value || sub.ocr_mileage || 0).toLocaleString();
           const status = (sub.status || 'pending').toLowerCase();
 
           let statusClass = 'sub-status-pending';
@@ -2404,6 +2629,35 @@
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading photo...';
 
+      // Preferred path: the CRM stores the photo, runs the AI odometer reader and adds it to
+      // the staff review queue in real time.
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session) {
+          const photoData = await photoToDataUrl(photoFile);
+          const { res, data } = await portalApi('/api/portal/mileage', session, { reading: Number(readingVal), photo_base64: photoData });
+          if (res.ok && data.ok) {
+            alert('Thanks! Your odometer reading was submitted. Our team will review it shortly.');
+            document.getElementById('mileageForm').reset();
+            document.getElementById('photoFileName').textContent = 'Tap to take photo or choose image';
+            const me = await portalApi('/api/portal/me', session, {});
+            if (me.res.ok && me.data.ok) renderSubmissionsFromCrm(me.data.submissions || []);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            return;
+          }
+          if (res.status !== 404 && res.status !== 405) {
+            alert((data && data.error) || 'Could not submit your reading. Please try again.');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('CRM mileage submission unavailable, using direct upload', err);
+      }
+
+      // Fallback: direct upload (only if the CRM endpoint is not deployed)
       try {
         const fileExt = photoFile.name.split('.').pop() || 'jpg';
         const fileName = `mileage_${driverId}_${Date.now()}.${fileExt}`;
