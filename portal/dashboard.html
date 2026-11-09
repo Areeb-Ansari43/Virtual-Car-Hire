@@ -1326,7 +1326,7 @@
               </div>
             </div>
             <button type="submit" id="submitMileageBtn" class="submit-mileage-btn">
-              <i class="fa-solid fa-paper-plane"></i> Submit New Reading
+              <i class="fa-solid fa-paper-plane"></i> Submit for review
             </button>
           </form>
         </div>
@@ -2643,13 +2643,13 @@
             const me = await portalApi('/api/portal/me', session, {});
             if (me.res.ok && me.data.ok) renderSubmissionsFromCrm(me.data.submissions || []);
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
             return;
           }
           if (res.status !== 404 && res.status !== 405) {
             alert((data && data.error) || 'Could not submit your reading. Please try again.');
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
             return;
           }
         }
@@ -2696,7 +2696,7 @@
         alert('Could not submit mileage. Please check your network connection or try again.');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
       }
     });
   </script>
