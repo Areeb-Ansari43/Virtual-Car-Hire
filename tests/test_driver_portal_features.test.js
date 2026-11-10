@@ -40,7 +40,9 @@ console.log('✅ PASS: A2 Documents section tests passed.');
 // Test A3: Self-Service Mileage Submission
 assert(dashboardContent.includes('mileageForm'), 'dashboard.html must contain mileageForm');
 assert(dashboardContent.includes('odometerPhoto'), 'dashboard.html must contain odometerPhoto file input');
-assert(dashboardContent.includes('capture="environment"'), 'dashboard.html photo input must use capture="environment"');
+// Drivers can take a photo OR pick one from the gallery: no forced camera.
+assert(/id="odometerPhoto" accept="image\/\*"/.test(dashboardContent), 'odometer photo input must accept images');
+assert(!/id="odometerPhoto"[^>]*capture=/.test(dashboardContent), 'odometer photo input must not force the camera (capture) so the gallery can be used');
 assert(dashboardContent.includes('mileage_submissions'), 'dashboard.html must query/insert into mileage_submissions table');
 assert(dashboardContent.includes('mileage-photos'), 'dashboard.html must use mileage-photos storage bucket');
 assert(dashboardContent.includes('mileageSubmissionsList'), 'dashboard.html must contain mileageSubmissionsList container');

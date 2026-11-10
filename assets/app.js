@@ -76,6 +76,19 @@
   });
 
   const burger = document.querySelector('.burger'), navLinks = document.querySelector('.nav-links');
+  // Phone menu: the Login button is hidden on small screens, so the menu carries the
+  // Driver Portal and the staff CRM (ServiceVCH) links.
+  if (navLinks && !navLinks.querySelector('.nav-mobile-only')) {
+    const add = (href, icon, label, extra) => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.className = 'nav-mobile-only' + (extra ? ' ' + extra : '');
+      a.innerHTML = `<i class="fa-solid ${icon}"></i> ${label}`;
+      navLinks.appendChild(a);
+    };
+    add('/portal/login', 'fa-user-lock', 'Driver Portal', 'nav-portal-link');
+    add('https://hq.virtual-carhire.co.uk/', 'fa-briefcase', 'ServiceVCH (Staff CRM)');
+  }
   if (burger && navLinks) {
     burger.addEventListener('click', (e) => {
       e.stopPropagation();

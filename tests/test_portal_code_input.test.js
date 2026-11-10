@@ -16,7 +16,16 @@ assert(otpInputMatches && otpInputMatches.length === 6, 'login.html must contain
 assert(loginHtml.includes('inputmode="numeric"'), 'otp inputs must have inputmode="numeric"');
 assert(loginHtml.includes('pattern="[0-9]*"'), 'otp inputs must have numeric pattern');
 assert(loginHtml.includes('autocomplete="one-time-code"'), 'otp inputs must have autocomplete="one-time-code"');
-assert(loginHtml.includes('maxlength="1"'), 'otp inputs must have maxlength="1"');
+// Boxes accept a whole code so email/SMS autofill (which fills one box) is spread across all six.
+assert((loginHtml.match(/class="otp-input"[^>]*maxlength="6"/g) || []).length === 6, 'otp inputs must accept a full autofilled code');
+assert(loginHtml.includes('function fillDigits('), 'Script must spread an autofilled/pasted code across the boxes');
+// Typing / complete / wrong / correct animations
+for (const cls of ['otpPop', 'otpWave', 'otpShake', 'otpFlip']) assert(loginHtml.includes(`@keyframes ${cls}`), `missing ${cls} animation`);
+// Keep me signed in + password reset step
+assert(loginHtml.includes('id="rememberDevice"'), 'login must offer Keep me signed in');
+assert(loginHtml.includes("localStorage.setItem('vch_2fa_verified_'"), 'verified device must be remembered across browser restarts');
+assert(loginHtml.includes('id="resetForm"') && loginHtml.includes('auth.updateUser({ password'), 'reset link must let the driver set a new password');
+assert(loginHtml.includes("'/portal/login?reset=1'"), 'reset email must link back to the new-password step');
 
 // 3. Auto-advance and backspace handling
 assert(loginHtml.includes('otpInputs[idx + 1].focus()'), 'Script must auto-advance to next input');

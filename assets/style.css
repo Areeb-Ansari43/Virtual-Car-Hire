@@ -1303,3 +1303,12 @@ img, video, iframe { max-width: 100%; }
   .btn { min-height: 46px; }
   input, select, textarea { font-size: 16px; } /* stops iOS zooming into form fields */
 }
+
+/* Phone menu: Driver Portal + Staff CRM links (added by app.js), hidden on desktop */
+.nav-links .nav-mobile-only{display:none}
+@media (max-width:1024px){
+  .nav-links.open .nav-mobile-only{display:flex}
+  .nav-links.open .nav-portal-link{background:var(--orange,#f7791f)!important;color:#fff!important;font-weight:700;justify-content:center!important}
+  /* The closed About submenu was invisible but still took up space in the phone menu */
+  .nav-links.open .nav-dropdown:not(.is-open) .nav-dropdown-menu{display:none}
+}
