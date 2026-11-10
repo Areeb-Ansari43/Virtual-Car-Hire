@@ -380,6 +380,64 @@
       margin-bottom: 12px;
     }
 
+    /* My Rental hero: big car photo + rental register */
+    .rental-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px) {
+      .rental-hero { grid-template-columns: 1fr; }
+    }
+    .rental-hero-photo {
+      position: relative;
+      min-height: 280px;
+      border-radius: 14px;
+      background: radial-gradient(120% 90% at 50% 100%, #fff7ed 0%, #f8fafc 55%, #eef2f7 100%);
+      border: 1px solid #f1f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow: hidden;
+    }
+    .rental-hero-photo img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      filter: drop-shadow(0 18px 18px rgba(15, 23, 42, 0.18));
+    }
+    .rental-hero-photo .uk-number-plate {
+      position: absolute;
+      left: 16px;
+      bottom: 16px;
+    }
+    .rental-title { font-size: 24px; font-weight: 800; color: #0f172a; margin: 0 0 2px 0; line-height: 1.2; }
+    .rental-sub { color: #64748b; font-size: 13.5px; margin: 0 0 14px 0; }
+    .register-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid #f1f5f9; }
+    .register-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 13.5px;
+    }
+    .register-list li span { color: #64748b; }
+    .register-list li strong { color: #0f172a; text-align: right; word-break: break-word; }
+    .register-list li.highlight strong { color: #f7791f; font-size: 16px; }
+    .key-dates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .key-date { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; }
+    .key-date small { color: #64748b; font-size: 11px; text-transform: uppercase; font-weight: 700; }
+    .key-date div { font-size: 14.5px; font-weight: 700; color: #0f172a; margin-top: 2px; }
+    .form-input[readonly] { background: #f1f5f9; color: #475569; cursor: default; }
+    .sub-thumb { width: 48px; height: 36px; border-radius: 6px; object-fit: cover; border: 1px solid #e2e8f0; margin-right: 10px; vertical-align: middle; }
+    .account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 900px) { .account-grid { grid-template-columns: 1fr; } }
+    .upload-box { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 16px; }
+    .upload-box select { width: 100%; }
+
     /* UK Registration Plate Component */
     .uk-number-plate {
       display: inline-flex;
@@ -1088,7 +1146,43 @@
       }
       .no-print { display: none !important; }
     }
-  </style>
+  
+    /* ===== Phone layout polish ===== */
+    @media (max-width: 640px) {
+      .header-inner { gap: 10px; }
+      .user-chip { display: none !important; } /* email shown in My Account instead */
+      .brand-title { white-space: nowrap; font-size: 15px; }
+      .brand-sub { white-space: nowrap; font-size: 11px; }
+      .logout-btn { padding: 7px 12px; white-space: nowrap; }
+
+      .card { padding: 16px; }
+      .card-head { flex-wrap: wrap; gap: 8px; }
+      .rental-hero-photo { min-height: 200px; padding: 12px; }
+      .rental-title { font-size: 21px; }
+
+      /* Mileage tracker: stack the numbers so nothing is squeezed */
+      .mileage-num { flex-direction: column; align-items: flex-start; gap: 4px; }
+      #odometer-section > div[style*="justify-content:space-between"] { flex-direction: column; gap: 2px; }
+      .mileage-form .submit-mileage-btn, #docUploadBtn { width: 100%; }
+
+      /* Lists: give text room, buttons/badges go underneath */
+      .doc-item { flex-direction: column; align-items: stretch; gap: 10px; }
+      .doc-btn { text-align: center; justify-content: center; }
+      .doc-meta { flex-wrap: wrap; }
+      .alert-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+      .submission-item { flex-wrap: wrap; gap: 8px; }
+      .breakdown-item { gap: 10px; }
+      .breakdown-label { flex-wrap: wrap; }
+
+      /* Floating "Report a Problem": compact round button so it doesn't cover content */
+      .floating-report-btn { width: 52px; height: 52px; padding: 0; border-radius: 50%; justify-content: center; right: 14px; bottom: max(16px, env(safe-area-inset-bottom)); }
+      .floating-report-btn span { display: none; }
+      .floating-report-btn i { margin: 0; font-size: 20px; }
+      .container { padding-bottom: 84px; } /* room so the button never hides the last card */
+
+      input, select, textarea { font-size: 16px; } /* stop iOS zooming into fields */
+    }
+</style>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/assets/portal.js"></script>
@@ -1127,7 +1221,7 @@
       <a href="#documents-section" class="nav-link"><i class="fa-solid fa-file-contract"></i> Documents</a>
       <a href="#odometer-section" class="nav-link"><i class="fa-solid fa-gauge-high"></i> Odometer</a>
       <a href="#support-section" class="nav-link"><i class="fa-solid fa-headset"></i> Support</a>
-      <a href="#account-section" class="nav-link"><i class="fa-solid fa-user-gear"></i> My Account</a>
+      <a href="#my-account-section" class="nav-link"><i class="fa-solid fa-user-gear"></i> My Account</a>
     </div>
   </nav>
 
@@ -1178,22 +1272,20 @@
     <!-- Main Dashboard Cards Grid -->
     <div class="dashboard-grid">
 
-      <!-- CURRENT VEHICLE CARD -->
-      <div class="card col-8" id="vehicle-section">
+      <!-- MY RENTAL: big vehicle photo + rental register -->
+      <div class="card col-12" id="vehicle-section">
         <div class="card-head">
           <div class="card-title-wrap">
             <i class="fa-solid fa-car-side"></i>
-            <h2>Current Vehicle</h2>
+            <h2>My Rental</h2>
           </div>
           <span style="font-size:12px; color:#166534; background:#f0fdf4; border:1px solid #bbf7d0; padding:3px 10px; border-radius:9999px; font-weight:700;">
             <i class="fa-solid fa-check" style="font-size:10px; margin-right:2px;"></i> Active Hire
           </span>
         </div>
-        <div class="vehicle-display">
-          <div class="vehicle-img-wrap">
-            <img id="vehicleImage" src="/assets/cars/mercedes-e300-grey.png" alt="Assigned PCO Vehicle"/>
-          </div>
-          <div class="vehicle-details">
+        <div class="rental-hero">
+          <div class="rental-hero-photo">
+            <img id="vehicleImage" src="/assets/cars/mercedes-e300-grey.png" alt="Your hire vehicle"/>
             <div class="uk-number-plate">
               <div class="uk-flag-band">
                 <i class="fa-solid fa-star"></i>
@@ -1201,12 +1293,20 @@
               </div>
               <div class="reg-text" id="vehicleReg">--- ----</div>
             </div>
-            <h3 id="vehicleModel" class="vehicle-model-name">Loading vehicle...</h3>
-            <p id="vehicleType" class="vehicle-sub">TfL Licensed PCO Vehicle</p>
-            <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12.5px; color:#475569;">
-              <span id="vehicleFuelBadge"><i class="fa-solid fa-gas-pump" style="color:#f7791f;"></i> PCO Ready</span>
-              <span id="vehicleDepositBadge"><i class="fa-solid fa-shield-halved" style="color:#16a34a;"></i> Fully Insured</span>
-            </div>
+          </div>
+          <div>
+            <h3 id="vehicleModel" class="rental-title">Loading vehicle...</h3>
+            <p class="rental-sub"><span id="vehicleType">PCO vehicle</span><span id="vehicleYear"></span></p>
+            <ul class="register-list" id="rentalRegister">
+              <li><span>Driver</span><strong id="regDriverName">--</strong></li>
+              <li><span>Email</span><strong id="regDriverEmail">--</strong></li>
+              <li><span>Phone</span><strong id="regDriverPhone">--</strong></li>
+              <li class="highlight"><span>Weekly rent</span><strong id="regWeeklyRent">--</strong></li>
+              <li><span>Rent day</span><strong id="regRentDay">--</strong></li>
+              <li><span>Hire started</span><strong id="regStartDate">--</strong></li>
+              <li><span>Monthly mileage allowance</span><strong id="regAllowance">--</strong></li>
+              <li><span>Deposit</span><strong id="regDeposit">--</strong></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -1252,30 +1352,18 @@
       </div>
 
       <!-- UPCOMING DATES CARD -->
-      <div class="card col-8">
+      <div class="card col-4">
         <div class="card-head">
           <div class="card-title-wrap">
             <i class="fa-solid fa-calendar-days"></i>
-            <h2>Upcoming Key Dates</h2>
+            <h2>Key Dates</h2>
           </div>
         </div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:16px;">
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
-            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next Payment</small>
-            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextPayment">--/--/----</div>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
-            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next MOT</small>
-            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextMot">--/--/----</div>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
-            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">Next Service</small>
-            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glanceNextService">--/--/----</div>
-          </div>
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:12px;">
-            <small style="color:#64748b; font-size:11px; text-transform:uppercase; font-weight:700;">PCO Licence Expiry</small>
-            <div style="font-size:15px; font-weight:700; color:#0f172a; margin-top:2px;" id="glancePcoExpiry">--/--/----</div>
-          </div>
+        <div class="key-dates-grid">
+          <div class="key-date"><small>Next Payment</small><div id="glanceNextPayment">--/--/----</div></div>
+          <div class="key-date"><small>Next MOT</small><div id="glanceNextMot">--/--/----</div></div>
+          <div class="key-date"><small>Next Service</small><div id="glanceNextService">--/--/----</div></div>
+          <div class="key-date"><small>PCO Licence</small><div id="glancePcoExpiry">--/--/----</div></div>
         </div>
       </div>
 
@@ -1309,9 +1397,13 @@
         <div class="mileage-box">
           <h3 style="font-size:14px; margin:0 0 10px 0; color:#0f172a;">Submit Odometer Reading</h3>
           <form id="mileageForm" class="mileage-form">
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:14px;">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:14px;">
               <div class="form-group">
-                <label for="readingValue">Current Odometer Reading (Miles)</label>
+                <label for="lastOdometer">Last month's odometer (miles)</label>
+                <input type="text" id="lastOdometer" class="form-input" value="--" readonly tabindex="-1"/>
+              </div>
+              <div class="form-group">
+                <label for="readingValue">New odometer reading (miles)</label>
                 <input type="number" id="readingValue" class="form-input" placeholder="e.g. 45280" required min="1"/>
               </div>
               <div class="form-group">
@@ -1326,7 +1418,7 @@
               </div>
             </div>
             <button type="submit" id="submitMileageBtn" class="submit-mileage-btn">
-              <i class="fa-solid fa-paper-plane"></i> Submit New Reading
+              <i class="fa-solid fa-paper-plane"></i> Submit for review
             </button>
           </form>
         </div>
@@ -1380,6 +1472,55 @@
         </div>
         <div id="reminderAlertsList">
           <div class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading notifications...</div>
+        </div>
+      </div>
+
+      <!-- MY ACCOUNT: details + document upload -->
+      <div class="card col-12" id="my-account-section">
+        <div class="card-head">
+          <div class="card-title-wrap">
+            <i class="fa-solid fa-user-gear"></i>
+            <h2>My Account</h2>
+          </div>
+        </div>
+        <div class="account-grid">
+          <div>
+            <h3 style="font-size:14px; margin:0 0 8px 0; color:#0f172a;">Your details</h3>
+            <ul class="register-list">
+              <li><span>Name</span><strong id="accName">--</strong></li>
+              <li><span>Email</span><strong id="accEmail">--</strong></li>
+              <li><span>Phone</span><strong id="accPhone">--</strong></li>
+              <li><span>Vehicle</span><strong id="accVehicle">--</strong></li>
+            </ul>
+            <p style="color:#64748b; font-size:12.5px; margin:10px 0 0 0;">Need to change something? Message us on WhatsApp and we'll update it.</p>
+          </div>
+          <div>
+            <h3 style="font-size:14px; margin:0 0 8px 0; color:#0f172a;">Upload a document</h3>
+            <form id="docUploadForm" class="upload-box">
+              <div class="form-group">
+                <label for="docType">Document</label>
+                <select id="docType" class="form-input">
+                  <option value="contract">Signed hire agreement</option>
+                  <option value="pco_licence">PCO licence</option>
+                  <option value="permission_letter">Permission letter</option>
+                  <option value="vehicle_schedule">Vehicle schedule</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>File (PDF or photo, max 10 MB)</label>
+                <div class="file-input-wrapper">
+                  <input type="file" id="docFile" accept="application/pdf,image/*" required/>
+                  <div class="file-input-label">
+                    <i class="fa-solid fa-file-arrow-up"></i>
+                    <span id="docFileName">Tap to choose a file</span>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" id="docUploadBtn" class="submit-mileage-btn">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Upload document
+              </button>
+            </form>
+          </div>
         </div>
       </div>
 
@@ -1851,6 +1992,31 @@
       document.getElementById('vehicleModel').textContent = makeModel;
       document.getElementById('vehicleType').textContent = v.fuel_type || 'PCO vehicle';
       document.getElementById('vehicleImage').src = resolveVehicleImage(makeModel, null);
+      document.getElementById('vehicleImage').alt = makeModel;
+      document.getElementById('vehicleYear').textContent = v.year ? ` · ${v.year}` : '';
+
+      // Rental register + account details
+      const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+      const email = d.email || (session.user && session.user.email) || '--';
+      setText('regDriverName', d.name || '--');
+      setText('regDriverEmail', email);
+      setText('regDriverPhone', d.phone || 'Not provided');
+      setText('regWeeklyRent', d.weekly_rent ? `£${Number(d.weekly_rent)} / week` : 'Not set');
+      setText('regRentDay', d.rent_due_day || 'Not set');
+      setText('regStartDate', fmtDate(d.start_date) || '--');
+      setText('regAllowance', d.allowance ? `${Number(d.allowance).toLocaleString()} miles` : '--');
+      setText('regDeposit', d.deposit_status || 'Held');
+      setText('accName', d.name || '--');
+      setText('accEmail', email);
+      setText('accPhone', d.phone || 'Not provided');
+      setText('accVehicle', v.reg ? `${makeModel} (${v.reg})` : makeModel);
+      window.vchDriverProfile.lastOdometer = d.last_odometer || null;
+      const lastEl = document.getElementById('lastOdometer');
+      if (lastEl) {
+        const lastText = d.last_odometer ? `${Number(d.last_odometer).toLocaleString()} miles` : 'No reading yet';
+        lastEl.value = lastText;
+        lastEl.setAttribute('value', lastText); // survives form.reset() after submitting
+      }
 
       // Rent: exactly what the CRM holds
       const weeklyRent = d.weekly_rent ? Number(d.weekly_rent) : 0;
@@ -1912,11 +2078,29 @@
 
       // Mileage
       // Miles used this period (odometer now minus odometer at the start of the period), as the CRM does.
-      const current = d.miles_this_period != null
-        ? Number(d.miles_this_period)
-        : Math.max(0, Number(d.current_mileage || 0) - Number(d.start_mileage || 0));
       const allowed = Number(d.allowance || 0) || 5000;
       const rate = d.excess_rate_pence != null ? Number(d.excess_rate_pence) : 15;
+      if (d.miles_this_period == null) {
+        // No month-start reading yet: don't treat the whole odometer as this month's miles.
+        document.getElementById('loggedMileage').textContent = '--';
+        document.getElementById('allowedMileage').textContent = allowed.toLocaleString();
+        document.getElementById('excessRateNotice').textContent = `Excess: ${rate}p / mile`;
+        document.getElementById('remainingMiles').textContent = `${allowed.toLocaleString()} miles`;
+        document.getElementById('mileageProgressFill').style.width = '0%';
+        document.getElementById('mileageProgressFill').className = 'progress-fill';
+        const box = document.getElementById('mileageWarningBox');
+        box.style.display = 'flex';
+        box.style.background = '#eff6ff';
+        box.style.borderColor = '#bfdbfe';
+        box.style.color = '#1e40af';
+        document.getElementById('mileageWarningText').textContent =
+          'Your monthly mileage will show here after your next odometer reading is approved.';
+        renderSubmissionsFromCrm(data.submissions || []);
+        renderDocumentsFromCrm(data.documents || []);
+        renderNotificationsFromCrm(data.notifications || []);
+        return true;
+      }
+      const current = Number(d.miles_this_period);
       document.getElementById('loggedMileage').textContent = current.toLocaleString();
       document.getElementById('allowedMileage').textContent = allowed.toLocaleString();
       document.getElementById('excessRateNotice').textContent = `Excess: ${rate}p / mile`;
@@ -1943,8 +2127,19 @@
 
       renderSubmissionsFromCrm(data.submissions || []);
 
-      // Documents
-      const docs = Array.isArray(data.documents) ? data.documents : [];
+      renderDocumentsFromCrm(data.documents || []);
+      renderNotificationsFromCrm(data.notifications || []);
+
+      return true;
+    }
+
+    const DOC_LABELS = {
+      contract: 'Hire agreement',
+      pco_licence: 'PCO licence',
+      permission_letter: 'Permission letter',
+      vehicle_schedule: 'Vehicle schedule',
+    };
+    function renderDocumentsFromCrm(docs) {
       const docsEl = document.getElementById('documentsList');
       docsEl.innerHTML = docs.length ? docs.map((doc) => `
         <div class="doc-item">
@@ -1952,14 +2147,14 @@
             <i class="fa-solid fa-file-pdf"></i>
             <div>
               <div class="doc-name">${escapeHtml(doc.name)}</div>
-              <div class="doc-meta"><span class="doc-type-badge">${escapeHtml(doc.type)}</span><span>• ${escapeHtml(fmtDate(doc.uploaded_at) || 'Uploaded')}</span></div>
+              <div class="doc-meta"><span class="doc-type-badge">${escapeHtml(DOC_LABELS[doc.type] || doc.type)}</span><span>• ${escapeHtml(fmtDate(doc.uploaded_at) || 'Uploaded')}</span></div>
             </div>
           </div>
           ${doc.url ? `<a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener noreferrer" class="doc-btn"><i class="fa-solid fa-download"></i> View Document</a>` : ''}
-        </div>`).join('') : '<div class="empty-msg">No documents uploaded yet. Rental agreement and insurance paperwork will appear here.</div>';
+        </div>`).join('') : '<div class="empty-msg">No documents yet. Your hire agreement and vehicle paperwork will appear here.</div>';
+    }
 
-      // Notifications (rent-due reminders etc. written by the CRM)
-      const notes = Array.isArray(data.notifications) ? data.notifications : [];
+    function renderNotificationsFromCrm(notes) {
       const alertsEl = document.getElementById('reminderAlertsList');
       alertsEl.innerHTML = notes.length ? notes.map((n) => `
         <div class="alert-card ${n.read ? '' : 'unread'}">
@@ -1969,8 +2164,6 @@
           </div>
           ${n.message ? `<p class="alert-msg">${escapeHtml(n.message)}</p>` : ''}
         </div>`).join('') : '<div class="empty-msg"><i class="fa-solid fa-circle-check" style="color:#16a34a; margin-right:6px;"></i> No outstanding notifications or action required. Your account is fully up to date.</div>';
-
-      return true;
     }
 
     function renderSubmissionsFromCrm(subs) {
@@ -1987,6 +2180,7 @@
         return `
           <div class="submission-item">
             <div>
+              ${sub.photo_url ? `<a href="${escapeHtml(sub.photo_url)}" target="_blank" rel="noopener noreferrer"><img class="sub-thumb" src="${escapeHtml(sub.photo_url)}" alt="Odometer photo"/></a>` : ''}
               <strong style="color:#0f172a;">${miles ? Number(miles).toLocaleString() + ' miles' : 'Reading submitted'}</strong>
               <span style="color:#64748b; font-size:12px; margin-left:6px;">(${escapeHtml(fmtDate(sub.submitted_at) || 'Recent')})</span>
               ${status === 'rejected' && sub.rejection_reason ? `<div style="color:#b91c1c; font-size:12px;">${escapeHtml(sub.rejection_reason)}</div>` : ''}
@@ -2625,6 +2819,12 @@
         return;
       }
 
+      const lastOdo = Number(window.vchDriverProfile.lastOdometer || 0);
+      if (lastOdo && Number(readingVal) < lastOdo) {
+        alert(`Your new reading must be at least last month's odometer (${lastOdo.toLocaleString()} miles).`);
+        return;
+      }
+
       const photoFile = fileInput.files[0];
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading photo...';
@@ -2643,13 +2843,13 @@
             const me = await portalApi('/api/portal/me', session, {});
             if (me.res.ok && me.data.ok) renderSubmissionsFromCrm(me.data.submissions || []);
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
             return;
           }
           if (res.status !== 404 && res.status !== 405) {
             alert((data && data.error) || 'Could not submit your reading. Please try again.');
             submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+            submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
             return;
           }
         }
@@ -2696,9 +2896,59 @@
         alert('Could not submit mileage. Please check your network connection or try again.');
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit New Reading';
+        submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
       }
     });
+  
+    // ---- My Account: document upload (stored in the CRM, appears in Documents) ----
+    (function () {
+      const form = document.getElementById('docUploadForm');
+      if (!form) return;
+      const fileEl = document.getElementById('docFile');
+      fileEl.addEventListener('change', () => {
+        const f = fileEl.files[0];
+        document.getElementById('docFileName').textContent = f ? `Selected: ${f.name} (${Math.round(f.size / 1024)} KB)` : 'Tap to choose a file';
+      });
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const f = fileEl.files[0];
+        if (!f) { alert('Please choose a file.'); return; }
+        if (f.size > 10 * 1024 * 1024) { alert('File is too large (max 10 MB).'); return; }
+        const btn = document.getElementById('docUploadBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
+        try {
+          const supabase = window.initVchSupabase();
+          const { data: { session } } = await supabase.auth.getSession();
+          if (!session) { window.location.href = '/portal/login'; return; }
+          const dataUrl = f.type.startsWith('image/') ? await photoToDataUrl(f) : await new Promise((resolve, reject) => {
+            const r = new FileReader();
+            r.onload = () => resolve(r.result);
+            r.onerror = () => reject(new Error('Could not read file'));
+            r.readAsDataURL(f);
+          });
+          const { res, data } = await portalApi('/api/portal/document', session, {
+            document_type: document.getElementById('docType').value,
+            file_name: f.name,
+            file_base64: dataUrl,
+          });
+          if (res.ok && data.ok) {
+            alert('Document uploaded. Our team can now see it.');
+            form.reset();
+            document.getElementById('docFileName').textContent = 'Tap to choose a file';
+            const me = await portalApi('/api/portal/me', session, {});
+            if (me.res.ok && me.data.ok) renderDocumentsFromCrm(me.data.documents || []);
+          } else {
+            alert((data && data.error) || 'Could not upload the document. Please try again.');
+          }
+        } catch (err) {
+          alert('Could not upload the document. Please check your connection and try again.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload document';
+        }
+      });
+    })();
   </script>
 </body>
 </html>

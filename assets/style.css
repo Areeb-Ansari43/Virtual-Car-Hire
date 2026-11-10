@@ -1258,3 +1258,48 @@ table.data-table td strong { color: #0f172a; }
   .container, footer .container{max-width:1760px;padding-left:56px;padding-right:56px}
   .hero-grid{grid-template-columns:1.1fr .9fr}
 }
+
+/* =====================================================================
+   Mobile polish (all pages)
+   ===================================================================== */
+/* Never scroll sideways; `clip` (unlike `hidden`) keeps position:sticky working */
+html, body { max-width: 100%; overflow-x: clip; }
+img, video, iframe { max-width: 100%; }
+
+/* "01 — Choose Your Vehicle" labels on the home page are text, not the round number badge */
+.step > .step-num {
+  width: auto; height: auto; border-radius: 999px; display: inline-flex;
+  padding: 5px 12px; margin: 14px 0 10px; font-size: 11px; letter-spacing: .6px;
+  text-transform: uppercase; line-height: 1.3; white-space: normal; text-align: left;
+}
+
+/* Ghost button sits on a light background in the About section */
+.about .btn-ghost {
+  color: #111 !important; background: #fff; border-color: rgba(0, 0, 0, .15);
+}
+
+@media (max-width: 768px) {
+  /* Stats cards: let labels wrap so two cards always fit side by side */
+  .stats-grid > .stat { min-width: 0; aspect-ratio: auto; padding: 22px 10px; }
+  .stat .lbl { white-space: normal; letter-spacing: .08em; font-size: 10.5px; line-height: 1.35; overflow-wrap: anywhere; }
+  .stat .num { font-size: 34px; }
+
+  /* Readable hero copy over the photo */
+  .hero .hero-copy, .hero .hero-pill, .hero h1.hero-title { text-shadow: 0 1px 12px rgba(0, 0, 0, .55); }
+
+  /* Buttons that sit in a row wrap instead of overflowing */
+  .about .btn { flex: 1 1 auto; justify-content: center; }
+  .about [style*="display:flex"] { flex-wrap: wrap; }
+
+  /* Footer: one centred column, links easy to tap */
+  .foot-grid { text-align: center; }
+  .foot-grid ul { align-items: center; }
+  .foot-grid ul a { display: inline-block; padding: 6px 0; }
+  .foot-grid p { margin-left: auto; margin-right: auto; }
+  .foot-brand { justify-content: center; }
+  .foot-socials { justify-content: center; }
+
+  /* Comfortable tap targets */
+  .btn { min-height: 46px; }
+  input, select, textarea { font-size: 16px; } /* stops iOS zooming into form fields */
+}
