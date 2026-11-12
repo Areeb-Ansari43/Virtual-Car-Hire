@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="/assets/favicon.ico?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="/assets/style.css"/>
   
@@ -653,6 +653,7 @@
   @media (max-width:520px) { .vch-404-shell{transform:translateY(-22px)} .vch-404-map-section{padding:58px 16px 76px}.vch-404-sitemap{grid-template-columns:1fr;gap:0}.vch-404-map-intro h2{font-size:42px}.vch-404-route-card{padding:25px 22px}.vch-404-route-card::after{left:25px}.vch-404-route-dot{left:18px}.vch-404-route-car{right:20px}.vch-404-car.car-two{left:18%;bottom:68px}.vch-404-car.car-three{left:82%;bottom:48px} }
   @media (prefers-reduced-motion:reduce) { .vch-404-car.car-two,.vch-404-car.car-three,.vch-404-route-car,.vch-404-route-card::after,.vch-404-route-dot,.vch-404-map-section::before{animation:none!important;transition:none!important;transform:none!important} }
 </style>
+  <link rel="stylesheet" href="/assets/polish.css?v=1">
 </head>
 <body class="vch-404-body">
 <!-- Cookie Consent Banner -->
@@ -729,7 +730,7 @@
 </main>
 
 <!-- Helpful sitemap for visitors who took a wrong turn -->
-<section class="vch-404-map-section" aria-labelledby="vch-404-map-title">
+<section class="vch-404-map-section vch-enter" aria-labelledby="vch-404-map-title">
   <div class="vch-404-map-shell">
     <div class="vch-404-map-intro">
       <div class="vch-404-map-eyebrow">Find your route</div>
@@ -771,13 +772,13 @@
         </div>
         <div class="foot-sub-sections">
           <div class="foot-sub-block">
-            <h5>AUTOMOTIVE</h5>
+            <p class="foot-h foot-h--sm">AUTOMOTIVE</p>
             <ul>
               <li><a href="/the-auto-surgeon"><i class="fa-solid fa-wrench"></i> The Auto Surgeon</a></li>
             </ul>
           </div>
           <div class="foot-sub-block">
-            <h5>LEGAL</h5>
+            <p class="foot-h foot-h--sm">LEGAL</p>
             <ul>
               <li><a href="/privacy-policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
             </ul>
@@ -785,7 +786,7 @@
         </div>
       </div>
       <div>
-        <h4>COMPANY</h4>
+        <p class="foot-h">COMPANY</p>
         <ul>
           <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
           <li><a href="/about-us"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
@@ -794,7 +795,7 @@
         </ul>
       </div>
       <div>
-        <h4>DRIVERS</h4>
+        <p class="foot-h">DRIVERS</p>
         <ul>
           <li><a href="/our-fleet"><i class="fa-solid fa-car"></i> Fleet</a></li>
           <li><a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a></li>
@@ -804,7 +805,7 @@
         </ul>
       </div>
       <div>
-        <h4>PCO DRIVER GUIDES</h4>
+        <p class="foot-h">PCO DRIVER GUIDES</p>
         <ul>
           <li><a href="/guides"><i class="fa-solid fa-book-open"></i> Guides Hub</a></li>
           <li><a href="/guides/how-to-get-a-pco-licence"><i class="fa-solid fa-id-card"></i> How to Get a PCO Licence</a></li>
@@ -909,5 +910,6 @@
     update();
   })();
 </script>
+<script src="/assets/polish.js?v=1" defer></script>
 </body>
 </html>

@@ -12,3 +12,4 @@
 /guides/london-congestion-charge-ulez-2026 /london-congestion-charge-ulez-2026.html 200
 /guides/pco-car-hire-tax-deductible-expenses /pco-car-hire-tax-deductible-expenses.html 200
 https://virtualcarhire.pages.dev/* https://www.virtual-carhire.co.uk/:splat 301
+https://virtual-carhire.co.uk/* https://www.virtual-carhire.co.uk/:splat 301

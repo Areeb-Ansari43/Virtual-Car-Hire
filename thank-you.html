@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="/assets/favicon.ico?v=3">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600;1,700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="assets/style.css"/>
   <style>
@@ -164,6 +164,7 @@
   ]
 }
 </script>
+  <link rel="stylesheet" href="/assets/polish.css?v=1">
 </head>
 <body>
 <!-- Cookie Consent Banner -->
@@ -223,30 +224,46 @@
   </div>
 </header>
 
-<section class="thankyou-container" aria-labelledby="thankyou-title">
-  <div class="thankyou-layout">
-    <div class="thankyou-content">
-      <div class="thankyou-icon" aria-hidden="true"><i class="fa-solid fa-check"></i></div>
-      <h1 id="thankyou-title" class="thankyou-title">Thank <span>You!</span></h1>
-      <p class="thankyou-message">Your message has been sent successfully. Our team will review it and get back to you within 24 hours.</p>
-      <div class="thankyou-buttons"><a href="/" class="btn btn-primary">Back to Home</a><a href="/our-fleet" class="btn btn-dark">Browse Our Fleet</a></div>
-      <div class="response-time"><i class="fa-solid fa-clock"></i> Need a faster response? Call us directly at <strong>+44 207 294 6756</strong></div>
-  <div class="email-alert" role="alert"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><div><strong>IMPORTANT: Please check your Junk or Spam folder</strong><p>We have sent a confirmation of your enquiry from an email address ending in @fa-ibi.co.uk. If you cannot find it in your inbox, please check your Junk or Spam folder.</p><p>If you have not received a reply within 24 hours, we apologise for the inconvenience. Please open your enquiry confirmation email and contact us through the dedicated <a href="https://wa.me/447508496940" rel="noopener">WhatsApp link</a> provided in that email.</p></div></div>
-    </div>
-    <div class="steps-panel" aria-labelledby="next-steps-title">
-      <div class="steps-kicker"><span><i class="fa-solid fa-route"></i> Your enquiry journey</span><i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i></div>
-      <h2 id="next-steps-title">The Next <em>Steps</em></h2>
-      <div class="steps-track" aria-hidden="true"><div class="track-item"><span class="track-dot"><i class="fa-solid fa-inbox"></i></span><span>Received</span></div><div class="track-item"><span class="track-dot"><i class="fa-solid fa-shield-halved"></i></span><span>Reviewed</span></div><div class="track-item"><span class="track-dot"><i class="fa-solid fa-arrow-trend-up"></i></span><span>Moving forward</span></div></div>
-      <div class="step-card-grid">
-      <div class="step-card"><button class="step-toggle" type="button" aria-expanded="false"><span class="step-number">01</span><span class="step-summary"><strong>Enquiry Received</strong><small>We've received your enquiry.</small></span><i class="step-chevron fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="step-details"><div><p>Your enquiry has been submitted successfully. Our team will review the details you provided.</p></div></div></div>
-      <div class="step-card"><button class="step-toggle" type="button" aria-expanded="false"><span class="step-number">02</span><span class="step-summary"><strong>Team Review</strong><small>We review your requirements.</small></span><i class="step-chevron fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="step-details"><div><p>We check your vehicle preferences and rental requirements. If additional information is needed, our team may contact you.</p></div></div></div>
-      <div class="step-card"><button class="step-toggle" type="button" aria-expanded="false"><span class="step-number">03</span><span class="step-summary"><strong>Our Response</strong><small>We aim to respond within 24 hours.</small></span><i class="step-chevron fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="step-details"><div><p>We'll contact you using the details you provided. Please check your inbox and Junk or Spam folder. Our office is closed on Saturdays and Sundays.</p></div></div></div>
-      <div class="step-card"><button class="step-toggle" type="button" aria-expanded="false"><span class="step-number">04</span><span class="step-summary"><strong>Your Car Hire</strong><small>Find out what happens next.</small></span><i class="step-chevron fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="step-details"><div><p>Once we have reviewed your enquiry, we'll explain the relevant vehicle availability, rental requirements and next steps for progressing your booking.</p></div></div></div>
+<section class="vch-thanks vch-enter" aria-labelledby="thankyou-title" data-no-cue>
+  <div class="container vch-thanks__grid">
+    <div class="vch-thanks__main">
+      <svg class="vch-check" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29"/><path d="M19 33.5l8.5 8.5L45 24"/></svg>
+      <h1 id="thankyou-title"><span data-ty-name>Thanks.</span> We've got your message.</h1>
+      <p class="vch-thanks__lede">A real person on our Hounslow team reads every enquiry<span data-ty-car></span>. We'll reply within 24 hours, Monday to Saturday.</p>
+      <div class="vch-thanks__cta">
+        <a href="https://wa.me/447508496940" class="btn btn-wa" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> <span class="hide-sm">Can't wait? </span>WhatsApp us</a>
+        <a href="/our-fleet" class="btn btn-ghost">Browse the fleet</a>
       </div>
+      <p class="vch-thanks__note"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span>We've emailed you a copy from an <b>@fa-ibi.co.uk</b> address. Not in your inbox? Check junk or spam.</span></p>
+    </div>
+    <div class="vch-thanks__next" aria-labelledby="next-steps-title">
+      <h2 id="next-steps-title">What happens next</h2>
+      <div class="vch-road" aria-hidden="true">
+        <span class="vch-road__fill"></span>
+        <i class="fa-solid fa-car-side vch-road__car"></i>
+        <span class="vch-road__dot is-done"></span><span class="vch-road__dot is-now"></span><span class="vch-road__dot"></span><span class="vch-road__dot"></span>
+      </div>
+      <ol class="vch-timeline">
+        <li class="is-done"><b>Enquiry received</b><span>Just now</span></li>
+        <li class="is-now"><b>We check availability</b><span>Cars, start date and your documents</span></li>
+        <li><b>We call or email you</b><span>Within 24 hours</span></li>
+        <li><b>Collect your car</b><span>Often the same day, from Hounslow</span></li>
+      </ol>
+      <p class="vch-thanks__help">No reply after 24 hours? Call <a href="tel:+442072946756">+44 20 7294 6756</a> or use the WhatsApp link in your confirmation email.</p>
     </div>
   </div>
-
 </section>
+<script>
+(function(){
+  try {
+    var d = JSON.parse(sessionStorage.getItem('vch-enquiry') || 'null');
+    if (!d) return;
+    var first = (d.name || '').trim().split(/\s+/)[0];
+    if (first && first.length < 30) document.querySelector('[data-ty-name]').textContent = 'Thanks, ' + first + '.';
+    if (d.vehicle) document.querySelector('[data-ty-car]').textContent = ', including yours about the ' + d.vehicle;
+  } catch (e) {}
+})();
+</script>
 <footer>
   <div class="container">
     <div class="foot-grid">
@@ -264,13 +281,13 @@
         </div>
         <div class="foot-sub-sections">
           <div class="foot-sub-block">
-            <h5>AUTOMOTIVE</h5>
+            <p class="foot-h foot-h--sm">AUTOMOTIVE</p>
             <ul>
               <li><a href="/the-auto-surgeon"><i class="fa-solid fa-wrench"></i> The Auto Surgeon</a></li>
             </ul>
           </div>
           <div class="foot-sub-block">
-            <h5>LEGAL</h5>
+            <p class="foot-h foot-h--sm">LEGAL</p>
             <ul>
               <li><a href="/privacy-policy"><i class="fa-solid fa-shield-halved"></i> Privacy Policy</a></li>
             </ul>
@@ -278,7 +295,7 @@
         </div>
       </div>
       <div>
-        <h4>COMPANY</h4>
+        <p class="foot-h">COMPANY</p>
         <ul>
           <li><a href="/"><i class="fa-solid fa-house"></i> Home</a></li>
           <li><a href="/about-us"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
@@ -287,7 +304,7 @@
         </ul>
       </div>
       <div>
-        <h4>DRIVERS</h4>
+        <p class="foot-h">DRIVERS</p>
         <ul>
           <li><a href="/our-fleet"><i class="fa-solid fa-car"></i> Fleet</a></li>
           <li><a href="/areas-we-cover"><i class="fa-solid fa-location-dot"></i> Areas We Cover</a></li>
@@ -297,7 +314,7 @@
         </ul>
       </div>
       <div>
-        <h4>PCO DRIVER GUIDES</h4>
+        <p class="foot-h">PCO DRIVER GUIDES</p>
         <ul>
           <li><a href="/guides"><i class="fa-solid fa-book-open"></i> Guides Hub</a></li>
           <li><a href="/guides/how-to-get-a-pco-licence"><i class="fa-solid fa-id-card"></i> How to Get a PCO Licence</a></li>
@@ -372,5 +389,6 @@
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "539a9c76f52a4b27867dadbee38022ba"}'></script>
 <!-- End Cloudflare Web Analytics -->
 
+<script src="/assets/polish.js?v=1" defer></script>
 </body>
 </html>

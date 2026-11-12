@@ -5,7 +5,7 @@ const assert = require('assert');
 console.log('--- Running SEO and Google Indexing Verification Tests ---');
 
 const CANONICAL_DOMAIN = 'https://www.virtual-carhire.co.uk';
-const TODAY_DATE = '2026-09-21';
+const TODAY_DATE = new Date().toISOString().slice(0, 10);
 
 // 1. Verify robots.txt
 const robotsPath = path.join(__dirname, '..', 'robots.txt');
