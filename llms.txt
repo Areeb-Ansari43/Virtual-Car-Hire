@@ -67,6 +67,7 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - Is insurance included? Yes. Insurance, servicing, MOT and breakdown cover are in the weekly price.
 - Can I use the car on Uber, Bolt and Ola? Yes. Every car is TfL licensed and the team uploads your documents to the apps.
 - How fast can I start? Most drivers are on the road the same day.
+- Do you cover Heathrow? Yes. Our depot in Cranford, Hounslow is a short drive from Heathrow Airport. See https://www.virtual-carhire.co.uk/pco-car-hire-heathrow
 - Do you cover Luton? Yes, including London Luton Airport drivers. See https://www.virtual-carhire.co.uk/pco-car-hire-luton
 
 ## Accuracy note

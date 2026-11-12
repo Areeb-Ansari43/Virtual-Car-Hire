@@ -75,6 +75,103 @@
     doc.addEventListener('visibilitychange', function () { doc.hidden ? stop() : start(); });
   });
 
+
+
+  /* ---------- Scroll-in animations ---------- */
+  (function () {
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var root = doc.documentElement;
+    var heroSel = '.vch-hero, .page-hero, .article-hero, .how-hero, .support-hero, .hero-luton, .vch-thanks, .vch-404-stage, body.car-page section.hero, .vch-scene';
+    var skip = function (el) { return el.closest(heroSel) || el.closest('header, .ticker, .float, #cookieConsent, form, .vch-card'); };
+    var marked = [];
+    var mark = function (el, kind, i) {
+      if (!el || el.hasAttribute('data-rv') || skip(el)) return;
+      el.setAttribute('data-rv', kind);
+      if (i) el.style.setProperty('--i', Math.min(i, 8));
+      marked.push(el);
+    };
+    doc.querySelectorAll('.reveal, .reveal-stagger').forEach(function (el) { el.classList.add('in'); });
+    // 1. Headings rise out of a mask
+    doc.querySelectorAll('section h2, .section-head, footer .foot-grid').forEach(function (el) {
+      if (el.matches('h2') && el.closest('.section-head')) return;
+      mark(el, el.matches('footer .foot-grid') ? 'fade' : 'mask');
+    });
+    // 2. Card groups: rise one after another
+    doc.querySelectorAll('section *').forEach(function (p) {
+      var kids = p.children; if (kids.length < 3 || skip(p)) return;
+      var cls = kids[0].className; if (!cls || typeof cls !== 'string') return;
+      var same = 0; for (var k = 0; k < kids.length; k++) if (kids[k].className === cls) same++;
+      if (same >= 3 && same === kids.length && !p.closest('[data-rv]')) {
+        for (var j = 0; j < kids.length; j++) mark(kids[j], 'rise', j);
+      }
+    });
+    // 3. Photos wipe open
+    doc.querySelectorAll('section img').forEach(function (img) {
+      if (img.closest('[data-rv]') || img.width < 160) return;
+      var box = img.closest('figure, .car-visual, .hero-img-wrap, .vch-photo') || img;
+      mark(box, 'wipe');
+    });
+    // 4. Intro paragraphs fade
+    doc.querySelectorAll('section .lede, section > .container > p').forEach(function (el) { mark(el, 'fade'); });
+    if (!marked.length) return;
+    root.classList.add('vch-rv');
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target; io.unobserve(el);
+        el.classList.add('is-in');
+        setTimeout(function () { el.removeAttribute('data-rv'); el.classList.remove('is-in'); el.style.removeProperty('--i'); }, 1500 + (parseInt(el.style.getPropertyValue('--i') || 0, 10) * 80));
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    marked.forEach(function (el) { io.observe(el); });
+    // Fallback: anything whose top has scrolled into view is shown, even if it sits off to the side (marquees)
+    var sweep = function () {
+      var vh = window.innerHeight;
+      marked.forEach(function (el) {
+        if (!el.hasAttribute('data-rv') || el.classList.contains('is-in')) return;
+        if (el.getBoundingClientRect().top < vh * 0.94) { io.unobserve(el); el.classList.add('is-in');
+          setTimeout(function () { el.removeAttribute('data-rv'); el.classList.remove('is-in'); el.style.removeProperty('--i'); }, 1600); }
+      });
+    };
+    var st = null;
+    window.addEventListener('scroll', function () { if (!st) st = setTimeout(function () { st = null; sweep(); }, 120); }, { passive: true });
+    setTimeout(sweep, 400);
+  })();
+  /* ---------- Pinned scroll scene (home) ---------- */
+  doc.querySelectorAll('.vch-scene').forEach(function (sec) {
+    if (reduce) return;
+    var cars = sec.querySelectorAll('.vch-scene__car');
+    var chs = sec.querySelectorAll('.vch-scene__chapter');
+    var rail = sec.querySelectorAll('.vch-scene__rail li');
+    var N = cars.length, cur = -1, ticking = false;
+    function frame() {
+      ticking = false;
+      var r = sec.getBoundingClientRect();
+      var span = sec.offsetHeight - window.innerHeight;
+      var p = Math.min(1, Math.max(0, -r.top / Math.max(1, span)));
+      sec.style.setProperty('--p', p.toFixed(4));
+      var pos = p * N;
+      var vw = window.innerWidth;
+      cars.forEach(function (c, i) {
+        var off = (i + 0.5) - pos;                       // 0 = centred
+        var a = Math.min(1, Math.abs(off));
+        c.style.setProperty('--x', (off * vw * 0.55).toFixed(1) + 'px');
+        c.style.setProperty('--s', (1 - a * 0.12).toFixed(3));
+        c.style.setProperty('--o', Math.max(0, 1 - Math.abs(off) * 1.6).toFixed(3));
+      });
+      var idx = Math.min(N - 1, Math.floor(pos));
+      if (idx !== cur) {
+        cur = idx;
+        chs.forEach(function (c, i) { c.classList.toggle('is-on', i === idx); });
+        rail.forEach(function (l, i) { l.classList.toggle('is-on', i === idx); });
+      }
+      rail.forEach(function (l, i) { l.style.setProperty('--f', Math.min(1, Math.max(0, pos - i)).toFixed(3)); });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    frame();
+  });
   /* =========================================================
      vch-flow: one question at a time.
      <form data-flow> with children marked data-step.
