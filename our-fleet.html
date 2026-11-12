@@ -389,8 +389,7 @@
       "Tuesday",
       "Wednesday",
       "Thursday",
-      "Friday",
-      "Saturday"
+      "Friday"
     ],
     "opens": "09:00",
     "closes": "18:00"
@@ -469,7 +468,7 @@
 <!-- Ticker -->
 <div class="ticker">
   <div class="track">
-    <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
     <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
     <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
     <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
@@ -478,7 +477,7 @@
     <span class="item"><i class="fa-solid fa-id-card"></i> All PCO Badges Welcome</span>
     <span class="item"><i class="fa-solid fa-wrench"></i> Roadside Breakdown Cover</span>
     <span class="item"><i class="fa-solid fa-circle-check"></i> TfL Licensed &amp; Compliant</span>
-    <span class="item"><i class="fa-solid fa-star"></i> 4.8★ Google Rating</span>
+    <span class="item"><i class="fa-solid fa-star"></i> 4.7★ Google Rating</span>
     <span class="item"><i class="fa-solid fa-car"></i> 100+ Premium PCO Vehicles</span>
     <span class="item"><i class="fa-solid fa-shield-halved"></i> Insurance &amp; Servicing Included</span>
     <span class="item"><i class="fa-solid fa-bolt"></i> Same-Day Onboarding</span>
@@ -596,7 +595,7 @@
     <div class="cars-grid">
       <div class="car" data-make="mercedes" data-fuel="plugin-hybrid" data-platform="uberx uber-comfort uber-exec uber-green">
         <div class="car-visual"><span class="car-tag plugin">Plug-in Hybrid</span><img loading="eager" decoding="async" fetchpriority="high" src="assets/cars/mercedes-e300-grey.png" alt="Grey Mercedes E300 Hybrid PCO Car" width="1454" height="1062"></div>
-        <div class="car-body"><h3>Mercedes E300</h3><p class="car-meta">Plug-in Hybrid · Executive Saloon</p><div class="car-specs"><span><i class="fas fa-users"></i> 5 seats</span><span><i class="fas fa-cog"></i> Auto</span><span><i class="fas fa-calendar"></i> 2019–2020</span></div><div class="car-foot"><div class="price">£300<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/mercedes-e300.html">View <i class="fas fa-arrow-right"></i></a></div></div>
+        <div class="car-body"><h3>Mercedes E300</h3><p class="car-meta">Plug-in Hybrid · Executive Saloon</p><div class="car-specs"><span><i class="fas fa-users"></i> 5 seats</span><span><i class="fas fa-cog"></i> Auto</span><span><i class="fas fa-calendar"></i> 2019–2020</span></div><div class="car-foot"><div class="price">£280<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/mercedes-e300.html">View <i class="fas fa-arrow-right"></i></a></div></div>
       </div>
       <div class="car" data-make="mercedes" data-fuel="diesel" data-platform="uberx uber-xl">
         <div class="car-visual"><span class="car-tag diesel">Diesel</span><img loading="eager" decoding="async" fetchpriority="high" src="assets/cars/mercedes-vito-grey.webp" alt="Grey Mercedes Vito 8-seat PCO MPV" width="2048" height="1365"></div>
@@ -647,8 +646,8 @@
       <p class="sub">Unbeatable reliability and hybrid efficiency for everyday PCO driving.</p>
     </div>
     <div class="cars-grid">
-      <div class="car" data-make="toyota" data-fuel="petrol" data-platform="uberx">
-        <div class="car-visual"><span class="car-tag petrol">Petrol</span><img loading="lazy" decoding="async" fetchpriority="low" src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate Petrol PCO Car"></div>
+      <div class="car" data-make="toyota" data-fuel="hybrid petrol" data-platform="uberx">
+        <div class="car-visual"><span class="car-tag hybrid">Petrol Hybrid</span><img loading="lazy" decoding="async" fetchpriority="low" src="https://media.base44.com/images/public/6a1f346b7b17a237b494bdf9/07c38dfd7_generated_59d7c3d3.png" alt="Toyota Corolla Estate petrol hybrid PCO car"></div>
         <div class="car-body"><h3>Toyota Corolla Estate</h3><p class="car-meta">Petrol · Estate</p><div class="car-specs"><span><i class="fas fa-users"></i> 5 seats</span><span><i class="fas fa-cog"></i> Auto</span><span><i class="fas fa-calendar"></i> 2019</span></div><div class="car-foot"><div class="price">£210<small>/wk</small><span class="incl">Insurance &amp; service incl.</span></div><a class="view-btn" href="cars/toyota-corolla-estate.html">View <i class="fas fa-arrow-right"></i></a></div></div>
       </div>
       <div class="car" data-make="toyota" data-fuel="hybrid" data-platform="uberx">
@@ -837,7 +836,7 @@
         const cPlatform = card.getAttribute('data-platform') || '';
 
         const makeMatch = (makeVal === 'all' || cMake === makeVal);
-        const fuelMatch = (fuelVal === 'all' || cFuel === fuelVal);
+        const fuelMatch = (fuelVal === 'all' || cFuel.split(' ').includes(fuelVal));
         const platformMatch = (platformVal === 'all' || cPlatform.includes(platformVal));
 
         if (makeMatch && fuelMatch && platformMatch) {
