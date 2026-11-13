@@ -64,10 +64,7 @@ const publicPages = [
   'pco-car-hire-luton.html', 'areas-we-cover.html', 'whatsapp.html', 'emergency.html',
   'privacy-policy.html', 'cookie-policy.html', 'thank-you.html', '404.html',
   'guides.html', 'the-auto-surgeon.html',
-  'how-to-get-pco-licence-london.html',
-  'uber-bolt-pco-cars-london.html',
-  'pco-car-hire-london-guide.html',
-  'start-driving-uber-bolt-london.html',
+  ...fs.readdirSync(path.join(__dirname, '..', 'guides')).filter(f => f.endsWith('.html')).map(g => `guides/${g}`),
   ...carFiles.map(c => `cars/${c}`)
 ];
 
