@@ -183,6 +183,13 @@
         numB.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-GB');
         numI.textContent = it.getAttribute('data-suf');
         if (idx !== lastIdx) items.forEach(function (li, k) { li.classList.toggle('is-on', k === idx); });
+      } else if (type === 'feat') {
+        var navs = sec.querySelectorAll('.vch-feat__nav li'), panels = sec.querySelectorAll('.vch-feat__panel');
+        if (idx !== lastIdx) {
+          panels.forEach(function (pn, k) { pn.classList.toggle('is-on', k === idx); pn.classList.toggle('is-past', k < idx); });
+          navs.forEach(function (li, k) { li.classList.toggle('is-on', k === idx); li.classList.toggle('is-done', k < idx); });
+        }
+        navs.forEach(function (li, k) { li.style.setProperty('--f', Math.min(1, Math.max(0, pos - k)).toFixed(3)); });
       } else if (type === 'rail' && track) {
         var extra = Math.max(0, track.scrollWidth - window.innerWidth);
         track.style.setProperty('--tx', (-p * extra).toFixed(1) + 'px');

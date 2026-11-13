@@ -924,15 +924,33 @@
   </div>
 </section>
 
-<!-- Numbers (scroll counter) -->
-<section class="vch-pin vch-pin--count" data-pin="count" aria-label="Virtual Car Hire in numbers" style="--n:4">
-  <div class="vch-pin__sticky">
-    <p class="vch-count__kicker">Virtual Car Hire in numbers</p>
-    <div class="vch-count__num" aria-hidden="true"><b>0</b><i>+</i></div>
-    <ol class="vch-count__list"><li data-k="0" data-to="10" data-dec="0" data-suf="+"><span>years in London</span><small>Putting private hire drivers on the road since 2014.</small></li><li data-k="1" data-to="100" data-dec="0" data-suf="+"><span>PCO vehicles</span><small>Hybrid, electric, executive and 7 to 9-seat cars.</small></li><li data-k="2" data-to="5000" data-dec="0" data-suf="+"><span>drivers on the road</span><small>Uber, Bolt and Ola drivers across London and Luton.</small></li><li data-k="3" data-to="4.7" data-dec="1" data-suf="★"><span>on Google and Trustpilot</span><small>Rated 4.7 on both, by the drivers who hire from us.</small></li></ol>
-    <div class="vch-count__bar" aria-hidden="true"><i></i></div>
+<!-- Stats Strip -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-clock-rotate-left"></i></div>
+        <div class="num"><span data-count="10" data-duration="1800">10</span><span class="suf">+</span></div>
+        <div class="lbl">Years Experience</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-car-side"></i></div>
+        <div class="num"><span data-count="100" data-duration="1800">100</span><span class="suf">+</span></div>
+        <div class="lbl">Premium Vehicles</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-users"></i></div>
+        <div class="num"><span data-count="5000" data-duration="1800">5000</span><span class="suf">+</span></div>
+        <div class="lbl">Happy PCO Drivers</div>
+      </div>
+      <div class="stat">
+        <div class="ic"><i class="fa-solid fa-star"></i></div>
+        <div class="num"><span data-count="4.7" data-decimals="1" data-duration="1800">4.7</span><span class="suf">★</span></div>
+        <div class="lbl">Google &amp; Trustpilot</div>
+      </div>
+    </div>
   </div>
-</section>
+</div>
 
 <!-- About Section -->
 <section class="about">
@@ -960,12 +978,15 @@
   </div>
 </section>
 
-<!-- What is included (horizontal scroll) -->
-<section class="vch-pin vch-pin--rail" data-pin="rail" aria-labelledby="inc-title" style="--n:6">
+<!-- What is included (step-through scroll) -->
+<section class="vch-pin vch-pin--feat" data-pin="feat" aria-labelledby="inc-title" style="--n:6">
   <div class="vch-pin__sticky">
-    <div class="vch-rail__head"><h2 id="inc-title" class="title">Insurance, servicing and MOT <span class="em">in one weekly price</span></h2><p>Everything below is already in the price. Keep scrolling.</p></div>
-    <div class="vch-rail__viewport"><div class="vch-rail__track"><article class="vch-rail__card" data-k="0"><span class="vch-rail__n">01</span><i class="fa-solid fa-shield-halved" aria-hidden="true"></i><h3>Insurance</h3><p>Fully insured from day one. No separate policy to buy or arrange.</p></article><article class="vch-rail__card" data-k="1"><span class="vch-rail__n">02</span><i class="fa-solid fa-wrench" aria-hidden="true"></i><h3>Servicing and MOT</h3><p>Scheduled servicing and the MOT are booked and paid for by us.</p></article><article class="vch-rail__card" data-k="2"><span class="vch-rail__n">03</span><i class="fa-solid fa-truck-medical" aria-hidden="true"></i><h3>Breakdown cover</h3><p>Roadside breakdown cover is part of every hire, around the clock.</p></article><article class="vch-rail__card" data-k="3"><span class="vch-rail__n">04</span><i class="fa-solid fa-id-card" aria-hidden="true"></i><h3>TfL licensed, platform ready</h3><p>Every car is PCO ready. We upload your documents to Uber, Bolt and Ola.</p></article><article class="vch-rail__card" data-k="4"><span class="vch-rail__n">05</span><i class="fa-solid fa-leaf" aria-hidden="true"></i><h3>Hybrid and electric</h3><p>Lower running costs, and every car meets the London ULEZ standard.</p></article><article class="vch-rail__card" data-k="5"><span class="vch-rail__n">06</span><i class="fa-solid fa-bolt" aria-hidden="true"></i><h3>Same-day start</h3><p>Once your documents are checked, most drivers collect the same day.</p></article><article class="vch-rail__card vch-rail__cta"><h3>From £200 a week, all in.</h3><a class="btn btn-primary" href="/our-fleet">See weekly prices <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a></article></div></div>
-    <div class="vch-count__bar vch-rail__bar" aria-hidden="true"><i></i></div>
+    <div class="vch-feat__side">
+      <h2 id="inc-title" class="title">Insurance, servicing and MOT <span class="em">in one weekly price</span></h2>
+      <ol class="vch-feat__nav"><li data-k="0"><span class="vch-feat__n">01</span><span class="vch-feat__t">Insurance</span><i class="vch-feat__fill" aria-hidden="true"></i></li><li data-k="1"><span class="vch-feat__n">02</span><span class="vch-feat__t">Servicing and MOT</span><i class="vch-feat__fill" aria-hidden="true"></i></li><li data-k="2"><span class="vch-feat__n">03</span><span class="vch-feat__t">Breakdown cover</span><i class="vch-feat__fill" aria-hidden="true"></i></li><li data-k="3"><span class="vch-feat__n">04</span><span class="vch-feat__t">TfL licensed, platform ready</span><i class="vch-feat__fill" aria-hidden="true"></i></li><li data-k="4"><span class="vch-feat__n">05</span><span class="vch-feat__t">Hybrid and electric</span><i class="vch-feat__fill" aria-hidden="true"></i></li><li data-k="5"><span class="vch-feat__n">06</span><span class="vch-feat__t">Same-day start</span><i class="vch-feat__fill" aria-hidden="true"></i></li></ol>
+      <a class="btn btn-primary vch-feat__cta" href="/our-fleet">See weekly prices <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </div>
+    <div class="vch-feat__stage"><article class="vch-feat__panel" data-k="0"><div class="vch-feat__icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div><p class="vch-feat__label">Insurance</p><h3>Fully insured from the day you collect.</h3><p>No separate policy to buy, compare or arrange. Your weekly price already includes comprehensive cover for private hire work.</p></article><article class="vch-feat__panel" data-k="1"><div class="vch-feat__icon"><i class="fa-solid fa-wrench" aria-hidden="true"></i></div><p class="vch-feat__label">Servicing and MOT</p><h3>We book it and we pay for it.</h3><p>Scheduled servicing and the MOT are handled by us, with tyres and brakes kept up to standard so the car is always ready to work.</p></article><article class="vch-feat__panel" data-k="2"><div class="vch-feat__icon"><i class="fa-solid fa-truck-medical" aria-hidden="true"></i></div><p class="vch-feat__label">Breakdown cover</p><h3>Help at the roadside, around the clock.</h3><p>Roadside breakdown cover is part of every hire. If something goes wrong on a shift, one call gets you help.</p></article><article class="vch-feat__panel" data-k="3"><div class="vch-feat__icon"><i class="fa-solid fa-id-card" aria-hidden="true"></i></div><p class="vch-feat__label">TfL licensed, platform ready</p><h3>Ready for Uber, Bolt and Ola.</h3><p>Every car is TfL licensed and PCO ready. We upload your vehicle documents to the apps so you can start taking trips quickly.</p></article><article class="vch-feat__panel" data-k="4"><div class="vch-feat__icon"><i class="fa-solid fa-leaf" aria-hidden="true"></i></div><p class="vch-feat__label">Hybrid and electric</p><h3>Lower running costs, cleaner air.</h3><p>Most of the fleet is hybrid or fully electric, and every car meets the London ULEZ standard, so there is no daily ULEZ charge.</p></article><article class="vch-feat__panel" data-k="5"><div class="vch-feat__icon"><i class="fa-solid fa-bolt" aria-hidden="true"></i></div><p class="vch-feat__label">Same-day start</p><h3>Collect today, drive today.</h3><p>Once your documents are checked and the agreement is signed, most drivers collect from Hounslow and start working the same day.</p></article></div>
   </div>
 </section>
 
