@@ -81,7 +81,7 @@
   (function () {
     if (reduce || !('IntersectionObserver' in window)) return;
     var root = doc.documentElement;
-    var heroSel = '.vch-hero, .page-hero, .article-hero, .how-hero, .support-hero, .hero-luton, .vch-thanks, .vch-404-stage, body.car-page section.hero, .vch-scene';
+    var heroSel = '.vch-hero, .page-hero, .article-hero, .how-hero, .support-hero, .hero-luton, .vch-thanks, .vch-404-stage, body.car-page section.hero, .vch-scene, .vch-pin';
     var skip = function (el) { return el.closest(heroSel) || el.closest('header, .ticker, .float, #cookieConsent, form, .vch-card'); };
     var marked = [];
     var mark = function (el, kind, i) {
@@ -137,6 +137,69 @@
     window.addEventListener('scroll', function () { if (!st) st = setTimeout(function () { st = null; sweep(); }, 120); }, { passive: true });
     setTimeout(sweep, 400);
   })();
+
+  /* ---------- Pinned scroll sections: deck, count, rail ---------- */
+  doc.querySelectorAll('.vch-pin').forEach(function (sec) {
+    if (reduce) return;
+    var type = sec.getAttribute('data-pin');
+    var N = parseInt(getComputedStyle(sec).getPropertyValue('--n'), 10) || 1;
+    var ticking = false;
+    var cards = sec.querySelectorAll('.vch-deck__card');
+    var words = sec.querySelector('.vch-deck__words');
+    var items = sec.querySelectorAll('.vch-count__list li');
+    var numB = sec.querySelector('.vch-count__num b'), numI = sec.querySelector('.vch-count__num i');
+    var bar = sec.querySelector('.vch-count__bar i');
+    var track = sec.querySelector('.vch-rail__track');
+    var tiles = sec.querySelectorAll('.vch-rail__card');
+    var lastIdx = -1;
+    function size() {
+      if (type !== 'rail' || !track) return;
+      var extra = Math.max(0, track.scrollWidth - window.innerWidth);
+      sec.style.height = (window.innerHeight + extra * 1.15) + 'px';
+    }
+    function frame() {
+      ticking = false;
+      var r = sec.getBoundingClientRect();
+      var span = Math.max(1, sec.offsetHeight - window.innerHeight);
+      var p = Math.min(1, Math.max(0, -r.top / span));
+      sec.style.setProperty('--p', p.toFixed(4));
+      if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      var pos = p * N, idx = Math.min(N - 1, Math.floor(pos));
+      if (type === 'deck') {
+        cards.forEach(function (c, k) {
+          var t = Math.min(1, Math.max(0, pos - k + 0.35));          // 0 = waiting below, 1 = landed
+          var past = k === N - 1 ? 0 : Math.min(1, Math.max(0, pos - k - 0.65)); // how far it has been covered
+          var y = k === 0 ? 0 : (1 - easeOut(t)) * window.innerHeight;
+          c.style.setProperty('--y', y.toFixed(1) + 'px');
+          c.style.setProperty('--s', (1 - past * 0.07).toFixed(3));
+          c.style.setProperty('--op', (1 - past * 0.55).toFixed(3));
+        });
+        if (words) words.style.setProperty('--idx', idx);
+      } else if (type === 'count') {
+        var it = items[idx]; if (!it) return;
+        var local = Math.min(1, Math.max(0, (pos - idx) * 1.7));
+        var to = parseFloat(it.getAttribute('data-to')), dec = parseInt(it.getAttribute('data-dec'), 10) || 0;
+        var v = to * easeOut(local);
+        numB.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString('en-GB');
+        numI.textContent = it.getAttribute('data-suf');
+        if (idx !== lastIdx) items.forEach(function (li, k) { li.classList.toggle('is-on', k === idx); });
+      } else if (type === 'rail' && track) {
+        var extra = Math.max(0, track.scrollWidth - window.innerWidth);
+        track.style.setProperty('--tx', (-p * extra).toFixed(1) + 'px');
+        var mid = window.innerWidth / 2, best = 0, bd = 1e9;
+        tiles.forEach(function (t, k) { var b = t.getBoundingClientRect(); var d = Math.abs(b.left + b.width / 2 - mid); if (d < bd) { bd = d; best = k; } });
+        tiles.forEach(function (t, k) { t.classList.toggle('is-on', k === best); });
+      }
+      lastIdx = idx;
+    }
+    function easeOut(x) { return 1 - Math.pow(1 - x, 3); }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+    size();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function () { size(); onScroll(); });
+    window.addEventListener('load', function () { size(); frame(); });
+    frame();
+  });
   /* ---------- Pinned scroll scene (home) ---------- */
   doc.querySelectorAll('.vch-scene').forEach(function (sec) {
     if (reduce) return;
