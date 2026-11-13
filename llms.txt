@@ -44,7 +44,7 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - XML sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
 
 ## Current fleet and weekly prices (from each vehicle page, updated 12 November 2026)
-- Ford Tourneo Custom 8/9 Seater: £410 per week. Plug-in Hybrid · 8-Seat MPV. https://www.virtual-carhire.co.uk/cars/ford-tourneo-custom
+- Ford Tourneo Custom Titanium 8/9 Seater: £410 per week. Plug-in Hybrid · 8-Seat MPV. https://www.virtual-carhire.co.uk/cars/ford-tourneo-custom
 - Hyundai IONIQ Hybrid: £210 per week. Plug-in Hybrid · Hatchback. https://www.virtual-carhire.co.uk/cars/hyundai-ioniq
 - Hyundai Santa Fe 2026 7-Seater Plug-in Hybrid: £370 per week. Plug-in Hybrid · 7-Seat SUV · New Shape. https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe-2026
 - Hyundai Santa Fe 7-Seater Plug-in Hybrid: £370 per week. Plug-in Hybrid · 7-Seat SUV. https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe

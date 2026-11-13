@@ -1131,3 +1131,4 @@ html.vch-rv [data-rv="fade"]:not(.is-in){ opacity:0; }
   .vch-carinfo__grid{ grid-template-columns:1fr; }
 }
 .vch-deck__word{ overflow:visible !important; clip-path:inset(0 -60vw 0 -2px); position:relative; z-index:2; }
+@media (max-width:900px) and (max-height:760px){ body.car-page .hero-title{ font-size:clamp(24px,6.8vw,30px) !important; line-height:1.05 !important; } }
