@@ -435,8 +435,20 @@
     .sub-thumb { width: 48px; height: 36px; border-radius: 6px; object-fit: cover; border: 1px solid #e2e8f0; margin-right: 10px; vertical-align: middle; }
     .account-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
     @media (max-width: 900px) { .account-grid { grid-template-columns: 1fr; } }
-    .upload-box { background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 16px; }
-    .upload-box select { width: 100%; }
+    .account-docs { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .acc-doc { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; }
+    .acc-doc.has-doc { background: #fff; border-color: #fed7aa; }
+    .acc-doc-name { display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0f172a; font-size: 14px; flex-wrap: wrap; }
+    .acc-doc-name i { color: #94a3b8; }
+    .acc-doc.has-doc .acc-doc-name i { color: #16a34a; }
+    .acc-doc-name small { display: block; width: 100%; font-weight: 400; color: #64748b; font-size: 12px; padding-left: 22px; }
+    .acc-doc-waiting { font-size: 12px; color: #94a3b8; white-space: nowrap; }
+    .acc-doc-ready { font-size: 12px; color: #16a34a; white-space: nowrap; }
+    .vch-toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+      background: #0f172a; color: #fff; padding: 12px 18px; border-radius: 12px; font-size: 14px; font-weight: 600;
+      box-shadow: 0 10px 30px rgba(15,23,42,.25); transition: opacity .25s, transform .25s; z-index: 10000; max-width: calc(100vw - 32px); text-align: center; }
+    .vch-toast.show { opacity: 1; transform: translate(-50%, 0); }
+    .vch-toast.error { background: #b91c1c; }
 
     /* UK Registration Plate Component */
     .uk-number-plate {
@@ -1409,10 +1421,10 @@
               <div class="form-group">
                 <label>Odometer Dashboard Photo</label>
                 <div class="file-input-wrapper">
-                  <input type="file" id="odometerPhoto" accept="image/*" capture="environment" required/>
+                  <input type="file" id="odometerPhoto" accept="image/*" required/>
                   <div class="file-input-label">
                     <i class="fa-solid fa-camera"></i>
-                    <span id="photoFileName">Tap to take photo or choose image</span>
+                    <span id="photoFileName">Take a photo or choose one from your gallery</span>
                   </div>
                 </div>
               </div>
@@ -1475,7 +1487,7 @@
         </div>
       </div>
 
-      <!-- MY ACCOUNT: details + document upload -->
+      <!-- MY ACCOUNT: details + documents sent by the office -->
       <div class="card col-12" id="my-account-section">
         <div class="card-head">
           <div class="card-title-wrap">
@@ -1495,31 +1507,11 @@
             <p style="color:#64748b; font-size:12.5px; margin:10px 0 0 0;">Need to change something? Message us on WhatsApp and we'll update it.</p>
           </div>
           <div>
-            <h3 style="font-size:14px; margin:0 0 8px 0; color:#0f172a;">Upload a document</h3>
-            <form id="docUploadForm" class="upload-box">
-              <div class="form-group">
-                <label for="docType">Document</label>
-                <select id="docType" class="form-input">
-                  <option value="contract">Signed hire agreement</option>
-                  <option value="pco_licence">PCO licence</option>
-                  <option value="permission_letter">Permission letter</option>
-                  <option value="vehicle_schedule">Vehicle schedule</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>File (PDF or photo, max 10 MB)</label>
-                <div class="file-input-wrapper">
-                  <input type="file" id="docFile" accept="application/pdf,image/*" required/>
-                  <div class="file-input-label">
-                    <i class="fa-solid fa-file-arrow-up"></i>
-                    <span id="docFileName">Tap to choose a file</span>
-                  </div>
-                </div>
-              </div>
-              <button type="submit" id="docUploadBtn" class="submit-mileage-btn">
-                <i class="fa-solid fa-cloud-arrow-up"></i> Upload document
-              </button>
-            </form>
+            <h3 style="font-size:14px; margin:0 0 8px 0; color:#0f172a;">Your documents</h3>
+            <p style="color:#64748b; font-size:12.5px; margin:0 0 10px 0;">Our team sends these to you. They appear here as soon as they are ready.</p>
+            <ul id="accountDocsList" class="account-docs">
+              <li class="empty-msg"><i class="fa-solid fa-spinner fa-spin" style="margin-right:6px;"></i> Loading...</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -1934,7 +1926,7 @@
       if (file) {
         labelEl.textContent = `Selected: ${file.name} (${Math.round(file.size / 1024)} KB)`;
       } else {
-        labelEl.textContent = 'Tap to take photo or choose image';
+        labelEl.textContent = 'Take a photo or choose one from your gallery';
       }
     });
 
@@ -2134,12 +2126,32 @@
     }
 
     const DOC_LABELS = {
-      contract: 'Hire agreement',
-      pco_licence: 'PCO licence',
       permission_letter: 'Permission letter',
-      vehicle_schedule: 'Vehicle schedule',
+      contract: 'Your contract',
+      vehicle_schedule: 'Your driver schedule',
+      pco_licence: 'Car PCO licence',
     };
+    // The four documents the office sends, newest of each type, shown in My Account.
+    function renderAccountDocs(docs) {
+      const el = document.getElementById('accountDocsList');
+      if (!el) return;
+      el.innerHTML = Object.keys(DOC_LABELS).map((type) => {
+        const doc = docs
+          .filter((d) => d.type === type)
+          .sort((a, b) => String(b.uploaded_at || '').localeCompare(String(a.uploaded_at || '')))[0];
+        const right = doc && doc.url
+          ? `<a href="${escapeHtml(doc.url)}" target="_blank" rel="noopener noreferrer" class="doc-btn"><i class="fa-solid fa-eye"></i> View</a>`
+          : doc
+            ? '<span class="acc-doc-ready">Received</span>'
+            : '<span class="acc-doc-waiting">Not sent yet</span>';
+        return `<li class="acc-doc ${doc ? 'has-doc' : ''}">
+          <span class="acc-doc-name"><i class="fa-solid ${doc ? 'fa-circle-check' : 'fa-hourglass-half'}"></i> ${escapeHtml(DOC_LABELS[type])}${doc && doc.uploaded_at ? `<small>${escapeHtml(fmtDate(doc.uploaded_at))}</small>` : ''}</span>
+          ${right}
+        </li>`;
+      }).join('');
+    }
     function renderDocumentsFromCrm(docs) {
+      renderAccountDocs(docs);
       const docsEl = document.getElementById('documentsList');
       docsEl.innerHTML = docs.length ? docs.map((doc) => `
         <div class="doc-item">
@@ -2246,12 +2258,23 @@
 
       // Handle Logout
       logoutBtn.addEventListener('click', async () => {
+        // Logging out also forgets "Keep me signed in" on this device.
+        try {
+          Object.keys(localStorage).filter((k) => k.startsWith('vch_2fa_verified_')).forEach((k) => localStorage.removeItem(k));
+          Object.keys(sessionStorage).filter((k) => k.startsWith('vch_2fa_verified_')).forEach((k) => sessionStorage.removeItem(k));
+        } catch (e) {}
+        document.cookie = 'vch_portal_remember=; Max-Age=0; Path=/portal; SameSite=Lax; Secure';
         await supabase.auth.signOut();
         window.location.href = '/portal/login';
       });
 
       // 2. Preferred: load everything from the CRM (works regardless of Supabase RLS).
       if (await loadDashboardFromCrm(session, timeOfDayGreeting)) {
+        window.vchRefreshDashboard = async () => {
+          const { data: { session: s } } = await supabase.auth.getSession();
+          if (!s) { window.location.href = '/portal/login'; return; }
+          await loadDashboardFromCrm(s, timeOfDayGreeting);
+        };
         try {
           const { data: termsStatus } = await supabase.rpc('check_driver_terms_accepted', { p_user_id: user.id, p_email: user.email });
           if (termsStatus === false) document.getElementById('dashboardTermsModal').style.display = 'flex';
@@ -2837,11 +2860,14 @@
           const photoData = await photoToDataUrl(photoFile);
           const { res, data } = await portalApi('/api/portal/mileage', session, { reading: Number(readingVal), photo_base64: photoData });
           if (res.ok && data.ok) {
-            alert('Thanks! Your odometer reading was submitted. Our team will review it shortly.');
+            vchToast('Thanks! Your reading was sent for review.');
             document.getElementById('mileageForm').reset();
-            document.getElementById('photoFileName').textContent = 'Tap to take photo or choose image';
-            const me = await portalApi('/api/portal/me', session, {});
-            if (me.res.ok && me.data.ok) renderSubmissionsFromCrm(me.data.submissions || []);
+            document.getElementById('photoFileName').textContent = 'Take a photo or choose one from your gallery';
+            if (typeof window.vchRefreshDashboard === 'function') await window.vchRefreshDashboard();
+            else {
+              const me = await portalApi('/api/portal/me', session, {});
+              if (me.res.ok && me.data.ok) renderSubmissionsFromCrm(me.data.submissions || []);
+            }
             submitBtn.disabled = false;
             submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Submit for review';
             return;
@@ -2886,7 +2912,7 @@
 
         alert('Odometer mileage photo submitted successfully! Staff will review and update your approved mileage.');
         document.getElementById('mileageForm').reset();
-        document.getElementById('photoFileName').textContent = 'Tap to take photo or choose image';
+        document.getElementById('photoFileName').textContent = 'Take a photo or choose one from your gallery';
 
         // Reload submissions
         loadMileageSubmissions(supabase, driverId);
@@ -2900,55 +2926,38 @@
       }
     });
   
-    // ---- My Account: document upload (stored in the CRM, appears in Documents) ----
+    // ---- Keep the dashboard fresh without reloading the page ----
+    // Re-reads everything from the CRM every 60 seconds while the page is open, and straight
+    // away when the driver comes back to the tab/app, so approvals, new documents and rent
+    // changes appear on their own.
     (function () {
-      const form = document.getElementById('docUploadForm');
-      if (!form) return;
-      const fileEl = document.getElementById('docFile');
-      fileEl.addEventListener('change', () => {
-        const f = fileEl.files[0];
-        document.getElementById('docFileName').textContent = f ? `Selected: ${f.name} (${Math.round(f.size / 1024)} KB)` : 'Tap to choose a file';
-      });
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const f = fileEl.files[0];
-        if (!f) { alert('Please choose a file.'); return; }
-        if (f.size > 10 * 1024 * 1024) { alert('File is too large (max 10 MB).'); return; }
-        const btn = document.getElementById('docUploadBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Uploading...';
-        try {
-          const supabase = window.initVchSupabase();
-          const { data: { session } } = await supabase.auth.getSession();
-          if (!session) { window.location.href = '/portal/login'; return; }
-          const dataUrl = f.type.startsWith('image/') ? await photoToDataUrl(f) : await new Promise((resolve, reject) => {
-            const r = new FileReader();
-            r.onload = () => resolve(r.result);
-            r.onerror = () => reject(new Error('Could not read file'));
-            r.readAsDataURL(f);
-          });
-          const { res, data } = await portalApi('/api/portal/document', session, {
-            document_type: document.getElementById('docType').value,
-            file_name: f.name,
-            file_base64: dataUrl,
-          });
-          if (res.ok && data.ok) {
-            alert('Document uploaded. Our team can now see it.');
-            form.reset();
-            document.getElementById('docFileName').textContent = 'Tap to choose a file';
-            const me = await portalApi('/api/portal/me', session, {});
-            if (me.res.ok && me.data.ok) renderDocumentsFromCrm(me.data.documents || []);
-          } else {
-            alert((data && data.error) || 'Could not upload the document. Please try again.');
-          }
-        } catch (err) {
-          alert('Could not upload the document. Please check your connection and try again.');
-        } finally {
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Upload document';
-        }
-      });
+      let busy = false;
+      async function refresh() {
+        if (busy || typeof window.vchRefreshDashboard !== 'function') return;
+        busy = true;
+        try { await window.vchRefreshDashboard(); } catch (e) { /* keep what is shown */ }
+        busy = false;
+      }
+      window.vchRefreshNow = refresh;
+      setInterval(() => { if (document.visibilityState === 'visible') refresh(); }, 60000);
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh(); });
+      window.addEventListener('focus', refresh);
     })();
+
+    // Small confirmation banner (instead of a blocking alert)
+    function vchToast(message, kind) {
+      let el = document.getElementById('vchToast');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'vchToast';
+        el.setAttribute('role', 'status');
+        document.body.appendChild(el);
+      }
+      el.textContent = message;
+      el.className = `vch-toast ${kind === 'error' ? 'error' : 'ok'} show`;
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.className = el.className.replace(' show', ''); }, 4000);
+    }
   </script>
 </body>
 </html>

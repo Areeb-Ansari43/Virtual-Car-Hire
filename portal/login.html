@@ -153,11 +153,52 @@
     }
     .otp-input.filled {
       border-color: rgba(232, 93, 4, 0.7);
+      background: #1a1210;
     }
+    /* Typing: each digit pops in */
+    .otp-input.pop { animation: otpPop 0.25s cubic-bezier(.3,1.6,.5,1); }
+    @keyframes otpPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.14); } 100% { transform: scale(1); } }
+    /* All 6 entered: a wave runs across the boxes and they glow */
+    .otp-boxes-group.complete .otp-input { animation: otpWave 0.55s ease both; animation-delay: calc(var(--i, 0) * 55ms); }
+    @keyframes otpWave {
+      0% { transform: translateY(0); }
+      45% { transform: translateY(-9px); border-color: #ff8a3d; box-shadow: 0 8px 22px rgba(232, 93, 4, 0.55); }
+      100% { transform: translateY(0); border-color: #e85d04; box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.25); }
+    }
+    /* Checking: boxes breathe while we verify */
+    .otp-boxes-group.checking .otp-input { animation: otpBreathe 1s ease-in-out infinite; animation-delay: calc(var(--i, 0) * 90ms); }
+    @keyframes otpBreathe { 0%, 100% { box-shadow: 0 0 0 0 rgba(232, 93, 4, 0); } 50% { box-shadow: 0 0 0 4px rgba(232, 93, 4, 0.35); } }
+    /* Correct: boxes flip green one by one */
+    .otp-boxes-group.success .otp-input { animation: otpFlip 0.45s ease both; animation-delay: calc(var(--i, 0) * 70ms); }
+    @keyframes otpFlip {
+      0% { transform: rotateX(0); }
+      50% { transform: rotateX(90deg); }
+      51% { border-color: #22c55e; background: rgba(34, 197, 94, 0.16); color: #bbf7d0; }
+      100% { transform: rotateX(0); border-color: #22c55e; background: rgba(34, 197, 94, 0.16); color: #bbf7d0; }
+    }
+    /* Wrong: shake and flash red */
+    .otp-boxes-group.error { animation: otpShake 0.45s ease; }
+    .otp-boxes-group.error .otp-input { border-color: #ef4444; background: rgba(239, 68, 68, 0.12); }
+    @keyframes otpShake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .otp-input.pop, .otp-boxes-group.complete .otp-input, .otp-boxes-group.checking .otp-input,
+      .otp-boxes-group.success .otp-input, .otp-boxes-group.error { animation: none; }
+    }
+    @media (max-width: 400px) { .otp-input { width: 42px; height: 52px; font-size: 22px; } .otp-boxes-group { gap: 6px; } }
+    .paste-code-btn {
+      display: none; margin: -12px auto 18px; background: transparent; border: 1px dashed rgba(232, 93, 4, 0.6);
+      color: #ff8a3d; border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+    }
+    .paste-code-btn:hover { background: rgba(232, 93, 4, 0.1); }
+    .remember-row { display: flex; align-items: center; gap: 8px; color: #bbb; font-size: 13px; cursor: pointer; }
+    .remember-row input { width: 16px; height: 16px; accent-color: #e85d04; }
 
     .form-actions {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
       margin-bottom: 24px;
     }
     .forgot-link {
@@ -412,6 +453,7 @@
           </div>
 
           <div class="form-actions">
+            <label class="remember-row"><input type="checkbox" id="rememberDevice" checked/> Keep me signed in</label>
             <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot password?</a>
           </div>
 
@@ -432,14 +474,16 @@
           <div class="form-group" style="text-align: center;">
             <label style="margin-bottom: 12px; display: block;">Verification Code</label>
             <div class="otp-boxes-group" id="otpContainer">
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="0" required aria-label="Digit 1"/>
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="1" required aria-label="Digit 2"/>
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="2" required aria-label="Digit 3"/>
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="3" required aria-label="Digit 4"/>
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="4" required aria-label="Digit 5"/>
-              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="1" autocomplete="one-time-code" data-index="5" required aria-label="Digit 6"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" data-index="0" style="--i:0" required aria-label="Digit 1"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" data-index="1" style="--i:1" required aria-label="Digit 2"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" data-index="2" style="--i:2" required aria-label="Digit 3"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" data-index="3" style="--i:3" required aria-label="Digit 4"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" data-index="4" style="--i:4" required aria-label="Digit 5"/>
+              <input type="text" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" data-index="5" style="--i:5" required aria-label="Digit 6"/>
             </div>
           </div>
+
+          <button type="button" id="pasteCodeBtn" class="paste-code-btn"><i class="fa-solid fa-paste"></i> Paste code from email</button>
 
           <button type="submit" id="verify2faBtn" class="auth-btn">
             <span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>
@@ -454,6 +498,33 @@
 
           <button type="button" id="backToPasswordLink" class="secondary-btn">
             <i class="fa-solid fa-arrow-left"></i> Back to login
+          </button>
+        </form>
+      </div>
+
+      <!-- Set a new password (opened from the reset email link) -->
+      <div id="stepReset" style="display: none;">
+        <div class="auth-header">
+          <h1>Set a new password</h1>
+          <p>Choose a new password for your driver portal account.</p>
+        </div>
+        <form id="resetForm">
+          <div class="form-group">
+            <label for="newPassword">New password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="newPassword" required minlength="8" placeholder="At least 8 characters" autocomplete="new-password"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm new password</label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" id="confirmPassword" required minlength="8" placeholder="Type it again" autocomplete="new-password"/>
+            </div>
+          </div>
+          <button type="submit" id="resetBtn" class="auth-btn">
+            <span>Save new password</span> <i class="fa-solid fa-key"></i>
           </button>
         </form>
       </div>
@@ -594,48 +665,157 @@
         return otpInputs.map(input => input.value).join('');
       }
 
+      // "Keep me signed in": a verified device is remembered for 30 days (the Supabase session
+      // itself is kept in this browser's storage and refreshed automatically).
+      const REMEMBER_DAYS = 30;
+      function markVerified(userId) {
+        if (!userId) return;
+        try { sessionStorage.setItem('vch_2fa_verified_' + userId, 'true'); } catch (e) {}
+        const remember = document.getElementById('rememberDevice');
+        if (!remember || remember.checked) {
+          try { localStorage.setItem('vch_2fa_verified_' + userId, String(Date.now() + REMEMBER_DAYS * 86400000)); } catch (e) {}
+          document.cookie = `vch_portal_remember=1; Max-Age=${REMEMBER_DAYS * 86400}; Path=/portal; SameSite=Lax; Secure`;
+        }
+      }
+      function isVerified(userId) {
+        try {
+          if (sessionStorage.getItem('vch_2fa_verified_' + userId) === 'true') return true;
+          const until = Number(localStorage.getItem('vch_2fa_verified_' + userId) || 0);
+          return until > Date.now();
+        } catch (e) { return false; }
+      }
+
+      // Password reset link from the email: show "Set a new password" instead of logging in.
+      const params = new URLSearchParams(window.location.search);
+      const isResetLink = params.has('reset') || /type=recovery/.test(window.location.hash);
+      const stepReset = document.getElementById('stepReset');
+      function showResetStep() {
+        stepPassword.style.display = 'none';
+        step2FA.style.display = 'none';
+        stepReset.style.display = 'block';
+        hideAlert();
+        setTimeout(() => document.getElementById('newPassword').focus(), 50);
+      }
+      if (supabase) {
+        supabase.auth.onAuthStateChange((event) => {
+          if (event === 'PASSWORD_RECOVERY') showResetStep();
+        });
+      }
+
       // Check if user is already logged in
       if (supabase) {
         const { data: { session } } = await supabase.auth.getSession();
-        if (session && session.user && sessionStorage.getItem('vch_2fa_verified_' + session.user.id) === 'true') {
+        if (isResetLink) {
+          if (session && session.user) showResetStep();
+          else showAlert('This password reset link has expired or was already used. Enter your email and tap "Forgot password?" to get a new one.');
+        } else if (session && session.user && isVerified(session.user.id)) {
           window.location.href = '/portal/dashboard';
           return;
         }
       }
 
-      // --- OTP Input Box Interactions (Auto-advance, backspace, paste) ---
-      otpInputs.forEach((input, idx) => {
-        // Handle input & auto-advance
-        input.addEventListener('input', (e) => {
-          const val = input.value.replace(/[^0-9]/g, '');
-          if (val.length > 0) {
-            input.value = val.charAt(val.length - 1);
-            input.classList.add('filled');
-            if (idx < otpInputs.length - 1) {
-              otpInputs[idx + 1].focus();
-              otpInputs[idx + 1].select();
-            }
-          } else {
-            input.value = '';
-            input.classList.remove('filled');
-          }
+      // Save the new password, then ask the driver to log in with it (code step included).
+      document.getElementById('resetForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        hideAlert();
+        const pw = document.getElementById('newPassword').value;
+        const pw2 = document.getElementById('confirmPassword').value;
+        if (pw.length < 8) { showAlert('Please use at least 8 characters.'); return; }
+        if (pw !== pw2) { showAlert('The two passwords do not match.'); return; }
+        const btn = document.getElementById('resetBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+        try {
+          const { error } = await supabase.auth.updateUser({ password: pw });
+          if (error) throw error;
+          await supabase.auth.signOut();
+          history.replaceState(null, '', '/portal/login');
+          stepReset.style.display = 'none';
+          stepPassword.style.display = 'block';
+          document.getElementById('resetForm').reset();
+          showAlert('Your password has been changed. Please log in with your new password.', true);
+        } catch (err) {
+          showAlert((err && err.message) || 'Could not change your password. Please request a new reset link.');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '<span>Save new password</span> <i class="fa-solid fa-key"></i>';
+        }
+      });
 
-          if (getEnteredOtp().length === 6) {
-            // Auto submit when 6th digit entered
-            twoFactorForm.requestSubmit();
+      // --- OTP Input Box Interactions (autofill, auto-advance, backspace, paste, animations) ---
+      const otpGroup = document.getElementById('otpContainer');
+      let autoSubmitTimer = null;
+      let verifying = false;
+
+      function popBox(box) {
+        box.classList.remove('pop');
+        void box.offsetWidth; // restart the animation
+        box.classList.add('pop');
+      }
+      function setBox(box, digit) {
+        box.value = digit;
+        box.classList.toggle('filled', Boolean(digit));
+        if (digit) popBox(box);
+      }
+      // Spreads a code across the boxes. A full 6-digit code (email autofill, paste) always
+      // starts at the first box, whichever box received it.
+      function fillDigits(start, digits) {
+        const from = digits.length >= 6 ? 0 : start;
+        digits.split('').slice(0, 6 - from).forEach((d, i) => {
+          const box = otpInputs[from + i];
+          setTimeout(() => setBox(box, d), i * 45);
+        });
+        const next = Math.min(from + digits.length, otpInputs.length - 1);
+        otpInputs[next].focus();
+      }
+      function maybeAutoSubmit() {
+        clearTimeout(autoSubmitTimer);
+        if (getEnteredOtp().length !== 6 || verifying) return;
+        otpGroup.classList.remove('error');
+        otpGroup.classList.add('complete');
+        autoSubmitTimer = setTimeout(() => twoFactorForm.requestSubmit(), 520);
+      }
+      function otpFeedback(state) {
+        otpGroup.classList.remove('complete', 'checking', 'success', 'error');
+        if (state) {
+          void otpGroup.offsetWidth;
+          otpGroup.classList.add(state);
+        }
+      }
+
+      otpInputs.forEach((input, idx) => {
+        input.addEventListener('input', () => {
+          const digits = input.value.replace(/[^0-9]/g, '');
+          otpFeedback(null);
+          if (!digits) {
+            setBox(input, '');
+            return;
           }
+          if (digits.length > 1) {
+            input.value = '';
+            fillDigits(idx, digits);
+            setTimeout(maybeAutoSubmit, Math.min(digits.length, 6) * 45 + 20);
+            return;
+          }
+          setBox(input, digits);
+          if (idx < otpInputs.length - 1) {
+            otpInputs[idx + 1].focus();
+            otpInputs[idx + 1].select();
+          }
+          maybeAutoSubmit();
         });
 
-        // Handle Backspace navigation
+        input.addEventListener('focus', () => input.select());
+
         input.addEventListener('keydown', (e) => {
           if (e.key === 'Backspace') {
+            otpFeedback(null);
             if (!input.value && idx > 0) {
+              e.preventDefault();
               otpInputs[idx - 1].focus();
-              otpInputs[idx - 1].value = '';
-              otpInputs[idx - 1].classList.remove('filled');
+              setBox(otpInputs[idx - 1], '');
             } else {
-              input.value = '';
-              input.classList.remove('filled');
+              setBox(input, '');
             }
           } else if (e.key === 'ArrowLeft' && idx > 0) {
             otpInputs[idx - 1].focus();
@@ -644,28 +824,33 @@
           }
         });
 
-        // Handle Paste across boxes
         input.addEventListener('paste', (e) => {
           e.preventDefault();
           const pastedData = (e.clipboardData || window.clipboardData).getData('text');
           const digits = pastedData.replace(/[^0-9]/g, '').slice(0, 6);
           if (!digits) return;
-
-          digits.split('').forEach((digit, i) => {
-            if (otpInputs[i]) {
-              otpInputs[i].value = digit;
-              otpInputs[i].classList.add('filled');
-            }
-          });
-
-          const nextIndex = Math.min(digits.length, otpInputs.length - 1);
-          otpInputs[nextIndex].focus();
-
-          if (digits.length === 6) {
-            twoFactorForm.requestSubmit();
-          }
+          fillDigits(idx, digits);
+          setTimeout(maybeAutoSubmit, digits.length * 45 + 20);
         });
       });
+
+      // "Paste code from email" button (phones where long-press paste is fiddly)
+      const pasteCodeBtn = document.getElementById('pasteCodeBtn');
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        pasteCodeBtn.style.display = 'block';
+        pasteCodeBtn.addEventListener('click', async () => {
+          try {
+            const text = await navigator.clipboard.readText();
+            const digits = String(text || '').replace(/[^0-9]/g, '').slice(0, 6);
+            if (digits.length !== 6) { showAlert('Copy the 6-digit code from the email first, then tap Paste.'); return; }
+            hideAlert();
+            fillDigits(0, digits);
+            setTimeout(maybeAutoSubmit, 6 * 45 + 20);
+          } catch (e) {
+            showAlert('Your browser blocked pasting. Long-press the first box and choose Paste.');
+          }
+        });
+      }
 
       // 1. Step Password Submission -> calls /api/portal/request-code
       loginForm.addEventListener('submit', async (e) => {
@@ -792,6 +977,9 @@
           return;
         }
 
+        verifying = true;
+        clearTimeout(autoSubmitTimer);
+        otpFeedback('checking');
         verify2faBtn.disabled = true;
         verify2faBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
 
@@ -809,6 +997,8 @@
 
           if (res.status === 429) {
             showAlert('Please wait before requesting another code.');
+            verifying = false;
+            otpFeedback(null);
             verify2faBtn.disabled = false;
             verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
             return;
@@ -818,6 +1008,9 @@
             // Error mapping from proxy
             const errMsg = data.error || 'Incorrect verification code. Please check and try again.';
             showAlert(errMsg);
+            verifying = false;
+            otpFeedback('error');
+            setTimeout(() => { otpFeedback(null); clearOtpBoxes(); }, 700);
             verify2faBtn.disabled = false;
             verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
             return;
@@ -841,16 +1034,16 @@
             }
 
             authenticatedUser = (sessionData && sessionData.user) || data.user || null;
-            if (authenticatedUser) {
-              sessionStorage.setItem('vch_2fa_verified_' + authenticatedUser.id, 'true');
-            }
+            if (authenticatedUser) markVerified(authenticatedUser.id);
           }
 
           // Wipe password input immediately after successful verification
           const passwordInput = document.getElementById('password');
           if (passwordInput) passwordInput.value = '';
 
-          // Transition to Step 3: Success Animation
+          // Correct code: boxes flip green, then the success card
+          otpFeedback('success');
+          await new Promise((r) => setTimeout(r, 750));
           step2FA.style.display = 'none';
           successAnimationCard.style.display = 'block';
 
@@ -881,6 +1074,8 @@
           }
 
         } catch (err) {
+          verifying = false;
+          otpFeedback('error');
           showAlert(err.message || 'Verification failed. Please try again.');
           verify2faBtn.disabled = false;
           verify2faBtn.innerHTML = '<span>Verify &amp; Log In</span> <i class="fa-solid fa-shield-halved"></i>';
@@ -910,24 +1105,32 @@
       // Forgot Password link
       forgotPasswordLink.addEventListener('click', async (e) => {
         e.preventDefault();
-        const email = document.getElementById('email').value.trim();
+        const emailEl = document.getElementById('email');
+        const email = emailEl.value.trim();
         if (!email) {
-          showAlert('Please enter your email address above to reset your password.');
+          showAlert('Type your email address above, then tap "Forgot password?" again.');
+          emailEl.focus();
           return;
         }
 
+        forgotPasswordLink.style.pointerEvents = 'none';
+        forgotPasswordLink.textContent = 'Sending...';
         try {
           if (!supabase) throw new Error('Supabase not available.');
           const { error } = await supabase.auth.resetPasswordForEmail(email, {
-            redirectTo: window.location.origin + '/portal/login'
+            redirectTo: window.location.origin + '/portal/login?reset=1'
           });
-          if (error) {
-            showAlert(error.message);
+          if (error && /rate|seconds|too many/i.test(error.message || '')) {
+            showAlert('Please wait a minute before asking for another reset email.');
           } else {
-            showAlert('Password reset instructions sent to your email.', true);
+            // Same message whether or not the account exists (doesn't reveal who is a driver).
+            showAlert(`If ${email} has a driver portal account, we've emailed a link to reset your password. Check your inbox and spam folder.`, true);
           }
         } catch (err) {
-          showAlert('Unable to send password reset email.');
+          showAlert('Unable to send the password reset email. Please try again.');
+        } finally {
+          forgotPasswordLink.style.pointerEvents = '';
+          forgotPasswordLink.textContent = 'Forgot password?';
         }
       });
     });
