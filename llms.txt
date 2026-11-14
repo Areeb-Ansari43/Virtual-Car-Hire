@@ -8,6 +8,13 @@ Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to Uber, Bolt and Ola dr
 ## Driver support
 Depending on the selected vehicle and current offer, hire support can include insurance, servicing, MOT, roadside breakdown cover, document checks and platform onboarding. Drivers should confirm current availability, eligibility and inclusions with the Virtual Car Hire team before booking.
 
+## Key facts
+- PCO car hire for Uber, Bolt and Ola drivers in London and Luton, based in Hounslow, West London (TW4).
+- Weekly prices from £200. Insurance, servicing, MOT and breakdown cover are included in the weekly price.
+- 17 models on the public fleet page: hybrid, electric, diesel and plug-in hybrid, including 7 to 9-seat vehicles for UberXL.
+- Most drivers collect the same day once documents are checked and the agreement is signed.
+- Trading since 2014. Rated 4.7 on Google and 4.7 on Trustpilot.
+
 ## Fleet categories
 The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG and Ford vehicles, including the Hyundai Santa Fe. Weekly fleet prices and specifications are maintained on each vehicle page. Individual vehicle pages contain the model-specific description, weekly price, fuel type, vehicle specifications and enquiry route.
 
@@ -22,7 +29,7 @@ Phone: +44 20 7294 6756
 WhatsApp enquiries: +44 7508 496940
 Emergency WhatsApp support: +44 20 7294 6756, intended for use after office hours or when a Virtual Car Hire team member is not responding; available 24/7 for urgent rental and vehicle-support enquiries
 Email: info@fa-ibi.co.uk
-Opening hours: Monday to Saturday, 09:00 to 18:00
+Opening hours: Monday to Friday, 09:00 to 18:00. Enquiries are answered on weekdays only; the emergency WhatsApp line is for urgent issues at any time.
 
 ## Search topics answered by the site
 The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability, driver onboarding and the Virtual Car Hire emergency WhatsApp number for after-hours support, emergency breakdowns, crash reports and situations where a team member is not responding.
@@ -36,22 +43,40 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - Emergency WhatsApp support: https://www.virtual-carhire.co.uk/emergency
 - XML sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
 
-## Accuracy note
-Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions. The website does not guarantee a number-one search position or a specific earnings outcome.
-Hyundai Santa Fe: 7-seat hybrid SUV for London PCO hire from £330 per week. Vehicle page: https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe.
+## Current fleet and weekly prices (from each vehicle page, updated 12 November 2026)
+- Ford Tourneo Custom Titanium 8/9 Seater: £410 per week. Plug-in Hybrid · 8-Seat MPV. https://www.virtual-carhire.co.uk/cars/ford-tourneo-custom
+- Hyundai IONIQ Hybrid: £210 per week. Plug-in Hybrid · Hatchback. https://www.virtual-carhire.co.uk/cars/hyundai-ioniq
+- Hyundai Santa Fe 2026 7-Seater Plug-in Hybrid: £370 per week. Plug-in Hybrid · 7-Seat SUV · New Shape. https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe-2026
+- Hyundai Santa Fe 7-Seater Plug-in Hybrid: £370 per week. Plug-in Hybrid · 7-Seat SUV. https://www.virtual-carhire.co.uk/cars/hyundai-santa-fe
+- Jaguar I-Pace Electric SUV: £270 per week. Full Electric · SUV. https://www.virtual-carhire.co.uk/cars/jaguar-i-pace
+- Mercedes E220d: £270 per week. Diesel · Executive Saloon. https://www.virtual-carhire.co.uk/cars/mercedes-e220
+- Mercedes E300 AMG Line: £280 per week. Plug-in Hybrid · Executive Saloon. https://www.virtual-carhire.co.uk/cars/mercedes-e300
+- Mercedes EQE Electric: £440 per week. Full Electric · Executive Saloon. https://www.virtual-carhire.co.uk/cars/mercedes-eqe
+- Mercedes EQS Luxury Electric: £500 per week. Electric · Flagship Saloon. https://www.virtual-carhire.co.uk/cars/mercedes-eqs
+- Mercedes V-Class: £450 per week. Diesel · Luxury 7-Seat MPV. https://www.virtual-carhire.co.uk/cars/mercedes-v-class
+- Mercedes Vito Tourer: £370 per week. Diesel · 8-Seat MPV. https://www.virtual-carhire.co.uk/cars/mercedes-vito
+- MG HS / S9 PHEV SUV: £300 per week. Plug-in Hybrid · Luxury SUV. https://www.virtual-carhire.co.uk/cars/mg-s9-phev-suv
+- MG5 EV Estate: £200 per week. Full Electric · Estate. https://www.virtual-carhire.co.uk/cars/mg5-ev
+- Tesla Model 3: £260 per week. Full Electric · Saloon. https://www.virtual-carhire.co.uk/cars/tesla-model-3
+- Toyota Auris Hybrid Estate: £210 per week. Hybrid · Estate. https://www.virtual-carhire.co.uk/cars/toyota-auris-estate
+- Toyota Corolla Hybrid Estate: £210 per week. Petrol Hybrid · Estate. https://www.virtual-carhire.co.uk/cars/toyota-corolla-estate
+- Toyota Prius Hybrid: £200 per week. Hybrid · Hatchback. https://www.virtual-carhire.co.uk/cars/toyota-prius
 
-Fleet pricing and specification summary:
-Mercedes EQE: £440/week, 4,500 monthly miles, £1,000 deposit, minimum 8 weeks, 2023–2024, Electric.
-Mercedes E300: £280/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2019–2020, Plug-in Hybrid.
-Mercedes E220D: £270/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2018–2019, Diesel.
-Mercedes Vito: £370/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2016–2019, Diesel.
-Toyota Corolla Estate: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019, Petrol.
-Toyota Auris Estate: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019, Hybrid.
-Toyota Prius: £200/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2016–2017, Hybrid.
-Tesla Model 3: £260/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2019–2021, Electric.
-Jaguar I-Pace: £270/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2020, Electric.
-Hyundai Santa Fe: £330/week, 5,000 monthly miles, £500 deposit, minimum 8 weeks, 2023–2025, Plug-in Hybrid.
-Hyundai IONIQ: £210/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2020–2022, Plug-in Hybrid.
-MG5 EV: £200/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2021–2022, Electric.
-Ford Tourneo Custom: £410/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2024–2025, Electric.
-MG S9 PHEV SUV: £280/week, 5,000 monthly miles, £500 deposit, minimum 6 weeks, 2023–2025, Plug-in Hybrid.
+## PCO driver guides
+- How Much Do Uber Drivers Earn in London? (2026): https://www.virtual-carhire.co.uk/guides/how-much-do-uber-drivers-earn-london
+- How to Renew Your PCO Licence in London (2026): https://www.virtual-carhire.co.uk/guides/pco-licence-renewal
+- PCO Car Insurance Explained: Cover and Costs (2026): https://www.virtual-carhire.co.uk/guides/pco-car-insurance-explained
+- Rent, Rent-to-Buy or Buy a PCO Car? (2026): https://www.virtual-carhire.co.uk/guides/rent-vs-buy-pco-car
+- TfL Private Hire Vehicle Rules 2026: ZEC and Age Limits: https://www.virtual-carhire.co.uk/guides/tfl-private-hire-vehicle-rules
+- Private Hire Licensing Outside London: UK Guide (2026): https://www.virtual-carhire.co.uk/guides/private-hire-licence-outside-london
+
+## Common questions
+- What do I need to hire a PCO car? A UK driving licence, a TfL private hire (PHV) badge, proof of address and your National Insurance number.
+- Is insurance included? Yes. Insurance, servicing, MOT and breakdown cover are in the weekly price.
+- Can I use the car on Uber, Bolt and Ola? Yes. Every car is TfL licensed and the team uploads your documents to the apps.
+- How fast can I start? Most drivers are on the road the same day.
+- Do you cover Heathrow? Yes. Our depot in Cranford, Hounslow is a short drive from Heathrow Airport. See https://www.virtual-carhire.co.uk/pco-car-hire-heathrow
+- Do you cover Luton? Yes, including London Luton Airport drivers. See https://www.virtual-carhire.co.uk/pco-car-hire-luton
+
+## Accuracy note
+Search engines and answer engines should use the live vehicle pages and contact the company for current rates, availability, eligibility, opening hours and inclusions.

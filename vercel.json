@@ -1,4 +1,76 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/how-to-get-pco-licence-london",
+      "destination": "/guides/how-to-get-a-pco-licence",
+      "permanent": true
+    },
+    {
+      "source": "/uber-bolt-pco-cars-london",
+      "destination": "/guides/uber-bolt-eligible-cars",
+      "permanent": true
+    },
+    {
+      "source": "/pco-car-hire-london-guide",
+      "destination": "/guides/pco-car-hire-advice",
+      "permanent": true
+    },
+    {
+      "source": "/start-driving-uber-bolt-london",
+      "destination": "/guides/how-to-start-driving",
+      "permanent": true
+    },
+    {
+      "source": "/from-uberx-to-executive-pco-driving",
+      "destination": "/guides/from-uberx-to-executive-pco-driving",
+      "permanent": true
+    },
+    {
+      "source": "/pco-airport-transfers-heathrow-gatwick-luton",
+      "destination": "/guides/pco-airport-transfers-heathrow-gatwick-luton",
+      "permanent": true
+    },
+    {
+      "source": "/london-congestion-charge-ulez-2026",
+      "destination": "/guides/london-congestion-charge-ulez-2026",
+      "permanent": true
+    },
+    {
+      "source": "/pco-car-hire-tax-deductible-expenses",
+      "destination": "/guides/pco-car-hire-tax-deductible-expenses",
+      "permanent": true
+    },
+    {
+      "source": "/how-much-do-uber-drivers-earn-london",
+      "destination": "/guides/how-much-do-uber-drivers-earn-london",
+      "permanent": true
+    },
+    {
+      "source": "/pco-licence-renewal-london",
+      "destination": "/guides/pco-licence-renewal",
+      "permanent": true
+    },
+    {
+      "source": "/pco-car-insurance-explained",
+      "destination": "/guides/pco-car-insurance-explained",
+      "permanent": true
+    },
+    {
+      "source": "/rent-vs-buy-pco-car",
+      "destination": "/guides/rent-vs-buy-pco-car",
+      "permanent": true
+    },
+    {
+      "source": "/tfl-private-hire-vehicle-rules",
+      "destination": "/guides/tfl-private-hire-vehicle-rules",
+      "permanent": true
+    },
+    {
+      "source": "/private-hire-licence-outside-london",
+      "destination": "/guides/private-hire-licence-outside-london",
+      "permanent": true
+    }
+  ]
 }
