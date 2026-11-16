@@ -1285,7 +1285,7 @@ html{scroll-behavior:smooth}
 .vch-gallery__item.is-tall{grid-row:span 2}
 @media (max-width:380px){ .vch-rating-line{ margin-top:6px !important; font-size:12.5px !important; line-height:1.3; } }
 
-/* Site credit, bottom of footer */
-.foot-bot .vch-madeby{ flex-basis:100%; display:flex; justify-content:center; margin-top:6px; }
-.vch-madeby a{ display:inline-flex; align-items:center; padding:6px 14px; border:1px solid #2a2a33; border-radius:999px; color:#8a8a96; font-size:12px; text-decoration:none; transition:color .2s, border-color .2s; }
-.vch-madeby a:hover{ color:#c9ccd3; border-color:#4a4a55; }
+/* Site credit, bottom of footer: discreet but readable */
+.foot-bot .vch-madeby{ flex-basis:100%; display:flex; justify-content:center; margin-top:2px; }
+.vch-madeby a{ color:#6e6e7a; font-size:11px; letter-spacing:.02em; text-decoration:none; padding:4px 6px; transition:color .2s; }
+.vch-madeby a:hover, .vch-madeby a:focus-visible{ color:#c9ccd3; text-decoration:underline; text-underline-offset:3px; }
