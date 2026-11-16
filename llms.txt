@@ -6,7 +6,7 @@
 Virtual Car Hire rents PCO-ready, TfL-licensed vehicles to Uber, Bolt and Ola drivers across London. The fleet includes hybrid, electric, diesel and plug-in hybrid cars. Availability, pricing and vehicle specifications are shown on the fleet and vehicle pages.
 
 ## Driver support
-Depending on the selected vehicle and current offer, hire support can include insurance, servicing, MOT, roadside breakdown cover, document checks and platform onboarding. Drivers should confirm current availability, eligibility and inclusions with the Virtual Car Hire team before booking.
+Every weekly hire includes comprehensive private hire insurance, servicing, MOT and roadside breakdown cover. Virtual Car Hire also checks documents and uploads vehicle details to Uber, Bolt and Ola for the driver. Drivers should confirm current availability with the team before booking.
 
 ## Key facts
 - PCO car hire for Uber, Bolt and Ola drivers in London and Luton, based in Hounslow, West London (TW4).
@@ -22,7 +22,7 @@ The public fleet includes Mercedes-Benz, Toyota, Tesla, Jaguar, Hyundai, MG and 
 Typical requirements include a valid UK driving licence, TfL Private Hire Vehicle badge, proof of address and National Insurance details. Requirements can vary by driver and vehicle, so applicants should contact the team for current confirmation.
 
 ## Location and service area
-Virtual Car Hire is based at The Vista Centre, Hounslow, London TW4 6JQ, with convenient access to Heathrow and drivers across Greater London.
+Virtual Car Hire is based at The Vista Centre, 50 Salisbury Road, Cranford, Hounslow, London TW4 6JQ: its only depot and office. It serves PCO drivers across London, Hounslow and West London, Heathrow Airport, and Luton (including London Luton Airport). Luton drivers collect from Hounslow unless a car is staged in Luton; there is no Luton office.
 
 ## Contact
 Phone: +44 20 7294 6756
@@ -35,10 +35,16 @@ Opening hours: Monday to Friday, 09:00 to 18:00. Enquiries are answered on weekd
 The site provides information about PCO car hire in London, Uber car rental, Bolt driver car hire, electric PCO vehicles, hybrid PCO vehicles, insured PCO rentals, TfL-ready cars, weekly vehicle hire, fleet availability, driver onboarding and the Virtual Car Hire emergency WhatsApp number for after-hours support, emergency breakdowns, crash reports and situations where a team member is not responding.
 
 ## Public pages
-- Homepage: https://www.virtual-carhire.co.uk/
-- Fleet: https://www.virtual-carhire.co.uk/our-fleet
+- Homepage (PCO car hire London, Hounslow and Luton): https://www.virtual-carhire.co.uk/
+- Fleet and weekly prices: https://www.virtual-carhire.co.uk/our-fleet
+- How PCO car hire works: https://www.virtual-carhire.co.uk/how-it-works
+- PCO car hire near Heathrow (Hounslow depot): https://www.virtual-carhire.co.uk/pco-car-hire-heathrow
+- PCO car hire in Luton: https://www.virtual-carhire.co.uk/pco-car-hire-luton
+- Areas we cover: https://www.virtual-carhire.co.uk/areas-we-cover
+- PCO driver guides hub: https://www.virtual-carhire.co.uk/guides
 - About: https://www.virtual-carhire.co.uk/about-us
 - Contact: https://www.virtual-carhire.co.uk/contact-us
+- Driver support: https://www.virtual-carhire.co.uk/support
 - WhatsApp enquiry: https://www.virtual-carhire.co.uk/whatsapp
 - Emergency WhatsApp support: https://www.virtual-carhire.co.uk/emergency
 - XML sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
@@ -63,12 +69,20 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - Toyota Prius Hybrid: £200 per week. Hybrid · Hatchback. https://www.virtual-carhire.co.uk/cars/toyota-prius
 
 ## PCO driver guides
+- UberX to Exec PCO Driving Guide 2026: https://www.virtual-carhire.co.uk/guides/from-uberx-to-executive-pco-driving
 - How Much Do Uber Drivers Earn in London? (2026): https://www.virtual-carhire.co.uk/guides/how-much-do-uber-drivers-earn-london
-- How to Renew Your PCO Licence in London (2026): https://www.virtual-carhire.co.uk/guides/pco-licence-renewal
+- PCO Licence London 2026: How to Apply, Cost & Steps: https://www.virtual-carhire.co.uk/guides/how-to-get-a-pco-licence
+- How to Become an Uber Driver in London (2026 Guide): https://www.virtual-carhire.co.uk/guides/how-to-start-driving
+- Congestion Charge & ULEZ for PCO Drivers (2026): https://www.virtual-carhire.co.uk/guides/london-congestion-charge-ulez-2026
+- PCO Airport Guide: Heathrow, Gatwick, Luton (2026): https://www.virtual-carhire.co.uk/guides/pco-airport-transfers-heathrow-gatwick-luton
+- PCO Car Hire London: Advice & Checklist: https://www.virtual-carhire.co.uk/guides/pco-car-hire-advice
+- PCO Driver Tax Deductible Expenses (2026 HMRC): https://www.virtual-carhire.co.uk/guides/pco-car-hire-tax-deductible-expenses
 - PCO Car Insurance Explained: Cover and Costs (2026): https://www.virtual-carhire.co.uk/guides/pco-car-insurance-explained
+- How to Renew Your PCO Licence in London (2026): https://www.virtual-carhire.co.uk/guides/pco-licence-renewal
+- Private Hire Licensing Outside London: UK Guide (2026): https://www.virtual-carhire.co.uk/guides/private-hire-licence-outside-london
 - Rent, Rent-to-Buy or Buy a PCO Car? (2026): https://www.virtual-carhire.co.uk/guides/rent-vs-buy-pco-car
 - TfL Private Hire Vehicle Rules 2026: ZEC and Age Limits: https://www.virtual-carhire.co.uk/guides/tfl-private-hire-vehicle-rules
-- Private Hire Licensing Outside London: UK Guide (2026): https://www.virtual-carhire.co.uk/guides/private-hire-licence-outside-london
+- Uber Car List London & UK 2026: Eligible Cars: https://www.virtual-carhire.co.uk/guides/uber-bolt-eligible-cars
 
 ## Common questions
 - What do I need to hire a PCO car? A UK driving licence, a TfL private hire (PHV) badge, proof of address and your National Insurance number.
