@@ -1277,3 +1277,9 @@ html{scroll-behavior:smooth}
 .hero-img-wrap{position:relative}
 .vch-photos-btn--chip{position:absolute;left:16px;bottom:16px;margin:0;z-index:2}
 @media (max-width:700px){.vch-photos-btn--chip{left:10px;bottom:10px;font-size:13px;padding:5px 12px 5px 5px}.vch-photos-btn--chip .vch-photos-btn__thumb{width:28px;height:28px}}
+.vch-gallery__item.is-wide{grid-column:span 2}
+@media (max-width:900px){.vch-gallery__item.is-wide{grid-column:1 / -1}}
+.vch-gallery__grid{grid-auto-flow:dense}
+.vch-gallery__item.is-big{grid-column:span 2;grid-row:span 2}
+@media (max-width:900px){.vch-gallery__item.is-big{grid-column:1 / -1}}
+.vch-gallery__item.is-tall{grid-row:span 2}
