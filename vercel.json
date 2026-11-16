@@ -3,6 +3,17 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "virtual-car-hire.vercel.app"
+        }
+      ],
+      "destination": "https://www.virtual-carhire.co.uk/:path*",
+      "permanent": true
+    },
+    {
       "source": "/how-to-get-pco-licence-london",
       "destination": "/guides/how-to-get-a-pco-licence",
       "permanent": true

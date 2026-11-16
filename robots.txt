@@ -1,5 +1,5 @@
 # Virtual Car Hire crawler policy
-# Crawl-access revision: 2026-11-12
+# Crawl-access revision: 2026-11-16
 # Public service, fleet, contact and vehicle pages are intentionally crawlable.
 User-agent: *
 Allow: /
@@ -14,23 +14,48 @@ User-agent: Googlebot
 Allow: /
 User-agent: Bingbot
 Allow: /
+User-agent: DuckDuckBot
+Allow: /
+User-agent: Applebot
+Allow: /
 
-# AI search and answer crawlers
+# AI search and assistant crawlers (allowed: they cite and link to pages)
 User-agent: OAI-SearchBot
 Allow: /
 User-agent: ChatGPT-User
 Allow: /
-User-agent: GPTBot
+User-agent: Claude-SearchBot
 Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: Claude-Web
+User-agent: Claude-User
 Allow: /
 User-agent: PerplexityBot
 Allow: /
+User-agent: Perplexity-User
+Allow: /
+User-agent: DuckAssistBot
+Allow: /
+
+# AI training crawlers (not allowed: matches the Cloudflare AI Crawl Control policy)
+# Google-Extended only controls Gemini training; it does not affect Google Search.
+User-agent: GPTBot
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: Claude-Web
+Disallow: /
+User-agent: anthropic-ai
+Disallow: /
 User-agent: Google-Extended
-Allow: /
+Disallow: /
+User-agent: Applebot-Extended
+Disallow: /
 User-agent: CCBot
-Allow: /
+Disallow: /
+User-agent: Bytespider
+Disallow: /
+User-agent: meta-externalagent
+Disallow: /
+User-agent: Amazonbot
+Disallow: /
 
 Sitemap: https://www.virtual-carhire.co.uk/sitemap.xml
