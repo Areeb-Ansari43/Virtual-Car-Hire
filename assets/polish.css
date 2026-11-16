@@ -1282,3 +1282,4 @@ html{scroll-behavior:smooth}
 .vch-gallery__grid{grid-auto-flow:dense}
 .vch-gallery__item.is-big{grid-column:span 2;grid-row:span 2}
 @media (max-width:900px){.vch-gallery__item.is-big{grid-column:1 / -1}}
+.vch-gallery__item.is-tall{grid-row:span 2}
