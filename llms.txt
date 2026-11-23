@@ -61,7 +61,7 @@ The site provides information about PCO car hire in London, Uber car rental, Bol
 - Mercedes EQS Luxury Electric: £500 per week. Electric · Flagship Saloon. https://www.virtual-carhire.co.uk/cars/mercedes-eqs
 - Mercedes V-Class: £450 per week. Diesel · Luxury 7-Seat MPV. https://www.virtual-carhire.co.uk/cars/mercedes-v-class
 - Mercedes Vito Tourer: £370 per week. Diesel · 8-Seat MPV. https://www.virtual-carhire.co.uk/cars/mercedes-vito
-- MG HS / S9 PHEV SUV: £300 per week. Plug-in Hybrid · Luxury SUV. https://www.virtual-carhire.co.uk/cars/mg-s9-phev-suv
+- MG S9 PHEV: £300 per week. Plug-in Hybrid · 7-Seat SUV (Uber lists it as a 4-passenger car: UberX and Comfort, not UberXL). https://www.virtual-carhire.co.uk/cars/mg-s9-phev-suv
 - MG5 EV Estate: £200 per week. Full Electric · Estate. https://www.virtual-carhire.co.uk/cars/mg5-ev
 - Tesla Model 3: £260 per week. Full Electric · Saloon. https://www.virtual-carhire.co.uk/cars/tesla-model-3
 - Toyota Auris Hybrid Estate: £210 per week. Hybrid · Estate. https://www.virtual-carhire.co.uk/cars/toyota-auris-estate
