@@ -1312,3 +1312,10 @@ img, video, iframe { max-width: 100%; }
   /* The closed About submenu was invisible but still took up space in the phone menu */
   .nav-links.open .nav-dropdown:not(.is-open) .nav-dropdown-menu{display:none}
 }
+
+/* ---- Driver portal switched off for now --------------------------------------------------
+   Hides every link to /portal (header Login button, footer "Driver Portal" links). The portal
+   pages and code are kept; delete this block (and set PORTAL_ENABLED in assets/app.js and
+   assets/portal.js to true) to bring the portal back. */
+a[href^="/portal"] { display: none !important; }
+li:has(> a[href^="/portal"]) { display: none !important; }
