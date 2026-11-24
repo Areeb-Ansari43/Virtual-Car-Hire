@@ -86,7 +86,9 @@
       a.innerHTML = `<i class="fa-solid ${icon}"></i> ${label}`;
       navLinks.appendChild(a);
     };
-    add('/portal/login', 'fa-user-lock', 'Driver Portal', 'nav-portal-link');
+    // Driver portal switched off for now (see assets/portal.js); set to true to bring the link back.
+    const PORTAL_ENABLED = false;
+    if (PORTAL_ENABLED) add('/portal/login', 'fa-user-lock', 'Driver Portal', 'nav-portal-link');
     add('https://hq.virtual-carhire.co.uk/', 'fa-briefcase', 'ServiceVCH (Staff CRM)');
   }
   if (burger && navLinks) {
